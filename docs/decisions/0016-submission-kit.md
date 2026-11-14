@@ -19,6 +19,10 @@ Date: 2026-11-14. Status: accepted.
 - **Style check:** `gilap sumbang --gaya` passes for `BORANG-TAMPAL.md`. On `demo/slides.html` it reports "power" and
   "NSSDCA"; both are kept: "power generation" is the challenge's own wording (quoted), and NSSDCA is the name of the NASA data
   center the fact sheets come from. The house list targets Malay slang ("power" = great) and all-caps shouting.
+- **No cropped screenshots (review fix):** the first deck used `object-fit: cover`, which cut slide text mid-word on slides
+  4–6. Slide images now use `object-fit: contain` on the surface colour (test `test_screenshots_are_never_cropped`). The
+  full-page shots `compare` and `validation` are captured at a viewport close to the deck slot (about 0.9 wide per tall,
+  `config/media.json` "viewports"); slide 5 shows the 2D map only, and points to `docs/media/surface-3d.png` for the 3D view.
 
 ## Rollback
 

@@ -3,6 +3,11 @@
   "base_url": "https://spaceapps26.aimanmalib.com/",
   "viewport": { "width": 1280, "height": 800 },
   "scale": 2,
+  "_viewports_note": "Per-shot viewport (CSS px) for full-page shots that also go into the demo deck: close to the deck image slot (544 × 608 px, about 0.9 wide per tall), so the slide shows the whole shot without cropping.",
+  "viewports": {
+    "compare": { "width": 900, "height": 1000 },
+    "validation": { "width": 800, "height": 900 }
+  },
   "locale": "en-GB",
   "max_bytes": 10000000,
   "png": ["compare", "small-shifts", "map-2d", "surface-3d", "validation"],

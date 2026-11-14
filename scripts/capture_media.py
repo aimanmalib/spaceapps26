@@ -39,14 +39,21 @@ def shot(target, name):
     print(f"{name}.png {os.path.getsize(path)} bytes")
 
 
+def viewport(name):
+    """Viewport for one shot: config/media.json "viewports" entry, else the default."""
+    return CFG.get("viewports", {}).get(name, CFG["viewport"])
+
+
 def capture_png(browser, base):
-    ctx = browser.new_context(viewport=CFG["viewport"], device_scale_factor=CFG["scale"], locale=CFG["locale"])
+    ctx = browser.new_context(viewport=viewport("compare"), device_scale_factor=CFG["scale"], locale=CFG["locale"])
     page = ctx.new_page()
     page.set_default_timeout(TIMEOUT_MS)
     open_compare(page, base)
     page.evaluate("y => window.scrollTo(0, y)", page.locator(".card").first.bounding_box()["y"] - 24)
     page.wait_for_timeout(300)
     shot(page, "compare")
+    page.set_viewport_size(CFG["viewport"])
+    page.wait_for_timeout(300)
     box = open_block(page, ".shifts", "() => document.querySelector('.card .shifts-body')?.innerText.includes('km north')")
     shot(box, "small-shifts")
     box.locator("summary").click()
@@ -55,6 +62,7 @@ def capture_png(browser, base):
     box.locator("summary").click()
     box = open_block(page, ".surface3d", "() => document.querySelector('.card .surf-body canvas, .card .surf-body svg')")
     shot(box, "surface-3d")
+    page.set_viewport_size(viewport("validation"))
     page.goto(base.rstrip("/") + "/validation.html", wait_until="networkidle")
     page.locator("#validation table").first.wait_for()
     shot(page, "validation")

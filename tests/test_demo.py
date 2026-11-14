@@ -55,6 +55,13 @@ class Deck(unittest.TestCase):
             self.assertTrue(path.is_file(), src)
             self.assertEqual(path.resolve().parent, (ROOT / "docs" / "media").resolve(), src)
 
+    def test_screenshots_are_never_cropped(self):
+        # Regression: object-fit: cover cut slide text mid-word (slides 4–6). Every slide image must be shown whole.
+        rule = re.search(r"\.shot img\s*\{([^}]*)\}", self.html)
+        self.assertIsNotNone(rule)
+        self.assertRegex(rule.group(1), r"object-fit:\s*contain")
+        self.assertNotRegex(self.html, r"object-fit:\s*cover")
+
 
 class Gallery(unittest.TestCase):
     def test_png_and_gif_present_and_small_enough(self):

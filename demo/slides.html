@@ -31,10 +31,10 @@
   .num { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 700; }
   .earth { color: var(--earth); }
   blockquote { margin: 0 0 22px; padding: 4px 0 4px 20px; border-left: 3px solid var(--accent); font-size: 21px; line-height: 1.45; }
-  .shot { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); }
-  .shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+  /* Whole screenshot, never cropped: contain inside the slot, centred on the surface colour. */
+  .shot { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); padding: 12px; }
+  .shot img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center top; }
   .tall { height: 608px; }
-  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; height: 608px; }
   .foot { position: absolute; left: 72px; right: 72px; bottom: 24px; display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; }
   .facts { display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; font-size: 19px; margin: 28px 0 0; }
   .facts dt { color: var(--muted); }
@@ -122,11 +122,8 @@
       <li>Every other site uses the ideal sphere horizon and says so.</li>
     </ul>
   </div>
-  <div class="pair">
-    <div class="shot"><img src="../docs/media/map-2d.png" alt="Screenshot: 2D map of LOLA heights around IM-2"></div>
-    <div class="shot"><img src="../docs/media/surface-3d.png" alt="Screenshot: 3D surface of LOLA heights around IM-2"></div>
-  </div>
-  <p class="foot"><span>Relief shading uses a fixed light, not the real Sun.</span><span>5 / 7</span></p>
+  <div class="shot tall"><img src="../docs/media/map-2d.png" alt="Screenshot: 2D map of LOLA heights around IM-2"></div>
+  <p class="foot"><span>Relief shading uses a fixed light, not the real Sun. The 3D surface: docs/media/surface-3d.png in the repository.</span><span>5 / 7</span></p>
 </section>
 
 <section class="slide">
