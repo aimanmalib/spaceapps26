@@ -29,11 +29,22 @@ class DeployShape(unittest.TestCase):
         self.assertIn("url: http://spaceapps26-web:80", self.read("traefik.yaml"))
 
     def test_no_host_specific_names(self):
-        # Any IPv4 except the public resolver 1.1.1.1 used to check DNS.
-        banned = re.compile(r"coolify|/home/|\b(?!1\.1\.1\.1\b)\d{1,3}(?:\.\d{1,3}){3}\b", re.I)
+        # Any IPv4 except the public resolver 1.1.1.1 used to check DNS, and no home-folder paths.
+        banned = re.compile(r"/home/|\b(?!1\.1\.1\.1\b)\d{1,3}(?:\.\d{1,3}){3}\b")
+        # Where deploy/hos.env exists (the deploying host), none of its values may appear in tracked files.
+        env = DEPLOY / "hos.env"
+        values = []
+        if env.exists():
+            for line in env.read_text(encoding="utf-8").splitlines():
+                key, _, value = line.partition("=")
+                if key.strip() and not key.startswith("#") and len(value.strip()) >= 4:
+                    values.append(value.strip())
         for name in TRACKED:
+            text = self.read(name)
             with self.subTest(name=name):
-                self.assertIsNone(banned.search(self.read(name)))
+                self.assertIsNone(banned.search(text))
+                for value in values:
+                    self.assertNotIn(value, text)
 
     def test_example_lists_every_variable_the_script_needs(self):
         needed = re.search(r"for v in ([A-Z_ ]+); do", self.read("pasang.sh")).group(1).split()
