@@ -3,10 +3,10 @@
   "items": {
     "a_known_sites": false,
     "b_custom_coordinates": false,
-    "c_compare": false,
+    "c_compare": true,
     "d_date_time": false,
-    "e_time_remaining": false,
-    "f_key_numbers": false,
+    "e_time_remaining": true,
+    "f_key_numbers": true,
     "g_timeline": false,
     "h_map_2d": false,
     "i_surface_3d": false,

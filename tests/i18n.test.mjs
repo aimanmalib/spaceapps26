@@ -38,8 +38,14 @@ test("every t('key') used in src/*.js exists in i18n/en.json (prefix keys like '
     const src = readFileSync(new URL(f, dir), 'utf8');
     for (const m of src.matchAll(/\bt\('([a-z0-9_.]+)'\)/g)) keys.add(m[1]);
   }
-  for (const kind of ['power', 'comm']) for (const s of ['up', 'down', 'yes', 'no']) keys.add(`${kind}.${s}`);
+  for (const kind of ['power', 'comm']) for (const s of ['yes', 'no']) keys.add(`${kind}.${s}`);
   for (const a of ['0', '90', '180', '270', '360']) keys.add(`sky.az.${a}`);
+  for (const b of ['sun', 'earth']) {
+    for (const s of ['set_in', 'rise_in', 'no_set', 'no_rise']) keys.add(`time.${b}.${s}`);
+    for (const s of ['now', 'next']) keys.add(`win.${b}.${s}`);
+  }
+  for (const kind of ['power', 'comm']) keys.add(`${kind}.el_label`);
+  for (const u of ['d', 'h', 'min']) keys.add(`dur.${u}`);
   for (const q of ['sun_az', 'sun_el', 'earth_az', 'earth_el']) keys.add(`val.q.${q}`);
   assert.ok(keys.size > 10);
   assert.deepEqual([...keys].filter((k) => !(k in en)), []);

@@ -7,18 +7,22 @@ function deg(v, decimals) {
   return v.toFixed(decimals);
 }
 
-function status(t, kind, up, el, decimals) {
-  const key = `${kind}.${up ? 'up' : 'down'}`;
-  const meaning = t(`${kind}.${up ? 'yes' : 'no'}`);
+// One answer: plain headline, the elevation as the large number (item f), time to set/rise (item e), window length (item f).
+function status(t, kind, f) {
+  const up = f.up;
   return (
     `<li class="answer ${up ? 'is-up' : 'is-down'} answer-${kind}">` +
     `<span class="answer-dot" aria-hidden="true"></span>` +
-    `<span class="answer-text"><strong>${e(meaning)}</strong>` +
-    `<span class="answer-why">${e(fill(t(key), { deg: deg(Math.abs(el), decimals) }))}</span></span></li>`
+    `<span class="answer-text"><strong>${e(t(`${kind}.${up ? 'yes' : 'no'}`))}</strong>` +
+    `<span class="answer-num"><span class="answer-deg">${e(f.elText)}</span>` +
+    `<span class="answer-unit">${e(t(`${kind}.el_label`))}</span></span>` +
+    `<span class="answer-when">${e(f.timing)}</span>` +
+    (f.window ? `<span class="answer-why">${e(f.window)}<span class="answer-range">${e(f.range)}</span></span>` : '') +
+    `</span></li>`
   );
 }
 
-// r = {site, sample, up:{sun,earth}, scale}; view = config/view.json.
+// r = {site, sample, up:{sun,earth}, scale, facts:{sun,earth}} (facts from facts.js); view = config/view.json.
 export function resultHtml(t, r, view) {
   const d = view.decimals;
   const { sun, earth } = r.sample;
@@ -27,7 +31,7 @@ export function resultHtml(t, r, view) {
     .map((a) => `<span class="sky-az" style="left:${(+a / 360) * 100}%">${e(t(`sky.az.${a}`))}</span>`)
     .join('');
   return (
-    `<ul class="answers">${status(t, 'power', r.up.sun, sun.el, d)}${status(t, 'comm', r.up.earth, earth.el, d)}</ul>` +
+    `<ul class="answers">${status(t, 'power', r.facts.sun)}${status(t, 'comm', r.facts.earth)}</ul>` +
     `<figure class="sky">` +
     `<div class="sky-plot" role="img" aria-label="${e(fill(t('sky.aria'), { saz: deg(sun.az, 0), sel: deg(sun.el, d), eaz: deg(earth.az, 0), eel: deg(earth.el, d) }))}">` +
     `<span class="sky-el sky-el-top">+${r.scale}°</span><span class="sky-el sky-el-mid">0°</span>` +
@@ -43,6 +47,6 @@ export function resultHtml(t, r, view) {
     `<p>${e(fill(t('details.coords'), { lat: r.site.lat, lon: r.site.lon_east }))} ` +
     `<a href="${e(r.site.source.url)}" rel="noopener noreferrer">${e(fill(t('details.coords_source'), { publisher: r.site.source.publisher }))}</a></p>` +
     `<p>${e(t('details.data'))}</p><p>${e(fill(t('details.horizon'), { threshold: view.horizon_threshold_deg }))}</p>` +
-    `<p>${e(fill(t('details.scale'), { scale: r.scale }))}</p></details>`
+    `<p>${e(fill(t('details.scale'), { scale: r.scale }))}</p><p>${e(t('details.windows'))}</p></details>`
   );
 }

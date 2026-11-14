@@ -56,6 +56,9 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         page.wait_for_function("document.querySelectorAll('.card .answers').length === document.querySelectorAll('.card').length")
         n0 = page.locator(".card").count()
         check(page.locator(".answers .answer").count() == 2 * n0, "power + comm answer on every card")
+        check(page.locator(".answers .answer-deg").count() == 2 * n0
+              and page.locator(".answers .answer-when").count() == 2 * n0, "elevation + time to set/rise on every answer (f, e)")
+        check(page.locator(".glance-table thead th").count() == n0, "side-by-side table: one column per scenario (c)")
         before = answers(page, 0)
         sel = page.locator(".card select").first
         options = sel.locator("option").evaluate_all("os => os.map(o => o.value)")
@@ -70,10 +73,13 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         page.locator(".add").click()
         page.locator(".card").nth(n0).locator(".answers").wait_for()
         check(page.locator(".card").count() == n0 + 1, "add makes one more card")
+        page.wait_for_function("n => document.querySelectorAll('.glance-table thead th').length === n", arg=n0 + 1)
         page.locator(".card details.tech summary").first.click()
         check(page.locator(".card details.tech").first.evaluate("d => d.open"), "technical details open")
         page.evaluate("window.scrollTo(0, 600)")
         check(no_overflow(page), "compare page: no horizontal overflow")
+        check(page.locator(".glance-scroll").evaluate("e => e.scrollWidth <= e.clientWidth || getComputedStyle(e).overflowX === 'auto'"),
+              "side-by-side table scrolls inside its own box")
         if shots:
             page.screenshot(path=os.path.join(shots, f"smoke-{name}-compare.png"), full_page=True)
 

@@ -15,6 +15,14 @@ Team: Aiman Malib.
 
 Work in progress during the event weekend (14–15 November 2026). This file grows as each part is built and checked.
 
+Built so far (ideal sphere horizon; local terrain not yet included):
+
+- Pick a landing site and a UTC date and time; see the Sun and Earth relative to the horizon, whether solar power generation and
+  direct-to-Earth communication are possible, and the elevation of each.
+- Time remaining before sunset or Earthset (or until sunrise or Earthrise), the duration of sunlight and the Earth visibility window
+  around the chosen time.
+- Up to four scenarios at once, as cards and in one side-by-side table.
+
 ## What it will do
 
 I chose all three audiences named in the challenge (mission planners, educators, the public) and all twelve items in the challenge's

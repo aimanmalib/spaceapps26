@@ -4,6 +4,8 @@ import { fill, escapeHtml as e } from './i18n.js';
 import { loadTable } from './data.js';
 import { parseUtc, formatUtc, tableRange, sampleAt, isAbove, sharedScale } from './ephem.js';
 import { resultHtml } from './result.js';
+import { scenarioFacts } from './facts.js';
+import { glanceHtml } from './glance.js';
 
 let uid = 0;
 
@@ -27,6 +29,7 @@ function cardDom(t, sites, sc) {
 export function mountCompare(root, { t, sites, view }) {
   const list = root.querySelector('.cards');
   const add = root.querySelector('.add');
+  const glance = root.querySelector('.glance-body');
   const siteById = new Map(sites.map((s) => [s.id, s]));
   const cards = [];
   let ticket = 0;
@@ -57,7 +60,8 @@ export function mountCompare(root, { t, sites, view }) {
             return { ...x, msg: fill(t('state.out_of_range'), { start: formatUtc(startMs).replace('T', ' '), end: formatUtc(endMs).replace('T', ' ') }) };
           }
           const th = view.horizon_threshold_deg;
-          return { ...x, sample, up: { sun: isAbove(sample.sun.el, th), earth: isAbove(sample.earth.el, th) } };
+          const up = { sun: isAbove(sample.sun.el, th), earth: isAbove(sample.earth.el, th) };
+          return { ...x, sample, up, facts: scenarioFacts(t, table, x.ms, { sample, up }, view) };
         } catch {
           return { ...x, msg: t('state.load_error') };
         }
@@ -69,6 +73,7 @@ export function mountCompare(root, { t, sites, view }) {
       const box = r.c.el.querySelector('.card-result');
       box.innerHTML = r.sample ? resultHtml(t, { ...r, scale }, view) : `<p class="note note-warn">${e(r.msg)}</p>`;
     }
+    if (glance) glance.innerHTML = glanceHtml(t, rows);
   }
 
   function addCard(sc) {
