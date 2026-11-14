@@ -1,0 +1,10 @@
+{
+  "meta.title": "Lunar Landing Site Navigator",
+  "meta.description": "Compare lunar landing sites and dates: where the Sun and Earth are relative to the horizon.",
+  "app.name": "Lunar Landing Site Navigator",
+  "app.event": "NASA Space Apps Challenge 2026 entry",
+  "app.status": "Work in progress. The comparison tool is being built during the event weekend (14–15 November 2026).",
+  "footer.si": "Built with SI (Claude Code, Anthropic) on the author's instructions.",
+  "footer.si_link": "SI disclosure",
+  "footer.license": "Apache-2.0"
+}
