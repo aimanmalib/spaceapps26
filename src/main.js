@@ -13,4 +13,8 @@ const si = document.getElementById('si-link');
 if (si) si.href = app.repo_url + app.si_disclosure_path;
 
 const root = document.getElementById('compare');
-if (root) mountCompare(root, { t, sites: sitesConfig.sites, view });
+// Terrain skylines (item j) exist only for sites inside the LOLA polar grids; each loads on first use.
+const horizons = Object.fromEntries(
+  Object.entries(import.meta.glob('../data/horizon/*.json', { import: 'default' })).map(([path, load]) => [path.split('/').pop().replace('.json', ''), load]),
+);
+if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons });

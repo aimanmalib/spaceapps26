@@ -15,13 +15,15 @@ Team: Aiman Malib.
 
 Work in progress during the event weekend (14–15 November 2026). This file grows as each part is built and checked.
 
-Built so far (ideal sphere horizon; local terrain not yet included):
+Built so far:
 
 - Pick a landing site and a UTC date and time; see the Sun and Earth relative to the horizon, whether solar power generation and
   direct-to-Earth communication are possible, and the elevation of each.
 - Time remaining before sunset or Earthset (or until sunrise or Earthrise), the duration of sunlight and the Earth visibility window
   around the chosen time.
 - Up to four scenarios at once, as cards and in one side-by-side table.
+- Local terrain horizon from LRO LOLA for the south polar sites inside the elevation grids used here (75°S to the pole: IM-1, IM-2);
+  every other site uses the ideal sphere horizon and says so.
 
 ## What it will do
 
@@ -48,7 +50,21 @@ Result (`data/validation.json`, also on the site's Validation page):
 | Earth elevation | 0.0042° | 0.0022° |
 
 Largest difference over all angles: 0.0045°. Same solar power answer: 25 of 25;
-same Earth communication answer: 25 of 25. Not checked here: local terrain (ideal sphere horizon).
+same Earth communication answer: 25 of 25.
+
+Is the terrain horizon right? `scripts/pgda.py` compares it with an independent NASA product, the average Sun and Earth visibility
+maps of the lunar south pole (E. Mazarico, NASA GSFC PGDA, LOLA grid 120 m per pixel), at 3 points. A map value is the share
+of hourly steps over 18.6 years when any part of the disc was visible; the tool's value is the share of hours in its own one-year
+table (2026-11-01 to 2027-11-01) when any part of the disc is above its terrain skyline. The periods differ.
+
+| Point | Sun visible, this tool | Sun visible, PGDA | Earth visible, this tool | Earth visible, PGDA |
+|---|---|---|---|---|
+| IM-1 | 45.6 % | 46.7 % | 100.0 % | 100.0 % |
+| IM-2 | 45.7 % | 46.8 % | 93.2 % | 93.1 % |
+| Check point -89.45°, 222.69°E (not a landing site) | 85.7 % | 67.7 % | 53.3 % | 52.3 % |
+
+Largest difference: Sun 18.0 percentage points, Earth 1.0 percentage points. At the check point
+near the pole the PGDA Sun value ranges from 51.0 % to 84.7 % within the 3 × 3 pixels around it.
 
 ## Tests
 

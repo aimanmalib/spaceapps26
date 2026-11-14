@@ -10,7 +10,7 @@
     "g_timeline": false,
     "h_map_2d": false,
     "i_surface_3d": false,
-    "j_terrain_horizon": false,
+    "j_terrain_horizon": true,
     "k_moon_vs_earth": false,
     "l_small_shifts": false
   }

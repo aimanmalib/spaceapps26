@@ -75,6 +75,9 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .sky-ground { fill: var(--ground); }
 .sky-grid { stroke: var(--line); stroke-width: 1; }
 .sky-horizon { stroke: var(--ground-line); stroke-width: 1.5; }
+.sky-terrain { fill: none; stroke: var(--ground-line); stroke-width: 1.5; stroke-linejoin: round; }
+.sky-sphere { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 3; }
+.horizon-kind { margin: 0.75rem 0 0; color: var(--muted); font-size: 0.875rem; }
 .sky-sun.is-up { fill: var(--sun); }
 .sky-earth.is-up { fill: var(--earth); }
 .sky-sun.is-down, .sky-earth.is-down { fill: none; stroke-width: 2; stroke-dasharray: 3 2; }
@@ -133,6 +136,8 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .stat { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem; }
 .stat dt { color: var(--muted); font-size: 0.875rem; }
 .stat dd { margin: 0.25rem 0 0; font-size: clamp(1.4rem, 5vw, 1.9rem); font-variant-numeric: tabular-nums; color: var(--accent); }
+.stat-unit { display: block; font-size: 0.875rem; color: var(--muted); }
+.answer-sky { display: block; color: var(--muted); font-size: 0.875rem; }
 .table-scroll { max-width: 100%; overflow-x: auto; margin: 0 0 2rem; }
 .table-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .data-table { border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 0.875rem; }

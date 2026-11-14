@@ -14,6 +14,7 @@ export function glanceHtml(t, rows) {
   const body = [
     `<tr><th scope="row">${e(t('scenario.site'))}</th>${rows.map((r) => `<td>${e(r.site.name)}</td>`).join('')}</tr>`,
     `<tr><th scope="row">${e(t('scenario.time'))}</th>${rows.map((r) => `<td>${Number.isFinite(r.ms) ? e(formatUtc(r.ms).replace('T', ' ')) : ''}</td>`).join('')}</tr>`,
+    `<tr><th scope="row">${e(t('glance.horizon'))}</th>${rows.map((r) => `<td>${r.facts ? e(t(r.profile ? 'glance.terrain' : 'glance.sphere')) : ''}</td>`).join('')}</tr>`,
     line('glance.power', (f) => yes(f.sun.up), 'g-sun'),
     line('power.el_label', (f) => `<span class="g-num">${e(f.sun.elText)}</span>`, 'g-sun'),
     line('glance.sun_when', (f) => e(f.sun.timing), 'g-sun'),

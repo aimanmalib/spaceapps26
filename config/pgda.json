@@ -1,0 +1,18 @@
+{
+  "_note": "H9(b): the terrain horizon (item j) checked against an independent NASA product, the average Sun and Earth visibility maps of the lunar south pole (Mazarico et al. 2011, NASA GSFC PGDA product 69, LOLA team). Only the pixels around each point are read (HTTP byte ranges); nothing large is stored. A pixel value is the share of hourly steps over 18.6 years when any part of the disc was visible. This tool's value is the share of hours in its own one-year Horizons table when any part of the disc is above the terrain skyline (disc radius below), so the two periods differ.",
+  "page_url": "https://pgda.gsfc.nasa.gov/products/69",
+  "credit": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
+  "maps": {
+    "sun": {"url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG", "label": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.LBL"},
+    "earth": {"url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608_EARTH.IMG", "label": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608_EARTH.LBL"}
+  },
+  "grid": {"size": 7624, "scale_m": 120, "offset_px": 3811.5, "scaling_factor": 0.00004, "moon_radius_m": 1737400},
+  "window_px": 1,
+  "disc_radius_deg": {"sun": 0.267, "earth": 0.95},
+  "_disc_note": "Angular radius seen from the Moon: Sun 696000 km / 149.6e6 km = 0.267 deg; Earth 6371 km / 384400 km = 0.95 deg (mean distances).",
+  "extra_points": [
+    {"id": "pgda-222.69E-89.45S", "lat": -89.45, "lon_east": 222.69, "_note": "Unnamed engineering point (same as the Horizons check point); not a landing site."}
+  ],
+  "decimals": 3,
+  "timeout_seconds": 60
+}

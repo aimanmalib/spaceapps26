@@ -171,7 +171,8 @@ def main(argv):
     if "--download" in argv:
         download(cfg)
         return
-    sites = [s for s in load("config/sites.json")["sites"] if covered(cfg, s) and (not argv or s["id"] in argv)]
+    points = load("config/sites.json")["sites"] + load("config/pgda.json")["extra_points"]  # extra = H9(b) check points
+    sites = [s for s in points if covered(cfg, s) and (not argv or s["id"] in argv)]
     dems = read_dems(cfg)
     nd = cfg["decimals"]
     sources_path = ROOT / "data/SOURCES.json"

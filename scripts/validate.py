@@ -114,6 +114,7 @@ def main():
     sources = fh.load("data/SOURCES.json")
     by_file = {e["file"]: e for e in sources["files"]}
     by_file["validation.json"] = {
+        **by_file.get("validation.json", {}),  # keeps the "pgda" part written by scripts/pgda.py
         "file": "validation.json", "url": eph["api_url"],
         "note": "One Horizons request per pair and body (same parameters as the ephem tables, 1-minute span).",
         "retrieved_at": now, "license": fh.LICENSE, "script": SCRIPT, "generated_by": GENERATED_BY,

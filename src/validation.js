@@ -1,5 +1,5 @@
 // SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
-// Validation page (H9a): numbers come straight from data/validation.json; nothing is recomputed here.
+// Validation page (H9a + H9b): numbers come straight from data/validation.json; nothing is recomputed here.
 import { fill, escapeHtml as e } from './i18n.js';
 
 const QUANTITIES = ['sun_az', 'sun_el', 'earth_az', 'earth_el'];
@@ -10,8 +10,8 @@ function largestDiff(pair) {
   return Math.max(...['sun', 'earth'].flatMap((b) => ['az', 'el'].map((k) => Math.abs(pair.diff[b][k]))));
 }
 
-function tile(label, value) {
-  return `<div class="stat"><dt>${e(label)}</dt><dd>${e(value)}</dd></div>`;
+function tile(label, value, unit = '') {
+  return `<div class="stat"><dt>${e(label)}</dt><dd>${e(value)}${unit ? `<span class="stat-unit">${e(unit)}</span>` : ''}</dd></div>`;
 }
 
 // data = data/validation.json, siteName = id → display name, d = decimals shown.
@@ -42,5 +42,38 @@ export function validationHtml(t, data, siteName, d) {
     `<th scope="col">${e(t('val.col.earth_shown'))}</th><th scope="col">${e(t('val.col.earth_ref'))}</th>` +
     `<th scope="col">${e(t('val.col.largest'))}</th></tr></thead><tbody>${h.pairs.map(prow).join('')}</tbody></table></div>` +
     `<p class="data-label">${e(fill(t('val.generated'), { at: data.generated_at, seed: data.seed }))}</p>`
+  );
+}
+
+const pct = (v) => `${(v * 100).toFixed(1)} %`;
+
+// H9(b): terrain horizon vs NASA PGDA average visibility maps (data.pgda); page = PGDA product page URL.
+export function pgdaHtml(t, pgda, siteName, page) {
+  const pp = (label, v) => tile(t(label), (v * 100).toFixed(1), t('val.pgda.pp_unit'));
+  const tiles =
+    pp('val.pgda.max_sun', pgda.sun.max_abs) +
+    pp('val.pgda.mean_sun', pgda.sun.mean_abs) +
+    pp('val.pgda.max_earth', pgda.earth.max_abs) +
+    pp('val.pgda.mean_earth', pgda.earth.mean_abs);
+  const name = (s) => siteName(s.site) ?? fill(t('val.pgda.point'), { lat: s.lat, lon: s.lon_east });
+  const range = (r) => `${pct(r.window_min)} – ${pct(r.window_max)}`;
+  const row = (s) =>
+    `<tr><th scope="row">${e(name(s))}</th>` +
+    `<td>${pct(s.tool.sun)}</td><td>${pct(s.pgda.sun.value)}</td><td>${range(s.pgda.sun)}</td>` +
+    `<td>${pct(s.tool.earth)}</td><td>${pct(s.pgda.earth.value)}</td><td>${range(s.pgda.earth)}</td></tr>`;
+  const p = pgda.tool_period;
+  const label = t('val.pgda.heading');
+  return (
+    `<h2>${e(label)}</h2>` +
+    `<p>${e(fill(t('val.pgda.intro'), { m: pgda.map_scale_m, start: p.start.replace('T', ' ').replace('Z', ''), stop: p.stop.replace('T', ' ').replace('Z', '') }))}</p>` +
+    `<dl class="stats">${tiles}</dl>` +
+    `<div class="table-scroll" tabindex="0" role="region" aria-label="${e(label)}">` +
+    `<table class="data-table"><thead><tr><th scope="col">${e(t('val.col.site'))}</th>` +
+    `<th scope="col">${e(t('val.pgda.col.sun_tool'))}</th><th scope="col">${e(t('val.pgda.col.sun_ref'))}</th><th scope="col">${e(t('val.pgda.col.range'))}</th>` +
+    `<th scope="col">${e(t('val.pgda.col.earth_tool'))}</th><th scope="col">${e(t('val.pgda.col.earth_ref'))}</th><th scope="col">${e(t('val.pgda.col.range'))}</th>` +
+    `</tr></thead><tbody>${pgda.sites.map(row).join('')}</tbody></table></div>` +
+    `<p class="data-label">${e(fill(t('val.pgda.window'), { n: pgda.window_px }))} ` +
+    `<a href="${e(page)}" rel="noopener noreferrer">${e(t('val.pgda.source'))}</a></p>` +
+    `<p class="data-label">${e(fill(t('val.pgda.generated'), { at: pgda.generated_at }))}</p>`
   );
 }

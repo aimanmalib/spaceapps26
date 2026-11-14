@@ -102,6 +102,8 @@ def main(argv):
     cfg = load("config/ephemeris.json")
     jobs = [(s, (cfg["start"], cfg["stop"]), f"ephem/{s['id']}.json") for s in load("config/sites.json")["sites"]]
     jobs += [(c, (c["start"], c["stop"]), f"check/{c['id']}.json") for c in cfg.get("check_points", [])]
+    # H9(b) points that are not landing sites: full table range, kept with the check files.
+    jobs += [(p, (cfg["start"], cfg["stop"]), f"check/{p['id']}.json") for p in load("config/pgda.json")["extra_points"]]
     wanted = set(argv) or {j[0]["id"] for j in jobs}
     sources_path = "data/SOURCES.json"
     sources = load(sources_path) if (ROOT / sources_path).exists() else {"files": []}

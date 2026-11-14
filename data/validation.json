@@ -882,6 +882,119 @@
   ]
  },
  "pgda": {
-  "sites": []
+  "generated_at": "2026-11-14T08:28:34Z",
+  "script": "scripts/pgda.py",
+  "tool_period": {
+   "start": "2026-11-01T00:00Z",
+   "stop": "2027-11-01T00:00Z",
+   "step_minutes": 60
+  },
+  "pgda_period": "hourly steps over 18.6 years (one lunar nutation cycle)",
+  "disc_radius_deg": {
+   "sun": 0.267,
+   "earth": 0.95
+  },
+  "window_px": 3,
+  "map_scale_m": 120,
+  "sun": {
+   "max_abs": 0.18,
+   "mean_abs": 0.067
+  },
+  "earth": {
+   "max_abs": 0.01,
+   "mean_abs": 0.004
+  },
+  "sites": [
+   {
+    "site": "im-1",
+    "lat": -80.2,
+    "lon_east": 1.0,
+    "pixel": {
+     "row": 1329,
+     "col": 3855
+    },
+    "tool": {
+     "sun": 0.456,
+     "earth": 1
+    },
+    "pgda": {
+     "sun": {
+      "value": 0.467,
+      "window_min": 0.438,
+      "window_max": 0.475
+     },
+     "earth": {
+      "value": 1.0,
+      "window_min": 1.0,
+      "window_max": 1.0
+     }
+    },
+    "diff": {
+     "sun": -0.011,
+     "earth": 0.0
+    },
+    "hours": 8761
+   },
+   {
+    "site": "im-2",
+    "lat": -84.7906,
+    "lon_east": 29.1957,
+    "pixel": {
+     "row": 2662,
+     "col": 4454
+    },
+    "tool": {
+     "sun": 0.457,
+     "earth": 0.932
+    },
+    "pgda": {
+     "sun": {
+      "value": 0.468,
+      "window_min": 0.426,
+      "window_max": 0.47
+     },
+     "earth": {
+      "value": 0.931,
+      "window_min": 0.794,
+      "window_max": 0.934
+     }
+    },
+    "diff": {
+     "sun": -0.011,
+     "earth": 0.001
+    },
+    "hours": 8761
+   },
+   {
+    "site": "pgda-222.69E-89.45S",
+    "lat": -89.45,
+    "lon_east": 222.69,
+    "pixel": {
+     "row": 3914,
+     "col": 3717
+    },
+    "tool": {
+     "sun": 0.857,
+     "earth": 0.533
+    },
+    "pgda": {
+     "sun": {
+      "value": 0.677,
+      "window_min": 0.51,
+      "window_max": 0.847
+     },
+     "earth": {
+      "value": 0.523,
+      "window_min": 0.443,
+      "window_max": 0.582
+     }
+    },
+    "diff": {
+     "sun": 0.18,
+     "earth": 0.01
+    },
+    "hours": 8761
+   }
+  ]
  }
 }

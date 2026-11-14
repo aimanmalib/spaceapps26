@@ -6,6 +6,7 @@ import { parseUtc, formatUtc, tableRange, sampleAt, isAbove, sharedScale } from 
 import { resultHtml } from './result.js';
 import { scenarioFacts } from './facts.js';
 import { glanceHtml } from './glance.js';
+import { relativeTable, aboveHorizon } from './terrain.js';
 
 let uid = 0;
 
@@ -26,7 +27,8 @@ function cardDom(t, sites, sc) {
   return el;
 }
 
-export function mountCompare(root, { t, sites, view }) {
+// horizons = {siteId: () => Promise<profile>} for sites with a terrain skyline (data/horizon/); others use the ideal sphere.
+export function mountCompare(root, { t, sites, view, horizons = {} }) {
   const list = root.querySelector('.cards');
   const add = root.querySelector('.add');
   const glance = root.querySelector('.glance-body');
@@ -50,7 +52,7 @@ export function mountCompare(root, { t, sites, view }) {
     const rows = await Promise.all(
       inputs.map(async (x) => {
         try {
-          const table = await loadTable(view.data_path, x.site.id);
+          const [table, profile] = await Promise.all([loadTable(view.data_path, x.site.id), horizons[x.site.id]?.() ?? null]);
           const sample = sampleAt(table, x.ms);
           if (!sample) {
             const { startMs, endMs } = tableRange(table);
@@ -60,8 +62,8 @@ export function mountCompare(root, { t, sites, view }) {
             return { ...x, msg: fill(t('state.out_of_range'), { start: formatUtc(startMs).replace('T', ' '), end: formatUtc(endMs).replace('T', ' ') }) };
           }
           const th = view.horizon_threshold_deg;
-          const up = { sun: isAbove(sample.sun.el, th), earth: isAbove(sample.earth.el, th) };
-          return { ...x, sample, up, facts: scenarioFacts(t, table, x.ms, { sample, up }, view) };
+          const up = { sun: isAbove(aboveHorizon(sample.sun, profile), th), earth: isAbove(aboveHorizon(sample.earth, profile), th) };
+          return { ...x, sample, up, profile, facts: scenarioFacts(t, relativeTable(table, profile), x.ms, { sample, up }, view) };
         } catch {
           return { ...x, msg: t('state.load_error') };
         }

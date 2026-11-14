@@ -22,6 +22,8 @@ PROFILES = [
     ("webkit-iphone13", "webkit", "iPhone 13"),
 ]
 TIMEOUT_MS = 15000
+# Sites with a terrain skyline in data/horizon/ (item j); every other site must say "ideal sphere horizon".
+TERRAIN_SITES = {"im-1", "im-2"}
 
 
 def no_overflow(page):
@@ -59,6 +61,10 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         check(page.locator(".answers .answer-deg").count() == 2 * n0
               and page.locator(".answers .answer-when").count() == 2 * n0, "elevation + time to set/rise on every answer (f, e)")
         check(page.locator(".glance-table thead th").count() == n0, "side-by-side table: one column per scenario (c)")
+        check(page.locator(".card .horizon-kind").count() == n0, "every card says which horizon it uses (j)")
+        terrain = page.locator(".card").evaluate_all(
+            "cs => cs.map(c => [c.querySelector('select').value, !!c.querySelector('.sky-terrain')])")
+        check(all(has == (site in TERRAIN_SITES) for site, has in terrain), f"terrain skyline only for LOLA sites: {terrain}")
         before = answers(page, 0)
         sel = page.locator(".card select").first
         options = sel.locator("option").evaluate_all("os => os.map(o => o.value)")
@@ -87,6 +93,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         page.locator("#validation table").first.wait_for()
         text = page.locator("#validation").inner_text()
         check("°" in text and page.locator("#validation tbody tr").count() >= 20, "validation numbers + ≥ 20 pairs shown")
+        check("PGDA" in text and "%" in text, "terrain check against NASA PGDA shown (H9 b)")
         check(no_overflow(page), "validation page: no horizontal overflow")
         if shots:
             page.screenshot(path=os.path.join(shots, f"smoke-{name}-validation.png"), full_page=True)

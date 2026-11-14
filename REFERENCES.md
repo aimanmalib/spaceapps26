@@ -17,6 +17,12 @@ This list is completed as each part is built.
   <https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/>
   (`ldem_80s_80m.img`, `ldem_75s_240m.img` and their `.lbl` labels; south polar stereographic, height = DN × 0.5 m above 1737.4 km).
   Terrain horizon profiles for sites south of 75°S, computed at build time by `scripts/horizon.py` (`data/horizon/`).
+- Lunar Polar Illumination, NASA GSFC Planetary Geology, Geophysics and Geochemistry Laboratory (PGDA), E. Mazarico —
+  <https://pgda.gsfc.nasa.gov/products/69>; maps `AVGVISIB_75S_120M_201608.IMG` (average Sun visibility) and
+  `AVGVISIB_75S_120M_201608_EARTH.IMG` (average Earth visibility) from the LOLA PDS extras
+  <http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/>. Used only as an independent check of the terrain horizon (H9 b,
+  `scripts/pgda.py`); only the pixels around each point are read. Method: Mazarico, E., Neumann, G. A., Smith, D. E., Zuber, M. T.,
+  Torrence, M. H. (2011), Illumination conditions of the lunar polar regions using LOLA topography, Icarus 211, 1066–1081.
 
 ## Site coordinates (`config/sites.json`)
 

@@ -17,16 +17,31 @@ function marker(cls, pos, scale, above) {
   return `<circle class="sky-${cls} ${state}" cx="${x.toFixed(2)}" cy="${y}" r="${VIEW.r}"/>`;
 }
 
-// sample = {sun:{az,el}, earth:{az,el}}; up = {sun: bool, earth: bool}.
-export function skySvg(sample, scale, up) {
+// Terrain skyline (item j) as a filled ground shape; profile = data/horizon/<site>.json.
+function terrain(profile, scale) {
+  const step = profile.azimuth_step_deg;
+  const pts = profile.elev.map((el, i) => `${(i * step).toFixed(1)},${yFor(el, scale).toFixed(2)}`);
+  pts.push(`${VIEW.w},${yFor(profile.elev[0], scale).toFixed(2)}`);
+  const line = pts.join(' ');
+  return (
+    `<polygon class="sky-ground" points="0,${VIEW.h} ${line} ${VIEW.w},${VIEW.h}"/>` +
+    `<polyline class="sky-terrain" points="${line}"/>`
+  );
+}
+
+// sample = {sun:{az,el}, earth:{az,el}}; up = {sun: bool, earth: bool}; profile = terrain skyline or null (ideal sphere).
+export function skySvg(sample, scale, up, profile = null) {
   const mid = VIEW.h / 2;
   const grid = [90, 180, 270].map((x) => `<line class="sky-grid" x1="${x}" y1="0" x2="${x}" y2="${VIEW.h}"/>`).join('');
+  const ground = profile
+    ? `<rect class="sky-above" x="0" y="0" width="${VIEW.w}" height="${VIEW.h}"/>` + grid + terrain(profile, scale) +
+      `<line class="sky-sphere" x1="0" y1="${mid}" x2="${VIEW.w}" y2="${mid}"/>`
+    : `<rect class="sky-above" x="0" y="0" width="${VIEW.w}" height="${mid}"/>` +
+      `<rect class="sky-ground" x="0" y="${mid}" width="${VIEW.w}" height="${mid}"/>` + grid +
+      `<line class="sky-horizon" x1="0" y1="${mid}" x2="${VIEW.w}" y2="${mid}"/>`;
   return (
     `<svg class="sky-svg" viewBox="0 0 ${VIEW.w} ${VIEW.h}" aria-hidden="true" focusable="false">` +
-    `<rect class="sky-above" x="0" y="0" width="${VIEW.w}" height="${mid}"/>` +
-    `<rect class="sky-ground" x="0" y="${mid}" width="${VIEW.w}" height="${mid}"/>` +
-    grid +
-    `<line class="sky-horizon" x1="0" y1="${mid}" x2="${VIEW.w}" y2="${mid}"/>` +
+    ground +
     marker('earth', sample.earth, scale, up.earth) +
     marker('sun', sample.sun, scale, up.sun) +
     `</svg>`
