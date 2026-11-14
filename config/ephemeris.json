@@ -1,0 +1,30 @@
+{
+  "_note": "Precomputed Sun/Earth azimuth and elevation per site from the JPL Horizons API (build time; the API sends no CORS header, so the browser cannot call it). Times are UT.",
+  "api_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+  "start": "2026-11-01 00:00",
+  "stop": "2027-11-01 00:00",
+  "step_minutes": 60,
+  "decimals": 2,
+  "bodies": {
+    "sun": "10",
+    "earth": "399"
+  },
+  "site_altitude_km": 0,
+  "pause_seconds": 2,
+  "timeout_seconds": 60,
+  "check_points": [
+    {
+      "_note": "Engineering check point (unnamed) used to confirm the request shape against a value measured before the build; not a landing site.",
+      "id": "check-222.69E-89.45S",
+      "lat": -89.45,
+      "lon_east": 222.69,
+      "start": "2026-11-14 00:00",
+      "stop": "2026-11-14 01:00",
+      "expect_first_row": {
+        "sun_el": 1.5,
+        "earth_el": -5.04,
+        "tolerance_deg": 0.02
+      }
+    }
+  ]
+}

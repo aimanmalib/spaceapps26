@@ -11,7 +11,14 @@ This list is completed as each part is built.
 ## NASA data
 
 - JPL Horizons System (Solar System Dynamics, JPL/Caltech/NASA), API — <https://ssd.jpl.nasa.gov/api/horizons.api>.
-  Planned use: Sun and Earth azimuth/elevation seen from lunar surface sites, precomputed at build time.
+  Sun and Earth azimuth/elevation seen from each site, precomputed at build time by `scripts/fetch_horizons.py`
+  (request URLs per file in `data/SOURCES.json`).
+
+## Site coordinates (`config/sites.json`)
+
+- NASA NSSDCA, "Lunar landing sites" — <https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html> (Apollo 11, Apollo 17).
+- Lunar Reconnaissance Orbiter Camera (LROC) team pages — <https://lroc.im-ldi.com/images/1321> (IM-1 nominal landing area),
+  <https://lroc.im-ldi.com/featured_sites/im2/flip-book> (IM-2 Athena), <https://lroc.im-ldi.com/images/1314> (Chandrayaan-3).
 - LRO Lunar Orbiter Laser Altimeter (LOLA) gridded topography, PDS Geosciences Node —
   <https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/>.
   Planned use: terrain horizon for south polar sites.

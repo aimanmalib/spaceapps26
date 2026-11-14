@@ -1,4 +1,30 @@
 {
-  "_note": "Landing sites. Each site needs a cited source for its coordinates (filled in with the data step).",
-  "sites": []
+  "_note": "Landing sites. lat = selenographic latitude (deg, north positive); lon_east = east longitude (deg). Every coordinate is copied from the cited page; 'source.text' is the text as printed there.",
+  "sites": [
+    {
+      "id": "apollo-11", "name": "Apollo 11 (Tranquility Base)", "group": "apollo",
+      "lat": 0.67416, "lon_east": 23.47314,
+      "source": { "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html", "publisher": "NASA NSSDCA", "text": "0.67416 N, 23.47314 E" }
+    },
+    {
+      "id": "apollo-17", "name": "Apollo 17 (Taurus-Littrow)", "group": "apollo",
+      "lat": 20.1911, "lon_east": 30.7723,
+      "source": { "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html", "publisher": "NASA NSSDCA", "text": "20.1911 N, 30.7723 E" }
+    },
+    {
+      "id": "im-1", "name": "IM-1 Odysseus, nominal landing area (near Malapert A)", "group": "clps",
+      "lat": -80.2, "lon_east": 1.0,
+      "source": { "url": "https://lroc.im-ldi.com/images/1321", "publisher": "LROC (NASA LRO camera team)", "text": "nominal landing area (80.2°S, 1.0°E)" }
+    },
+    {
+      "id": "im-2", "name": "IM-2 Athena (Mons Mouton area)", "group": "clps",
+      "lat": -84.7906, "lon_east": 29.1957,
+      "source": { "url": "https://lroc.im-ldi.com/featured_sites/im2/flip-book", "publisher": "LROC (NASA LRO camera team)", "text": "84.7906°S, 29.1957°E, 5321 meters elevation" }
+    },
+    {
+      "id": "chandrayaan-3", "name": "Chandrayaan-3 Vikram (ISRO)", "group": "other_nation",
+      "lat": -69.3741, "lon_east": 32.32,
+      "source": { "url": "https://lroc.im-ldi.com/images/1314", "publisher": "LROC (NASA LRO camera team)", "text": "69.3741°S, 32.32°E, 532 m elevation" }
+    }
+  ]
 }
