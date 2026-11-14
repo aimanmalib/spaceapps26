@@ -299,5 +299,16 @@
   "glance.sun_margin": "Sun above (+) or below (−) the horizon used",
   "glance.earth_margin": "Earth above (+) or below (−) the horizon used",
   "sky.near_caption": "Close-up: {deg}° above and below the horizon",
-  "sky.near_aria": "Close-up of the horizon panorama, {deg}° above and below. Sun: {sm} from the terrain horizon. Earth: {em} from the terrain horizon."
+  "sky.near_aria": "Close-up of the horizon panorama, {deg}° above and below. Sun: {sm} from the terrain horizon. Earth: {em} from the terrain horizon.",
+  "seq.steps_label": "Step through sites and dates",
+  "seq.prev_site": "← Previous site",
+  "seq.next_site": "Next site →",
+  "seq.prev_time": "← {dur} earlier",
+  "seq.next_time": "{dur} later →",
+  "seq.heading": "If the date moves",
+  "seq.intro": "The same two answers at the same time of day (UTC) for the chosen date and the next {n} steps of {dur}. Numbers = degrees above (+) or below (−) the horizon used for this scenario.",
+  "seq.col.date": "Date (UTC)",
+  "seq.chosen": "as chosen",
+  "seq.changed": "changed",
+  "seq.summary": "Solar power possible on {sun} of {n} dates; direct-to-Earth on {earth} of {n}."
 }

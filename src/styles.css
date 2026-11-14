@@ -201,6 +201,17 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .shift-table td.is-up:nth-of-type(1) .shift-ans { color: var(--sun); }
 .shift-table td.is-up:nth-of-type(2) .shift-ans { color: var(--earth); }
 
+/* Sequential comparison: four step buttons in a 2 × 2 grid (site row, time row); date table reuses the item l table. */
+.card-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; margin: 0 0 1rem; }
+.btn-step { font: inherit; font-size: 0.875rem; cursor: pointer; min-height: 2.75rem; min-width: 0; padding: 0.4rem 0.5rem;
+  color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 0.5rem; overflow-wrap: anywhere; }
+.btn-step:hover { border-color: var(--muted); }
+.btn-step:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sequence { min-width: 0; }
+.seq-flag { font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
+.seq-table .seq-changed th { box-shadow: inset 2px 0 0 var(--accent); padding-left: 0.4rem; }
+.seq-table .seq-changed .seq-flag { color: var(--accent); }
+
 /* Moon and Earth compared (item k): same compact table as item l, quoted NASA sentence below it. */
 .moonearth { min-width: 0; }
 .me-table { width: 100%; }

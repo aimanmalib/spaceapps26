@@ -15,6 +15,7 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
 | What the tool shows and does: all twelve items from the challenge's "Your solution may include" list | Author |
 | Team name (the author's own name) | Author |
 | Project name: suggested by SI, chosen by the author | Author (choice); SI (suggestions) |
+| Further options from the challenge text (sequential comparison, an educational game, terrain for custom coordinates, slopes and shadow conditions on the map) | Author, who chose all four on 15 November 2026 from NASA's own wording, listed by SI |
 | Accepting the open-source participant terms | Author |
 | The list of options itself | NASA (challenge text), translated into Malay by SI |
 | Build order (technical dependency and the emphasis in NASA's text), interface design, all code and data scripts, tests, slide layout | SI, on the author's instructions |
@@ -28,6 +29,9 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
 2. About 12:40: the author created the team and selected this challenge.
 3. About 12:46: the author chose all three audiences and all twelve items from the options that NASA's own challenge text names:
    three audiences (A–C) and twelve items (a–l).
+4. 15 November, morning: the author asked for the entry to be made stronger; SI listed four options that NASA's challenge text
+   names but the tool did not yet have (sequential comparison, an educational game, terrain for custom coordinates, slopes and
+   shadow conditions on the map); the author chose all four.
 
 The original chat messages are not published.
 

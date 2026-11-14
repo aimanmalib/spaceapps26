@@ -38,6 +38,10 @@ Built:
 - Ten known landing sites (all six Apollo landings, CLPS IM-1 and IM-2, Chandrayaan-3, Chang'e 4), each coordinate copied from a
   cited NASA page (NSSDCA or LROC).
 - Up to four scenarios at once, as cards and in one side-by-side table.
+- Sequential comparison: buttons on every card step to the previous or next listed site (date kept) or move the time 1 day
+  earlier or later (site kept). "If the date moves" lists the same two answers, with their margins from the horizon used, for the
+  chosen time and the next 14 days at the same time of day, marks the dates where an answer differs and counts them. Measured
+  example, IM-2 from 2026-11-14 00:00 UTC: solar power possible on 13 of 15 dates; direct-to-Earth on 15 of 15.
 - A timeline of one lunar day (29.5 Earth days) on every card: Sun and Earth elevation over time, bars for when each is in view,
   a slider to move through it and a Play button (hidden when the device asks for reduced motion). A switch shows the whole one-year
   table instead (hourly steps, 1 Nov 2026 to 1 Nov 2027), with the share of hours each one is at least partly above the horizon used;
@@ -145,7 +149,9 @@ itself ranges from 51.0 % to 84.7 % within the 3 × 3 pixels around it. It is re
 SI was used in this project: Claude Code (Anthropic).
 
 - **Decided by me (the author):** to take part, the Jakarta event, this challenge, the three audiences and the twelve items to
-  build, chosen from the list in NASA's challenge text; the project name, chosen from names SI suggested.
+  build, chosen from the list in NASA's challenge text; the project name, chosen from names SI suggested; on 15 November, four
+  further options that NASA's challenge text names (sequential comparison, an educational game, terrain for custom coordinates,
+  slopes and shadow conditions on the map), all chosen from a list SI made of that text.
 - **Done by SI, on my instructions:** a feasibility comparison of the challenges, translation of the challenge text into Malay for
   me, build order, interface design, all code, data scripts and tests, slide layout, suggested project names, and the English text, drafted from my choices
   and the measured results and reviewed by me.

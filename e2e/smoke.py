@@ -5,12 +5,13 @@
 
 Profiles: Chromium desktop 1280 px, Chromium 320 px, WebKit iPhone 13.
 On each: the compare tool renders answers, the site select and the time input
-update them, own coordinates (item b) give answers, the 2D map (item h) and 3D surface (item i) draw, "add" makes one more card, technical details open, the validation
+update them, the step buttons and "If the date moves" table (sequential comparison) work, own coordinates (item b) give answers, the 2D map (item h) and 3D surface (item i) draw, "add" makes one more card, technical details open, the validation
 page shows its numbers, About lists items a–l and limitations, Data sources lists the frozen files;
 the first answers of the first card fit the first screen (P4f), zero console errors, zero requests to other hosts,
 no horizontal overflow. Prints one line per profile; exit 1 on any failure.
 Screenshots go to $AUTOPILOT_BUKTI_DIR (or $SMOKE_SHOTS) when set.
 """
+from datetime import datetime
 import os
 import sys
 from urllib.parse import urlsplit
@@ -199,6 +200,34 @@ def surface_3d(page, check, shots, name):
     card.locator("select").select_option("im-2")
 
 
+def sequence(page, check):
+    """Sequential comparison: keyboard step to the next site (date kept), a day later (site kept); date table on the first card."""
+    card = page.locator(".card").first
+    sel, tinput = card.locator("select"), card.locator("input[type=datetime-local]")
+    site0, time0, before = sel.input_value(), tinput.input_value(), answers(page, 0)
+    card.locator(".step-site-next").focus()
+    page.keyboard.press("Enter")
+    page.wait_for_function("b => document.querySelector('.card .card-result').innerText !== b", arg=before)
+    check(sel.input_value() != site0 and tinput.input_value() == time0, "step: next site, same date (sequential)")
+    before = answers(page, 0)
+    card.locator(".step-time-next").click()
+    page.wait_for_function("t => document.querySelector('.card input[type=datetime-local]').value !== t", arg=time0)
+    day = (datetime.fromisoformat(tinput.input_value()) - datetime.fromisoformat(time0)).total_seconds() / 3600
+    check(sel.input_value() != site0 and day > 0, f"step: later date, same site (sequential), +{day:.0f} h")
+    box = card.locator(".sequence")
+    check(box.locator("details").evaluate("d => d.open"), "date table open on the first card (sequential)")
+    page.wait_for_function("() => document.querySelectorAll('.card .seq-table tbody tr').length > 2")
+    rows = box.locator(".seq-table tbody tr").count()
+    check(rows > 2 and "Solar power possible on" in box.locator(".seq-sum").inner_text(), f"date table rows + summary (sequential): {rows}")
+    check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "date table fits the card (sequential)")
+    second = page.locator(".card").nth(1).locator(".sequence details")
+    check(not second.evaluate("d => d.open"), "date table folded on the other cards (sequential)")
+    card.locator(".step-site-prev").click()
+    page.wait_for_function("s => document.querySelector('.card select').value === s", arg=site0)
+    card.locator(".step-time-prev").click()
+    page.wait_for_function("t => document.querySelector('.card input[type=datetime-local]').value === t", arg=time0)
+
+
 def run_profile(p, name, engine, ctx_opts, base, shots):
     browser = getattr(p, engine).launch()
     opts = p.devices[ctx_opts] if isinstance(ctx_opts, str) else ctx_opts
@@ -279,6 +308,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         page.emulate_media(reduced_motion="no-preference")
         one_year(page, check)
         small_shifts(page, check)
+        sequence(page, check)
         moon_earth(page, check, shots, name)
         map_2d(page, check, shots, name)
         surface_3d(page, check, shots, name)

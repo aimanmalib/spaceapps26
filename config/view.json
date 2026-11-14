@@ -36,8 +36,15 @@
   },
   "_note_first_screen": "First screen: the near-horizon strip under the panorama on terrain sites shows ±near_horizon_deg around the horizon (polar Sun/Earth angles are small). On the first card the small-shifts block starts open, and the 2D map block starts open when the window is at least map_open_min_width_px wide.",
   "near_horizon_deg": 10,
+  "_note_sequence": "Sequential comparison (challenge text: \"side-by-side or sequential comparison of multiple sites\"): each card has previous/next site buttons (date kept; order = the site list) and earlier/later buttons that move the time by button_step_hours (site kept). \"If the date moves\" lists the same two answers for the chosen time and table_steps more rows, table_step_hours apart; it starts open on the first card (first_card.sequence_open).",
+  "sequence": {
+    "button_step_hours": 24,
+    "table_steps": 14,
+    "table_step_hours": 24
+  },
   "first_card": {
     "shifts_open": true,
-    "map_open_min_width_px": 1024
+    "map_open_min_width_px": 1024,
+    "sequence_open": true
   }
 }
