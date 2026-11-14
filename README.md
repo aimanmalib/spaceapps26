@@ -35,6 +35,11 @@ Built so far:
   and, at the terrain sites (IM-1, IM-2), for points 1 km north, east, south and west, each with its own LOLA terrain horizon.
   Measured example, IM-2 at 2026-11-14 00:00 UTC: Earth is 1.3° above the terrain horizon at the site, but 1.5° below it 1 km east
   and 2.6° below it 1 km south. On the ideal sphere, 1 km tilts the horizon by only 0.033°.
+- Moon and Earth compared: each card can show the length of one day (29.53 days against 24 hours), how fast the Sun moves across
+  the sky at the site and chosen time, surface air pressure and the distance to the horizon from 2 m up (2.64 km against 5.05 km),
+  with day length, radius and pressure quoted from the NASA NSSDCA Moon and Earth fact sheets. It also gives how far Earth moves in
+  the site's sky over the whole table. Measured, 2026-11-01 to 2027-11-01: at IM-2 Earth stays within a 16.15° range of azimuth and
+  between −2.30° and +10.79° elevation; at Apollo 11 within 37.72° of azimuth and between +57.96° and +73.68°.
 
 ## What it will do
 

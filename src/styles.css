@@ -187,3 +187,13 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .shift-sum { color: var(--text); }
 .shift-table td.is-up:nth-of-type(1) .shift-ans { color: var(--sun); }
 .shift-table td.is-up:nth-of-type(2) .shift-ans { color: var(--earth); }
+
+/* Moon and Earth compared (item k): same compact table as item l, quoted NASA sentence below it. */
+.moonearth { min-width: 0; }
+.me-table { width: 100%; }
+.me-table th, .me-table td { padding: 0.3rem 0.6rem 0.3rem 0; vertical-align: top; overflow-wrap: anywhere; }
+.me-table tbody th { font-weight: 400; color: var(--muted); }
+.me-table td { color: var(--text); }
+.me-quote { margin: 0.75rem 0 0; padding-left: 0.75rem; border-left: 2px solid var(--line); }
+.me-quote p { margin: 0; color: var(--text); }
+.me-quote footer, .me-src { font-size: 0.8125rem; color: var(--muted); }

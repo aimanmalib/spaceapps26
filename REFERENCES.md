@@ -25,6 +25,14 @@ This list is completed as each part is built.
   `scripts/pgda.py`); only the pixels around each point are read. Method: Mazarico, E., Neumann, G. A., Smith, D. E., Zuber, M. T.,
   Torrence, M. H. (2011), Illumination conditions of the lunar polar regions using LOLA topography, Icarus 211, 1066–1081.
 
+## Moon and Earth compared (`config/moon-earth.json`, item k)
+
+- NASA NSSDCA, "Moon Fact Sheet" — <https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html> (synodic period 29.53 days,
+  volumetric mean radius 1737.4 km, surface pressure at night 3 × 10⁻¹⁵ bar; page last updated 11 January 2024, read 14 November 2026).
+- NASA NSSDCA, "Earth Fact Sheet" — <https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html> (length of day 24.0000 h,
+  volumetric mean radius 6371.0 km, surface pressure 1014 mb; read 14 November 2026).
+- The sentence on the horizon without atmospheric refraction is quoted from the challenge text (Challenge, above).
+
 ## Site coordinates (`config/sites.json`)
 
 - NASA NSSDCA, "Lunar landing sites" — <https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html> (Apollo 11, 12, 14, 15, 16, 17; Lunar Module positions).

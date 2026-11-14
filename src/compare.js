@@ -9,6 +9,7 @@ import { glanceHtml } from './glance.js';
 import { relativeTable, aboveHorizon } from './terrain.js';
 import { mountTimeline } from './timeline-ui.js';
 import { mountShifts } from './shifts-ui.js';
+import { mountMoonEarth } from './moonearth-ui.js';
 import { CUSTOM_ID, customOptionHtml, customFieldsHtml, syncFields, readCustom, invalidText } from './custom.js';
 
 let uid = 0;
@@ -34,7 +35,7 @@ function cardDom(t, sites, sc, custom) {
     (custom ? customFieldsHtml(t, id, custom.cfg) : '') +
     `<label class="field" for="${id}-time"><span>${e(t('scenario.time'))}</span>` +
     `<input id="${id}-time" type="datetime-local" step="60" required></label></div>` +
-    `<div class="card-result" aria-live="polite"></div><section class="card-timeline" hidden></section><section class="card-shifts" hidden></section>`;
+    `<div class="card-result" aria-live="polite"></div><section class="card-timeline" hidden></section><section class="card-shifts" hidden></section><section class="card-me" hidden></section>`;
   el.querySelector('select').value = sc.site;
   el.querySelector('input[type=datetime-local]').value = sc.time_utc;
   if (custom && sc.coords) [...el.querySelectorAll('.custom-fields input')].forEach((input, i) => (input.value = sc.coords[i]));
@@ -44,8 +45,8 @@ function cardDom(t, sites, sc, custom) {
 
 // horizons = {siteId: () => Promise<profile>} for sites with a terrain skyline (data/horizon/); others use the ideal sphere.
 // custom = {cfg: config/custom.json, tables: site → Promise<table>} when item b is on (src/custom.js).
-// shifts = item l settings for src/shifts-ui.js when item l is on.
-export function mountCompare(root, { t, sites, view, horizons = {}, features = {}, custom = null, shifts = null }) {
+// shifts = item l settings for src/shifts-ui.js when item l is on; me = config/moon-earth.json when item k is on.
+export function mountCompare(root, { t, sites, view, horizons = {}, features = {}, custom = null, shifts = null, me = null }) {
   const list = root.querySelector('.cards');
   const add = root.querySelector('.add');
   const glance = root.querySelector('.glance-body');
@@ -112,6 +113,8 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
       else r.c.tl?.hide();
       if (r.sample) r.c.sh?.draw({ site: r.site, table: r.table, profile: r.profile, sample: r.sample, ms: r.ms });
       else r.c.sh?.hide();
+      if (r.sample) r.c.me?.draw({ table: r.table, ms: r.ms });
+      else r.c.me?.hide();
     }
     if (glance) glance.innerHTML = glanceHtml(t, rows);
   }
@@ -132,6 +135,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
       c.tl = mountTimeline(c.el.querySelector('.card-timeline'), { t, view, onTime, uid: `tl${++uid}` });
     }
     if (features.l_small_shifts && shifts) c.sh = mountShifts(c.el.querySelector('.card-shifts'), { t, view, shifts });
+    if (features.k_moon_vs_earth && me) c.me = mountMoonEarth(c.el.querySelector('.card-me'), { t, me });
     c.el.querySelector('.card-remove').addEventListener('click', () => {
       c.tl?.destroy();
       cards.splice(cards.indexOf(c), 1);

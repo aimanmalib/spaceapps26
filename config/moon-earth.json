@@ -1,0 +1,31 @@
+{
+  "_note": "Item k (how conditions on the Moon differ from Earth). Every value here is quoted from the NASA source named next to it; the page computes the rest (Sun and Earth motion at the site from the card's own table, distance to the horizon from the radius). Change a value only together with its source.",
+  "sources": {
+    "moon": {
+      "title": "NASA NSSDCA, Moon Fact Sheet",
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+    },
+    "earth": {
+      "title": "NASA NSSDCA, Earth Fact Sheet",
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html"
+    },
+    "challenge": {
+      "title": "NASA Space Apps Challenge 2026, Lunar Landing Site Navigator",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/"
+    }
+  },
+  "moon": {
+    "synodic_period_days": 29.53,
+    "radius_km": 1737.4,
+    "surface_pressure_text": "3 × 10⁻¹⁵ bar (night)"
+  },
+  "earth": {
+    "length_of_day_hours": 24.0,
+    "radius_km": 6371.0,
+    "surface_pressure_text": "1014 mb"
+  },
+  "challenge_quote": "Without atmospheric refraction, the horizon is determined by local terrain and the edge of the lunar sphere as seen from the landing site.",
+  "observer_height_m": 2,
+  "_note_observer": "Height of the eye or antenna above a smooth sphere, for the distance-to-horizon row.",
+  "decimals": 2
+}

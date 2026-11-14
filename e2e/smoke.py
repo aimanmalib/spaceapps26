@@ -74,6 +74,24 @@ def small_shifts(page, check):
     check(box.locator(".shift-table tbody tr").count() == 5, "small shifts: sphere site = time rows only (l)")
 
 
+def moon_earth(page, check, shots, name):
+    """Item k: open the Moon-and-Earth block; quoted values, measured Sun/Earth motion, NASA quote; follows the scenario."""
+    card = page.locator(".card").first
+    box = card.locator(".moonearth")
+    box.wait_for(state="visible")
+    box.locator("summary").click()
+    page.wait_for_function("() => document.querySelector('.card .me-body')?.innerText.includes('per hour')")
+    check(box.locator(".me-table tbody tr").count() == 4, "Moon and Earth: 4 rows (k)")
+    text = box.inner_text()
+    check("29.53 days" in text and "15.00° per hour" in text and "edge of the lunar sphere" in text, "Moon and Earth: quoted + measured values (k)")
+    before = box.locator(".me-earth").inner_text()
+    card.locator("select").select_option("im-2")
+    page.wait_for_function("b => document.querySelector('.card .me-earth')?.innerText !== b", arg=before)
+    check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "Moon and Earth: table fits the card (k)")
+    if shots:
+        box.screenshot(path=os.path.join(shots, f"smoke-{name}-moon-earth.png"))
+
+
 def run_profile(p, name, engine, ctx_opts, base, shots):
     browser = getattr(p, engine).launch()
     opts = p.devices[ctx_opts] if isinstance(ctx_opts, str) else ctx_opts
@@ -139,6 +157,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         page.wait_for_function("() => [...document.querySelectorAll('.tl-play')].every(b => b.hidden)")
         page.emulate_media(reduced_motion="no-preference")
         small_shifts(page, check)
+        moon_earth(page, check, shots, name)
         own_coordinates(page, check)
         page.locator(".card details.tech summary").first.click()
         check(page.locator(".card details.tech").first.evaluate("d => d.open"), "technical details open")

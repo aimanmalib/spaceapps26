@@ -11,7 +11,7 @@
     "h_map_2d": false,
     "i_surface_3d": false,
     "j_terrain_horizon": true,
-    "k_moon_vs_earth": false,
+    "k_moon_vs_earth": true,
     "l_small_shifts": true
   }
 }

@@ -177,5 +177,20 @@
   "shift.place_computing": "Computing the nearby points in your browser…",
   "shift.place_source": "Nearby points: terrain horizon from LRO LOLA (same method as this site). Sun and Earth positions there: computed in browser, validated against JPL Horizons.",
   "shift.place_none": "Location shifts are shown where a LOLA terrain horizon exists. On the ideal sphere, moving {km} km tilts the horizon by only {deg}°.",
-  "shift.place_error": "Nearby points could not be computed."
+  "shift.place_error": "Nearby points could not be computed.",
+  "me.heading": "Moon and Earth compared",
+  "me.col.moon": "Moon",
+  "me.col.earth": "Earth",
+  "me.row.day": "One day (Sun back to the same place in the sky)",
+  "me.row.sun_rate": "How fast the Sun moves across the sky",
+  "me.row.air": "Air pressure at the surface",
+  "me.row.horizon": "Distance to the horizon from {h} m up (smooth sphere)",
+  "me.days": "{v} days",
+  "me.hours": "{v} hours",
+  "me.km": "{v} km",
+  "me.per_hour": "{v}° per hour",
+  "me.na": "outside the table",
+  "me.sun_note": "Moon column, Sun speed: measured at this site at the chosen time from this card's table. Averaged over one lunar day it is {v}° per hour. Earth column: 360° in one day.",
+  "me.earth_sky": "Earth in this site's sky, {from} to {to} UTC: azimuth within a {az}° range, elevation from {min} to {max} (ideal sphere). At the chosen time it moves {rate}.",
+  "me.sources": "Day length, radius and air pressure quoted from"
 }
