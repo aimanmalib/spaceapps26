@@ -1,0 +1,14 @@
+Lunar Landing Site Navigator
+Copyright 2026 Aiman Malib
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+It was built for the NASA Space Apps Challenge 2026.
+
+Source code, data scripts and tests in this repository were generated with
+SI (Claude Code, Anthropic) on the author's instructions; see SI-DISCLOSURE.md.
+
+Data derived from NASA sources (JPL Horizons System; Lunar Reconnaissance
+Orbiter LOLA topography) is credited in data/SOURCES.json and REFERENCES.md.
+NASA does not endorse this project.
+
+Third-party libraries and their licenses are listed in REFERENCES.md.
