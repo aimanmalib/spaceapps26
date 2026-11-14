@@ -1,0 +1,46 @@
+{
+  "event": "NASA Space Apps Challenge 2026",
+  "challenge": "Lunar Landing Site Navigator",
+  "challenge_url": "https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/",
+  "statement": "SI-DISCLOSURE.md",
+  "tools": [
+    {
+      "name": "Claude Code",
+      "vendor": "Anthropic",
+      "models": ["Claude (Anthropic)"],
+      "used_for": [
+        "feasibility comparison of the challenges",
+        "translation of the challenge text into Malay",
+        "build order",
+        "interface design",
+        "code and data scripts",
+        "tests",
+        "slide layout",
+        "translation and editing of the author's Malay notes into English"
+      ]
+    }
+  ],
+  "decided_by_author": [
+    "taking part, event and challenge",
+    "audiences: mission planners, educators, the public (all three named in the challenge)",
+    "items to build: all twelve from the challenge's 'Your solution may include' list",
+    "team name",
+    "accepting the open-source participant terms",
+    "submission"
+  ],
+  "si_generated_paths": [
+    "src/",
+    "scripts/",
+    "tests/",
+    "config/",
+    "i18n/",
+    "deploy/",
+    "index.html",
+    "docs/decisions/",
+    "demo/slides.html"
+  ],
+  "si_translated_text": ["README.md", "SI-DISCLOSURE.md", "REFERENCES.md", "demo/"],
+  "si_generated_media": [],
+  "file_header": "SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md",
+  "html_meta": "si-disclosure"
+}
