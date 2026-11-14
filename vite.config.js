@@ -20,7 +20,14 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    rollupOptions: { input: { main: `${root}index.html`, validation: `${root}validation.html` } },
+    rollupOptions: {
+      input: {
+        main: `${root}index.html`,
+        validation: `${root}validation.html`,
+        sources: `${root}sources.html`,
+        about: `${root}about.html`,
+      },
+    },
   },
   plugins: [copyData],
 });

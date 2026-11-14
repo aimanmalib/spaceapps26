@@ -6,7 +6,8 @@
 Profiles: Chromium desktop 1280 px, Chromium 320 px, WebKit iPhone 13.
 On each: the compare tool renders answers, the site select and the time input
 update them, own coordinates (item b) give answers, the 2D map (item h) and 3D surface (item i) draw, "add" makes one more card, technical details open, the validation
-page shows its numbers; zero console errors, zero requests to other hosts,
+page shows its numbers, About lists items a–l and limitations, Data sources lists the frozen files;
+zero console errors, zero requests to other hosts,
 no horizontal overflow. Prints one line per profile; exit 1 on any failure.
 Screenshots go to $AUTOPILOT_BUKTI_DIR (or $SMOKE_SHOTS) when set.
 """
@@ -261,6 +262,25 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         if shots:
             tall = page.evaluate("document.documentElement.scrollHeight") > 30000  # WebKit screenshot limit 32767 px
             page.screenshot(path=os.path.join(shots, f"smoke-{name}-validation.png"), full_page=not tall)
+
+        page.goto(base.rstrip("/") + "/about.html", wait_until="networkidle")
+        page.locator("#about-items li").first.wait_for()
+        check(page.locator("#about-items li").count() == 12, "about page: items a–l listed")
+        check(page.locator("#about-lims li").count() >= 3, "about page: limitations listed")
+        page.evaluate("window.scrollTo(0, 800)")
+        check(no_overflow(page), "about page: no horizontal overflow")
+        if shots:
+            page.screenshot(path=os.path.join(shots, f"smoke-{name}-about.png"), full_page=True)
+
+        page.goto(base.rstrip("/") + "/sources.html", wait_until="networkidle")
+        page.locator("#src-files .src-item").first.wait_for()
+        check(page.locator("#src-files .src-item").count() >= 10, "data sources page: frozen files listed")
+        href = page.locator("#src-files .src-file a").first.get_attribute("href")
+        check(page.request.get(base.rstrip("/") + "/" + href.lstrip("./")).ok, f"data sources page: first file link opens ({href})")
+        page.evaluate("window.scrollTo(0, 1200)")
+        check(no_overflow(page), "data sources page: no horizontal overflow")
+        if shots:
+            page.screenshot(path=os.path.join(shots, f"smoke-{name}-sources.png"), full_page=False)
     except Exception as exc:  # noqa: BLE001 — a smoke run reports, it does not crash
         fails.append(f"{type(exc).__name__}: {str(exc).splitlines()[0]}")
     finally:

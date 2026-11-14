@@ -4,7 +4,7 @@
     "a_known_sites": true,
     "b_custom_coordinates": true,
     "c_compare": true,
-    "d_date_time": false,
+    "d_date_time": true,
     "e_time_remaining": true,
     "f_key_numbers": true,
     "g_timeline": true,

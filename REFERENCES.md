@@ -1,7 +1,7 @@
 # References
 
 Every data set, library, tool and quoted text used in this project. Data provenance per file: `data/SOURCES.json`.
-This list is completed as each part is built.
+The site's Data sources page shows the same per-file list.
 
 ## Challenge
 
@@ -50,6 +50,14 @@ This list is completed as each part is built.
 | Python | 3 (standard library) | PSF | data scripts and tests |
 | Claude Code (Anthropic) | — | — | SI tool; see SI-DISCLOSURE.md |
 
-## Fonts and images
+## Fonts, images and media
 
-None yet. The page uses system fonts. No NASA logos, flags or mission insignia are used.
+- Fonts: none loaded. The pages use the device's system font stack (`system-ui`, `-apple-system`, `Segoe UI`, `Roboto`, `sans-serif`).
+- Images: none bundled. The sky panoramas, timeline, 2D map and 3D surface are drawn in the browser from the data above.
+  Screenshots in `docs/media/` (when present) are real captures of this app.
+- No NASA logos ("meatball"), agency or mission insignia, flags, or SI-generated images, video or audio are used.
+
+## Standards used in tests
+
+- Contrast ratio: W3C, Web Content Accessibility Guidelines (WCAG) 2.2, relative luminance and contrast ratio definitions —
+  <https://www.w3.org/TR/WCAG22/#dfn-contrast-ratio> (`tests/contrast.test.mjs`, every text colour ≥ 4.5:1).

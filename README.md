@@ -13,11 +13,11 @@ Team: Aiman Malib.
 
 ## Status
 
-Work in progress during the event weekend (14–15 November 2026). This file grows as each part is built and checked.
+Built during the event weekend (14–15 November 2026). Live site: <https://spaceapps26.aimanmalib.com/> (Compare, Validation, Data sources, About).
 
-Built so far:
+Built:
 
-- Pick a landing site and a UTC date and time; see the Sun and Earth relative to the horizon, whether solar power generation and
+- Pick a landing site and a UTC date and time (2026-11-01 to 2027-11-01); see the Sun and Earth relative to the horizon, whether solar power generation and
   direct-to-Earth communication are possible, and the elevation of each.
 - Time remaining before sunset or Earthset (or until sunrise or Earthrise), the duration of sunlight and the Earth visibility window
   around the chosen time.
@@ -43,11 +43,25 @@ Built so far:
 - A 2D map and a 3D surface of LRO LOLA heights, 80 × 80 km around each terrain site (IM-1, IM-2), with the site and the Sun and
   Earth directions at the chosen time. The 3D surface can be turned to look in any direction; its heights are stretched 2 times.
 
-## What it will do
+## What it does, and limitations
 
 I chose all three audiences named in the challenge (mission planners, educators, the public) and all twelve items in the challenge's
-"Your solution may include" list. They are built in order of technical dependency; anything not finished by the deadline is listed
-under "Limitations" by item, not left half-built.
+"Your solution may include" list (a–l). The site's About page lists what is built for each item and its limitations; the Data
+sources page lists every frozen data file with the request it came from.
+
+Limitations:
+
+- Dates (d): the Sun and Earth tables cover 2026-11-01 00:00 to 2027-11-01 00:00 UTC only, one row per hour, interpolated in between.
+- Terrain horizon (j): only at IM-1 and IM-2, the listed sites inside the LOLA south polar grids used here (75°S to the pole).
+  Every other listed site uses the ideal sphere horizon.
+- Own coordinates (b): ideal sphere horizon only. Local terrain is not computed for own coordinates, even inside the LOLA grids.
+- 2D map (h), 3D surface (i) and the 1 km location shifts (l): only at IM-1 and IM-2. Other sites show the date shifts only.
+- 3D surface (i): the Sun and Earth lines are drawn on top of the ground; terrain does not hide them, and no shadows are drawn.
+- In view means the centre of the Sun or Earth disc is above the horizon; a partly risen disc counts as not in view. The independent
+  terrain check (Validation, below) counts any part of the disc.
+- Power and communication answers are geometry only: whether the Sun or Earth is above the horizon. Solar panel orientation, power
+  output, antennas, relay satellites and link budgets are not modelled.
+- The interface is in English only.
 
 ## Data
 

@@ -226,3 +226,31 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .surf-range { display: block; width: 100%; max-width: 30rem; margin: 0.35rem 0 0; accent-color: var(--accent); }
 .surf-frame { width: 100%; max-width: 30rem; margin: 0.75rem 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--bg); }
 .surf-canvas { display: block; width: 100%; height: auto; }
+
+/* About and Data sources pages */
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.about-quote { margin: 0 0 1.25rem; padding: 0.25rem 0 0.25rem 1rem; border-left: 2px solid var(--accent); max-width: 46rem; }
+.about-quote p { margin: 0 0 0.4rem; font-size: 1.05rem; }
+.about-quote footer { color: var(--muted); font-size: 0.875rem; }
+.about-sec { margin-top: calc(var(--space) * 1.5); max-width: 52rem; }
+.about-items { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.about-item { display: flex; gap: 0.75rem; align-items: baseline; min-width: 0; }
+.about-item > span:last-child { min-width: 0; overflow-wrap: anywhere; }
+.about-letter { flex: none; width: 1.75rem; height: 1.75rem; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--accent); border-radius: 50%; color: var(--accent); font-weight: 650; font-size: 0.875rem; }
+.about-item.is-off .about-letter { border-color: var(--line); color: var(--muted); }
+.about-off { color: var(--warn); }
+.about-lims { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.5rem; }
+.about-lims li { overflow-wrap: anywhere; }
+.inline-link, .src-list a, .src-plain a { color: var(--text); text-underline-offset: 3px; }
+.inline-link:focus-visible, .src-list a:focus-visible, .src-plain a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.src-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+.src-item { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 0.75rem 1rem; }
+.src-file { margin: 0 0 0.4rem; font-size: 0.95rem; overflow-wrap: anywhere; }
+.src-dl { margin: 0; display: grid; grid-template-columns: minmax(0, 8rem) minmax(0, 1fr); gap: 0.3rem 1rem; font-size: 0.875rem; }
+.src-dl dt { color: var(--muted); }
+.src-dl dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.src-plain { margin: 0; padding-left: 1.25rem; }
+@media (max-width: 30rem) {
+  .src-dl { grid-template-columns: minmax(0, 1fr); gap: 0.1rem; }
+  .src-dl dd { margin-bottom: 0.35rem; }
+}

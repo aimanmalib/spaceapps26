@@ -1,6 +1,4 @@
 // SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
-import en from '../i18n/en.json';
-import app from '../config/app.json';
 import sitesConfig from '../config/sites.json';
 import view from '../config/view.json';
 import features from '../config/features.json';
@@ -10,15 +8,11 @@ import shiftsCfg from '../config/shifts.json';
 import meCfg from '../config/moon-earth.json';
 import mapCfg from '../config/map2d.json';
 import surfCfg from '../config/surface3d.json';
-import { makeT, applyText } from './i18n.js';
+import { initPage } from './page.js';
 import { mountCompare } from './compare.js';
 import { makeCustomTables } from './custom.js';
 
-const t = makeT(en);
-applyText(document, t);
-
-const si = document.getElementById('si-link');
-if (si) si.href = app.repo_url + app.si_disclosure_path;
+const { t } = initPage();
 
 const root = document.getElementById('compare');
 // Terrain skylines (item j) exist only for sites inside the LOLA polar grids; each loads on first use.

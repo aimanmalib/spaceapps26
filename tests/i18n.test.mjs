@@ -1,14 +1,14 @@
 // SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { makeT } from '../src/i18n.js';
 
 const root = new URL('../', import.meta.url);
 const en = JSON.parse(readFileSync(new URL('i18n/en.json', root), 'utf8'));
-const html = ['index.html', 'validation.html'].map((f) => readFileSync(new URL(f, root), 'utf8')).join('\n');
+const html = readdirSync(new URL('.', root)).filter((f) => f.endsWith('.html')).map((f) => readFileSync(new URL(f, root), 'utf8')).join('\n');
 
-test('every data-i18n key used in index.html and validation.html exists in i18n/en.json', () => {
+test('every data-i18n key used in every page (*.html) exists in i18n/en.json', () => {
   const keys = [...html.matchAll(/data-i18n="([^"]+)"/g)].map((m) => m[1]);
   for (const m of html.matchAll(/data-i18n-attr="([^"]+)"/g)) {
     for (const pair of m[1].split(';')) keys.push(pair.split(':')[1].trim());
