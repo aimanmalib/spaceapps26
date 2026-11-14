@@ -27,3 +27,16 @@ The shared panorama scale can be ±90°, so near the pole the Sun, Earth and sky
 ## Way back
 
 `git revert` this commit and `bash deploy/pasang.sh`: the layout of `13d464b`/`dd24887` returns unchanged.
+
+## P4f — first screen fits (15 Nov 2026)
+
+Layout only; no feature, data, number or claim changed. Measured on `0e70263`: on a 1280 × 900 window the Earth large
+number of the first card ended at 910 px (cut off); on WebKit iPhone 13 (664 px tall) the first answer started at 709 px.
+Change in `src/styles.css`: page top padding `--shell-top` (was 2 × `--space`), tool gap `--tool-gap` (was 1.5 × `--space`),
+smaller margins under the title, "How to read this", card head and before the answers; on windows ≤ 30rem a smaller
+eyebrow and section heading and a tighter field gap. The intro sentence and the "How to read this" fold stay. Result on
+the local build: Earth number bottom 838 px (≤ 900), first answer top 601 px (≤ 664). `e2e/smoke.py` checks both
+limits (`FIRST_SCREEN`); on the old layout it fails with exactly the two numbers above. Media and `demo/demo.pdf`
+re-captured (7 pages, 16:9).
+
+Way back: `git revert` the P4f commit and `bash deploy/pasang.sh` (the P4e layout returns).

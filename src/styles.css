@@ -18,26 +18,29 @@
   --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --space: clamp(1rem, 4vw, 2rem);
   --num-size: clamp(1.6rem, 6vw, 2rem);
+  /* First screen: page top, title and tool spacing kept tight so the first answers show without scrolling (P4f). */
+  --shell-top: var(--space);
+  --tool-gap: calc(var(--space) * 0.75);
 }
 * { box-sizing: border-box; }
 html { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.5; }
 body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
-.shell { flex: 1; width: 100%; max-width: 72rem; margin: 0 auto; padding: calc(var(--space) * 2) var(--space); }
+.shell { flex: 1; width: 100%; max-width: 72rem; margin: 0 auto; padding: var(--shell-top) var(--space) calc(var(--space) * 2); }
 .eyebrow { color: var(--accent); font-size: 0.875rem; letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 0.5rem; }
-h1 { font-size: clamp(1.75rem, 6vw, 2.75rem); line-height: 1.15; margin: 0 0 1rem; overflow-wrap: anywhere; }
+h1 { font-size: clamp(1.75rem, 6vw, 2.75rem); line-height: 1.15; margin: 0 0 0.5rem; overflow-wrap: anywhere; }
 .status { color: var(--muted); margin: 0; max-width: 38rem; }
 .foot { border-top: 1px solid var(--line); padding: 1rem var(--space); color: var(--muted); font-size: 0.875rem; display: flex; flex-wrap: wrap; gap: 0.25rem 0.5rem; }
 .foot a { color: var(--text); }
 .foot a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Comparison tool */
-.tool { margin-top: calc(var(--space) * 1.5); }
+.tool { margin-top: var(--tool-gap); }
 h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .lede { margin: 0 0 0.5rem; max-width: 46rem; }
 .data-label { color: var(--muted); font-size: 0.875rem; margin: 0 0 1.25rem; max-width: 46rem; }
 .cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); align-items: start; }
 .card { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem; }
-.card-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.75rem; }
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.5rem; }
 .card-title { margin: 0; font-size: 0.875rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
 .fields { display: grid; gap: 0.75rem; }
 .field { display: grid; gap: 0.25rem; min-width: 0; font-size: 0.875rem; color: var(--muted); }
@@ -51,7 +54,7 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .btn-quiet { background: none; border: 0; color: var(--muted); padding: 0.25rem 0.5rem; text-decoration: underline; text-underline-offset: 3px; }
 .field select:focus-visible, .field input:focus-visible, .btn:focus-visible, .btn-quiet:focus-visible,
 .tech summary:focus-visible, .tech a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.card-result { margin-top: 1rem; }
+.card-result { margin-top: 0.75rem; }
 .note { color: var(--muted); margin: 0; }
 .note-warn { color: var(--warn); }
 .answers { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: 0.6rem; }
@@ -80,7 +83,7 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .sky-terrain { fill: none; stroke: var(--ground-line); stroke-width: 1.5; stroke-linejoin: round; }
 .sky-sphere { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 3; }
 .sky-near { margin-top: 0.6rem; }
-.how { margin: 0 0 1.25rem; max-width: 46rem; border-top: 0; padding-top: 0; }
+.how { margin: 0 0 0.75rem; max-width: 46rem; border-top: 0; padding-top: 0; }
 .how .data-label { margin: 0.5rem 0 0; }
 .horizon-kind { margin: 0.75rem 0 0; color: var(--muted); font-size: 0.875rem; }
 .sky-sun.is-up { fill: var(--sun); }
@@ -254,6 +257,9 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .src-dl dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
 .src-plain { margin: 0; padding-left: 1.25rem; }
 @media (max-width: 30rem) {
+  .eyebrow { font-size: 0.75rem; letter-spacing: 0.04em; }
+  .tool h2 { font-size: 1.15rem; }
+  .fields { gap: 0.5rem; }
   .src-dl { grid-template-columns: minmax(0, 1fr); gap: 0.1rem; }
   .src-dl dd { margin-bottom: 0.35rem; }
 }

@@ -7,7 +7,7 @@ Profiles: Chromium desktop 1280 px, Chromium 320 px, WebKit iPhone 13.
 On each: the compare tool renders answers, the site select and the time input
 update them, own coordinates (item b) give answers, the 2D map (item h) and 3D surface (item i) draw, "add" makes one more card, technical details open, the validation
 page shows its numbers, About lists items a–l and limitations, Data sources lists the frozen files;
-zero console errors, zero requests to other hosts,
+the first answers of the first card fit the first screen (P4f), zero console errors, zero requests to other hosts,
 no horizontal overflow. Prints one line per profile; exit 1 on any failure.
 Screenshots go to $AUTOPILOT_BUKTI_DIR (or $SMOKE_SHOTS) when set.
 """
@@ -25,6 +25,9 @@ PROFILES = [
 TIMEOUT_MS = 15000
 # Sites with a terrain skyline in data/horizon/ (item j); every other site must say "ideal sphere horizon".
 TERRAIN_SITES = {"im-1", "im-2"}
+# First screen (P4f): on a 1280 x 900 desktop window both large numbers of the first card end inside it; on an
+# iPhone 13 (664 px tall) the first answer of the first card starts inside it. Positions are page coordinates at scroll 0.
+FIRST_SCREEN = {"chromium-1280": (".answer-comm .answer-deg", "bottom", 900), "webkit-iphone13": (".answer-power", "top", 664)}
 
 
 def no_overflow(page):
@@ -214,6 +217,10 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
               "first screen: scenario cards before the side-by-side table")
         check(not page.locator("details.how").evaluate("d => d.open"), "first screen: explanation folded in 'How to read this'")
         check(first.locator(".shifts details").evaluate("d => d.open"), "first screen: small shifts open on the first card")
+        if name in FIRST_SCREEN:
+            sel, edge, limit = FIRST_SCREEN[name]
+            pos = first.locator(sel).evaluate("(e, k) => e.getBoundingClientRect()[k] + window.scrollY", edge)
+            check(pos <= limit, f"first screen: {sel} {edge} {pos:.0f} px <= {limit} px")
         wide = page.evaluate("() => window.innerWidth >= 1024")
         check(first.locator(".map2d details").evaluate("d => d.open") == wide, "first screen: 2D map open only on wide windows")
         near = page.locator(".card").evaluate_all(
