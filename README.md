@@ -40,6 +40,8 @@ Built so far:
   with day length, radius and pressure quoted from the NASA NSSDCA Moon and Earth fact sheets. It also gives how far Earth moves in
   the site's sky over the whole table. Measured, 2026-11-01 to 2027-11-01: at IM-2 Earth stays within a 16.15° range of azimuth and
   between −2.30° and +10.79° elevation; at Apollo 11 within 37.72° of azimuth and between +57.96° and +73.68°.
+- A 2D map and a 3D surface of LRO LOLA heights, 80 × 80 km around each terrain site (IM-1, IM-2), with the site and the Sun and
+  Earth directions at the chosen time. The 3D surface can be turned to look in any direction; its heights are stretched 2 times.
 
 ## What it will do
 

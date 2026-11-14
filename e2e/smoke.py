@@ -5,7 +5,7 @@
 
 Profiles: Chromium desktop 1280 px, Chromium 320 px, WebKit iPhone 13.
 On each: the compare tool renders answers, the site select and the time input
-update them, own coordinates (item b) give answers, the 2D map (item h) draws, "add" makes one more card, technical details open, the validation
+update them, own coordinates (item b) give answers, the 2D map (item h) and 3D surface (item i) draw, "add" makes one more card, technical details open, the validation
 page shows its numbers; zero console errors, zero requests to other hosts,
 no horizontal overflow. Prints one line per profile; exit 1 on any failure.
 Screenshots go to $AUTOPILOT_BUKTI_DIR (or $SMOKE_SHOTS) when set.
@@ -141,6 +141,33 @@ def map_2d(page, check, shots, name):
     card.locator("select").select_option("im-2")
 
 
+def surface_3d(page, check, shots, name):
+    """Item i: open the 3D block on a LOLA site; surface drawn, slider turns it (keyboard), fits the card; other sites say no surface."""
+    card = page.locator(".card").first
+    card.locator("select").select_option("im-2")
+    box = card.locator(".surface3d")
+    box.wait_for(state="visible")
+    box.locator("summary").click()
+    page.wait_for_function("() => document.querySelector('.card .surf-canvas')?.width > 0")
+    canvas = box.locator(".surf-canvas")
+    stats = ("c => { const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;"
+             " let n = 0, s = 0; for (let i = 0; i < d.length; i += 4) { n += d[i + 3] > 0; s = (s * 31 + d[i] + d[i + 1]) % 1e9; }"
+             " return [n / (d.length / 4), s]; }")
+    drawn, sum0 = canvas.evaluate(stats)
+    check(drawn > 0.3, f"surface: ground drawn on the canvas (i): {drawn:.2f}")
+    value0 = box.locator(".surf-value").inner_text()
+    box.locator(".surf-range").focus()
+    page.keyboard.press("ArrowRight")
+    page.wait_for_function("v => document.querySelector('.card .surf-value').innerText !== v", arg=value0)
+    check(canvas.evaluate(stats)[1] != sum0, "surface: the slider turns the view (i)")
+    check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "surface: fits the card (i)")
+    if shots:
+        box.screenshot(path=os.path.join(shots, f"smoke-{name}-surface.png"))
+    card.locator("select").select_option("apollo-11")
+    page.wait_for_function("() => document.querySelector('.card .surf-body')?.innerText.startsWith('No 3D')")
+    card.locator("select").select_option("im-2")
+
+
 def run_profile(p, name, engine, ctx_opts, base, shots):
     browser = getattr(p, engine).launch()
     opts = p.devices[ctx_opts] if isinstance(ctx_opts, str) else ctx_opts
@@ -208,6 +235,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         small_shifts(page, check)
         moon_earth(page, check, shots, name)
         map_2d(page, check, shots, name)
+        surface_3d(page, check, shots, name)
         own_coordinates(page, check)
         page.locator(".card details.tech summary").first.click()
         check(page.locator(".card details.tech").first.evaluate("d => d.open"), "technical details open")

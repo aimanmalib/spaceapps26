@@ -218,3 +218,11 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .key-site::before { background: var(--text); }
 .key-skyline::before { background: var(--ground-line); width: 0.45rem; height: 0.45rem; }
 .map-note { font-size: 0.8125rem; color: var(--muted); }
+
+/* 3D surface (item i): canvas keeps its drawn aspect; the slider spans the frame width. */
+.surface3d { min-width: 0; }
+.surf-turn { display: block; margin-top: 0.75rem; font-size: 0.875rem; }
+.surf-value { font-variant-numeric: tabular-nums; color: var(--muted); }
+.surf-range { display: block; width: 100%; max-width: 30rem; margin: 0.35rem 0 0; accent-color: var(--accent); }
+.surf-frame { width: 100%; max-width: 30rem; margin: 0.75rem 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--bg); }
+.surf-canvas { display: block; width: 100%; height: auto; }

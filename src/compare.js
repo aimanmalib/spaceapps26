@@ -11,6 +11,7 @@ import { mountTimeline } from './timeline-ui.js';
 import { mountShifts } from './shifts-ui.js';
 import { mountMoonEarth } from './moonearth-ui.js';
 import { mountMap } from './map2d-ui.js';
+import { mountSurface } from './surface3d-ui.js';
 import { CUSTOM_ID, customOptionHtml, customFieldsHtml, syncFields, readCustom, invalidText } from './custom.js';
 
 let uid = 0;
@@ -36,7 +37,7 @@ function cardDom(t, sites, sc, custom) {
     (custom ? customFieldsHtml(t, id, custom.cfg) : '') +
     `<label class="field" for="${id}-time"><span>${e(t('scenario.time'))}</span>` +
     `<input id="${id}-time" type="datetime-local" step="60" required></label></div>` +
-    `<div class="card-result" aria-live="polite"></div><section class="card-timeline" hidden></section><section class="card-shifts" hidden></section><section class="card-me" hidden></section><section class="card-map" hidden></section>`;
+    `<div class="card-result" aria-live="polite"></div><section class="card-timeline" hidden></section><section class="card-shifts" hidden></section><section class="card-me" hidden></section><section class="card-map" hidden></section><section class="card-surface" hidden></section>`;
   el.querySelector('select').value = sc.site;
   el.querySelector('input[type=datetime-local]').value = sc.time_utc;
   if (custom && sc.coords) [...el.querySelectorAll('.custom-fields input')].forEach((input, i) => (input.value = sc.coords[i]));
@@ -47,8 +48,9 @@ function cardDom(t, sites, sc, custom) {
 // horizons = {siteId: () => Promise<profile>} for sites with a terrain skyline (data/horizon/); others use the ideal sphere.
 // custom = {cfg: config/custom.json, tables: site → Promise<table>} when item b is on (src/custom.js).
 // shifts = item l settings for src/shifts-ui.js when item l is on; me = config/moon-earth.json when item k is on;
-// map = {cfg: config/map2d.json, maps: siteId → () => Promise<data/map file>} when item h is on.
-export function mountCompare(root, { t, sites, view, horizons = {}, features = {}, custom = null, shifts = null, me = null, map = null }) {
+// map = {cfg: config/map2d.json, maps: siteId → () => Promise<data/map file>} when item h is on;
+// surface = {cfg: config/surface3d.json, light: config/map2d.json, maps} when item i is on.
+export function mountCompare(root, { t, sites, view, horizons = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null }) {
   const list = root.querySelector('.cards');
   const add = root.querySelector('.add');
   const glance = root.querySelector('.glance-body');
@@ -117,8 +119,10 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
       else r.c.sh?.hide();
       if (r.sample) r.c.me?.draw({ table: r.table, ms: r.ms });
       else r.c.me?.hide();
-      if (r.sample) r.c.map?.draw({ site: r.site, profile: r.profile, sample: r.sample, up: r.up });
-      else r.c.map?.hide();
+      for (const b of [r.c.map, r.c.surf]) {
+        if (r.sample) b?.draw({ site: r.site, profile: r.profile, sample: r.sample, up: r.up });
+        else b?.hide();
+      }
     }
     if (glance) glance.innerHTML = glanceHtml(t, rows);
   }
@@ -141,6 +145,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
     if (features.l_small_shifts && shifts) c.sh = mountShifts(c.el.querySelector('.card-shifts'), { t, view, shifts });
     if (features.k_moon_vs_earth && me) c.me = mountMoonEarth(c.el.querySelector('.card-me'), { t, me });
     if (features.h_map_2d && map) c.map = mountMap(c.el.querySelector('.card-map'), { t, ...map });
+    if (features.i_surface_3d && surface) c.surf = mountSurface(c.el.querySelector('.card-surface'), { t, ...surface, uid: `surf${++uid}` });
     c.el.querySelector('.card-remove').addEventListener('click', () => {
       c.tl?.destroy();
       cards.splice(cards.indexOf(c), 1);

@@ -9,7 +9,7 @@
     "f_key_numbers": true,
     "g_timeline": true,
     "h_map_2d": true,
-    "i_surface_3d": false,
+    "i_surface_3d": true,
     "j_terrain_horizon": true,
     "k_moon_vs_earth": true,
     "l_small_shifts": true

@@ -1,0 +1,10 @@
+{
+  "_note": "3D surface (item i). Uses the same LOLA heights as the 2D map (data/map/<site>.json, config/map2d.json): no new data. The page draws the ground seen from above at a fixed tilt; the reader turns it to any compass direction. Heights (and the vertical part of the Sun and Earth lines) are stretched by `exaggeration` so the relief is visible; the page states the factor. Colours and relief shading are the same as the 2D map.",
+  "every_cells": 2,
+  "tilt_deg": 30,
+  "exaggeration": 2,
+  "look_default_deg": 0,
+  "look_step_deg": 15,
+  "ray_km": 30,
+  "canvas_width_px": 720
+}
