@@ -20,18 +20,22 @@
     <main class="shell">
       <p class="eyebrow" data-i18n="app.event"></p>
       <h1 data-i18n="app.name"></h1>
-      <p class="status" data-i18n="app.status"></p>
       <section id="compare" class="tool" aria-labelledby="tool-heading">
         <h2 id="tool-heading" data-i18n="tool.heading"></h2>
-        <p class="lede" data-i18n="tool.intro"></p>
-        <p class="data-label" data-i18n="tool.data_label"></p>
+        <p class="lede" data-i18n="tool.lede"></p>
+        <details class="tech how">
+          <summary data-i18n="tool.how"></summary>
+          <p data-i18n="app.status"></p>
+          <p data-i18n="tool.intro"></p>
+          <p class="data-label" data-i18n="tool.data_label"></p>
+        </details>
+        <div class="cards"></div>
+        <button type="button" class="btn add"></button>
         <section class="glance" aria-labelledby="glance-heading">
           <h3 id="glance-heading" class="glance-heading" data-i18n="glance.heading"></h3>
           <p class="note glance-intro" data-i18n="glance.intro"></p>
           <div class="glance-body" aria-live="polite"></div>
         </section>
-        <div class="cards"></div>
-        <button type="button" class="btn add"></button>
       </section>
     </main>
     <footer class="foot">

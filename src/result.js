@@ -9,15 +9,24 @@ function deg(v, decimals) {
   return v.toFixed(decimals);
 }
 
-// One answer: plain headline, the elevation as the large number (item f), time to set/rise (item e), window length (item f).
-function status(t, kind, f, sky) {
+// The large number: distance above/below the horizon used (terrain skyline or ideal sphere), so it never contradicts
+// the answer and matches the small-shifts table. body = 'sky.sun' | 'sky.earth'.
+function marginLabel(t, f, body, terrain, decimals) {
+  const dir = t(f.margin > 0 ? 'answer.above' : 'answer.below');
+  const text = fill(t(terrain ? 'answer.margin_terrain' : 'answer.margin_sphere'), { body: t(body), dir });
+  return { num: `${Math.abs(f.margin).toFixed(decimals)}°`, text };
+}
+
+// One answer: plain headline, the margin from the horizon as the large number (item f), time to set/rise (item e),
+// window length (item f); on terrain sites a small line gives the Horizons elevation and the skyline behind the margin.
+function status(t, kind, f, m, sky) {
   const up = f.up;
   return (
     `<li class="answer ${up ? 'is-up' : 'is-down'} answer-${kind}">` +
     `<span class="answer-dot" aria-hidden="true"></span>` +
     `<span class="answer-text"><strong>${e(t(`${kind}.${up ? 'yes' : 'no'}`))}</strong>` +
-    `<span class="answer-num"><span class="answer-deg">${e(f.elText)}</span>` +
-    `<span class="answer-unit">${e(t(`${kind}.el_label`))}</span></span>` +
+    `<span class="answer-num"><span class="answer-deg">${e(m.num)}</span>` +
+    `<span class="answer-unit">${e(m.text)}</span></span>` +
     `<span class="answer-when">${e(f.timing)}</span>` +
     (sky ? `<span class="answer-sky">${e(sky)}</span>` : '') +
     (f.window ? `<span class="answer-why">${e(f.window)}<span class="answer-range">${e(f.range)}</span></span>` : '') +
@@ -36,18 +45,37 @@ function horizonKey(r) {
   return r.site.custom ? 'details.horizon_custom' : 'details.horizon';
 }
 
+// Near-horizon strip (terrain sites): the same panorama at ±view.near_horizon_deg, so the gap between the Sun/Earth
+// and the skyline is visible (polar angles are a few degrees; the shared scale above can be ±90°).
+function nearStrip(t, r, view, ticks) {
+  const s = view.near_horizon_deg;
+  const aria = fill(t('sky.near_aria'), { deg: s, sm: r.facts.sun.marginText, em: r.facts.earth.marginText });
+  return (
+    `<figure class="sky sky-near">` +
+    `<div class="sky-plot" role="img" aria-label="${e(aria)}">` +
+    `<span class="sky-el sky-el-top">+${s}°</span><span class="sky-el sky-el-mid">0°</span><span class="sky-el sky-el-bottom">−${s}°</span>` +
+    skySvg(r.sample, s, r.up, r.profile) +
+    `</div><div class="sky-axis" aria-hidden="true">${ticks}</div>` +
+    `<figcaption class="sky-legend">${e(fill(t('sky.near_caption'), { deg: s }))}</figcaption></figure>`
+  );
+}
+
 // r = {site, sample, up:{sun,earth}, scale, facts:{sun,earth}} (facts from facts.js); view = config/view.json.
 export function resultHtml(t, r, view) {
   const d = view.decimals;
   const { sun, earth } = r.sample;
-  // Terrain skyline elevation at the body's azimuth (item j); none for the ideal sphere.
-  const skyAt = (b) => (r.profile ? fill(t('sky.skyline_at'), { el: signedDeg(horizonAt(r.profile, r.sample[b].az), d) }) : null);
+  // Horizons elevation + terrain skyline elevation at the body's azimuth (item j); none for the ideal sphere.
+  const skyAt = (b, kind) =>
+    r.profile
+      ? fill(t('answer.el_line'), { label: t(`${kind}.el_label`), el: r.facts[b].elText, sky: signedDeg(horizonAt(r.profile, r.sample[b].az), d) })
+      : null;
+  const answer = (kind, b, body) => status(t, kind, r.facts[b], marginLabel(t, r.facts[b], body, !!r.profile, d), skyAt(b, kind));
   const row = (name, p) => `<tr><th scope="row">${e(t(name))}</th><td>${deg(p.az, d)}°</td><td>${deg(p.el, d)}°</td></tr>`;
   const ticks = ['0', '90', '180', '270', '360']
     .map((a) => `<span class="sky-az" style="left:${(+a / 360) * 100}%">${e(t(`sky.az.${a}`))}</span>`)
     .join('');
   return (
-    `<ul class="answers">${status(t, 'power', r.facts.sun, skyAt('sun'))}${status(t, 'comm', r.facts.earth, skyAt('earth'))}</ul>` +
+    `<ul class="answers">${answer('power', 'sun', 'sky.sun')}${answer('comm', 'earth', 'sky.earth')}</ul>` +
     `<figure class="sky">` +
     `<div class="sky-plot" role="img" aria-label="${e(fill(t('sky.aria'), { saz: deg(sun.az, 0), sel: deg(sun.el, d), eaz: deg(earth.az, 0), eel: deg(earth.el, d) }))}">` +
     `<span class="sky-el sky-el-top">+${r.scale}°</span><span class="sky-el sky-el-mid">0°</span>` +
@@ -58,6 +86,7 @@ export function resultHtml(t, r, view) {
     `<span class="key key-earth">${e(t('sky.earth'))}</span><span class="key key-down">${e(t('sky.below'))}</span>` +
     `<span class="key-line">${e(t(r.profile ? 'sky.terrain' : 'sky.sphere'))}</span></figcaption>` +
     `</figure>` +
+    (r.profile ? nearStrip(t, r, view, ticks) : '') +
     `<p class="horizon-kind">${e(t(r.profile ? 'horizon.terrain' : r.site.custom ? 'horizon.custom' : 'horizon.sphere'))}</p>` +
     `<details class="tech"><summary>${e(t('details.summary'))}</summary>` +
     `<table class="tech-table"><thead><tr><th scope="col">${e(t('details.body'))}</th><th scope="col">${e(t('details.az'))}</th>` +

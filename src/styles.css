@@ -79,6 +79,9 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .sky-horizon { stroke: var(--ground-line); stroke-width: 1.5; }
 .sky-terrain { fill: none; stroke: var(--ground-line); stroke-width: 1.5; stroke-linejoin: round; }
 .sky-sphere { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 3; }
+.sky-near { margin-top: 0.6rem; }
+.how { margin: 0 0 1.25rem; max-width: 46rem; border-top: 0; padding-top: 0; }
+.how .data-label { margin: 0.5rem 0 0; }
 .horizon-kind { margin: 0.75rem 0 0; color: var(--muted); font-size: 0.875rem; }
 .sky-sun.is-up { fill: var(--sun); }
 .sky-earth.is-up { fill: var(--earth); }
@@ -112,7 +115,7 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 }
 
 /* Side-by-side table */
-.glance { margin: 0 0 1.25rem; }
+.glance { margin: 1.5rem 0 0; }
 .glance-heading { margin: 0; font-size: 0.875rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
 .glance-intro { font-size: 0.875rem; margin: 0.25rem 0 0.5rem; }
 .table-scroll.glance-scroll { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }

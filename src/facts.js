@@ -22,8 +22,9 @@ export function signedDeg(el, decimals) {
   return `${el > 0 && +v > 0 ? '+' : el < 0 && +v > 0 ? '−' : ''}${v}°`;
 }
 
-// One body: {el, up, elText, timing, window (sentence), windowShort (table cell), range}.
-export function bodyFacts(t, table, ms, body, el, up, view) {
+// One body: {el, up, elText, margin, marginText, timing, window (sentence), windowShort (table cell), range}.
+// margin = elevation above the horizon used (terrain skyline or ideal sphere); the large number on the card.
+export function bodyFacts(t, table, ms, body, el, up, view, margin = el) {
   const w = windowAt(table, ms, body, up, view.horizon_threshold_deg);
   const k = `${body}.${up ? 'set' : 'rise'}`;
   let timing;
@@ -41,10 +42,10 @@ export function bodyFacts(t, table, ms, body, el, up, view) {
     windowShort = up ? d : fill(t('win.next_short'), { dur: d });
     range = fill(t('win.range'), { from: utc(w.start), to: utc(w.end) });
   }
-  return { el, up, elText: signedDeg(el, view.decimals), timing, window, windowShort, range };
+  return { el, up, elText: signedDeg(el, view.decimals), margin, marginText: signedDeg(margin, view.decimals), timing, window, windowShort, range };
 }
 
-// r = {sample, up:{sun,earth}}; table = the site's Horizons table.
+// r = {sample, up:{sun,earth}, margin?:{sun,earth}}; table = the site's table relative to the horizon used.
 export function scenarioFacts(t, table, ms, r, view) {
-  return Object.fromEntries(BODIES.map((b) => [b, bodyFacts(t, table, ms, b, r.sample[b].el, r.up[b], view)]));
+  return Object.fromEntries(BODIES.map((b) => [b, bodyFacts(t, table, ms, b, r.sample[b].el, r.up[b], view, r.margin?.[b] ?? r.sample[b].el)]));
 }

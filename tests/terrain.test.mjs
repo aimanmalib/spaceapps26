@@ -76,18 +76,18 @@ test('card answers state the skyline elevation in the body direction only when t
   const { makeT } = await import('../src/i18n.js');
   const { readFileSync } = await import('node:fs');
   const t = makeT(JSON.parse(readFileSync(new URL('../i18n/en.json', import.meta.url), 'utf8')));
-  const f = (up) => ({ up, elText: '+3.0°', timing: 'x', window: null, range: null });
+  const f = (up) => ({ up, elText: '+3.0°', margin: up ? 1 : -1, marginText: up ? '+1.0°' : '−1.0°', timing: 'x', window: null, range: null });
   const r = {
     site: { lat: -80, lon_east: 1, source: { url: 'https://example.invalid/', publisher: 'p' } },
     sample: { sun: { az: 180, el: 3 }, earth: { az: 90, el: 3 } }, up: { sun: false, earth: true },
     facts: { sun: f(false), earth: f(true) }, scale: 10,
   };
-  const view = { decimals: 1, horizon_threshold_deg: 0 };
+  const view = { decimals: 1, horizon_threshold_deg: 0, near_horizon_deg: 10 };
   const terrainHtml = resultHtml(t, { ...r, profile }, view);
-  assert.ok(terrainHtml.includes('Terrain skyline in that direction: +4.0°'));
-  assert.ok(terrainHtml.includes('Terrain skyline in that direction: +2.0°'));
+  assert.ok(terrainHtml.includes('terrain skyline in that direction +4.0°'));
+  assert.ok(terrainHtml.includes('terrain skyline in that direction +2.0°'));
   assert.ok(terrainHtml.includes(t('horizon.terrain')));
   const sphereHtml = resultHtml(t, { ...r, profile: null }, view);
-  assert.ok(!sphereHtml.includes('Terrain skyline in that direction'));
+  assert.ok(!sphereHtml.includes('terrain skyline in that direction'));
   assert.ok(sphereHtml.includes(t('horizon.sphere')));
 });

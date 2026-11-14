@@ -28,7 +28,8 @@ def open_compare(page, base):
 
 def open_block(page, cls, ready_js):
     box = page.locator(".card").first.locator(cls)
-    box.locator("summary").click()
+    if not box.locator("details").first.evaluate("d => d.open"):  # first-card blocks may start open
+        box.locator("summary").first.click()
     page.wait_for_function(ready_js, timeout=TIMEOUT_MS)
     page.wait_for_timeout(400)
     return box

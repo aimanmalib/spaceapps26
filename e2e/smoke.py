@@ -54,6 +54,12 @@ def split_words(page, sel):
     return page.evaluate(SPLIT_WORDS_JS, sel)
 
 
+def open_box(box):
+    """Open a per-card <details> block; on the first card some start open (config/view.json "first_card")."""
+    if not box.locator("details").first.evaluate("d => d.open"):
+        box.locator("summary").first.click()
+
+
 def answers(page, n):
     return page.locator(".card").nth(n).locator(".card-result").inner_text()
 
@@ -87,7 +93,7 @@ def small_shifts(page, check):
     card.locator("select").select_option("im-2")
     box = card.locator(".shifts")
     box.wait_for(state="visible")
-    box.locator("summary").click()
+    open_box(box)
     page.wait_for_function("() => document.querySelector('.card .shifts-body')?.innerText.includes('km north')", timeout=30000)
     rows = box.locator(".shift-table tbody tr").count()
     check(rows == 9, f"small shifts: chosen + 4 time + 4 nearby rows (l), got {rows}")
@@ -126,7 +132,7 @@ def map_2d(page, check, shots, name):
     card.locator("select").select_option("im-2")
     box = card.locator(".map2d")
     box.wait_for(state="visible")
-    box.locator("summary").click()
+    open_box(box)
     page.wait_for_function("() => document.querySelector('.card .map-canvas')")
     drawn = box.locator(".map-canvas").evaluate(
         "c => { const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;"
@@ -203,6 +209,16 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
               and page.locator(".answers .answer-when").count() == 2 * n0, "elevation + time to set/rise on every answer (f, e)")
         check(page.locator(".glance-table thead th").count() == n0, "side-by-side table: one column per scenario (c)")
         check(page.locator(".card .horizon-kind").count() == n0, "every card says which horizon it uses (j)")
+        first = page.locator(".card").first
+        check(page.evaluate("() => !!(document.querySelector('.cards').compareDocumentPosition(document.querySelector('.glance')) & 4)"),
+              "first screen: scenario cards before the side-by-side table")
+        check(not page.locator("details.how").evaluate("d => d.open"), "first screen: explanation folded in 'How to read this'")
+        check(first.locator(".shifts details").evaluate("d => d.open"), "first screen: small shifts open on the first card")
+        wide = page.evaluate("() => window.innerWidth >= 1024")
+        check(first.locator(".map2d details").evaluate("d => d.open") == wide, "first screen: 2D map open only on wide windows")
+        near = page.locator(".card").evaluate_all(
+            "cs => cs.map(c => [c.querySelector('select').value, !!c.querySelector('.sky-near')])")
+        check(all(has == (site in TERRAIN_SITES) for site, has in near), f"near-horizon strip only for LOLA sites: {near}")
         terrain = page.locator(".card").evaluate_all(
             "cs => cs.map(c => [c.querySelector('select').value, !!c.querySelector('.sky-terrain')])")
         check(all(has == (site in TERRAIN_SITES) for site, has in terrain), f"terrain skyline only for LOLA sites: {terrain}")

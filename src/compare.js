@@ -2,11 +2,12 @@
 // Scenario cards (site + UTC date/time) side by side. Inputs stay in the DOM; only result areas are redrawn.
 import { fill, escapeHtml as e } from './i18n.js';
 import { loadTable } from './data.js';
-import { parseUtc, formatUtc, tableRange, sampleAt, isAbove, sharedScale } from './ephem.js';
+import { parseUtc, formatUtc, tableRange, sampleAt, sharedScale } from './ephem.js';
 import { resultHtml } from './result.js';
 import { scenarioFacts } from './facts.js';
 import { glanceHtml } from './glance.js';
-import { relativeTable, aboveHorizon } from './terrain.js';
+import { relativeTable } from './terrain.js';
+import { judge } from './shifts.js';
 import { mountTimeline } from './timeline-ui.js';
 import { mountShifts } from './shifts-ui.js';
 import { mountMoonEarth } from './moonearth-ui.js';
@@ -15,6 +16,12 @@ import { mountSurface } from './surface3d-ui.js';
 import { CUSTOM_ID, customOptionHtml, customFieldsHtml, syncFields, readCustom, invalidText } from './custom.js';
 
 let uid = 0;
+
+// First-card blocks that start open (config/view.json "first_card"); each block draws on its own 'toggle'.
+function openBlock(card, cls) {
+  const d = card.querySelector(`${cls} details`);
+  if (d) d.open = true;
+}
 
 // Site list grouped as in config/sites.json (Apollo, CLPS, other nations); group order = first appearance.
 export function siteOptions(t, sites) {
@@ -102,10 +109,12 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
       input.max = formatUtc(endMs);
       return { msg: fill(t('state.out_of_range'), { start: formatUtc(startMs).replace('T', ' '), end: formatUtc(endMs).replace('T', ' ') }) };
     }
-    const th = view.horizon_threshold_deg;
-    const up = { sun: isAbove(aboveHorizon(sample.sun, profile), th), earth: isAbove(aboveHorizon(sample.earth, profile), th) };
+    // Same judgement as the small-shifts table (item l), so the card and that table show one set of numbers.
+    const j = judge(sample, profile, view.horizon_threshold_deg);
+    const up = { sun: j.sun.up, earth: j.earth.up };
+    const margin = { sun: j.sun.margin, earth: j.earth.margin };
     const rel = relativeTable(table, profile);
-    return { sample, up, profile, rel, table, facts: scenarioFacts(t, rel, x.ms, { sample, up }, view) };
+    return { sample, up, profile, rel, table, facts: scenarioFacts(t, rel, x.ms, { sample, up, margin }, view) };
   }
 
   function draw(rows) {
@@ -144,9 +153,13 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
       };
       c.tl = mountTimeline(c.el.querySelector('.card-timeline'), { t, view, onTime, uid: `tl${++uid}` });
     }
+    const first = cards.length === 0;
     if (features.l_small_shifts && shifts) c.sh = mountShifts(c.el.querySelector('.card-shifts'), { t, view, shifts });
+    if (first && view.first_card?.shifts_open) openBlock(c.el, '.shifts');
     if (features.k_moon_vs_earth && me) c.me = mountMoonEarth(c.el.querySelector('.card-me'), { t, me });
     if (features.h_map_2d && map) c.map = mountMap(c.el.querySelector('.card-map'), { t, ...map });
+    const wide = view.first_card?.map_open_min_width_px;
+    if (first && wide && window.matchMedia(`(min-width: ${wide}px)`).matches) openBlock(c.el, '.map2d');
     if (features.i_surface_3d && surface) c.surf = mountSurface(c.el.querySelector('.card-surface'), { t, ...surface, uid: `surf${++uid}` });
     c.el.querySelector('.card-remove').addEventListener('click', () => {
       c.tl?.destroy();
