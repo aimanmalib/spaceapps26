@@ -14,6 +14,9 @@ Team: Aiman Malib.
 ## Status
 
 Built during the event weekend (14–15 November 2026). Live site: <https://spaceapps26.aimanmalib.com/> (Compare, Validation, Data sources, About).
+Demo deck (7 slides): [`demo/demo.pdf`](demo/demo.pdf).
+
+![One scenario card at IM-2 while the timeline slider moves through one lunar day (real screen capture)](docs/media/timeline.gif)
 
 Built:
 
@@ -117,6 +120,8 @@ near the pole the PGDA Sun value ranges from 51.0 % to 84.7 % within the 3 × 3 
 ## Tests
 
 - `bash scripts/gerbang-ujian.sh` — build, JavaScript and Python unit tests.
+- `python3 scripts/capture_media.py` then `python3 scripts/render_demo.py` — the screenshots in `docs/media/` and the demo deck
+  `demo/demo.pdf` (Playwright; Pillow for the GIF).
 - `python3 e2e/smoke.py <site URL>` — browser smoke test of a deployed copy (Chromium desktop 1280 px,
   Chromium 320 px, WebKit iPhone 13): the comparison and validation pages work, no console errors,
   no requests to other hosts, no horizontal overflow. Needs the Python `playwright` package and its browsers.

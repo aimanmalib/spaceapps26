@@ -1,0 +1,176 @@
+<!-- SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="si-disclosure" content="Slide layout generated with SI (Claude Code, Anthropic). English text translated and edited with SI from the author's Malay notes; numbers measured from data/validation.json; images are real screenshots of the app. See SI-DISCLOSURE.md.">
+<title>Lunar Landing Site Navigator: demo deck</title>
+<style>
+  /* Same colour tokens as src/styles.css (the site). One slide = 1280 × 720 px = one PDF page (16:9). */
+  :root { --bg: #0b0d10; --surface: #14181d; --text: #e8eaed; --muted: #a3abb5; --accent: #f2c14e; --line: #262c33; --earth: #7cc4ff;
+          --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  @page { size: 1280px 720px; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); }
+  .slide { width: 1280px; height: 720px; padding: 56px 72px; position: relative; overflow: hidden; page-break-after: always;
+           display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .slide:last-child { page-break-after: auto; }
+  .slide.one { grid-template-columns: 1fr; }
+  .kicker { color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; font-size: 15px; font-weight: 700; margin: 0 0 14px; }
+  h1 { font-size: 64px; line-height: 1.05; margin: 0 0 24px; letter-spacing: -0.01em; }
+  h2 { font-size: 30px; line-height: 1.15; margin: 0 0 22px; }
+  p, li { font-size: 19px; line-height: 1.45; margin: 0 0 10px; }
+  ul { padding-left: 1.1em; margin: 0; }
+  li::marker { color: var(--accent); }
+  .one li { font-size: 21px; }
+  .one blockquote { font-size: 25px; }
+  .one h2 { font-size: 36px; }
+  .tight li { font-size: 17px; margin-bottom: 6px; }
+  .muted { color: var(--muted); }
+  .small { font-size: 15px; }
+  .num { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 700; }
+  .earth { color: var(--earth); }
+  blockquote { margin: 0 0 22px; padding: 4px 0 4px 20px; border-left: 3px solid var(--accent); font-size: 21px; line-height: 1.45; }
+  .shot { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); }
+  .shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+  .tall { height: 608px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; height: 608px; }
+  .foot { position: absolute; left: 72px; right: 72px; bottom: 24px; display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; }
+  .facts { display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; font-size: 19px; margin: 28px 0 0; }
+  .facts dt { color: var(--muted); }
+  .facts dd { margin: 0; }
+  table { border-collapse: collapse; font-size: 16px; margin: 6px 0 14px; }
+  td, th { text-align: left; padding: 5px 16px 5px 0; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<section class="slide">
+  <div>
+    <p class="kicker">NASA Space Apps Challenge 2026 · Jakarta (virtual)</p>
+    <h1>Lunar Landing Site Navigator</h1>
+    <dl class="facts">
+      <dt>Challenge</dt><dd>Lunar Landing Site Navigator</dd>
+      <dt>Team</dt><dd>Aiman Malib</dd>
+      <dt>Member</dt><dd>Muhammad Aiman Bin Malib</dd>
+      <dt>Live site</dt><dd>spaceapps26.aimanmalib.com</dd>
+      <dt>Code</dt><dd>github.com/aimanmalib/spaceapps26</dd>
+    </dl>
+  </div>
+  <div class="shot tall"><img src="../docs/media/timeline.gif" alt="Screenshot: one scenario card at IM-2 with its lunar-day timeline"></div>
+  <p class="foot"><span>Images are real screenshots of the app.</span><span>1 / 7</span></p>
+</section>
+
+<section class="slide one">
+  <div>
+    <p class="kicker">The challenge</p>
+    <blockquote>"Your challenge is to create an intuitive tool or application that lets mission planners, educators, and the public compare landing
+    sites and dates quickly, visualizing Sun and Earth positions relative to the horizon to assess power generation potential and
+    direct-to-Earth communication windows." <span class="muted">(NASA Space Apps Challenge 2026)</span></blockquote>
+    <h2>What I chose</h2>
+    <ul>
+      <li>All three audiences named in the challenge: mission planners, educators and the public.</li>
+      <li>All twelve items in the challenge's "Your solution may include" list (a–l): known sites, own coordinates, side-by-side comparison,
+        date and time, time left before sunset or Earthset, Sun elevation, sunlight duration and Earth visibility windows, a timeline,
+        a 2D map, a 3D surface, the terrain horizon from LOLA, Moon and Earth compared, and small shifts in location or date.</li>
+      <li>One web page. Pick a landing site and a date; see whether the Sun and Earth are above the horizon.</li>
+    </ul>
+  </div>
+  <p class="foot"><span>Challenge text quoted from spaceappschallenge.org.</span><span>2 / 7</span></p>
+</section>
+
+<section class="slide">
+  <div>
+    <p class="kicker">Compare sites and dates · items a–f</p>
+    <h2>Sun above the horizon = solar power possible. Earth above it = direct-to-Earth communication possible.</h2>
+    <ul>
+      <li>Ten known landing sites: six Apollo landings, IM-1, IM-2, Chandrayaan-3, Chang'e 4. Or type your own coordinates.</li>
+      <li>Any UTC date and time from 2026-11-01 to 2027-11-01.</li>
+      <li>Up to four scenarios at once, as cards and in one side-by-side table.</li>
+      <li>For each: Sun and Earth elevation, time left before sunset or Earthset, how long sunlight lasts, the Earth visibility window.</li>
+    </ul>
+  </div>
+  <div class="shot tall"><img src="../docs/media/compare.png" alt="Screenshot: scenario cards with Sun and Earth elevation and the horizon panorama"></div>
+  <p class="foot"><span>Example: IM-2 and Apollo 11, 2026-11-14 00:00 UTC.</span><span>3 / 7</span></p>
+</section>
+
+<section class="slide">
+  <div>
+    <p class="kicker">One lunar day, small shifts · items g, k, l</p>
+    <h2>A timeline of one lunar day on every card, and what changes if you move a little.</h2>
+    <ul>
+      <li>Timeline: Sun and Earth elevation over 29.5 Earth days, with a slider and a Play button.</li>
+      <li>Small shifts: the same answers 6 hours and 1 day either way, and 1 km north, east, south and west.</li>
+      <li>Measured, IM-2 at 2026-11-14 00:00 UTC: Earth is <span class="num earth">1.3°</span> above the terrain horizon at the site,
+        but <span class="num earth">1.5°</span> below it 1 km east and <span class="num earth">2.6°</span> below it 1 km south.
+        On the ideal sphere, 1 km tilts the horizon by only <span class="num">0.033°</span>.</li>
+      <li>Moon and Earth compared: day length 29.53 days against 24 hours, quoted from the NASA NSSDCA fact sheets.</li>
+    </ul>
+  </div>
+  <div class="shot tall"><img src="../docs/media/small-shifts.png" alt="Screenshot: small shifts table for IM-2"></div>
+  <p class="foot"><span>The timeline moving: docs/media/timeline.gif in the repository.</span><span>4 / 7</span></p>
+</section>
+
+<section class="slide">
+  <div>
+    <p class="kicker">Terrain horizon from LRO LOLA · items h, i, j</p>
+    <h2>Near the south pole, the horizon is the terrain, not a smooth Moon.</h2>
+    <ul>
+      <li>At IM-1 and IM-2 the horizon is the skyline of LOLA heights around the site, traced in every direction.</li>
+      <li>A 2D map and a 3D surface of LOLA heights, 80 × 80 km around the site, with the Sun and Earth directions at the chosen time.</li>
+      <li>Every other site uses the ideal sphere horizon and says so.</li>
+    </ul>
+  </div>
+  <div class="pair">
+    <div class="shot"><img src="../docs/media/map-2d.png" alt="Screenshot: 2D map of LOLA heights around IM-2"></div>
+    <div class="shot"><img src="../docs/media/surface-3d.png" alt="Screenshot: 3D surface of LOLA heights around IM-2"></div>
+  </div>
+  <p class="foot"><span>Relief shading uses a fixed light, not the real Sun.</span><span>5 / 7</span></p>
+</section>
+
+<section class="slide">
+  <div>
+    <p class="kicker">How NASA data makes it possible</p>
+    <ul class="tight">
+      <li><b>JPL Horizons</b>: Sun and Earth azimuth and elevation from every site, hourly for one year, frozen in the repository.</li>
+      <li><b>LRO LOLA</b> polar elevation grids: the terrain horizon, the 2D map, the 3D surface and the 1 km shifts.</li>
+      <li><b>NASA GSFC PGDA</b> lunar polar illumination maps: an independent check of the terrain horizon.</li>
+      <li><b>NSSDCA</b> fact sheets and landing site list, <b>LROC</b> pages: site coordinates and Moon and Earth values.</li>
+    </ul>
+    <h2 style="margin-top:14px">Checked</h2>
+    <table>
+      <tr><th>Against</th><th>Largest difference</th></tr>
+      <tr><td>JPL Horizons, 50 pairs (tables)</td><td class="num">0.0439°</td></tr>
+      <tr><td>JPL Horizons, 80 pairs (own coordinates)</td><td class="num">0.0446°</td></tr>
+      <tr><td>PGDA, Sun visible, 3 points</td><td class="num">18.0 percentage points</td></tr>
+      <tr><td>PGDA, Earth visible, 3 points</td><td class="num">1.0 percentage points</td></tr>
+    </table>
+  </div>
+  <div class="shot tall"><img src="../docs/media/validation.png" alt="Screenshot: validation page"></div>
+  <p class="foot"><span>Every number: Validation page and data/validation.json.</span><span>6 / 7</span></p>
+</section>
+
+<section class="slide one">
+  <div>
+    <p class="kicker">Limitations, and how it was built</p>
+    <ul>
+      <li>Dates: 2026-11-01 to 2027-11-01 only, one row per hour, interpolated in between.</li>
+      <li>Terrain horizon, 2D map, 3D surface and 1 km shifts: only at IM-1 and IM-2. Own coordinates use the ideal sphere horizon only.</li>
+      <li>In view means the centre of the Sun or Earth disc is above the horizon.</li>
+      <li>Power and communication answers are geometry only: panels, power output, antennas, relays and link budgets are not modelled.</li>
+      <li>The interface is in English only.</li>
+    </ul>
+    <h2 style="margin-top:20px">SI use</h2>
+    <ul>
+      <li>I chose the challenge, the three audiences and the twelve items from NASA's list.</li>
+      <li>SI (Claude Code, Anthropic) wrote the code, data scripts, tests and design on my instructions, and translated my Malay notes into English.</li>
+      <li>No SI-generated images, video or audio. Full statement: SI-DISCLOSURE.md.</li>
+    </ul>
+    <p class="muted small" style="margin-top:18px">Live site: spaceapps26.aimanmalib.com · Code (Apache-2.0): github.com/aimanmalib/spaceapps26</p>
+  </div>
+  <p class="foot"><span>Team Aiman Malib · NASA Space Apps Challenge 2026</span><span>7 / 7</span></p>
+</section>
+
+</body>
+</html>

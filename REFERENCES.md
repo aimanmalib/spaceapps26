@@ -48,13 +48,16 @@ The site's Data sources page shows the same per-file list.
 | Astronomy Engine (`astronomy-engine`, Don Cross) | 2.1.19 | MIT | Sun/Earth directions and the Moon's IAU rotation model for own coordinates, computed in the browser (`src/moonsky.js`); <https://github.com/cosinekitty/astronomy> |
 | Node.js | 22 | MIT | build and tests |
 | Python | 3 (standard library) | PSF | data scripts and tests |
+| Playwright for Python (Microsoft) | 1.62.0 | Apache-2.0 | browser smoke test (`e2e/smoke.py`), screenshots (`scripts/capture_media.py`) and the demo PDF (`scripts/render_demo.py`); <https://playwright.dev/python/> |
+| Pillow | 13.0.0 | MIT-CMU (HPND) | joins the timeline screenshots into `docs/media/timeline.gif` (`scripts/capture_media.py` only); <https://python-pillow.org/> |
 | Claude Code (Anthropic) | — | — | SI tool; see SI-DISCLOSURE.md |
 
 ## Fonts, images and media
 
 - Fonts: none loaded. The pages use the device's system font stack (`system-ui`, `-apple-system`, `Segoe UI`, `Roboto`, `sans-serif`).
 - Images: none bundled. The sky panoramas, timeline, 2D map and 3D surface are drawn in the browser from the data above.
-  Screenshots in `docs/media/` (when present) are real captures of this app.
+  Screenshots in `docs/media/` (five PNG and one GIF) are real captures of this app made by `scripts/capture_media.py`; the demo deck
+  `demo/demo.pdf` uses only those captures.
 - No NASA logos ("meatball"), agency or mission insignia, flags, or SI-generated images, video or audio are used.
 
 ## Standards used in tests
