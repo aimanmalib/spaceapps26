@@ -310,5 +310,17 @@
   "seq.col.date": "Date (UTC)",
   "seq.chosen": "as chosen",
   "seq.changed": "changed",
-  "seq.summary": "Solar power possible on {sun} of {n} dates; direct-to-Earth on {earth} of {n}."
+  "seq.summary": "Solar power possible on {sun} of {n} dates; direct-to-Earth on {earth} of {n}.",
+  "win.heading": "Next windows",
+  "win.intro": "Stretches of time, from the chosen time on, when the Sun and Earth are both above the horizon used for this scenario without a break, so solar power and a direct line to Earth are both possible. Hourly table, centre of each disc; geometry only, no panel or antenna model.",
+  "win.min_label": "Lasting at least",
+  "win.col.start": "Start (UTC)",
+  "win.col.end": "End (UTC)",
+  "win.col.len": "Length",
+  "win.current": "in progress",
+  "win.data_end": "end of the data",
+  "win.use": "Use this start time",
+  "win.use_label": "Use this start time: {start} UTC",
+  "win.none": "No window of that length before {end} UTC (end of the data).",
+  "win.share": "Sun and Earth both above the horizon in {pct} % of the hours from {start} to {end} UTC."
 }

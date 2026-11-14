@@ -118,7 +118,7 @@ def capture_gif(browser, base):
     page.set_default_timeout(TIMEOUT_MS)
     open_compare(page, base)
     card = page.locator(".card").first
-    card.locator("select").select_option(g["site"])
+    card.locator("select[id$='-site']").select_option(g["site"])
     rng = card.locator(".tl input[type=range]")
     top = float(rng.get_attribute("max"))
     # Crop each frame to the card from its top to the end of the timeline controls.

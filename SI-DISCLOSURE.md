@@ -16,6 +16,7 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
 | Team name (the author's own name) | Author |
 | Project name: suggested by SI, chosen by the author | Author (choice); SI (suggestions) |
 | Further options from the challenge text (sequential comparison, an educational game, terrain for custom coordinates, slopes and shadow conditions on the map) | Author, who chose all four on 15 November 2026 from NASA's own wording, listed by SI |
+| Five further features (mission window finder, shareable links with a plain verdict and a Now button, a page for teachers, a guided tour) | Suggested by SI at the author's request on 15 November 2026; the author considered the list and chose all five |
 | Accepting the open-source participant terms | Author |
 | The list of options itself | NASA (challenge text), translated into Malay by SI |
 | Build order (technical dependency and the emphasis in NASA's text), interface design, all code and data scripts, tests, slide layout | SI, on the author's instructions |
@@ -32,6 +33,8 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
 4. 15 November, morning: the author asked for the entry to be made stronger; SI listed four options that NASA's challenge text
    names but the tool did not yet have (sequential comparison, an educational game, terrain for custom coordinates, slopes and
    shadow conditions on the map); the author chose all four.
+5. 15 November, morning: the author asked SI to suggest features; SI suggested five (mission window finder, shareable links with
+   a plain verdict and a Now button, a page for teachers, a guided tour); the author considered the list and chose all five.
 
 The original chat messages are not published.
 

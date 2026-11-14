@@ -42,9 +42,21 @@
     "table_steps": 14,
     "table_step_hours": 24
   },
+  "_note_windows": "Mission window finder (SI suggestion chosen by the author, 15 Nov): \"Next windows\" lists stretches of the hourly table, from the chosen time on, where the Sun and Earth are both above the horizon used (centre of the disc, horizon_threshold_deg) without a break for at least the chosen length (min_hours_options, default_min_hours); at most max_listed windows. Open on the first card only (first_card.windows_open).",
+  "windows": {
+    "min_hours_options": [
+      24,
+      72,
+      168,
+      336
+    ],
+    "default_min_hours": 24,
+    "max_listed": 5
+  },
   "first_card": {
     "shifts_open": true,
     "map_open_min_width_px": 1024,
-    "sequence_open": true
+    "sequence_open": true,
+    "windows_open": true
   }
 }

@@ -11,7 +11,7 @@ the first answers of the first card fit the first screen (P4f), zero console err
 no horizontal overflow. Prints one line per profile; exit 1 on any failure.
 Screenshots go to $AUTOPILOT_BUKTI_DIR (or $SMOKE_SHOTS) when set.
 """
-from datetime import datetime
+from datetime import datetime, timezone
 import os
 import sys
 from urllib.parse import urlsplit
@@ -71,7 +71,7 @@ def answers(page, n):
 def own_coordinates(page, check):
     """Item b: choose own coordinates, type a point, get answers; a bad latitude gives a message, not answers."""
     card = page.locator(".card").first
-    card.locator("select").select_option("custom")
+    card.locator("select[id$='-site']").select_option("custom")
     fields = card.locator(".custom-fields")
     fields.wait_for(state="visible")
     lat, lon = fields.locator("input").nth(0), fields.locator("input").nth(1)
@@ -109,7 +109,7 @@ def one_year(page, check):
 def small_shifts(page, check):
     """Item l: open the small-shifts block on a terrain site; time rows at once, nearby-point rows from the browser engine."""
     card = page.locator(".card").first
-    card.locator("select").select_option("im-2")
+    card.locator("select[id$='-site']").select_option("im-2")
     box = card.locator(".shifts")
     box.wait_for(state="visible")
     open_box(box)
@@ -120,7 +120,7 @@ def small_shifts(page, check):
     check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "small shifts: table fits the card (l)")
     bad = split_words(page, ".card .shift-table th, .card .shift-table td")
     check(not bad, f"small shifts: no word split across lines (l): {bad[:4]}")
-    card.locator("select").select_option("apollo-11")
+    card.locator("select[id$='-site']").select_option("apollo-11")
     page.wait_for_function("() => document.querySelector('.card .shifts-body')?.innerText.includes('ideal sphere')")
     check(box.locator(".shift-table tbody tr").count() == 5, "small shifts: sphere site = time rows only (l)")
 
@@ -136,7 +136,7 @@ def moon_earth(page, check, shots, name):
     text = box.inner_text()
     check("29.53 days" in text and "15.00° per hour" in text and "edge of the lunar sphere" in text, "Moon and Earth: quoted + measured values (k)")
     before = box.locator(".me-earth").inner_text()
-    card.locator("select").select_option("im-2")
+    card.locator("select[id$='-site']").select_option("im-2")
     page.wait_for_function("b => document.querySelector('.card .me-earth')?.innerText !== b", arg=before)
     check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "Moon and Earth: table fits the card (k)")
     bad = split_words(page, ".card .me-table th, .card .me-table td")
@@ -148,7 +148,7 @@ def moon_earth(page, check, shots, name):
 def map_2d(page, check, shots, name):
     """Item h: open the map block on a LOLA site; heights drawn, site + Sun/Earth directions + skyline; other sites say no map."""
     card = page.locator(".card").first
-    card.locator("select").select_option("im-2")
+    card.locator("select[id$='-site']").select_option("im-2")
     box = card.locator(".map2d")
     box.wait_for(state="visible")
     open_box(box)
@@ -162,15 +162,15 @@ def map_2d(page, check, shots, name):
     check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "map: fits the card (h)")
     if shots:
         box.screenshot(path=os.path.join(shots, f"smoke-{name}-map.png"))
-    card.locator("select").select_option("apollo-11")
+    card.locator("select[id$='-site']").select_option("apollo-11")
     page.wait_for_function("() => document.querySelector('.card .map-body')?.innerText.startsWith('No map')")
-    card.locator("select").select_option("im-2")
+    card.locator("select[id$='-site']").select_option("im-2")
 
 
 def surface_3d(page, check, shots, name):
     """Item i: open the 3D block on a LOLA site; surface drawn, slider turns it (keyboard), fits the card; other sites say no surface."""
     card = page.locator(".card").first
-    card.locator("select").select_option("im-2")
+    card.locator("select[id$='-site']").select_option("im-2")
     box = card.locator(".surface3d")
     box.wait_for(state="visible")
     box.locator("summary").click()
@@ -195,15 +195,15 @@ def surface_3d(page, check, shots, name):
     check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "surface: fits the card (i)")
     if shots:
         box.screenshot(path=os.path.join(shots, f"smoke-{name}-surface.png"))
-    card.locator("select").select_option("apollo-11")
+    card.locator("select[id$='-site']").select_option("apollo-11")
     page.wait_for_function("() => document.querySelector('.card .surf-body')?.innerText.startsWith('No 3D')")
-    card.locator("select").select_option("im-2")
+    card.locator("select[id$='-site']").select_option("im-2")
 
 
 def sequence(page, check):
     """Sequential comparison: keyboard step to the next site (date kept), a day later (site kept); date table on the first card."""
     card = page.locator(".card").first
-    sel, tinput = card.locator("select"), card.locator("input[type=datetime-local]")
+    sel, tinput = card.locator("select[id$='-site']"), card.locator("input[type=datetime-local]")
     site0, time0, before = sel.input_value(), tinput.input_value(), answers(page, 0)
     card.locator(".step-site-next").focus()
     page.keyboard.press("Enter")
@@ -225,6 +225,36 @@ def sequence(page, check):
     card.locator(".step-site-prev").click()
     page.wait_for_function("s => document.querySelector('.card select').value === s", arg=site0)
     card.locator(".step-time-prev").click()
+    page.wait_for_function("t => document.querySelector('.card input[type=datetime-local]').value === t", arg=time0)
+
+
+def windows(page, check):
+    """Mission window finder: open on the first card, windows listed, "Use this start time" sets the card time; folded elsewhere."""
+    card = page.locator(".card").first
+    tinput = card.locator("input[type=datetime-local]")
+    time0 = tinput.input_value()
+    box = card.locator(".mission")
+    check(box.locator("details").evaluate("d => d.open"), "next windows open on the first card (window finder)")
+    page.wait_for_function("() => document.querySelectorAll('.card .win-list .win-item, .card .win-none').length > 0")
+    items = box.locator(".win-item").count()
+    check(items > 0 and "Sun and Earth both above the horizon in" in box.locator(".win-sum").inner_text(),
+          f"windows listed + share line (window finder): {items}")
+    box.locator(".win-min").select_option(box.locator(".win-min option").last.get_attribute("value"))
+    page.wait_for_function("() => document.querySelector('.card .win-min').value === document.querySelector('.card .win-min option:last-child').value")
+    check(box.locator(".win-item, .win-none").count() > 0, "longer length re-lists (window finder)")
+    box.locator(".win-min").select_option(box.locator(".win-min option").first.get_attribute("value"))
+    use = box.locator(".win-use").first
+    want = int(use.get_attribute("data-ms"))
+    use.focus()
+    page.keyboard.press("Enter")
+    page.wait_for_function("t => document.querySelector('.card input[type=datetime-local]').value !== t", arg=time0)
+    got = datetime.fromisoformat(tinput.input_value()).replace(tzinfo=timezone.utc).timestamp() * 1000
+    check(abs(got - want) < 60_000, "Use this start time sets the card time (window finder)")
+    check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "window list fits the card (window finder)")
+    second = page.locator(".card").nth(1).locator(".mission details")
+    check(not second.evaluate("d => d.open"), "next windows folded on the other cards (window finder)")
+    tinput.fill(time0)
+    tinput.dispatch_event("change")
     page.wait_for_function("t => document.querySelector('.card input[type=datetime-local]').value === t", arg=time0)
 
 
@@ -309,6 +339,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         one_year(page, check)
         small_shifts(page, check)
         sequence(page, check)
+        windows(page, check)
         moon_earth(page, check, shots, name)
         map_2d(page, check, shots, name)
         surface_3d(page, check, shots, name)
@@ -320,7 +351,8 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         check(page.locator(".glance-scroll").evaluate("e => e.scrollWidth <= e.clientWidth || getComputedStyle(e).overflowX === 'auto'"),
               "side-by-side table scrolls inside its own box")
         if shots:
-            page.screenshot(path=os.path.join(shots, f"smoke-{name}-compare.png"), full_page=True)
+            tall = page.evaluate("document.documentElement.scrollHeight * devicePixelRatio") > 30000  # WebKit limit 32767 device px
+            page.screenshot(path=os.path.join(shots, f"smoke-{name}-compare.png"), full_page=not tall)
 
         page.goto(base.rstrip("/") + "/validation.html", wait_until="networkidle")
         page.locator("#validation table").first.wait_for()
@@ -329,7 +361,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         check("PGDA" in text and "%" in text, "terrain check against NASA PGDA shown (H9 b)")
         check(no_overflow(page), "validation page: no horizontal overflow")
         if shots:
-            tall = page.evaluate("document.documentElement.scrollHeight") > 30000  # WebKit screenshot limit 32767 px
+            tall = page.evaluate("document.documentElement.scrollHeight * devicePixelRatio") > 30000  # WebKit limit 32767 device px
             page.screenshot(path=os.path.join(shots, f"smoke-{name}-validation.png"), full_page=not tall)
 
         page.goto(base.rstrip("/") + "/about.html", wait_until="networkidle")

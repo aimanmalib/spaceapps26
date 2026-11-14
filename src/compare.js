@@ -14,6 +14,7 @@ import { mountMoonEarth } from './moonearth-ui.js';
 import { mountMap } from './map2d-ui.js';
 import { mountSurface } from './surface3d-ui.js';
 import { mountSteps, mountSequence } from './sequence-ui.js';
+import { mountWindows } from './mission-ui.js';
 import { CUSTOM_ID, customOptionHtml, customFieldsHtml, syncFields, readCustom, invalidText } from './custom.js';
 
 let uid = 0;
@@ -45,7 +46,7 @@ function cardDom(t, sites, sc, custom) {
     (custom ? customFieldsHtml(t, id, custom.cfg) : '') +
     `<label class="field" for="${id}-time"><span>${e(t('scenario.time'))}</span>` +
     `<input id="${id}-time" type="datetime-local" step="60" required></label></div>` +
-    `<div class="card-result" aria-live="polite"></div><div class="card-steps"></div><section class="card-timeline" hidden></section><section class="card-shifts" hidden></section><section class="card-seq" hidden></section><section class="card-me" hidden></section><section class="card-map" hidden></section><section class="card-surface" hidden></section>`;
+    `<div class="card-result" aria-live="polite"></div><div class="card-steps"></div><section class="card-timeline" hidden></section><section class="card-shifts" hidden></section><section class="card-seq" hidden></section><section class="card-win" hidden></section><section class="card-me" hidden></section><section class="card-map" hidden></section><section class="card-surface" hidden></section>`;
   el.querySelector('select').value = sc.site;
   el.querySelector('input[type=datetime-local]').value = sc.time_utc;
   if (custom && sc.coords) [...el.querySelectorAll('.custom-fields input')].forEach((input, i) => (input.value = sc.coords[i]));
@@ -129,6 +130,8 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
       else r.c.sh?.hide();
       if (r.sample) r.c.seq?.draw({ table: r.table, profile: r.profile, sample: r.sample, ms: r.ms });
       else r.c.seq?.hide();
+      if (r.sample) r.c.win?.draw({ rel: r.rel, ms: r.ms });
+      else r.c.win?.hide();
       if (r.sample) r.c.me?.draw({ table: r.table, ms: r.ms });
       else r.c.me?.hide();
       for (const b of [r.c.map, r.c.surf]) {
@@ -163,6 +166,11 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
     if (view.sequence) {
       mountSteps(c.el.querySelector('.card-steps'), { t, seq: view.sequence, select: c.el.querySelector('select'), time: c.el.querySelector('input[type=datetime-local]'), skip: CUSTOM_ID });
       c.seq = mountSequence(c.el.querySelector('.card-seq'), { t, view, open: first && view.first_card?.sequence_open });
+    }
+    // Mission window finder (SI suggestion chosen by the author): open on the first card only.
+    if (view.windows) {
+      const time = c.el.querySelector('input[type=datetime-local]');
+      c.win = mountWindows(c.el.querySelector('.card-win'), { t, view, time, open: first && view.first_card?.windows_open, uid: `win${++uid}` });
     }
     if (features.k_moon_vs_earth && me) c.me = mountMoonEarth(c.el.querySelector('.card-me'), { t, me });
     if (features.h_map_2d && map) c.map = mountMap(c.el.querySelector('.card-map'), { t, ...map });

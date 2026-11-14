@@ -42,6 +42,11 @@ Built:
   earlier or later (site kept). "If the date moves" lists the same two answers, with their margins from the horizon used, for the
   chosen time and the next 14 days at the same time of day, marks the dates where an answer differs and counts them. Measured
   example, IM-2 from 2026-11-14 00:00 UTC: solar power possible on 13 of 15 dates; direct-to-Earth on 15 of 15.
+- Next windows (mission window finder): on every card, the next stretches in the data, from the chosen time on, when the Sun and
+  Earth are both above the horizon used without a break for at least 1 day, 3 days, 7 days or 14 days (hourly table, centre of each
+  disc; at most five listed), with start, end and length; a button sets the card to a window's start. One line gives the share of
+  hours in the data when both are above it. Measured example, IM-2 (terrain horizon) from 2026-11-14 00:00 UTC: next window
+  2026-11-15 07:00 to 2026-11-30 19:00 UTC (15 d 12 h); both above the horizon in 36.0 % of the hours.
 - A timeline of one lunar day (29.5 Earth days) on every card: Sun and Earth elevation over time, bars for when each is in view,
   a slider to move through it and a Play button (hidden when the device asks for reduced motion). A switch shows the whole one-year
   table instead (hourly steps, 1 Nov 2026 to 1 Nov 2027), with the share of hours each one is at least partly above the horizon used;
@@ -151,7 +156,9 @@ SI was used in this project: Claude Code (Anthropic).
 - **Decided by me (the author):** to take part, the Jakarta event, this challenge, the three audiences and the twelve items to
   build, chosen from the list in NASA's challenge text; the project name, chosen from names SI suggested; on 15 November, four
   further options that NASA's challenge text names (sequential comparison, an educational game, terrain for custom coordinates,
-  slopes and shadow conditions on the map), all chosen from a list SI made of that text.
+  slopes and shadow conditions on the map), all chosen from a list SI made of that text; and, also on 15 November, five further
+  features that SI suggested at my request (mission window finder, shareable links with a plain verdict and a Now button, a page
+  for teachers, a guided tour), all chosen by me from that list.
 - **Done by SI, on my instructions:** a feasibility comparison of the challenges, translation of the challenge text into Malay for
   me, build order, interface design, all code, data scripts and tests, slide layout, suggested project names, and the English text, drafted from my choices
   and the measured results and reviewed by me.
