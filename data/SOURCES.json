@@ -37,6 +37,54 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
     },
     {
+      "file": "ephem/apollo-12.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27336.5781%2C-3.0128%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+      "urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27336.5781%2C-3.0128%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27336.5781%2C-3.0128%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27"
+      ],
+      "retrieved_at": "2026-11-14T08:47:44Z",
+      "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
+      "script": "scripts/fetch_horizons.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
+    },
+    {
+      "file": "ephem/apollo-14.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27342.52806%2C-3.64589%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+      "urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27342.52806%2C-3.64589%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27342.52806%2C-3.64589%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27"
+      ],
+      "retrieved_at": "2026-11-14T08:47:52Z",
+      "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
+      "script": "scripts/fetch_horizons.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
+    },
+    {
+      "file": "ephem/apollo-15.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%273.6333%2C26.13239%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+      "urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%273.6333%2C26.13239%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%273.6333%2C26.13239%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27"
+      ],
+      "retrieved_at": "2026-11-14T08:40:17Z",
+      "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
+      "script": "scripts/fetch_horizons.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
+    },
+    {
+      "file": "ephem/apollo-16.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%2715.5011%2C-8.9734%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+      "urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%2715.5011%2C-8.9734%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%2715.5011%2C-8.9734%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27"
+      ],
+      "retrieved_at": "2026-11-14T08:40:25Z",
+      "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
+      "script": "scripts/fetch_horizons.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
+    },
+    {
       "file": "ephem/apollo-17.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%2730.7723%2C20.1911%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
       "urls": [
@@ -56,6 +104,18 @@
         "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%2732.32%2C-69.3741%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27"
       ],
       "retrieved_at": "2026-11-14T06:55:04Z",
+      "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
+      "script": "scripts/fetch_horizons.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
+    },
+    {
+      "file": "ephem/change-4.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27177.5885%2C-45.4561%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+      "urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27177.5885%2C-45.4561%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27177.5885%2C-45.4561%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27"
+      ],
+      "retrieved_at": "2026-11-14T08:40:33Z",
       "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
       "script": "scripts/fetch_horizons.py",
       "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
@@ -124,7 +184,7 @@
       "file": "validation.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
       "note": "One Horizons request per pair and body (same parameters as the ephem tables, 1-minute span).",
-      "retrieved_at": "2026-11-14T07:30:35Z",
+      "retrieved_at": "2026-11-14T08:46:56Z",
       "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
       "script": "scripts/validate.py",
       "generated_by": "Claude Code (Anthropic) wrote this script; reference numbers come from JPL Horizons",

@@ -1,30 +1,125 @@
 {
-  "_note": "Landing sites. lat = selenographic latitude (deg, north positive); lon_east = east longitude (deg). Every coordinate is copied from the cited page; 'source.text' is the text as printed there.",
+  "_note": "Landing sites. lat = selenographic latitude (deg, north positive); lon_east = east longitude (deg). Every coordinate is copied from the cited page; 'source.text' is the text as printed there. Negative longitudes as printed in a source are stored as east longitude 0–360° (lon + 360).",
   "sites": [
     {
-      "id": "apollo-11", "name": "Apollo 11 (Tranquility Base)", "group": "apollo",
-      "lat": 0.67416, "lon_east": 23.47314,
-      "source": { "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html", "publisher": "NASA NSSDCA", "text": "0.67416 N, 23.47314 E" }
+      "id": "apollo-11",
+      "name": "Apollo 11 (Tranquility Base)",
+      "group": "apollo",
+      "lat": 0.67416,
+      "lon_east": 23.47314,
+      "source": {
+        "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html",
+        "publisher": "NASA NSSDCA",
+        "text": "0.67416 N, 23.47314 E"
+      }
     },
     {
-      "id": "apollo-17", "name": "Apollo 17 (Taurus-Littrow)", "group": "apollo",
-      "lat": 20.1911, "lon_east": 30.7723,
-      "source": { "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html", "publisher": "NASA NSSDCA", "text": "20.1911 N, 30.7723 E" }
+      "id": "apollo-12",
+      "name": "Apollo 12 (Ocean of Storms)",
+      "group": "apollo",
+      "lat": -3.0128,
+      "lon_east": 336.5781,
+      "source": {
+        "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html",
+        "publisher": "NASA NSSDCA",
+        "text": "Lunar Module -3.0128, -23.4219 (degrees N latitude, degrees E longitude)"
+      }
     },
     {
-      "id": "im-1", "name": "IM-1 Odysseus, nominal landing area (near Malapert A)", "group": "clps",
-      "lat": -80.2, "lon_east": 1.0,
-      "source": { "url": "https://lroc.im-ldi.com/images/1321", "publisher": "LROC (NASA LRO camera team)", "text": "nominal landing area (80.2°S, 1.0°E)" }
+      "id": "apollo-14",
+      "name": "Apollo 14 (Fra Mauro)",
+      "group": "apollo",
+      "lat": -3.64589,
+      "lon_east": 342.52806,
+      "source": {
+        "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html",
+        "publisher": "NASA NSSDCA",
+        "text": "Lunar Module -3.64589, -17.47194 (degrees N latitude, degrees E longitude)"
+      }
     },
     {
-      "id": "im-2", "name": "IM-2 Athena (Mons Mouton area)", "group": "clps",
-      "lat": -84.7906, "lon_east": 29.1957,
-      "source": { "url": "https://lroc.im-ldi.com/featured_sites/im2/flip-book", "publisher": "LROC (NASA LRO camera team)", "text": "84.7906°S, 29.1957°E, 5321 meters elevation" }
+      "id": "apollo-15",
+      "name": "Apollo 15 (Hadley-Apennine)",
+      "group": "apollo",
+      "lat": 26.13239,
+      "lon_east": 3.6333,
+      "source": {
+        "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html",
+        "publisher": "NASA NSSDCA",
+        "text": "Lunar Module 26.13239, 3.63330 (degrees N latitude, degrees E longitude)"
+      }
     },
     {
-      "id": "chandrayaan-3", "name": "Chandrayaan-3 Vikram (ISRO)", "group": "other_nation",
-      "lat": -69.3741, "lon_east": 32.32,
-      "source": { "url": "https://lroc.im-ldi.com/images/1314", "publisher": "LROC (NASA LRO camera team)", "text": "69.3741°S, 32.32°E, 532 m elevation" }
+      "id": "apollo-16",
+      "name": "Apollo 16 (Descartes Highlands)",
+      "group": "apollo",
+      "lat": -8.9734,
+      "lon_east": 15.5011,
+      "source": {
+        "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html",
+        "publisher": "NASA NSSDCA",
+        "text": "Lunar Module -8.9734, 15.5011 (degrees N latitude, degrees E longitude)"
+      }
+    },
+    {
+      "id": "apollo-17",
+      "name": "Apollo 17 (Taurus-Littrow)",
+      "group": "apollo",
+      "lat": 20.1911,
+      "lon_east": 30.7723,
+      "source": {
+        "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html",
+        "publisher": "NASA NSSDCA",
+        "text": "20.1911 N, 30.7723 E"
+      }
+    },
+    {
+      "id": "im-1",
+      "name": "IM-1 Odysseus, nominal landing area (near Malapert A)",
+      "group": "clps",
+      "lat": -80.2,
+      "lon_east": 1.0,
+      "source": {
+        "url": "https://lroc.im-ldi.com/images/1321",
+        "publisher": "LROC (NASA LRO camera team)",
+        "text": "nominal landing area (80.2°S, 1.0°E)"
+      }
+    },
+    {
+      "id": "im-2",
+      "name": "IM-2 Athena (Mons Mouton area)",
+      "group": "clps",
+      "lat": -84.7906,
+      "lon_east": 29.1957,
+      "source": {
+        "url": "https://lroc.im-ldi.com/featured_sites/im2/flip-book",
+        "publisher": "LROC (NASA LRO camera team)",
+        "text": "84.7906°S, 29.1957°E, 5321 meters elevation"
+      }
+    },
+    {
+      "id": "chandrayaan-3",
+      "name": "Chandrayaan-3 Vikram (ISRO)",
+      "group": "other_nation",
+      "lat": -69.3741,
+      "lon_east": 32.32,
+      "source": {
+        "url": "https://lroc.im-ldi.com/images/1314",
+        "publisher": "LROC (NASA LRO camera team)",
+        "text": "69.3741°S, 32.32°E, 532 m elevation"
+      }
+    },
+    {
+      "id": "change-4",
+      "name": "Chang'e 4 (CNSA), lunar far side",
+      "group": "other_nation",
+      "lat": -45.4561,
+      "lon_east": 177.5885,
+      "source": {
+        "url": "https://lroc.im-ldi.com/images/1100",
+        "publisher": "LROC (NASA LRO camera team)",
+        "text": "-5927 elevation, 45.4561°S latitude, 177.5885°E longitude"
+      }
     }
   ]
 }
