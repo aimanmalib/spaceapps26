@@ -15,3 +15,12 @@ export function applyText(root, t) {
     }
   }
 }
+
+// Replace {name} placeholders with values (values are inserted as text; escape before HTML use).
+export function fill(text, values = {}) {
+  return String(text).replace(/\{(\w+)\}/g, (m, k) => (k in values ? String(values[k]) : m));
+}
+
+export function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+}

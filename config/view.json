@@ -1,0 +1,12 @@
+{
+  "_note": "Comparison view settings. Scenario = one site + one date/time (UTC). Elevation scale steps: the shared vertical scale of the horizon panoramas is the smallest step that fits every shown Sun/Earth elevation.",
+  "data_path": "./data/ephem/",
+  "max_scenarios": 4,
+  "default_scenarios": [
+    { "site": "im-2", "time_utc": "2026-11-14T00:00" },
+    { "site": "apollo-11", "time_utc": "2026-11-14T00:00" }
+  ],
+  "horizon_threshold_deg": 0,
+  "elevation_scale_steps_deg": [10, 20, 45, 90],
+  "decimals": 1
+}

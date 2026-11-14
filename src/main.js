@@ -1,10 +1,16 @@
 // SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
 import en from '../i18n/en.json';
 import app from '../config/app.json';
+import sitesConfig from '../config/sites.json';
+import view from '../config/view.json';
 import { makeT, applyText } from './i18n.js';
+import { mountCompare } from './compare.js';
 
 const t = makeT(en);
 applyText(document, t);
 
 const si = document.getElementById('si-link');
 if (si) si.href = app.repo_url + app.si_disclosure_path;
+
+const root = document.getElementById('compare');
+if (root) mountCompare(root, { t, sites: sitesConfig.sites, view });
