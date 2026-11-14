@@ -26,7 +26,7 @@ check_once() {  # rc 0 = live; reason on stdout
   ip="$(dig +short "$HOST" @1.1.1.1 | tail -1)"
   [ "$ip" = "$ORIGIN_IP" ] || { echo "dig $HOST = '$ip', expected $ORIGIN_IP (DNS-only)"; return 1; }
   # No -k: curl fails unless the certificate is valid for the name.
-  curl -sS --max-time 20 -o "$t/b" -D "$t/h" "https://$HOST/" 2>"$t/e" || { echo "https: $(tail -1 "$t/e")"; return 1; }
+  curl -sS --max-time 20 -o "$t/b" -D "$t/h" "https://$HOST/" 2>"$t/e" || { echo "https: $(head -1 "$t/e")"; return 1; }
   head -1 "$t/h" | grep -q ' 200' || { echo "GET / → $(head -1 "$t/h")"; return 1; }
   grep -qi '^content-security-policy:' "$t/h" || { echo "GET / without CSP header"; return 1; }
   curl -sS --max-time 20 -o "$t/v" "https://$HOST/version.json" || { echo "version.json unreachable"; return 1; }
