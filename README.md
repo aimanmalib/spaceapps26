@@ -1,4 +1,6 @@
-# Lunar Landing Site Navigator
+# Still in View
+
+Challenge: Lunar Landing Site Navigator (NASA Space Apps Challenge 2026).
 
 **Try it:** <https://spaceapps26.aimanmalib.com/> (no sign-in). Demo deck (7 slides): [`demo/demo.pdf`](demo/demo.pdf).
 
@@ -141,9 +143,9 @@ itself ranges from 51.0 % to 84.7 % within the 3 × 3 pixels around it. It is re
 SI was used in this project: Claude Code (Anthropic).
 
 - **Decided by me (the author):** to take part, the Jakarta event, this challenge, the three audiences and the twelve items to
-  build, chosen from the list in NASA's challenge text.
+  build, chosen from the list in NASA's challenge text; the project name, chosen from names SI suggested.
 - **Done by SI, on my instructions:** a feasibility comparison of the challenges, translation of the challenge text into Malay for
-  me, build order, interface design, all code, data scripts and tests, slide layout, and the English text, drafted from my choices
+  me, build order, interface design, all code, data scripts and tests, slide layout, suggested project names, and the English text, drafted from my choices
   and the measured results and reviewed by me.
 - **Not used:** no SI-generated images, video or audio. Every image is a real screenshot of the tool.
 

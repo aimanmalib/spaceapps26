@@ -14,6 +14,7 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
 | The audiences: all three named in the challenge (mission planners, educators, the public) | Author |
 | What the tool shows and does: all twelve items from the challenge's "Your solution may include" list | Author |
 | Team name (the author's own name) | Author |
+| Project name: suggested by SI, chosen by the author | Author (choice); SI (suggestions) |
 | Accepting the open-source participant terms | Author |
 | The list of options itself | NASA (challenge text), translated into Malay by SI |
 | Build order (technical dependency and the emphasis in NASA's text), interface design, all code and data scripts, tests, slide layout | SI, on the author's instructions |

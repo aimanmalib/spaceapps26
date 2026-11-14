@@ -68,6 +68,15 @@
         "selectors": [
           ".cards .card:nth-child(1) .tl"
         ]
+      },
+      {
+        "name": "deck-surface",
+        "open": ".surface3d",
+        "ready": "() => document.querySelector('.card .surf-body canvas')",
+        "selectors": [
+          ".cards .card:nth-child(1) .surf-frame",
+          ".cards .card:nth-child(1) .surface3d .map-legend"
+        ]
       }
     ]
   }

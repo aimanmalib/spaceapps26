@@ -29,8 +29,14 @@ class Deck(unittest.TestCase):
         self.assertNotIn("(TBD-", self.html)
 
     def test_slides_name_team_member_and_challenge(self):
-        for text in ("Team", "Member", "Challenge", "Lunar Landing Site Navigator", "NASA data"):
+        for text in ("Team", "Member", "Challenge: Lunar Landing Site Navigator", "NASA data"):
             self.assertIn(text, self.html)
+
+    def test_project_name_matches_site(self):
+        # One project name everywhere: the deck title slide and <title> use the site's name (i18n app.name).
+        name = json.loads((ROOT / "i18n" / "en.json").read_text(encoding="utf-8"))["app.name"]
+        self.assertIn(f"<h1>{name}</h1>", self.html)
+        self.assertIn(f"<title>{name}: demo deck</title>", self.html)
 
     def test_pdf_pages_and_16_9(self):
         n_pages, boxes = pdf_pages((ROOT / DECK["pdf"]).read_bytes())
@@ -71,8 +77,8 @@ class Deck(unittest.TestCase):
         self.assertIn("2.3°</span> below and <span class=\"num earth\">10.8°</span> above", self.html)
 
     def test_owner_check_sentences_are_marked_not_bracketed(self):
-        # Sentences [A] and [C] of the pre-submission review wait for the author's approval: marked for removal, no bracket markers shown.
-        self.assertEqual(sorted(re.findall(r'data-owner-check="([A-Z])"', self.html)), ["A", "C"])
+        # Sentences [A], [B] and [C] of the pre-submission review (approved by the author): marked for easy removal, no bracket markers shown.
+        self.assertEqual(sorted(re.findall(r'data-owner-check="([A-Z])"', self.html)), ["A", "B", "C"])
         self.assertNotRegex(self.html, r"\[[ABC]\]")
 
     def test_slide_images_exist_and_are_gallery_media(self):
