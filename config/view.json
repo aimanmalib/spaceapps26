@@ -3,10 +3,27 @@
   "data_path": "./data/ephem/",
   "max_scenarios": 4,
   "default_scenarios": [
-    { "site": "im-2", "time_utc": "2026-11-14T00:00" },
-    { "site": "apollo-11", "time_utc": "2026-11-14T00:00" }
+    {
+      "site": "im-2",
+      "time_utc": "2026-11-14T00:00"
+    },
+    {
+      "site": "apollo-11",
+      "time_utc": "2026-11-14T00:00"
+    }
   ],
   "horizon_threshold_deg": 0,
-  "elevation_scale_steps_deg": [10, 20, 45, 90],
-  "decimals": 1
+  "elevation_scale_steps_deg": [
+    10,
+    20,
+    45,
+    90
+  ],
+  "decimals": 1,
+  "_note_timeline": "Timeline (item g): span shown per card in Earth days (one lunar day, synodic month ≈ 29.53 days); Play advances the card time by play_step_minutes every play_interval_ms (hidden when the user prefers reduced motion).",
+  "timeline": {
+    "span_days": 29.53,
+    "play_step_minutes": 180,
+    "play_interval_ms": 250
+  }
 }

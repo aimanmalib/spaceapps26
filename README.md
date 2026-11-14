@@ -21,7 +21,11 @@ Built so far:
   direct-to-Earth communication are possible, and the elevation of each.
 - Time remaining before sunset or Earthset (or until sunrise or Earthrise), the duration of sunlight and the Earth visibility window
   around the chosen time.
+- Ten known landing sites (all six Apollo landings, CLPS IM-1 and IM-2, Chandrayaan-3, Chang'e 4), each coordinate copied from a
+  cited NASA page (NSSDCA or LROC).
 - Up to four scenarios at once, as cards and in one side-by-side table.
+- A timeline of one lunar day (29.5 Earth days) on every card: Sun and Earth elevation over time, bars for when each is in view,
+  a slider to move through it and a Play button (hidden when the device asks for reduced motion).
 - Local terrain horizon from LRO LOLA for the south polar sites inside the elevation grids used here (75°S to the pole: IM-1, IM-2);
   every other site uses the ideal sphere horizon and says so.
 
@@ -38,19 +42,20 @@ Sun and Earth positions come from the JPL Horizons System; terrain comes from LR
 
 ## Validation
 
-Do the angles the tool shows match JPL Horizons? `scripts/validate.py` draws 25 site-and-time pairs at random (fixed seed,
+Do the angles the tool shows match JPL Horizons? `scripts/validate.py` draws 50 site-and-time pairs at random (fixed seed,
 never on a table hour) and compares the angles shown by the page's own code with Horizons asked directly for the same site and minute.
 Result (`data/validation.json`, also on the site's Validation page):
 
 | Angle | Largest difference | Average difference |
 |---|---|---|
-| Sun azimuth | 0.0045° | 0.0022° |
-| Sun elevation | 0.0038° | 0.0017° |
-| Earth azimuth | 0.0044° | 0.0024° |
+| Sun azimuth | 0.0439° | 0.0027° |
+| Sun elevation | 0.0077° | 0.0021° |
+| Earth azimuth | 0.0047° | 0.0019° |
 | Earth elevation | 0.0042° | 0.0022° |
 
-Largest difference over all angles: 0.0045°. Same solar power answer: 25 of 25;
-same Earth communication answer: 25 of 25.
+Largest difference over all angles: 0.0439°. Same solar power answer: 50 of 50;
+same Earth communication answer: 50 of 50. The largest difference is the Sun azimuth at Apollo 14 (2027-08-03 22:41 UT) with the Sun 86.3° below the horizon,
+where the azimuth changes fastest between two table hours.
 
 Is the terrain horizon right? `scripts/pgda.py` compares it with an independent NASA product, the average Sun and Earth visibility
 maps of the lunar south pole (E. Mazarico, NASA GSFC PGDA, LOLA grid 120 m per pixel), at 3 points. A map value is the share

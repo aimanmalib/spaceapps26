@@ -7,8 +7,18 @@ import { resultHtml } from './result.js';
 import { scenarioFacts } from './facts.js';
 import { glanceHtml } from './glance.js';
 import { relativeTable, aboveHorizon } from './terrain.js';
+import { mountTimeline } from './timeline-ui.js';
 
 let uid = 0;
+
+// Site list grouped as in config/sites.json (Apollo, CLPS, other nations); group order = first appearance.
+export function siteOptions(t, sites) {
+  const groups = [...new Set(sites.map((s) => s.group))];
+  return groups
+    .map((g) => `<optgroup label="${e(t(`sites.group.${g}`))}">` +
+      sites.filter((s) => s.group === g).map((s) => `<option value="${e(s.id)}">${e(s.name)}</option>`).join('') + `</optgroup>`)
+    .join('');
+}
 
 function cardDom(t, sites, sc) {
   const id = `sc${++uid}`;
@@ -18,17 +28,17 @@ function cardDom(t, sites, sc) {
     `<header class="card-head"><h3 class="card-title"></h3>` +
     `<button type="button" class="btn-quiet card-remove">${e(t('scenario.remove'))}</button></header>` +
     `<div class="fields"><label class="field" for="${id}-site"><span>${e(t('scenario.site'))}</span>` +
-    `<select id="${id}-site">${sites.map((s) => `<option value="${e(s.id)}">${e(s.name)}</option>`).join('')}</select></label>` +
+    `<select id="${id}-site">${siteOptions(t, sites)}</select></label>` +
     `<label class="field" for="${id}-time"><span>${e(t('scenario.time'))}</span>` +
     `<input id="${id}-time" type="datetime-local" step="60" required></label></div>` +
-    `<div class="card-result" aria-live="polite"></div>`;
+    `<div class="card-result" aria-live="polite"></div><section class="card-timeline" hidden></section>`;
   el.querySelector('select').value = sc.site;
-  el.querySelector('input').value = sc.time_utc;
+  el.querySelector('input[type=datetime-local]').value = sc.time_utc;
   return el;
 }
 
 // horizons = {siteId: () => Promise<profile>} for sites with a terrain skyline (data/horizon/); others use the ideal sphere.
-export function mountCompare(root, { t, sites, view, horizons = {} }) {
+export function mountCompare(root, { t, sites, view, horizons = {}, features = {} }) {
   const list = root.querySelector('.cards');
   const add = root.querySelector('.add');
   const glance = root.querySelector('.glance-body');
@@ -47,7 +57,7 @@ export function mountCompare(root, { t, sites, view, horizons = {} }) {
 
   async function update() {
     const mine = ++ticket;
-    const inputs = cards.map((c) => ({ c, site: siteById.get(c.el.querySelector('select').value), ms: parseUtc(c.el.querySelector('input').value) }));
+    const inputs = cards.map((c) => ({ c, site: siteById.get(c.el.querySelector('select').value), ms: parseUtc(c.el.querySelector('input[type=datetime-local]').value) }));
     for (const x of inputs) x.c.el.querySelector('.card-result').innerHTML = `<p class="note">${e(t('state.loading'))}</p>`;
     const rows = await Promise.all(
       inputs.map(async (x) => {
@@ -56,14 +66,15 @@ export function mountCompare(root, { t, sites, view, horizons = {} }) {
           const sample = sampleAt(table, x.ms);
           if (!sample) {
             const { startMs, endMs } = tableRange(table);
-            const input = x.c.el.querySelector('input');
+            const input = x.c.el.querySelector('input[type=datetime-local]');
             input.min = formatUtc(startMs);
             input.max = formatUtc(endMs);
             return { ...x, msg: fill(t('state.out_of_range'), { start: formatUtc(startMs).replace('T', ' '), end: formatUtc(endMs).replace('T', ' ') }) };
           }
           const th = view.horizon_threshold_deg;
           const up = { sun: isAbove(aboveHorizon(sample.sun, profile), th), earth: isAbove(aboveHorizon(sample.earth, profile), th) };
-          return { ...x, sample, up, profile, facts: scenarioFacts(t, relativeTable(table, profile), x.ms, { sample, up }, view) };
+          const rel = relativeTable(table, profile);
+          return { ...x, sample, up, profile, rel, facts: scenarioFacts(t, rel, x.ms, { sample, up }, view) };
         } catch {
           return { ...x, msg: t('state.load_error') };
         }
@@ -74,6 +85,8 @@ export function mountCompare(root, { t, sites, view, horizons = {} }) {
     for (const r of rows) {
       const box = r.c.el.querySelector('.card-result');
       box.innerHTML = r.sample ? resultHtml(t, { ...r, scale }, view) : `<p class="note note-warn">${e(r.msg)}</p>`;
+      if (r.sample) r.c.tl?.draw(r.rel, r.ms);
+      else r.c.tl?.hide();
     }
     if (glance) glance.innerHTML = glanceHtml(t, rows);
   }
@@ -81,7 +94,16 @@ export function mountCompare(root, { t, sites, view, horizons = {} }) {
   function addCard(sc) {
     const c = { el: cardDom(t, sites, sc) };
     c.el.addEventListener('change', update);
+    if (features.g_timeline) {
+      const time = c.el.querySelector('input[type=datetime-local]');
+      const onTime = (ms) => {
+        time.value = formatUtc(ms);
+        update();
+      };
+      c.tl = mountTimeline(c.el.querySelector('.card-timeline'), { t, view, onTime, uid: `tl${++uid}` });
+    }
     c.el.querySelector('.card-remove').addEventListener('click', () => {
+      c.tl?.destroy();
       cards.splice(cards.indexOf(c), 1);
       c.el.remove();
       renumber();
@@ -95,7 +117,7 @@ export function mountCompare(root, { t, sites, view, horizons = {} }) {
   add.addEventListener('click', () => {
     if (cards.length >= view.max_scenarios) return;
     const last = cards[cards.length - 1];
-    addCard({ site: last.el.querySelector('select').value, time_utc: last.el.querySelector('input').value });
+    addCard({ site: last.el.querySelector('select').value, time_utc: last.el.querySelector('input[type=datetime-local]').value });
     renumber();
     update();
     cards[cards.length - 1].el.querySelector('select').focus();

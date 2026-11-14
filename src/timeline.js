@@ -1,0 +1,75 @@
+// SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
+// Timeline of one lunar day (item g): Sun and Earth elevation above the horizon over a fixed span of a precomputed table.
+// Pure helpers + SVG markup; colours come from CSS classes (tokens in styles.css). All text is HTML around the SVG.
+import { yFor } from './sky.js';
+import { tableRange, isAbove } from './ephem.js';
+
+const MINUTE = 60_000;
+export const TL = { w: 360, h: 120, pad: 8 };
+
+// Span shown for a time ms: keep the current span while ms is inside it (so scrubbing or playing does not move the axis),
+// otherwise centre a new span on ms. Clamped to the table range [startMs, endMs].
+export function timelineSpan(ms, current, spanMs, { startMs, endMs }) {
+  if (current && ms >= current.from && ms <= current.to && current.from >= startMs && current.to <= endMs) return current;
+  const len = Math.min(spanMs, endMs - startMs);
+  const from = Math.max(startMs, Math.min(endMs - len, ms - len / 2));
+  return { from, to: from + len };
+}
+
+// Table rows inside [from, to]: [{ms, sun, earth}] with elevations from the (already horizon-relative) table.
+export function rowsIn(table, from, to) {
+  const { startMs } = tableRange(table);
+  const step = table.step_minutes * MINUTE;
+  const out = [];
+  const first = Math.max(0, Math.ceil((from - startMs) / step));
+  for (let k = first; k < table.sun.el.length; k++) {
+    const ms = startMs + k * step;
+    if (ms > to) break;
+    out.push({ ms, sun: table.sun.el[k], earth: table.earth.el[k] });
+  }
+  return out;
+}
+
+// Share (0–1) of rows with the body above the threshold.
+export function shareAbove(rows, body, th = 0) {
+  return rows.length ? rows.filter((r) => isAbove(r[body], th)).length / rows.length : 0;
+}
+
+// Runs of consecutive rows with the body above the threshold → [[x0, x1]] in SVG units.
+function bands(rows, body, th, x) {
+  const out = [];
+  let open = null;
+  rows.forEach((r, i) => {
+    const up = isAbove(r[body], th);
+    if (up && open === null) open = i;
+    if ((!up || i === rows.length - 1) && open !== null) {
+      out.push([x(rows[open].ms), x(rows[up ? i : i - 1].ms)]);
+      open = null;
+    }
+  });
+  return out;
+}
+
+// rows = rowsIn(...); span = {from, to}; ms = selected time; scale = ±elevation shown.
+export function timelineSvg(rows, span, ms, scale, th = 0) {
+  const x = (t) => ((t - span.from) / (span.to - span.from)) * TL.w;
+  const line = (b) => rows.map((r) => `${x(r.ms).toFixed(1)},${yFor(r[b], scale).toFixed(1)}`).join(' ');
+  const lane = (b, y) =>
+    bands(rows, b, th, x)
+      .map(([a, z]) => `<rect class="tl-band tl-band-${b}" x="${a.toFixed(1)}" y="${y}" width="${Math.max(1, z - a).toFixed(1)}" height="6"/>`)
+      .join('');
+  const mid = TL.h / 2;
+  const at = Math.max(0, Math.min(TL.w, x(ms))).toFixed(1);
+  return (
+    `<svg class="tl-svg" viewBox="0 0 ${TL.w} ${TL.h + 16}" preserveAspectRatio="none" aria-hidden="true" focusable="false">` +
+    `<rect class="sky-above" x="0" y="0" width="${TL.w}" height="${mid}"/>` +
+    `<rect class="sky-ground" x="0" y="${mid}" width="${TL.w}" height="${mid}"/>` +
+    `<line class="sky-horizon" x1="0" y1="${mid}" x2="${TL.w}" y2="${mid}"/>` +
+    `<polyline class="tl-line tl-earth" points="${line('earth')}"/>` +
+    `<polyline class="tl-line tl-sun" points="${line('sun')}"/>` +
+    lane('sun', TL.h + 2) +
+    lane('earth', TL.h + 9) +
+    `<line class="tl-now" x1="${at}" y1="0" x2="${at}" y2="${TL.h + 16}"/>` +
+    `</svg>`
+  );
+}

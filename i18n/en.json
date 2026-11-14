@@ -127,5 +127,17 @@
   "val.pgda.col.range": "PGDA range nearby",
   "val.pgda.source": "Source: NASA GSFC PGDA, Lunar Polar Illumination",
   "val.pgda.generated": "Measured {at} by scripts/pgda.py. Source file: data/validation.json.",
-  "val.pgda.pp_unit": "percentage points"
+  "val.pgda.pp_unit": "percentage points",
+  "tl.heading": "One lunar day",
+  "tl.intro": "Sun and Earth elevation above the horizon over 29.5 Earth days around the chosen time (one lunar day). Lines above the horizon line = in view. The bars under the chart mark when each one is in view.",
+  "tl.sun": "Sun",
+  "tl.earth": "Earth",
+  "tl.lanes": "Upper bar: Sun in view · lower bar: Earth in view",
+  "tl.play": "Play",
+  "tl.pause": "Pause",
+  "tl.scrub": "Move through the lunar day",
+  "tl.aria": "Timeline from {from} to {to} UTC. Sun above the horizon {sun}% of the time, Earth above the horizon {earth}% of the time. Vertical scale ±{scale}°.",
+  "sites.group.apollo": "Apollo",
+  "sites.group.clps": "CLPS (NASA Commercial Lunar Payload Services)",
+  "sites.group.other_nation": "Other national programs"
 }

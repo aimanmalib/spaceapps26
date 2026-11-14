@@ -3,6 +3,7 @@ import en from '../i18n/en.json';
 import app from '../config/app.json';
 import sitesConfig from '../config/sites.json';
 import view from '../config/view.json';
+import features from '../config/features.json';
 import { makeT, applyText } from './i18n.js';
 import { mountCompare } from './compare.js';
 
@@ -17,4 +18,4 @@ const root = document.getElementById('compare');
 const horizons = Object.fromEntries(
   Object.entries(import.meta.glob('../data/horizon/*.json', { import: 'default' })).map(([path, load]) => [path.split('/').pop().replace('.json', ''), load]),
 );
-if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons });
+if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, features: features.items });
