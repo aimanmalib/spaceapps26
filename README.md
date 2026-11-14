@@ -42,6 +42,13 @@ Result (`data/validation.json`, also on the site's Validation page):
 Largest difference over all angles: 0.0045°. Same solar power answer: 25 of 25;
 same Earth communication answer: 25 of 25. Not checked here: local terrain (ideal sphere horizon).
 
+## Tests
+
+- `bash scripts/gerbang-ujian.sh` — build, JavaScript and Python unit tests.
+- `python3 e2e/smoke.py <site URL>` — browser smoke test of a deployed copy (Chromium desktop 1280 px,
+  Chromium 320 px, WebKit iPhone 13): the comparison and validation pages work, no console errors,
+  no requests to other hosts, no horizontal overflow. Needs the Python `playwright` package and its browsers.
+
 ## AI disclosure (Super Intelligence / SI use)
 
 SI was used in this project, and every use is declared. In short:

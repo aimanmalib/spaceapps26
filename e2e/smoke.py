@@ -1,0 +1,112 @@
+# SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
+"""Browser smoke test against a deployed copy of the site (PRD H1).
+
+    python3 e2e/smoke.py https://example.org/      # needs the Python `playwright` package + its browsers
+
+Profiles: Chromium desktop 1280 px, Chromium 320 px, WebKit iPhone 13.
+On each: the compare tool renders answers, the site select and the time input
+update them, "add" makes one more card, technical details open, the validation
+page shows its numbers; zero console errors, zero requests to other hosts,
+no horizontal overflow. Prints one line per profile; exit 1 on any failure.
+Screenshots go to $AUTOPILOT_BUKTI_DIR (or $SMOKE_SHOTS) when set.
+"""
+import os
+import sys
+from urllib.parse import urlsplit
+
+from playwright.sync_api import sync_playwright
+
+PROFILES = [
+    ("chromium-1280", "chromium", {"viewport": {"width": 1280, "height": 800}}),
+    ("chromium-320", "chromium", {"viewport": {"width": 320, "height": 640}}),
+    ("webkit-iphone13", "webkit", "iPhone 13"),
+]
+TIMEOUT_MS = 15000
+
+
+def no_overflow(page):
+    return page.evaluate("document.documentElement.scrollWidth <= document.documentElement.clientWidth")
+
+
+def answers(page, n):
+    return page.locator(".card").nth(n).locator(".card-result").inner_text()
+
+
+def run_profile(p, name, engine, ctx_opts, base, shots):
+    browser = getattr(p, engine).launch()
+    opts = p.devices[ctx_opts] if isinstance(ctx_opts, str) else ctx_opts
+    ctx = browser.new_context(**opts)
+    page = ctx.new_page()
+    page.set_default_timeout(TIMEOUT_MS)
+    origin = urlsplit(base).netloc
+    errors, foreign = [], []
+    page.on("console", lambda m: m.type == "error" and errors.append(m.text))
+    page.on("pageerror", lambda exc: errors.append(str(exc)))
+    page.on("request", lambda r: urlsplit(r.url).scheme in ("http", "https")
+            and urlsplit(r.url).netloc != origin and foreign.append(r.url))
+    fails = []
+
+    def check(ok, what):
+        if not ok:
+            fails.append(what)
+
+    try:
+        page.goto(base, wait_until="networkidle")
+        page.locator(".card .answers").first.wait_for()
+        page.wait_for_function("document.querySelectorAll('.card .answers').length === document.querySelectorAll('.card').length")
+        n0 = page.locator(".card").count()
+        check(page.locator(".answers .answer").count() == 2 * n0, "power + comm answer on every card")
+        before = answers(page, 0)
+        sel = page.locator(".card select").first
+        options = sel.locator("option").evaluate_all("os => os.map(o => o.value)")
+        sel.select_option(options[-1] if sel.input_value() != options[-1] else options[0])
+        page.wait_for_function("b => document.querySelector('.card .card-result').innerText !== b", arg=before)
+        before = answers(page, 0)
+        tinput = page.locator(".card input[type=datetime-local]").first
+        old_t = tinput.input_value()
+        tinput.fill(old_t[:8] + ("20" if old_t[8:10] != "20" else "21") + old_t[10:])
+        tinput.dispatch_event("change")
+        page.wait_for_function("b => document.querySelector('.card .card-result').innerText !== b", arg=before)
+        page.locator(".add").click()
+        page.locator(".card").nth(n0).locator(".answers").wait_for()
+        check(page.locator(".card").count() == n0 + 1, "add makes one more card")
+        page.locator(".card details.tech summary").first.click()
+        check(page.locator(".card details.tech").first.evaluate("d => d.open"), "technical details open")
+        page.evaluate("window.scrollTo(0, 600)")
+        check(no_overflow(page), "compare page: no horizontal overflow")
+        if shots:
+            page.screenshot(path=os.path.join(shots, f"smoke-{name}-compare.png"), full_page=True)
+
+        page.goto(base.rstrip("/") + "/validation.html", wait_until="networkidle")
+        page.locator("#validation table").first.wait_for()
+        text = page.locator("#validation").inner_text()
+        check("°" in text and page.locator("#validation tbody tr").count() >= 20, "validation numbers + ≥ 20 pairs shown")
+        check(no_overflow(page), "validation page: no horizontal overflow")
+        if shots:
+            page.screenshot(path=os.path.join(shots, f"smoke-{name}-validation.png"), full_page=True)
+    except Exception as exc:  # noqa: BLE001 — a smoke run reports, it does not crash
+        fails.append(f"{type(exc).__name__}: {str(exc).splitlines()[0]}")
+    finally:
+        browser.close()
+    check(not errors, f"console errors: {errors[:3]}")
+    check(not foreign, f"requests to other hosts: {foreign[:3]}")
+    return fails
+
+
+def main():
+    if len(sys.argv) != 2:
+        sys.exit(__doc__)
+    base = sys.argv[1]
+    shots = os.environ.get("SMOKE_SHOTS") or os.environ.get("AUTOPILOT_BUKTI_DIR") or ""
+    bad = 0
+    with sync_playwright() as p:
+        for name, engine, ctx_opts in PROFILES:
+            fails = run_profile(p, name, engine, ctx_opts, base, shots)
+            bad += bool(fails)
+            print(f"smoke {name}: {'PASS' if not fails else 'FAIL — ' + '; '.join(fails)}", flush=True)
+    print(f"smoke {base}: {'PASS' if not bad else f'FAIL ({bad} profile(s))'}")
+    sys.exit(1 if bad else 0)
+
+
+if __name__ == "__main__":
+    main()
