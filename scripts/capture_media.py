@@ -1,7 +1,8 @@
 # SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
 """Gallery and demo-deck media (PRD H4, §8): real screenshots of the deployed site, nothing drawn or generated.
 
-    python3 scripts/capture_media.py [base_url]     # needs the Python `playwright` package + Chromium, and Pillow for the GIF
+    python3 scripts/capture_media.py [base_url]          # needs the Python `playwright` package + Chromium, and Pillow for the GIF
+    python3 scripts/capture_media.py --deck [base_url]   # only the demo-deck crops (config/media.json "deck_png")
 
 Writes docs/media/<name>.png for every name in config/media.json "png", and docs/media/<gif name>.gif: the timeline
 slider of the first card stepped across one lunar day. Settings (URL, viewport, frames) live in config/media.json.
@@ -69,6 +70,39 @@ def capture_png(browser, base):
     ctx.close()
 
 
+def union_clip(page, selectors, pad):
+    """One clip rectangle (CSS px, page coordinates) around the first match of every selector, padded."""
+    boxes = []
+    for sel in selectors:
+        page.locator(sel).first.scroll_into_view_if_needed()
+        b = page.locator(sel).first.bounding_box()
+        y = b["y"] + page.evaluate("window.scrollY")
+        boxes.append((b["x"], y, b["x"] + b["width"], y + b["height"]))
+    x0, y0 = min(b[0] for b in boxes) - pad, min(b[1] for b in boxes) - pad
+    x1, y1 = max(b[2] for b in boxes) + pad, max(b[3] for b in boxes) + pad
+    return {"x": max(0, x0), "y": max(0, y0), "width": x1 - max(0, x0), "height": y1 - max(0, y0)}
+
+
+def capture_deck(browser, base):
+    """Readable crops for the demo deck: each entry of config/media.json "deck_png" = name + selectors whose union is shot."""
+    d = CFG["deck_png"]
+    ctx = browser.new_context(viewport=d["viewport"], device_scale_factor=CFG["scale"], locale=CFG["locale"])
+    page = ctx.new_page()
+    page.set_default_timeout(TIMEOUT_MS)
+    open_compare(page, base)
+    page.wait_for_timeout(400)
+    for item in d["shots"]:
+        page.set_viewport_size(item.get("viewport", d["viewport"]))
+        page.wait_for_timeout(400)
+        if item.get("open"):
+            open_block(page, item["open"], item["ready"])
+        clip = union_clip(page, item["selectors"], d["pad"])
+        path = os.path.join(OUT, f"{item['name']}.png")
+        page.screenshot(path=path, clip=clip, full_page=True)
+        print(f"{item['name']}.png {os.path.getsize(path)} bytes, {round(clip['width'])} x {round(clip['height'])} css px")
+    ctx.close()
+
+
 def capture_gif(browser, base):
     from PIL import Image  # only this step needs Pillow
 
@@ -101,13 +135,17 @@ def capture_gif(browser, base):
 
 
 def main():
-    base = sys.argv[1] if len(sys.argv) > 1 else CFG["base_url"]
+    args = [a for a in sys.argv[1:] if a != "--deck"]
+    deck_only = "--deck" in sys.argv[1:]
+    base = args[0] if args else CFG["base_url"]
     os.makedirs(OUT, exist_ok=True)
     with sync_playwright() as p:
         browser = p.chromium.launch()
         try:
-            capture_png(browser, base)
-            capture_gif(browser, base)
+            if not deck_only:
+                capture_png(browser, base)
+                capture_gif(browser, base)
+            capture_deck(browser, base)
         finally:
             browser.close()
     big = [f for f in os.listdir(OUT) if os.path.getsize(os.path.join(OUT, f)) > CFG["max_bytes"]]

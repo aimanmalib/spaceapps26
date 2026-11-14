@@ -1,16 +1,31 @@
 {
   "_note": "Gallery and demo-deck captures (PRD H4, §8): real screenshots of the deployed site, made by scripts/capture_media.py. Five PNG + one GIF, each at most max_bytes (Space Apps project page limit 10 MB).",
   "base_url": "https://spaceapps26.aimanmalib.com/",
-  "viewport": { "width": 1280, "height": 800 },
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
   "scale": 2,
   "_viewports_note": "Per-shot viewport (CSS px) for full-page shots that also go into the demo deck: close to the deck image slot (544 × 608 px, about 0.9 wide per tall), so the slide shows the whole shot without cropping.",
   "viewports": {
-    "compare": { "width": 900, "height": 1000 },
-    "validation": { "width": 800, "height": 900 }
+    "compare": {
+      "width": 900,
+      "height": 1000
+    },
+    "validation": {
+      "width": 800,
+      "height": 900
+    }
   },
   "locale": "en-GB",
   "max_bytes": 10000000,
-  "png": ["compare", "small-shifts", "map-2d", "surface-3d", "validation"],
+  "png": [
+    "compare",
+    "small-shifts",
+    "map-2d",
+    "surface-3d",
+    "validation"
+  ],
   "gif": {
     "name": "timeline",
     "site": "im-2",
@@ -24,5 +39,36 @@
     "max_slides": 7,
     "width_px": 1280,
     "height_px": 720
+  },
+  "deck_png": {
+    "_note": "Demo-deck crops (readable at slide size): each shot = the union of its selectors on the live Compare page, default scenarios. 'open' = a card block opened first. Optional per-shot 'viewport' (CSS px) overrides the deck viewport.",
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "pad": 12,
+    "shots": [
+      {
+        "name": "deck-cards",
+        "selectors": [
+          ".cards .card:nth-child(1) .card-head",
+          ".cards .card:nth-child(1) .answers",
+          ".cards .card:nth-child(2) .answers"
+        ]
+      },
+      {
+        "name": "deck-compare",
+        "selectors": [
+          "#glance-heading",
+          ".glance-scroll"
+        ]
+      },
+      {
+        "name": "deck-timeline",
+        "selectors": [
+          ".cards .card:nth-child(1) .tl"
+        ]
+      }
+    ]
   }
 }

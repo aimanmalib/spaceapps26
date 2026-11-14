@@ -42,10 +42,38 @@ class Deck(unittest.TestCase):
 
     def test_numbers_match_validation_file(self):
         v = json.loads((ROOT / "data" / "validation.json").read_text(encoding="utf-8"))
-        self.assertIn(f"{v['horizons']['max_abs_deg']:.4f}°", self.html)
-        self.assertIn(f"{v['engine']['max_abs_deg']:.4f}°", self.html)
-        self.assertIn(f"{v['pgda']['sun']['max_abs'] * 100:.1f} percentage points", self.html)
-        self.assertIn(f"{v['pgda']['earth']['max_abs'] * 100:.1f} percentage points", self.html)
+        for key, label in (("horizons", "random pairs"), ("engine", "pairs")):
+            part = v[key]
+            same = part["same_answer"]
+            self.assertEqual(same["power"], same["of"])
+            self.assertEqual(same["comm"], same["of"])
+            self.assertIn(f"{part['max_abs_deg']:.4f}°</span> largest difference, same answers {same['of']} of {same['of']}", self.html)
+            self.assertIn(f"{same['of']} {label}", self.html)
+        sites = {s["site"]: s for s in v["pgda"]["sites"]}
+        landing = [sites["im-1"], sites["im-2"]]
+        sun_pp = max(abs(s["diff"]["sun"]) for s in landing) * 100
+        earth_pp = max(abs(s["diff"]["earth"]) for s in landing) * 100
+        self.assertIn(f"Sun within <span class=\"num\">{sun_pp:.1f}</span> percentage points, Earth within <span class=\"num\">{earth_pp:.1f}</span>", self.html)
+        ridge = [s for s in v["pgda"]["sites"] if s["site"] not in ("im-1", "im-2")][0]
+        self.assertAlmostEqual(abs(ridge["diff"]["sun"]), v["pgda"]["sun"]["max_abs"])
+        win = ridge["pgda"]["sun"]
+        self.assertIn(f"Sun differs by <span class=\"num\">{abs(ridge['diff']['sun']) * 100:.1f}</span> points; the map itself spans "
+                      f"{win['window_min'] * 100:.1f} % to {win['window_max'] * 100:.1f} %", self.html)
+
+    def test_shift_and_range_numbers_match_readme(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        for slide, doc in (("1.3°</span> above", "1.3° above"), ("1.5°</span> below", "1.5° below"), ("2.6°</span> below", "2.6° below"),
+                           ("0.033°", "0.033°")):
+            self.assertIn(slide, self.html)
+            self.assertIn(doc, readme)
+        # Slide 2 rounds the README range (−2.30° to +10.79°) to one decimal.
+        self.assertIn("between −2.30° and +10.79°", readme)
+        self.assertIn("2.3°</span> below and <span class=\"num earth\">10.8°</span> above", self.html)
+
+    def test_owner_check_sentences_are_marked_not_bracketed(self):
+        # Sentences [A] and [C] of the pre-submission review wait for the author's approval: marked for removal, no bracket markers shown.
+        self.assertEqual(sorted(re.findall(r'data-owner-check="([A-Z])"', self.html)), ["A", "C"])
+        self.assertNotRegex(self.html, r"\[[ABC]\]")
 
     def test_slide_images_exist_and_are_gallery_media(self):
         srcs = re.findall(r'<img src="([^"]+)"', self.html)
@@ -67,6 +95,7 @@ class Gallery(unittest.TestCase):
     def test_png_and_gif_present_and_small_enough(self):
         names = [f"{n}.png" for n in CFG["png"]] + [f"{CFG['gif']['name']}.gif"]
         self.assertEqual(len(names), 6)
+        names = names[:-1] + [f"{d['name']}.png" for d in CFG["deck_png"]["shots"]] + names[-1:]
         for name in names:
             path = ROOT / "docs" / "media" / name
             self.assertTrue(path.is_file(), name)

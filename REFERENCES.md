@@ -25,6 +25,12 @@ The site's Data sources page shows the same per-file list.
   `scripts/pgda.py`); only the pixels around each point are read. Method: Mazarico, E., Neumann, G. A., Smith, D. E., Zuber, M. T.,
   Torrence, M. H. (2011), Illumination conditions of the lunar polar regions using LOLA topography, Icarus 211, 1066–1081.
 
+## Demo deck context
+
+- NASA, "NASA Receives Some Data Before Intuitive Machines Ends Lunar Mission", news release, 7 March 2025 —
+  <https://www.nasa.gov/news-release/nasa-receives-some-data-before-intuitive-machines-ends-lunar-mission/> (IM-2 landing distance
+  from its intended site and end of mission; quoted in slide 2 of `demo/demo.pdf` as context only, not modelled by this tool).
+
 ## Moon and Earth compared (`config/moon-earth.json`, item k)
 
 - NASA NSSDCA, "Moon Fact Sheet" — <https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html> (synodic period 29.53 days,
