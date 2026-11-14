@@ -5,7 +5,7 @@
 
 Profiles: Chromium desktop 1280 px, Chromium 320 px, WebKit iPhone 13.
 On each: the compare tool renders answers, the site select and the time input
-update them, own coordinates (item b) give answers, "add" makes one more card, technical details open, the validation
+update them, own coordinates (item b) give answers, the 2D map (item h) draws, "add" makes one more card, technical details open, the validation
 page shows its numbers; zero console errors, zero requests to other hosts,
 no horizontal overflow. Prints one line per profile; exit 1 on any failure.
 Screenshots go to $AUTOPILOT_BUKTI_DIR (or $SMOKE_SHOTS) when set.
@@ -119,6 +119,28 @@ def moon_earth(page, check, shots, name):
         box.screenshot(path=os.path.join(shots, f"smoke-{name}-moon-earth.png"))
 
 
+def map_2d(page, check, shots, name):
+    """Item h: open the map block on a LOLA site; heights drawn, site + Sun/Earth directions + skyline; other sites say no map."""
+    card = page.locator(".card").first
+    card.locator("select").select_option("im-2")
+    box = card.locator(".map2d")
+    box.wait_for(state="visible")
+    box.locator("summary").click()
+    page.wait_for_function("() => document.querySelector('.card .map-canvas')")
+    drawn = box.locator(".map-canvas").evaluate(
+        "c => { const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;"
+        " let n = 0; for (let i = 3; i < d.length; i += 4) n += d[i] > 0; return n / (d.length / 4); }")
+    check(drawn > 0.9, f"map: heights drawn on the canvas (h): {drawn:.2f}")
+    check(box.locator(".map-ray").count() == 2 and box.locator(".map-site").count() == 1, "map: site + Sun/Earth directions (h)")
+    check(box.locator(".map-sky").count() > 10, "map: terrain skyline points (h)")
+    check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "map: fits the card (h)")
+    if shots:
+        box.screenshot(path=os.path.join(shots, f"smoke-{name}-map.png"))
+    card.locator("select").select_option("apollo-11")
+    page.wait_for_function("() => document.querySelector('.card .map-body')?.innerText.startsWith('No map')")
+    card.locator("select").select_option("im-2")
+
+
 def run_profile(p, name, engine, ctx_opts, base, shots):
     browser = getattr(p, engine).launch()
     opts = p.devices[ctx_opts] if isinstance(ctx_opts, str) else ctx_opts
@@ -185,6 +207,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         page.emulate_media(reduced_motion="no-preference")
         small_shifts(page, check)
         moon_earth(page, check, shots, name)
+        map_2d(page, check, shots, name)
         own_coordinates(page, check)
         page.locator(".card details.tech summary").first.click()
         check(page.locator(".card details.tech").first.evaluate("d => d.open"), "technical details open")

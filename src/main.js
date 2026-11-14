@@ -8,6 +8,7 @@ import customCfg from '../config/custom.json';
 import eph from '../config/ephemeris.json';
 import shiftsCfg from '../config/shifts.json';
 import meCfg from '../config/moon-earth.json';
+import mapCfg from '../config/map2d.json';
 import { makeT, applyText } from './i18n.js';
 import { mountCompare } from './compare.js';
 import { makeCustomTables } from './custom.js';
@@ -35,4 +36,9 @@ const places = Object.fromEntries(
   Object.entries(import.meta.glob('../data/shift/*.json', { import: 'default' })).map(([path, load]) => [path.split('/').pop().replace('.json', ''), load]),
 );
 const shifts = items.l_small_shifts ? { cfg: shiftsCfg, places, engine, radiusKm: customCfg.moon_radius_km } : null;
-if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, features: items, custom, shifts, me: items.k_moon_vs_earth ? meCfg : null });
+// 2D map (item h): heights around each terrain site (data/map/), loaded on first use.
+const maps = Object.fromEntries(
+  Object.entries(import.meta.glob('../data/map/*.json', { import: 'default' })).map(([path, load]) => [path.split('/').pop().replace('.json', ''), load]),
+);
+const map = items.h_map_2d ? { cfg: mapCfg, maps } : null;
+if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, features: items, custom, shifts, me: items.k_moon_vs_earth ? meCfg : null, map });

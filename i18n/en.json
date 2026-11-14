@@ -192,5 +192,19 @@
   "me.na": "outside the table",
   "me.sun_note": "Moon column, Sun speed: measured at this site at the chosen time from this card's table. Averaged over one lunar day it is {v}° per hour. Earth column: 360° in one day.",
   "me.earth_sky": "Earth in this site's sky, {from} to {to} UTC: azimuth within a {az}° range, elevation from {min} to {max} (ideal sphere). At the chosen time it moves {rate}.",
-  "me.sources": "Day length, radius and air pressure quoted from"
+  "me.sources": "Day length, radius and air pressure quoted from",
+  "map.heading": "Map around the site (2D)",
+  "map.intro": "Heights from LRO LOLA, {w} × {w} km with the site in the centre, north up. Lighter = higher. Straight lines from the site are true directions.",
+  "map.aria": "Map of heights, {w} × {w} km around the site. {sun}. {earth}.",
+  "map.north": "N",
+  "map.scale": "{km} km",
+  "map.site": "Site",
+  "map.skyline": "Terrain skyline (where the horizon is), inside the map",
+  "map.dir_sun": "Sun direction at the chosen time: azimuth {az}°",
+  "map.dir_earth": "Earth direction at the chosen time: azimuth {az}°",
+  "map.dashed": "Dashed line = below the horizon at the chosen time.",
+  "map.heights": "Heights on this map: {min} m to {max} m; site {site} m (above the 1737.4 km reference sphere).",
+  "map.shading": "Relief shading uses a fixed light from the northwest to show the shape of the ground. It is not the real Sun and shows no shadows.",
+  "map.none": "No map for this site: the map uses the LOLA south polar grids, which cover only sites south of 75°S.",
+  "map.none_custom": "No map for own coordinates."
 }

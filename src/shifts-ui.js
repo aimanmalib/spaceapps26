@@ -2,6 +2,7 @@
 // Per-card "small shifts" block (item l). Built once per card; the table is redrawn when the scenario changes
 // and only while the block is open (nearby points need their Sun/Earth tables computed in the browser).
 import { fill, escapeHtml as e } from './i18n.js';
+import { cardBlock } from './cardblock.js';
 import { duration, signedDeg } from './facts.js';
 import { judge, timeRows, placeRows, changedCount, sphereTiltDeg } from './shifts.js';
 
@@ -16,7 +17,6 @@ export function mountShifts(box, { t, view, shifts }) {
     `<p>${e(fill(t('shift.intro'), { km: cfg.location_offset_km }))}</p><div class="shifts-body" aria-live="polite"></div></details>`;
   const details = box.querySelector('details');
   const body = box.querySelector('.shifts-body');
-  let sc = null;
   let ticket = 0;
 
   const label = (r) => {
@@ -42,6 +42,7 @@ export function mountShifts(box, { t, view, shifts }) {
   }
 
   async function render() {
+    const sc = block.sc;
     if (!sc || !details.open) return;
     const mine = ++ticket;
     const th = view.horizon_threshold_deg;
@@ -65,18 +66,6 @@ export function mountShifts(box, { t, view, shifts }) {
     }
   }
 
-  details.addEventListener('toggle', render);
-  return {
-    // s = {site, table (raw Sun/Earth angles), profile|null, sample, ms}
-    draw(s) {
-      sc = s;
-      box.hidden = false;
-      render();
-    },
-    hide() {
-      sc = null;
-      ticket++;
-      box.hidden = true;
-    },
-  };
+  const block = cardBlock(box, details, render, () => ticket++);
+  return block;
 }

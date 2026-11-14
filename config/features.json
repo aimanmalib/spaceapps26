@@ -8,7 +8,7 @@
     "e_time_remaining": true,
     "f_key_numbers": true,
     "g_timeline": true,
-    "h_map_2d": false,
+    "h_map_2d": true,
     "i_surface_3d": false,
     "j_terrain_horizon": true,
     "k_moon_vs_earth": true,

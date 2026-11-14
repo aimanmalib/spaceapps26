@@ -1,0 +1,10 @@
+{
+  "_note": "2D map (item h). scripts/map2d.py samples the LOLA polar DEM (same grids and reading as config/horizon.json) on a square grid around each site with a terrain horizon, local north up, distances measured along the surface from the site (azimuthal equidistant). The page shades heights and draws the site, the terrain skyline points (item j) and the Sun and Earth directions at the chosen time. Relief shading uses a fixed light direction (cartographic convention), not the real Sun.",
+  "half_width_km": 40,
+  "cells": 161,
+  "shade_light_azimuth_deg": 315,
+  "shade_light_elevation_deg": 45,
+  "shade_strength": 0.6,
+  "scale_bar_km": 10,
+  "skyline_every_deg": 2
+}
