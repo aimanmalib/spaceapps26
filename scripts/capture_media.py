@@ -2,7 +2,8 @@
 """Gallery and demo-deck media (PRD H4, §8): real screenshots of the deployed site, nothing drawn or generated.
 
     python3 scripts/capture_media.py [base_url]          # needs the Python `playwright` package + Chromium, and Pillow for the GIF
-    python3 scripts/capture_media.py --deck [base_url]   # only the demo-deck crops (config/media.json "deck_png")
+    python3 scripts/capture_media.py --deck [base_url]   # only the demo-deck crops (config/media.json "deck_png", including
+the gallery's one-year timeline shot)
 
 Writes docs/media/<name>.png for every name in config/media.json "png", and docs/media/<gif name>.gif: the timeline
 slider of the first card stepped across one lunar day. Settings (URL, viewport, frames) live in config/media.json.
@@ -97,6 +98,10 @@ def capture_deck(browser, base):
         page.wait_for_timeout(400)
         if item.get("open"):
             open_block(page, item["open"], item["ready"])
+        elif item.get("click"):  # e.g. the timeline's "One year" switch (item d); keep such shots last
+            page.locator(item["click"]).first.click()
+            page.wait_for_function(item["ready"], timeout=TIMEOUT_MS)
+            page.wait_for_timeout(400)
         clip = union_clip(page, item["selectors"], d["pad"])
         path = os.path.join(OUT, f"{item['name']}.png")
         page.screenshot(path=path, clip=clip, full_page=True)

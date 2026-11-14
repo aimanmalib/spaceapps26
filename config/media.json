@@ -41,7 +41,7 @@
     "height_px": 720
   },
   "deck_png": {
-    "_note": "Demo-deck crops (readable at slide size): each shot = the union of its selectors on the live Compare page, default scenarios. 'open' = a card block opened first. Optional per-shot 'viewport' (CSS px) overrides the deck viewport.",
+    "_note": "Demo-deck crops (readable at slide size): each shot = the union of its selectors on the live Compare page, default scenarios. 'open' = a card block opened first. Optional per-shot 'viewport' (CSS px) overrides the deck viewport. 'click' = an element clicked first, then 'ready' awaited (shots after it see the clicked state, so such shots go last). 'year' is also a gallery image (item d).",
     "viewport": {
       "width": 1280,
       "height": 800
@@ -76,6 +76,14 @@
         "selectors": [
           ".cards .card:nth-child(1) .surf-frame",
           ".cards .card:nth-child(1) .surface3d .map-legend"
+        ]
+      },
+      {
+        "name": "year",
+        "click": ".cards .card:nth-child(1) .tl-range-btn[data-range=year]",
+        "ready": "() => !document.querySelector('.card .tl-year-share').hidden",
+        "selectors": [
+          ".cards .card:nth-child(1) .tl"
         ]
       }
     ]
