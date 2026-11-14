@@ -130,6 +130,8 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
   function addCard(sc) {
     const c = { el: cardDom(t, sites, sc, custom), prev: siteById.get(sc.site) ?? null };
     c.el.addEventListener('change', (ev) => {
+      // Sliders (timeline, 3D view) update their own block on 'input'; a card update here would rebuild them and drop focus.
+      if (ev.target.matches('input[type=range]')) return;
       if (custom && ev.target.matches('select')) syncFields(c.el, c.prev, custom.cfg);
       c.prev = siteById.get(c.el.querySelector('select').value) ?? c.prev;
       update();

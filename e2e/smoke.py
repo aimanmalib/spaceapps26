@@ -157,8 +157,14 @@ def surface_3d(page, check, shots, name):
     check(drawn > 0.3, f"surface: ground drawn on the canvas (i): {drawn:.2f}")
     value0 = box.locator(".surf-value").inner_text()
     box.locator(".surf-range").focus()
-    page.keyboard.press("ArrowRight")
+    step = int(box.locator(".surf-range").get_attribute("step"))
+    start = int(box.locator(".surf-range").input_value())
+    for _ in range(3):
+        page.keyboard.press("ArrowRight")
+        page.wait_for_timeout(150)
     page.wait_for_function("v => document.querySelector('.card .surf-value').innerText !== v", arg=value0)
+    check(box.locator(".surf-range").evaluate("(r, [a, s]) => +r.value === a + 3 * s && document.activeElement === r", [start, step]),
+          "surface: three key presses turn the view three steps, focus stays on the slider (i)")
     check(canvas.evaluate(stats)[1] != sum0, "surface: the slider turns the view (i)")
     check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "surface: fits the card (i)")
     if shots:
