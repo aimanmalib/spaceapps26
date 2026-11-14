@@ -178,7 +178,7 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 /* Small shifts (item l): compact table that wraps on narrow screens. */
 .shifts { min-width: 0; }
 .shift-table { width: 100%; }
-.shift-table th, .shift-table td { padding: 0.3rem 0.6rem 0.3rem 0; vertical-align: top; overflow-wrap: anywhere; }
+.shift-table th, .shift-table td { padding: 0.3rem 0.6rem 0.3rem 0; vertical-align: top; overflow-wrap: break-word; }
 .shift-table tbody th { font-weight: 400; color: var(--muted); }
 .shift-table .shift-base th, .shift-table .shift-base td { border-bottom: 1px solid var(--line); color: var(--text); }
 .shift-table td.is-up .shift-ans { color: var(--text); font-weight: 600; }
@@ -191,7 +191,7 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 /* Moon and Earth compared (item k): same compact table as item l, quoted NASA sentence below it. */
 .moonearth { min-width: 0; }
 .me-table { width: 100%; }
-.me-table th, .me-table td { padding: 0.3rem 0.6rem 0.3rem 0; vertical-align: top; overflow-wrap: anywhere; }
+.me-table th, .me-table td { padding: 0.3rem 0.6rem 0.3rem 0; vertical-align: top; overflow-wrap: break-word; }
 .me-table tbody th { font-weight: 400; color: var(--muted); }
 .me-table td { color: var(--text); }
 .me-quote { margin: 0.75rem 0 0; padding-left: 0.75rem; border-left: 2px solid var(--line); }

@@ -30,6 +30,29 @@ def no_overflow(page):
     return page.evaluate("document.documentElement.scrollWidth <= document.documentElement.clientWidth")
 
 
+# Item k/l tables: a word or number split across two lines inside a cell (e.g. "15.0|0°", "Eart|h") reads wrong.
+SPLIT_WORDS_JS = """sel => {
+  const out = [];
+  for (const cell of document.querySelectorAll(sel)) {
+    const walk = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT);
+    for (let node = walk.nextNode(); node; node = walk.nextNode()) {
+      for (const m of node.data.matchAll(/\\S+/g)) {
+        const r = document.createRange();
+        r.setStart(node, m.index);
+        r.setEnd(node, m.index + m[0].length);
+        const tops = new Set([...r.getClientRects()].filter(b => b.width > 0).map(b => Math.round(b.top)));
+        if (tops.size > 1) out.push(m[0]);
+      }
+    }
+  }
+  return out;
+}"""
+
+
+def split_words(page, sel):
+    return page.evaluate(SPLIT_WORDS_JS, sel)
+
+
 def answers(page, n):
     return page.locator(".card").nth(n).locator(".card-result").inner_text()
 
@@ -69,6 +92,8 @@ def small_shifts(page, check):
     check(rows == 9, f"small shifts: chosen + 4 time + 4 nearby rows (l), got {rows}")
     check("shifts change" in box.locator(".shift-sum").inner_text(), "small shifts: count of changed answers (l)")
     check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "small shifts: table fits the card (l)")
+    bad = split_words(page, ".card .shift-table th, .card .shift-table td")
+    check(not bad, f"small shifts: no word split across lines (l): {bad[:4]}")
     card.locator("select").select_option("apollo-11")
     page.wait_for_function("() => document.querySelector('.card .shifts-body')?.innerText.includes('ideal sphere')")
     check(box.locator(".shift-table tbody tr").count() == 5, "small shifts: sphere site = time rows only (l)")
@@ -88,6 +113,8 @@ def moon_earth(page, check, shots, name):
     card.locator("select").select_option("im-2")
     page.wait_for_function("b => document.querySelector('.card .me-earth')?.innerText !== b", arg=before)
     check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "Moon and Earth: table fits the card (k)")
+    bad = split_words(page, ".card .me-table th, .card .me-table td")
+    check(not bad, f"Moon and Earth: no word or number split across lines (k): {bad[:4]}")
     if shots:
         box.screenshot(path=os.path.join(shots, f"smoke-{name}-moon-earth.png"))
 
