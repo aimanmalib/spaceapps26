@@ -26,6 +26,9 @@ Built so far:
 - Up to four scenarios at once, as cards and in one side-by-side table.
 - A timeline of one lunar day (29.5 Earth days) on every card: Sun and Earth elevation over time, bars for when each is in view,
   a slider to move through it and a Play button (hidden when the device asks for reduced motion).
+- Own coordinates: type any latitude and longitude on the Moon. Sun and Earth positions for these are computed in browser,
+  validated against JPL Horizons (Astronomy Engine; differences below). They use the ideal sphere horizon only: local terrain is not
+  computed for own coordinates, even inside the LRO LOLA grids.
 - Local terrain horizon from LRO LOLA for the south polar sites inside the elevation grids used here (75°S to the pole: IM-1, IM-2);
   every other site uses the ideal sphere horizon and says so.
 
@@ -56,6 +59,21 @@ Result (`data/validation.json`, also on the site's Validation page):
 Largest difference over all angles: 0.0439°. Same solar power answer: 50 of 50;
 same Earth communication answer: 50 of 50. The largest difference is the Sun azimuth at Apollo 14 (2027-08-03 22:41 UT) with the Sun 86.3° below the horizon,
 where the azimuth changes fastest between two table hours.
+
+Own coordinates are computed in browser, validated against JPL Horizons: `scripts/validate.py --engine` runs the page's engine
+(Astronomy Engine, same hourly grid and interpolation) at the 50 pairs above and at 30 new pairs on 6 unnamed check points
+(near side, far side, both poles), 80 pairs in all:
+
+| Angle | Largest difference | Average difference |
+|---|---|---|
+| Sun azimuth | 0.0207° | 0.0020° |
+| Sun elevation | 0.0070° | 0.0012° |
+| Earth azimuth | 0.0446° | 0.0031° |
+| Earth elevation | 0.0028° | 0.0010° |
+
+Largest difference over all angles (engine): 0.0446°. Same solar power answer: 80 of 80; same Earth communication answer: 80 of 80.
+The largest difference is the Earth azimuth on the far side (0°N 180°E, 2027-09-26 08:16 UT) with the Earth 88.4° below the
+horizon, where azimuth is nearly undefined.
 
 Is the terrain horizon right? `scripts/pgda.py` compares it with an independent NASA product, the average Sun and Earth visibility
 maps of the lunar south pole (E. Mazarico, NASA GSFC PGDA, LOLA grid 120 m per pixel), at 3 points. A map value is the share

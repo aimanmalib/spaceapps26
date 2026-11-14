@@ -6,7 +6,7 @@ import vcfg from '../config/validation.json';
 import data from '../data/validation.json';
 import { makeT, applyText } from './i18n.js';
 import pgdaCfg from '../config/pgda.json';
-import { validationHtml, pgdaHtml } from './validation.js';
+import { validationHtml, engineHtml, pgdaHtml } from './validation.js';
 
 const t = makeT(en);
 applyText(document, t);
@@ -19,5 +19,6 @@ const root = document.getElementById('validation');
 if (root) {
   root.innerHTML =
     validationHtml(t, data, (id) => names.get(id) ?? id, vcfg.decimals_report) +
+    (data.engine?.pairs?.length ? engineHtml(t, data.engine, (id) => names.get(id), vcfg.decimals_report) : '') +
     (data.pgda?.sites?.length ? pgdaHtml(t, data.pgda, (id) => names.get(id), pgdaCfg.page_url) : '');
 }

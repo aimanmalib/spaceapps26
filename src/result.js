@@ -25,6 +25,17 @@ function status(t, kind, f, sky) {
   );
 }
 
+// Listed sites link to the published coordinates; own coordinates (item b) say where they came from.
+function source(t, site) {
+  if (site.custom) return e(t('details.coords_custom'));
+  return `<a href="${e(site.source.url)}" rel="noopener noreferrer">${e(fill(t('details.coords_source'), { publisher: site.source.publisher }))}</a>`;
+}
+
+function horizonKey(r) {
+  if (r.profile) return 'details.horizon_terrain';
+  return r.site.custom ? 'details.horizon_custom' : 'details.horizon';
+}
+
 // r = {site, sample, up:{sun,earth}, scale, facts:{sun,earth}} (facts from facts.js); view = config/view.json.
 export function resultHtml(t, r, view) {
   const d = view.decimals;
@@ -47,13 +58,13 @@ export function resultHtml(t, r, view) {
     `<span class="key key-earth">${e(t('sky.earth'))}</span><span class="key key-down">${e(t('sky.below'))}</span>` +
     `<span class="key-line">${e(t(r.profile ? 'sky.terrain' : 'sky.sphere'))}</span></figcaption>` +
     `</figure>` +
-    `<p class="horizon-kind">${e(t(r.profile ? 'horizon.terrain' : 'horizon.sphere'))}</p>` +
+    `<p class="horizon-kind">${e(t(r.profile ? 'horizon.terrain' : r.site.custom ? 'horizon.custom' : 'horizon.sphere'))}</p>` +
     `<details class="tech"><summary>${e(t('details.summary'))}</summary>` +
     `<table class="tech-table"><thead><tr><th scope="col">${e(t('details.body'))}</th><th scope="col">${e(t('details.az'))}</th>` +
     `<th scope="col">${e(t('details.el'))}</th></tr></thead><tbody>${row('sky.sun', sun)}${row('sky.earth', earth)}</tbody></table>` +
-    `<p>${e(fill(t('details.coords'), { lat: r.site.lat, lon: r.site.lon_east }))} ` +
-    `<a href="${e(r.site.source.url)}" rel="noopener noreferrer">${e(fill(t('details.coords_source'), { publisher: r.site.source.publisher }))}</a></p>` +
-    `<p>${e(t('details.data'))}</p><p>${e(fill(t(r.profile ? 'details.horizon_terrain' : 'details.horizon'), { threshold: view.horizon_threshold_deg, h: r.profile?.observer_height_m }))}</p>` +
+    `<p>${e(fill(t('details.coords'), { lat: r.site.lat, lon: r.site.lon_east }))} ${source(t, r.site)}</p>` +
+    `<p>${e(t(r.site.custom ? 'details.data_custom' : 'details.data'))}</p>` +
+    `<p>${e(fill(t(horizonKey(r)), { threshold: view.horizon_threshold_deg, h: r.profile?.observer_height_m, r: r.site.radius_km }))}</p>` +
     `<p>${e(fill(t('details.scale'), { scale: r.scale }))}</p><p>${e(t('details.windows'))}</p></details>`
   );
 }

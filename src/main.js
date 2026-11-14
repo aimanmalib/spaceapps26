@@ -4,8 +4,11 @@ import app from '../config/app.json';
 import sitesConfig from '../config/sites.json';
 import view from '../config/view.json';
 import features from '../config/features.json';
+import customCfg from '../config/custom.json';
+import eph from '../config/ephemeris.json';
 import { makeT, applyText } from './i18n.js';
 import { mountCompare } from './compare.js';
+import { makeCustomTables } from './custom.js';
 
 const t = makeT(en);
 applyText(document, t);
@@ -18,4 +21,8 @@ const root = document.getElementById('compare');
 const horizons = Object.fromEntries(
   Object.entries(import.meta.glob('../data/horizon/*.json', { import: 'default' })).map(([path, load]) => [path.split('/').pop().replace('.json', ''), load]),
 );
-if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, features: features.items });
+// Own coordinates (item b): computed in a Web Worker with Astronomy Engine, loaded only when first used.
+const custom = features.items.b_custom_coordinates
+  ? { cfg: customCfg, tables: makeCustomTables(customCfg, eph, () => new Worker(new URL('./moonsky-worker.js', import.meta.url), { type: 'module' })) }
+  : null;
+if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, features: features.items, custom });

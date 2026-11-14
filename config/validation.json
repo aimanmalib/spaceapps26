@@ -5,5 +5,43 @@
   "max_pairs_total": 60,
   "horizons_step": "1 m",
   "decimals_report": 4,
-  "pause_seconds": 2
+  "pause_seconds": 2,
+  "engine": {
+    "_note": "H9(a) for own coordinates (item b): angles computed in the browser (src/moonsky.js through scripts/engine_angles.mjs, same grid, rounding and interpolation as the page) against JPL Horizons. Pairs = the listed-site pairs above (Horizons values reused) + pairs_per_point new pairs at each unnamed check point below (not landing sites; spread over near side, far side, limbs and both poles).",
+    "seed": 20261115,
+    "pairs_per_point": 5,
+    "points": [
+      {
+        "id": "pt-0N-0E",
+        "lat": 0,
+        "lon_east": 0
+      },
+      {
+        "id": "pt-0N-180E",
+        "lat": 0,
+        "lon_east": 180
+      },
+      {
+        "id": "pt-45N-90E",
+        "lat": 45,
+        "lon_east": 90
+      },
+      {
+        "id": "pt-45S-270E",
+        "lat": -45,
+        "lon_east": 270
+      },
+      {
+        "id": "pt-85N-30E",
+        "lat": 85,
+        "lon_east": 30
+      },
+      {
+        "id": "pt-89.9S-0E",
+        "lat": -89.9,
+        "lon_east": 0
+      }
+    ],
+    "max_pairs_total": 40
+  }
 }

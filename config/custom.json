@@ -1,0 +1,16 @@
+{
+  "_note": "Item b (own coordinates): Sun/Earth angles computed in the browser (Astronomy Engine) on the same hourly grid and date range as the frozen JPL Horizons tables (config/ephemeris.json). Ideal sphere horizon only. moon_radius_km = mean lunar radius (IAU), the sphere the site sits on, as in the Horizons requests (site_altitude_km 0).",
+  "moon_radius_km": 1737.4,
+  "decimals": 3,
+  "lat_min": -90,
+  "lat_max": 90,
+  "lon_min": -180,
+  "lon_max": 360,
+  "input_step": 0.0001,
+  "first_point": {
+    "lat": 0,
+    "lon_east": 0
+  },
+  "cache_tables": 6,
+  "_note_cache": "Tables kept in memory per page (most recent own points); older ones are recomputed when chosen again."
+}

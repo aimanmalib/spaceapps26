@@ -5,7 +5,7 @@
 
 Profiles: Chromium desktop 1280 px, Chromium 320 px, WebKit iPhone 13.
 On each: the compare tool renders answers, the site select and the time input
-update them, "add" makes one more card, technical details open, the validation
+update them, own coordinates (item b) give answers, "add" makes one more card, technical details open, the validation
 page shows its numbers; zero console errors, zero requests to other hosts,
 no horizontal overflow. Prints one line per profile; exit 1 on any failure.
 Screenshots go to $AUTOPILOT_BUKTI_DIR (or $SMOKE_SHOTS) when set.
@@ -32,6 +32,29 @@ def no_overflow(page):
 
 def answers(page, n):
     return page.locator(".card").nth(n).locator(".card-result").inner_text()
+
+
+def own_coordinates(page, check):
+    """Item b: choose own coordinates, type a point, get answers; a bad latitude gives a message, not answers."""
+    card = page.locator(".card").first
+    card.locator("select").select_option("custom")
+    fields = card.locator(".custom-fields")
+    fields.wait_for(state="visible")
+    lat, lon = fields.locator("input").nth(0), fields.locator("input").nth(1)
+    commit = "e => e.blur()"  # a real commit, so no late native change event re-renders the card later
+    lat.fill("95")
+    lat.evaluate(commit)
+    card.locator(".card-result .note-warn").wait_for()
+    check(lat.get_attribute("aria-invalid") == "true", "own coordinates: bad latitude marked (b)")
+    lat.fill("-89.45")
+    lat.evaluate(commit)
+    lon.fill("222.69")
+    lon.evaluate(commit)
+    page.wait_for_function("() => document.querySelector('.glance-table')?.innerText.includes('222.69')")
+    card.locator(".card-result .answers").wait_for()
+    check(card.locator(".horizon-kind").inner_text().startswith("Horizon: ideal sphere"), "own coordinates: ideal sphere horizon (b)")
+    check(card.locator(".tl:not([hidden]) .tl-svg .tl-now").count() == 1, "own coordinates: timeline drawn (b, g)")
+    check("Own point" in page.locator(".glance-table").inner_text(), "own coordinates: side-by-side table names the point (b)")
 
 
 def run_profile(p, name, engine, ctx_opts, base, shots):
@@ -68,6 +91,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         before = answers(page, 0)
         sel = page.locator(".card select").first
         options = sel.locator("option").evaluate_all("os => os.map(o => o.value)")
+        options = [o for o in options if o != "custom"]
         sel.select_option(options[-1] if sel.input_value() != options[-1] else options[0])
         page.wait_for_function("b => document.querySelector('.card .card-result').innerText !== b", arg=before)
         before = answers(page, 0)
@@ -97,6 +121,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         page.emulate_media(reduced_motion="reduce")
         page.wait_for_function("() => [...document.querySelectorAll('.tl-play')].every(b => b.hidden)")
         page.emulate_media(reduced_motion="no-preference")
+        own_coordinates(page, check)
         page.locator(".card details.tech summary").first.click()
         check(page.locator(".card details.tech").first.evaluate("d => d.open"), "technical details open")
         page.evaluate("window.scrollTo(0, 600)")
@@ -113,7 +138,8 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         check("PGDA" in text and "%" in text, "terrain check against NASA PGDA shown (H9 b)")
         check(no_overflow(page), "validation page: no horizontal overflow")
         if shots:
-            page.screenshot(path=os.path.join(shots, f"smoke-{name}-validation.png"), full_page=True)
+            tall = page.evaluate("document.documentElement.scrollHeight") > 30000  # WebKit screenshot limit 32767 px
+            page.screenshot(path=os.path.join(shots, f"smoke-{name}-validation.png"), full_page=not tall)
     except Exception as exc:  # noqa: BLE001 — a smoke run reports, it does not crash
         fails.append(f"{type(exc).__name__}: {str(exc).splitlines()[0]}")
     finally:

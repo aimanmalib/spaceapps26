@@ -183,8 +183,8 @@
     {
       "file": "validation.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
-      "note": "One Horizons request per pair and body (same parameters as the ephem tables, 1-minute span).",
-      "retrieved_at": "2026-11-14T08:46:56Z",
+      "note": "One Horizons request per pair and body (same parameters as the ephem tables, 1-minute span). The \"engine\" part reuses the listed-site answers and adds pairs at unnamed check points (config/validation.json).",
+      "retrieved_at": "2026-11-14T09:02:47Z",
       "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
       "script": "scripts/validate.py",
       "generated_by": "Claude Code (Anthropic) wrote this script; reference numbers come from JPL Horizons",

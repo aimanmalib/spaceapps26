@@ -64,5 +64,14 @@ class ReadmeNumbers(unittest.TestCase):
             self.assertIn(f"| {q['max_abs_deg']:.4f}° | {q['mean_abs_deg']:.4f}° |", readme)
 
 
+    def test_readme_quotes_the_engine_part(self):
+        e = load("data/validation.json")["engine"]
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn(f"Largest difference over all angles (engine): {e['max_abs_deg']:.4f}°", readme)
+        self.assertIn(f"{len(e['pairs'])} pairs in all", readme)
+        self.assertIn(f"Same solar power answer: {e['same_answer']['power']} of {e['same_answer']['of']}", readme)
+        for q in e["by_quantity"].values():
+            self.assertIn(f"| {q['max_abs_deg']:.4f}° | {q['mean_abs_deg']:.4f}° |", readme)
+
 if __name__ == "__main__":
     unittest.main()

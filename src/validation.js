@@ -1,5 +1,5 @@
 // SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
-// Validation page (H9a + H9b): numbers come straight from data/validation.json; nothing is recomputed here.
+// Validation page (H9a, own-coordinates engine, H9b): numbers come straight from data/validation.json; nothing is recomputed here.
 import { fill, escapeHtml as e } from './i18n.js';
 
 const QUANTITIES = ['sun_az', 'sun_el', 'earth_az', 'earth_el'];
@@ -14,9 +14,7 @@ function tile(label, value, unit = '') {
   return `<div class="stat"><dt>${e(label)}</dt><dd>${e(value)}${unit ? `<span class="stat-unit">${e(unit)}</span>` : ''}</dd></div>`;
 }
 
-// data = data/validation.json, siteName = id → display name, d = decimals shown.
-export function validationHtml(t, data, siteName, d) {
-  const h = data.horizons;
+function summaryHtml(t, h, d) {
   const same = h.same_answer;
   const tiles =
     tile(t('val.max'), deg(h.max_abs_deg, d)) +
@@ -26,22 +24,50 @@ export function validationHtml(t, data, siteName, d) {
   const qrows = QUANTITIES.map((q) =>
     `<tr><th scope="row">${e(t(`val.q.${q}`))}</th><td>${deg(h.by_quantity[q].max_abs_deg, d)}</td><td>${deg(h.by_quantity[q].mean_abs_deg, d)}</td></tr>`,
   ).join('');
-  const prow = (p) =>
-    `<tr><th scope="row">${e(siteName(p.site))}</th><td>${e(p.time_utc.replace('T', ' '))}</td>` +
-    `<td>${deg(p.shown.sun.el, d)}</td><td>${deg(p.horizons.sun.el, d)}</td>` +
-    `<td>${deg(p.shown.earth.el, d)}</td><td>${deg(p.horizons.earth.el, d)}</td><td>${deg(largestDiff(p), d)}</td></tr>`;
   return (
     `<dl class="stats">${tiles}</dl>` +
     `<h2>${e(t('val.by_quantity'))}</h2>` +
     `<div class="table-scroll"><table class="data-table"><thead><tr><th scope="col">${e(t('val.col.quantity'))}</th>` +
-    `<th scope="col">${e(t('val.col.max'))}</th><th scope="col">${e(t('val.col.mean'))}</th></tr></thead><tbody>${qrows}</tbody></table></div>` +
-    `<h2>${e(fill(t('val.pairs'), { n: h.pairs.length }))}</h2>` +
-    `<div class="table-scroll" tabindex="0" role="region" aria-label="${e(fill(t('val.pairs'), { n: h.pairs.length }))}">` +
+    `<th scope="col">${e(t('val.col.max'))}</th><th scope="col">${e(t('val.col.mean'))}</th></tr></thead><tbody>${qrows}</tbody></table></div>`
+  );
+}
+
+// nameOf(pair) → row label.
+function pairsHtml(t, pairs, nameOf, d) {
+  const prow = (p) =>
+    `<tr><th scope="row">${e(nameOf(p))}</th><td>${e(p.time_utc.replace('T', ' '))}</td>` +
+    `<td>${deg(p.shown.sun.el, d)}</td><td>${deg(p.horizons.sun.el, d)}</td>` +
+    `<td>${deg(p.shown.earth.el, d)}</td><td>${deg(p.horizons.earth.el, d)}</td><td>${deg(largestDiff(p), d)}</td></tr>`;
+  const label = fill(t('val.pairs'), { n: pairs.length });
+  return (
+    `<h2>${e(label)}</h2>` +
+    `<div class="table-scroll pairs-scroll" tabindex="0" role="region" aria-label="${e(label)}">` +
     `<table class="data-table"><thead><tr><th scope="col">${e(t('val.col.site'))}</th><th scope="col">${e(t('val.col.time'))}</th>` +
     `<th scope="col">${e(t('val.col.sun_shown'))}</th><th scope="col">${e(t('val.col.sun_ref'))}</th>` +
     `<th scope="col">${e(t('val.col.earth_shown'))}</th><th scope="col">${e(t('val.col.earth_ref'))}</th>` +
-    `<th scope="col">${e(t('val.col.largest'))}</th></tr></thead><tbody>${h.pairs.map(prow).join('')}</tbody></table></div>` +
+    `<th scope="col">${e(t('val.col.largest'))}</th></tr></thead><tbody>${pairs.map(prow).join('')}</tbody></table></div>`
+  );
+}
+
+// data = data/validation.json, siteName = id → display name, d = decimals shown.
+export function validationHtml(t, data, siteName, d) {
+  const h = data.horizons;
+  return (
+    summaryHtml(t, h, d) +
+    pairsHtml(t, h.pairs, (p) => siteName(p.site), d) +
     `<p class="data-label">${e(fill(t('val.generated'), { at: data.generated_at, seed: data.seed }))}</p>`
+  );
+}
+
+// Item b: the in-browser engine against Horizons (data.engine); unnamed check points are labelled by coordinates.
+export function engineHtml(t, engine, siteName, d) {
+  const nameOf = (p) => siteName(p.site) ?? fill(t('val.pgda.point'), { lat: p.lat, lon: p.lon_east });
+  return (
+    `<h2>${e(t('val.engine.heading'))}</h2>` +
+    `<p>${e(fill(t('val.engine.intro'), { n: engine.points }))}</p>` +
+    summaryHtml(t, engine, d) +
+    pairsHtml(t, engine.pairs, nameOf, d) +
+    `<p class="data-label">${e(fill(t('val.engine.generated'), { at: engine.generated_at, seed: engine.seed }))}</p>`
   );
 }
 

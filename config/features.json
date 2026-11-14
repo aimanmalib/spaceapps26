@@ -2,7 +2,7 @@
   "_note": "Feature switches per item of the challenge list (a–l). An item stays false until it passes tests; unfinished items are listed under Limitations.",
   "items": {
     "a_known_sites": true,
-    "b_custom_coordinates": false,
+    "b_custom_coordinates": true,
     "c_compare": true,
     "d_date_time": false,
     "e_time_remaining": true,

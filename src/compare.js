@@ -8,6 +8,7 @@ import { scenarioFacts } from './facts.js';
 import { glanceHtml } from './glance.js';
 import { relativeTable, aboveHorizon } from './terrain.js';
 import { mountTimeline } from './timeline-ui.js';
+import { CUSTOM_ID, customOptionHtml, customFieldsHtml, syncFields, readCustom, invalidText } from './custom.js';
 
 let uid = 0;
 
@@ -20,7 +21,7 @@ export function siteOptions(t, sites) {
     .join('');
 }
 
-function cardDom(t, sites, sc) {
+function cardDom(t, sites, sc, custom) {
   const id = `sc${++uid}`;
   const el = document.createElement('article');
   el.className = 'card';
@@ -28,17 +29,21 @@ function cardDom(t, sites, sc) {
     `<header class="card-head"><h3 class="card-title"></h3>` +
     `<button type="button" class="btn-quiet card-remove">${e(t('scenario.remove'))}</button></header>` +
     `<div class="fields"><label class="field" for="${id}-site"><span>${e(t('scenario.site'))}</span>` +
-    `<select id="${id}-site">${siteOptions(t, sites)}</select></label>` +
+    `<select id="${id}-site">${siteOptions(t, sites)}${custom ? customOptionHtml(t) : ''}</select></label>` +
+    (custom ? customFieldsHtml(t, id, custom.cfg) : '') +
     `<label class="field" for="${id}-time"><span>${e(t('scenario.time'))}</span>` +
     `<input id="${id}-time" type="datetime-local" step="60" required></label></div>` +
     `<div class="card-result" aria-live="polite"></div><section class="card-timeline" hidden></section>`;
   el.querySelector('select').value = sc.site;
   el.querySelector('input[type=datetime-local]').value = sc.time_utc;
+  if (custom && sc.coords) [...el.querySelectorAll('.custom-fields input')].forEach((input, i) => (input.value = sc.coords[i]));
+  if (custom) syncFields(el, null, custom.cfg);
   return el;
 }
 
 // horizons = {siteId: () => Promise<profile>} for sites with a terrain skyline (data/horizon/); others use the ideal sphere.
-export function mountCompare(root, { t, sites, view, horizons = {}, features = {} }) {
+// custom = {cfg: config/custom.json, tables: site → Promise<table>} when item b is on (src/custom.js).
+export function mountCompare(root, { t, sites, view, horizons = {}, features = {}, custom = null }) {
   const list = root.querySelector('.cards');
   const add = root.querySelector('.add');
   const glance = root.querySelector('.glance-body');
@@ -57,30 +62,46 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
 
   async function update() {
     const mine = ++ticket;
-    const inputs = cards.map((c) => ({ c, site: siteById.get(c.el.querySelector('select').value), ms: parseUtc(c.el.querySelector('input[type=datetime-local]').value) }));
-    for (const x of inputs) x.c.el.querySelector('.card-result').innerHTML = `<p class="note">${e(t('state.loading'))}</p>`;
+    const inputs = cards.map((c) => ({ c, site: siteFor(c.el), ms: parseUtc(c.el.querySelector('input[type=datetime-local]').value) }));
+    for (const x of inputs) x.c.el.querySelector('.card-result').innerHTML = `<p class="note">${e(t(x.site.custom ? 'custom.computing' : 'state.loading'))}</p>`;
     const rows = await Promise.all(
       inputs.map(async (x) => {
+        if (x.site.error) return { ...x, msg: invalidText(t, x.site.error, custom.cfg) };
         try {
-          const [table, profile] = await Promise.all([loadTable(view.data_path, x.site.id), horizons[x.site.id]?.() ?? null]);
-          const sample = sampleAt(table, x.ms);
-          if (!sample) {
-            const { startMs, endMs } = tableRange(table);
-            const input = x.c.el.querySelector('input[type=datetime-local]');
-            input.min = formatUtc(startMs);
-            input.max = formatUtc(endMs);
-            return { ...x, msg: fill(t('state.out_of_range'), { start: formatUtc(startMs).replace('T', ' '), end: formatUtc(endMs).replace('T', ' ') }) };
-          }
-          const th = view.horizon_threshold_deg;
-          const up = { sun: isAbove(aboveHorizon(sample.sun, profile), th), earth: isAbove(aboveHorizon(sample.earth, profile), th) };
-          const rel = relativeTable(table, profile);
-          return { ...x, sample, up, profile, rel, facts: scenarioFacts(t, rel, x.ms, { sample, up }, view) };
+          const table = x.site.custom ? custom.tables(x.site) : loadTable(view.data_path, x.site.id);
+          const [tb, profile] = await Promise.all([table, x.site.custom ? null : horizons[x.site.id]?.() ?? null]);
+          return { ...x, ...answer(x, tb, profile) };
         } catch {
           return { ...x, msg: t('state.load_error') };
         }
       }),
     );
     if (mine !== ticket) return;
+    draw(rows);
+  }
+
+  // Own coordinates (item b) or a listed site.
+  function siteFor(el) {
+    const id = el.querySelector('select').value;
+    return custom && id === CUSTOM_ID ? readCustom(t, el, custom.cfg) : siteById.get(id);
+  }
+
+  function answer(x, table, profile) {
+    const sample = sampleAt(table, x.ms);
+    if (!sample) {
+      const { startMs, endMs } = tableRange(table);
+      const input = x.c.el.querySelector('input[type=datetime-local]');
+      input.min = formatUtc(startMs);
+      input.max = formatUtc(endMs);
+      return { msg: fill(t('state.out_of_range'), { start: formatUtc(startMs).replace('T', ' '), end: formatUtc(endMs).replace('T', ' ') }) };
+    }
+    const th = view.horizon_threshold_deg;
+    const up = { sun: isAbove(aboveHorizon(sample.sun, profile), th), earth: isAbove(aboveHorizon(sample.earth, profile), th) };
+    const rel = relativeTable(table, profile);
+    return { sample, up, profile, rel, facts: scenarioFacts(t, rel, x.ms, { sample, up }, view) };
+  }
+
+  function draw(rows) {
     const scale = sharedScale(rows.filter((r) => r.sample).flatMap((r) => [r.sample.sun.el, r.sample.earth.el]), view.elevation_scale_steps_deg);
     for (const r of rows) {
       const box = r.c.el.querySelector('.card-result');
@@ -92,8 +113,12 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
   }
 
   function addCard(sc) {
-    const c = { el: cardDom(t, sites, sc) };
-    c.el.addEventListener('change', update);
+    const c = { el: cardDom(t, sites, sc, custom), prev: siteById.get(sc.site) ?? null };
+    c.el.addEventListener('change', (ev) => {
+      if (custom && ev.target.matches('select')) syncFields(c.el, c.prev, custom.cfg);
+      c.prev = siteById.get(c.el.querySelector('select').value) ?? c.prev;
+      update();
+    });
     if (features.g_timeline) {
       const time = c.el.querySelector('input[type=datetime-local]');
       const onTime = (ms) => {
@@ -117,7 +142,8 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
   add.addEventListener('click', () => {
     if (cards.length >= view.max_scenarios) return;
     const last = cards[cards.length - 1];
-    addCard({ site: last.el.querySelector('select').value, time_utc: last.el.querySelector('input[type=datetime-local]').value });
+    const coords = [...last.el.querySelectorAll('.custom-fields input')].map((i) => i.value);
+    addCard({ site: last.el.querySelector('select').value, time_utc: last.el.querySelector('input[type=datetime-local]').value, coords });
     renumber();
     update();
     cards[cards.length - 1].el.querySelector('select').focus();

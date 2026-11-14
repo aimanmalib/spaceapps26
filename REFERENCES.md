@@ -36,6 +36,7 @@ This list is completed as each part is built.
 | Name | Version | License | Use |
 |---|---|---|---|
 | Vite | 8.3.8 | MIT | build tool (not shipped to the browser) |
+| Astronomy Engine (`astronomy-engine`, Don Cross) | 2.1.19 | MIT | Sun/Earth directions and the Moon's IAU rotation model for own coordinates, computed in the browser (`src/moonsky.js`); <https://github.com/cosinekitty/astronomy> |
 | Node.js | 22 | MIT | build and tests |
 | Python | 3 (standard library) | PSF | data scripts and tests |
 | Claude Code (Anthropic) | — | — | SI tool; see SI-DISCLOSURE.md |
