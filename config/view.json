@@ -20,11 +20,19 @@
     90
   ],
   "decimals": 1,
-  "_note_timeline": "Timeline (item g): span shown per card in Earth days (one lunar day, synodic month ≈ 29.53 days); Play advances the card time by play_step_minutes every play_interval_ms (hidden when the user prefers reduced motion).",
+  "_note_timeline": "Timeline (item g): span shown per card in Earth days (one lunar day, synodic month ≈ 29.53 days); Play advances the card time by play_step_minutes every play_interval_ms (hidden when the user prefers reduced motion). One year (item d): the whole table (hourly steps); lines drawn through every line_every_steps-th row (bars use every row); Play advances by year.play_step_minutes; the caption counts hours with any part of the disc (radius disc_radius_deg, same as config/pgda.json) above the horizon used.",
   "timeline": {
     "span_days": 29.53,
     "play_step_minutes": 180,
-    "play_interval_ms": 250
+    "play_interval_ms": 250,
+    "year": {
+      "line_every_steps": 6,
+      "play_step_minutes": 1440,
+      "disc_radius_deg": {
+        "sun": 0.267,
+        "earth": 0.95
+      }
+    }
   },
   "_note_first_screen": "First screen: the near-horizon strip under the panorama on terrain sites shows ±near_horizon_deg around the horizon (polar Sun/Earth angles are small). On the first card the small-shifts block starts open, and the 2D map block starts open when the window is at least map_open_min_width_px wide.",
   "near_horizon_deg": 10,

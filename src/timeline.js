@@ -1,5 +1,5 @@
 // SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
-// Timeline of one lunar day (item g): Sun and Earth elevation above the horizon over a fixed span of a precomputed table.
+// Timeline of one lunar day or the whole one-year table (item d, g): Sun and Earth elevation above the horizon over a fixed span of a precomputed table.
 // Pure helpers + SVG markup; colours come from CSS classes (tokens in styles.css). All text is HTML around the SVG.
 import { yFor } from './sky.js';
 import { tableRange, isAbove } from './ephem.js';
@@ -30,6 +30,14 @@ export function rowsIn(table, from, to) {
   return out;
 }
 
+// Every n-th row plus the last one (a year of hourly rows drawn as a lighter line; bands still use every row).
+export function thinRows(rows, n) {
+  if (n <= 1 || rows.length < 2) return rows;
+  const out = rows.filter((_, i) => i % n === 0);
+  if (out[out.length - 1] !== rows[rows.length - 1]) out.push(rows[rows.length - 1]);
+  return out;
+}
+
 // Share (0–1) of rows with the body above the threshold.
 export function shareAbove(rows, body, th = 0) {
   return rows.length ? rows.filter((r) => isAbove(r[body], th)).length / rows.length : 0;
@@ -50,10 +58,12 @@ function bands(rows, body, th, x) {
   return out;
 }
 
-// rows = rowsIn(...); span = {from, to}; ms = selected time; scale = ±elevation shown.
-export function timelineSvg(rows, span, ms, scale, th = 0) {
+// rows = rowsIn(...); span = {from, to}; ms = selected time; scale = ±elevation shown;
+// lineEvery = draw the lines through every n-th row (the bars always use every row).
+export function timelineSvg(rows, span, ms, scale, th = 0, lineEvery = 1) {
   const x = (t) => ((t - span.from) / (span.to - span.from)) * TL.w;
-  const line = (b) => rows.map((r) => `${x(r.ms).toFixed(1)},${yFor(r[b], scale).toFixed(1)}`).join(' ');
+  const lineRows = thinRows(rows, lineEvery);
+  const line = (b) => lineRows.map((r) => `${x(r.ms).toFixed(1)},${yFor(r[b], scale).toFixed(1)}`).join(' ');
   const lane = (b, y) =>
     bands(rows, b, th, x)
       .map(([a, z]) => `<rect class="tl-band tl-band-${b}" x="${a.toFixed(1)}" y="${y}" width="${Math.max(1, z - a).toFixed(1)}" height="6"/>`)

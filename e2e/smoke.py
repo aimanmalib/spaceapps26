@@ -90,6 +90,21 @@ def own_coordinates(page, check):
     check("Own point" in page.locator(".glance-table").inner_text(), "own coordinates: side-by-side table names the point (b)")
 
 
+def one_year(page, check):
+    """Item d: the first card's timeline switches to the whole one-year table and back."""
+    tl = page.locator(".card .tl").first
+    tl.locator(".tl-range-btn[data-range=year]").click()
+    page.wait_for_function("() => document.querySelector('.card .tl-range-btn[data-range=year]').getAttribute('aria-pressed') === 'true'")
+    page.wait_for_function("() => !document.querySelector('.card .tl-year-share').hidden")
+    pts = tl.locator(".tl-svg .tl-sun").get_attribute("points") or ""
+    days = tl.locator("input[type=range]").evaluate("r => +r.max / 1440")
+    share = tl.locator(".tl-year-share").inner_text()
+    check(len(pts.split()) > 100 and days > 360 and " %" in share, f"one-year timeline drawn with caption (d): {days:.0f} days, '{share[:60]}'")
+    tl.locator(".tl-range-btn[data-range=day]").click()
+    page.wait_for_function("() => document.querySelector('.card .tl-year-share').hidden")
+    check(tl.locator("input[type=range]").evaluate("r => +r.max / 1440 < 31"), "timeline back to one lunar day (d)")
+
+
 def small_shifts(page, check):
     """Item l: open the small-shifts block on a terrain site; time rows at once, nearby-point rows from the browser engine."""
     card = page.locator(".card").first
@@ -262,6 +277,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         page.emulate_media(reduced_motion="reduce")
         page.wait_for_function("() => [...document.querySelectorAll('.tl-play')].every(b => b.hidden)")
         page.emulate_media(reduced_motion="no-preference")
+        one_year(page, check)
         small_shifts(page, check)
         moon_earth(page, check, shots, name)
         map_2d(page, check, shots, name)

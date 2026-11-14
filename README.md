@@ -39,7 +39,9 @@ Built:
   cited NASA page (NSSDCA or LROC).
 - Up to four scenarios at once, as cards and in one side-by-side table.
 - A timeline of one lunar day (29.5 Earth days) on every card: Sun and Earth elevation over time, bars for when each is in view,
-  a slider to move through it and a Play button (hidden when the device asks for reduced motion).
+  a slider to move through it and a Play button (hidden when the device asks for reduced motion). A switch shows the whole one-year
+  table instead (hourly steps, 1 Nov 2026 to 1 Nov 2027), with the share of hours each one is at least partly above the horizon used;
+  for IM-1 and IM-2 these are the same "this tool" numbers as in the NASA PGDA check below.
 - Own coordinates: type any latitude and longitude on the Moon. Sun and Earth positions for these are computed in browser,
   validated against JPL Horizons (Astronomy Engine; differences below). They use the ideal sphere horizon only: local terrain is not
   computed for own coordinates, even inside the LRO LOLA grids.

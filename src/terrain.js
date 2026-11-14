@@ -31,6 +31,11 @@ export function aboveHorizon(pos, profile) {
 
 // Share of table rows with any part of the disc (angular radius radiusDeg) above the horizon — the PGDA definition (H9b).
 export function visibleShare(table, profile, body, radiusDeg) {
-  const el = relativeTable(table, profile)[body].el;
-  return el.filter((v) => v + radiusDeg > 0).length / el.length;
+  return discShare(relativeTable(table, profile), body, radiusDeg);
+}
+
+// Same share from a table that is already relative to the horizon used (the timeline's one-year caption, item d).
+export function discShare(relTable, body, radiusDeg) {
+  const el = relTable[body].el;
+  return el.length ? el.filter((v) => v + radiusDeg > 0).length / el.length : 0;
 }

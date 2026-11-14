@@ -40,3 +40,17 @@ limits (`FIRST_SCREEN`); on the old layout it fails with exactly the two numbers
 re-captured (7 pages, 16:9).
 
 Way back: `git revert` the P4f commit and `bash deploy/pasang.sh` (the P4e layout returns).
+
+## P4g — one-year range on the timeline (15 Nov 2026)
+
+Completes item d ("changes across the lunar day and season"; NASA: "Earth libration and lunar orbit variations"); not a
+new idea, and no data file changed (`git diff -- data/` empty). Each card's timeline gets a two-button switch: "One lunar
+day" (default, unchanged) and "One year" (the whole frozen Horizons table, hourly steps). Same chart: lines are drawn
+through every `line_every_steps`-th row to keep the SVG light; the in-view bars use every row. The year caption counts
+the hours with any part of the disc above the horizon used (terrain or ideal sphere), the H9(b) definition, so for IM-1
+and IM-2 it equals the "this tool" numbers in `data/validation.json` `pgda` (unit test; IM-2: 45.7 % Sun, 93.2 % Earth).
+The shared helper moved to `src/terrain.js` (`discShare`, used by `visibleShare`). Settings in `config/view.json`
+`timeline.year`; disc radii must equal `config/pgda.json` (test). Smoke: switch to one year on the first card, path drawn,
+caption shown, back to one lunar day; 3 profiles.
+
+Way back: `git revert` the P4g commit(s) and `bash deploy/pasang.sh` (the P4f page returns).

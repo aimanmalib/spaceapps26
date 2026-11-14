@@ -55,3 +55,39 @@ test('site list is grouped, every site appears once and every group has a label'
   for (const s of sites) assert.equal(html.split(`value="${s.id}"`).length, 2, s.id);
   for (const g of new Set(sites.map((s) => s.group))) assert.ok(en[`sites.group.${g}`], g);
 });
+
+// One-year range (item d): the whole table, lighter lines, and a caption that matches the published H9(b) numbers.
+test('thinned lines keep the first and last row; bars still use every row', async () => {
+  const { thinRows } = await import('../src/timeline.js');
+  const rows = rowsIn(T, t0, t0 + 7 * H);
+  assert.deepEqual(thinRows(rows, 3).map((r) => (r.ms - t0) / H), [0, 3, 6, 7]);
+  assert.equal(thinRows(rows, 1), rows);
+  const span = { from: t0, to: t0 + 7 * H };
+  const svg = timelineSvg(rows, span, t0, 10, 0, 3);
+  assert.equal(svg.match(/class="tl-line tl-sun" points="([^"]*)"/)[1].split(' ').length, 4);
+  assert.equal((svg.match(/tl-band-earth/g) || []).length, 2);
+});
+
+test('one year = the whole table (the switch resets the span): span equals the table range', () => {
+  assert.deepEqual(timelineSpan(t0 + 2 * H, null, range.endMs - range.startMs, range), { from: t0, to: t0 + 7 * H });
+});
+
+test('one-year caption shares equal the tool values in data/validation.json pgda (IM-1, IM-2; ≤ 0.1 point)', async () => {
+  const { readFileSync } = await import('node:fs');
+  const { relativeTable, discShare } = await import('../src/terrain.js');
+  const load = (rel) => JSON.parse(readFileSync(new URL(`../${rel}`, import.meta.url), 'utf8'));
+  const year = load('config/view.json').timeline.year;
+  assert.deepEqual(year.disc_radius_deg, load('config/pgda.json').disc_radius_deg);
+  assert.ok(year.line_every_steps >= 1 && year.play_step_minutes > 0);
+  const pgda = load('data/validation.json').pgda;
+  for (const id of ['im-1', 'im-2']) {
+    const row = pgda.sites.find((s) => s.site === id);
+    const table = load(`data/ephem/${id}.json`);
+    const rel = relativeTable(table, load(`data/horizon/${id}.json`));
+    assert.equal(rel.sun.el.length, row.hours, id);
+    for (const b of ['sun', 'earth']) {
+      const shown = Number((discShare(rel, b, year.disc_radius_deg[b]) * 100).toFixed(1));
+      assert.ok(Math.abs(shown - row.tool[b] * 100) <= 0.1 + 1e-9, `${id} ${b}: ${shown} vs ${row.tool[b] * 100}`);
+    }
+  }
+});
