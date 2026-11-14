@@ -9,6 +9,7 @@
 /.autopilot/
 # Host-specific settings (network/proxy names) stay outside the public repo.
 /deploy/hos.env
+/deploy/live/
 # Build output + caches
 node_modules/
 dist/

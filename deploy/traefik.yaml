@@ -1,0 +1,27 @@
+# SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
+# Reverse-proxy route (Traefik file provider), copied by deploy/pasang.sh into the proxy's dynamic-config folder.
+# One file, one host name: with the HTTP-01 challenge a name that does not resolve fails certificates for every name in the
+# same router, so pasang.sh copies this file only after public DNS answers.
+http:
+  routers:
+    spaceapps26:
+      entryPoints: [https]
+      service: spaceapps26-svc
+      rule: Host(`spaceapps26.aimanmalib.com`)
+      tls:
+        certResolver: letsencrypt
+      priority: 100
+    spaceapps26-http:
+      entryPoints: [http]
+      service: spaceapps26-svc
+      rule: Host(`spaceapps26.aimanmalib.com`)
+      middlewares: [spaceapps26-https]
+      priority: 100
+  middlewares:
+    spaceapps26-https:
+      redirectScheme: { scheme: https, permanent: true }
+  services:
+    spaceapps26-svc:
+      loadBalancer:
+        servers:
+          - url: http://spaceapps26-web:80
