@@ -17,6 +17,10 @@ const copyData = {
 
 export default defineConfig({
   base: './',
-  build: { outDir: 'dist', emptyOutDir: true },
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+    rollupOptions: { input: { main: `${root}index.html`, validation: `${root}validation.html` } },
+  },
   plugins: [copyData],
 });

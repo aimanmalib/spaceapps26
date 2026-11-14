@@ -6,9 +6,9 @@ import { makeT } from '../src/i18n.js';
 
 const root = new URL('../', import.meta.url);
 const en = JSON.parse(readFileSync(new URL('i18n/en.json', root), 'utf8'));
-const html = readFileSync(new URL('index.html', root), 'utf8');
+const html = ['index.html', 'validation.html'].map((f) => readFileSync(new URL(f, root), 'utf8')).join('\n');
 
-test('every data-i18n key used in index.html exists in i18n/en.json', () => {
+test('every data-i18n key used in index.html and validation.html exists in i18n/en.json', () => {
   const keys = [...html.matchAll(/data-i18n="([^"]+)"/g)].map((m) => m[1]);
   for (const m of html.matchAll(/data-i18n-attr="([^"]+)"/g)) {
     for (const pair of m[1].split(';')) keys.push(pair.split(':')[1].trim());
@@ -40,6 +40,7 @@ test("every t('key') used in src/*.js exists in i18n/en.json (prefix keys like '
   }
   for (const kind of ['power', 'comm']) for (const s of ['up', 'down', 'yes', 'no']) keys.add(`${kind}.${s}`);
   for (const a of ['0', '90', '180', '270', '360']) keys.add(`sky.az.${a}`);
+  for (const q of ['sun_az', 'sun_el', 'earth_az', 'earth_el']) keys.add(`val.q.${q}`);
   assert.ok(keys.size > 10);
   assert.deepEqual([...keys].filter((k) => !(k in en)), []);
 });

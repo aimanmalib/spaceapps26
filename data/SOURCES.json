@@ -71,6 +71,15 @@
       "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
       "script": "scripts/fetch_horizons.py",
       "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
+    },
+    {
+      "file": "validation.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "note": "One Horizons request per pair and body (same parameters as the ephem tables, 1-minute span).",
+      "retrieved_at": "2026-11-14T07:30:35Z",
+      "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
+      "script": "scripts/validate.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; reference numbers come from JPL Horizons"
     }
   ]
 }

@@ -26,6 +26,22 @@ under "Limitations" by item, not left half-built.
 Sun and Earth positions come from the JPL Horizons System; terrain comes from LRO LOLA topography. All data is fetched by scripts in
 `scripts/` at build time, frozen in `data/`, and listed with its source in `data/SOURCES.json`. Full citations: `REFERENCES.md`.
 
+## Validation
+
+Do the angles the tool shows match JPL Horizons? `scripts/validate.py` draws 25 site-and-time pairs at random (fixed seed,
+never on a table hour) and compares the angles shown by the page's own code with Horizons asked directly for the same site and minute.
+Result (`data/validation.json`, also on the site's Validation page):
+
+| Angle | Largest difference | Average difference |
+|---|---|---|
+| Sun azimuth | 0.0045° | 0.0022° |
+| Sun elevation | 0.0038° | 0.0017° |
+| Earth azimuth | 0.0044° | 0.0024° |
+| Earth elevation | 0.0042° | 0.0022° |
+
+Largest difference over all angles: 0.0045°. Same solar power answer: 25 of 25;
+same Earth communication answer: 25 of 25. Not checked here: local terrain (ideal sphere horizon).
+
 ## AI disclosure (Super Intelligence / SI use)
 
 SI was used in this project, and every use is declared. In short:
