@@ -1,0 +1,26 @@
+# Internal documents never enter this repo (it becomes public at submission; PRD K12).
+/dalaman/
+/docs/hantar/
+/PELAN-*.md
+/PASTE-*.md
+/NEXT.md
+/CLAUDE.md
+/CLAUDE.local.md
+/.autopilot/
+# Host-specific settings (network/proxy names) stay outside the public repo.
+/deploy/hos.env
+# Build output + caches
+node_modules/
+dist/
+.cache/
+__pycache__/
+*.pyc
+test-results/
+playwright-report/
+# Secrets / databases (none are used; safety net)
+.env
+.env.*
+!.env.example
+*.db
+*.sqlite
+*.sqlite3
