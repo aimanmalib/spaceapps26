@@ -1,0 +1,12 @@
+{
+  "_note": "Item l (small shifts in location or date). Each card lists the same answers for the chosen time moved by time_offsets_hours, and — for sites with a LOLA terrain skyline — for points location_offset_km away in each direction (local north/east/south/west). scripts/shifts.py computes the skylines of those points with the same method as data/horizon/; the Sun/Earth angles at those points are computed in the browser (Astronomy Engine, as for own coordinates).",
+  "time_offsets_hours": [-24, -6, 6, 24],
+  "location_offset_km": 1,
+  "directions": [
+    {"id": "n", "azimuth_deg": 0},
+    {"id": "e", "azimuth_deg": 90},
+    {"id": "s", "azimuth_deg": 180},
+    {"id": "w", "azimuth_deg": 270}
+  ],
+  "decimals": 6
+}

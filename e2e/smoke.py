@@ -57,6 +57,23 @@ def own_coordinates(page, check):
     check("Own point" in page.locator(".glance-table").inner_text(), "own coordinates: side-by-side table names the point (b)")
 
 
+def small_shifts(page, check):
+    """Item l: open the small-shifts block on a terrain site; time rows at once, nearby-point rows from the browser engine."""
+    card = page.locator(".card").first
+    card.locator("select").select_option("im-2")
+    box = card.locator(".shifts")
+    box.wait_for(state="visible")
+    box.locator("summary").click()
+    page.wait_for_function("() => document.querySelector('.card .shifts-body')?.innerText.includes('km north')", timeout=30000)
+    rows = box.locator(".shift-table tbody tr").count()
+    check(rows == 9, f"small shifts: chosen + 4 time + 4 nearby rows (l), got {rows}")
+    check("shifts change" in box.locator(".shift-sum").inner_text(), "small shifts: count of changed answers (l)")
+    check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "small shifts: table fits the card (l)")
+    card.locator("select").select_option("apollo-11")
+    page.wait_for_function("() => document.querySelector('.card .shifts-body')?.innerText.includes('ideal sphere')")
+    check(box.locator(".shift-table tbody tr").count() == 5, "small shifts: sphere site = time rows only (l)")
+
+
 def run_profile(p, name, engine, ctx_opts, base, shots):
     browser = getattr(p, engine).launch()
     opts = p.devices[ctx_opts] if isinstance(ctx_opts, str) else ctx_opts
@@ -121,6 +138,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         page.emulate_media(reduced_motion="reduce")
         page.wait_for_function("() => [...document.querySelectorAll('.tl-play')].every(b => b.hidden)")
         page.emulate_media(reduced_motion="no-preference")
+        small_shifts(page, check)
         own_coordinates(page, check)
         page.locator(".card details.tech summary").first.click()
         check(page.locator(".card details.tech").first.evaluate("d => d.open"), "technical details open")

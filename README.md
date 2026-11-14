@@ -31,6 +31,10 @@ Built so far:
   computed for own coordinates, even inside the LRO LOLA grids.
 - Local terrain horizon from LRO LOLA for the south polar sites inside the elevation grids used here (75°S to the pole: IM-1, IM-2);
   every other site uses the ideal sphere horizon and says so.
+- Small shifts in location or date: each card can list the same two answers for the chosen time moved 6 hours and 1 day either way,
+  and, at the terrain sites (IM-1, IM-2), for points 1 km north, east, south and west, each with its own LOLA terrain horizon.
+  Measured example, IM-2 at 2026-11-14 00:00 UTC: Earth is 1.3° above the terrain horizon at the site, but 1.5° below it 1 km east
+  and 2.6° below it 1 km south. On the ideal sphere, 1 km tilts the horizon by only 0.033°.
 
 ## What it will do
 

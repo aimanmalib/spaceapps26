@@ -174,3 +174,16 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .custom-pair { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); }
 .custom-hint { font-size: 0.8125rem; }
 .field input[aria-invalid="true"] { border-color: var(--warn); }
+
+/* Small shifts (item l): compact table that wraps on narrow screens. */
+.shifts { min-width: 0; }
+.shift-table { width: 100%; }
+.shift-table th, .shift-table td { padding: 0.3rem 0.6rem 0.3rem 0; vertical-align: top; overflow-wrap: anywhere; }
+.shift-table tbody th { font-weight: 400; color: var(--muted); }
+.shift-table .shift-base th, .shift-table .shift-base td { border-bottom: 1px solid var(--line); color: var(--text); }
+.shift-table td.is-up .shift-ans { color: var(--text); font-weight: 600; }
+.shift-table td.is-down .shift-ans { color: var(--muted); }
+.shift-num { white-space: nowrap; color: var(--muted); }
+.shift-sum { color: var(--text); }
+.shift-table td.is-up:nth-of-type(1) .shift-ans { color: var(--sun); }
+.shift-table td.is-up:nth-of-type(2) .shift-ans { color: var(--earth); }

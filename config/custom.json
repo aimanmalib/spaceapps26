@@ -11,6 +11,6 @@
     "lat": 0,
     "lon_east": 0
   },
-  "cache_tables": 6,
-  "_note_cache": "Tables kept in memory per page (most recent own points); older ones are recomputed when chosen again."
+  "cache_tables": 12,
+  "_note_cache": "Tables kept in memory per page (most recent own points and nearby points of item l); older ones are recomputed when chosen again."
 }

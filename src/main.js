@@ -6,6 +6,7 @@ import view from '../config/view.json';
 import features from '../config/features.json';
 import customCfg from '../config/custom.json';
 import eph from '../config/ephemeris.json';
+import shiftsCfg from '../config/shifts.json';
 import { makeT, applyText } from './i18n.js';
 import { mountCompare } from './compare.js';
 import { makeCustomTables } from './custom.js';
@@ -21,8 +22,16 @@ const root = document.getElementById('compare');
 const horizons = Object.fromEntries(
   Object.entries(import.meta.glob('../data/horizon/*.json', { import: 'default' })).map(([path, load]) => [path.split('/').pop().replace('.json', ''), load]),
 );
-// Own coordinates (item b): computed in a Web Worker with Astronomy Engine, loaded only when first used.
-const custom = features.items.b_custom_coordinates
-  ? { cfg: customCfg, tables: makeCustomTables(customCfg, eph, () => new Worker(new URL('./moonsky-worker.js', import.meta.url), { type: 'module' })) }
+// Sun/Earth tables for any point (own coordinates, item b; nearby points, item l): computed in a Web Worker with
+// Astronomy Engine, loaded only when first used.
+const items = features.items;
+const engine = items.b_custom_coordinates || items.l_small_shifts
+  ? makeCustomTables(customCfg, eph, () => new Worker(new URL('./moonsky-worker.js', import.meta.url), { type: 'module' }))
   : null;
-if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, features: features.items, custom });
+const custom = items.b_custom_coordinates ? { cfg: customCfg, tables: engine } : null;
+// Small shifts (item l): terrain horizons of points near each terrain site (data/shift/), loaded on first use.
+const places = Object.fromEntries(
+  Object.entries(import.meta.glob('../data/shift/*.json', { import: 'default' })).map(([path, load]) => [path.split('/').pop().replace('.json', ''), load]),
+);
+const shifts = items.l_small_shifts ? { cfg: shiftsCfg, places, engine, radiusKm: customCfg.moon_radius_km } : null;
+if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, features: items, custom, shifts });
