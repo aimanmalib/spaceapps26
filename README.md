@@ -1,8 +1,8 @@
 # Still in View
 
-Challenge: Lunar Landing Site Navigator (NASA Space Apps Challenge 2026).
-
 **Try it:** <https://spaceapps26.aimanmalib.com/> (no sign-in). Demo deck (7 slides): [`demo/demo.pdf`](demo/demo.pdf).
+
+Challenge: Lunar Landing Site Navigator (NASA Space Apps Challenge 2026).
 
 ![One scenario card at IM-2 while the timeline slider moves through one lunar day (real screen capture)](docs/media/timeline.gif)
 
