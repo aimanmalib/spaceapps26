@@ -21,8 +21,8 @@ The site's Data sources page shows the same per-file list.
 - Lunar Polar Illumination, NASA GSFC Planetary Geology, Geophysics and Geochemistry Laboratory (PGDA), E. Mazarico —
   <https://pgda.gsfc.nasa.gov/products/69>; maps `AVGVISIB_75S_120M_201608.IMG` (average Sun visibility) and
   `AVGVISIB_75S_120M_201608_EARTH.IMG` (average Earth visibility) from the LOLA PDS extras
-  <http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/>. Used only as an independent check of the terrain horizon (H9 b,
-  `scripts/pgda.py`); only the pixels around each point are read. Method: Mazarico, E., Neumann, G. A., Smith, D. E., Zuber, M. T.,
+  <http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/>. Used only as an independent check of the terrain horizon
+  (`scripts/pgda.py`); only the pixels around each point are read. Method: Mazarico, E., Neumann, G. A., Smith, D. E., Zuber, M. T.,
   Torrence, M. H. (2011), Illumination conditions of the lunar polar regions using LOLA topography, Icarus 211, 1066–1081.
 
 ## Demo deck context

@@ -1,5 +1,17 @@
 # Lunar Landing Site Navigator
 
+**Try it:** <https://spaceapps26.aimanmalib.com/> (no sign-in). Demo deck (7 slides): [`demo/demo.pdf`](demo/demo.pdf).
+
+![One scenario card at IM-2 while the timeline slider moves through one lunar day (real screen capture)](docs/media/timeline.gif)
+
+Three steps for a first look:
+
+1. Open the site. Two scenarios are already on screen, IM-2 and Apollo 11 at 2026-11-14 00:00 UTC, each with two answers:
+   solar power possible or not, direct-to-Earth communication possible or not.
+2. On the IM-2 card, read "Small shifts in location or date": Earth is 1.3° above the terrain horizon at the site, and below it
+   1 km east and 1 km south.
+3. Open the Validation page: the differences from JPL Horizons and from the NASA GSFC PGDA illumination maps.
+
 Entry for the **NASA Space Apps Challenge 2026** (Jakarta, virtual), challenge
 **Lunar Landing Site Navigator**:
 <https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/>
@@ -13,10 +25,7 @@ Team: Aiman Malib.
 
 ## Status
 
-Built during the event weekend (14–15 November 2026). Live site: <https://spaceapps26.aimanmalib.com/> (Compare, Validation, Data sources, About).
-Demo deck (7 slides): [`demo/demo.pdf`](demo/demo.pdf).
-
-![One scenario card at IM-2 while the timeline slider moves through one lunar day (real screen capture)](docs/media/timeline.gif)
+Built during the event weekend (14–15 November 2026). Pages on the live site: Compare, Validation, Data sources, About.
 
 Built:
 
@@ -114,8 +123,9 @@ table (2026-11-01 to 2027-11-01) when any part of the disc is above its terrain 
 | IM-2 | 45.7 % | 46.8 % | 93.2 % | 93.1 % |
 | Check point -89.45°, 222.69°E (not a landing site) | 85.7 % | 67.7 % | 53.3 % | 52.3 % |
 
-Largest difference: Sun 18.0 percentage points, Earth 1.0 percentage points. At the check point
-near the pole the PGDA Sun value ranges from 51.0 % to 84.7 % within the 3 × 3 pixels around it.
+Largest difference: Sun 18.0 percentage points, Earth 1.0 percentage points. At the two landing sites the Sun differs by
+1.1 points and Earth by 0.1 or less. The 18.0 points are at the check point 0.55° from the pole, on a ridge where the PGDA Sun value
+itself ranges from 51.0 % to 84.7 % within the 3 × 3 pixels around it. It is reported as measured.
 
 ## Tests
 
@@ -128,16 +138,17 @@ near the pole the PGDA Sun value ranges from 51.0 % to 84.7 % within the 3 × 3 
 
 ## AI disclosure (Super Intelligence / SI use)
 
-SI was used in this project, and every use is declared. In short:
+SI was used in this project: Claude Code (Anthropic).
 
-- **Decided by me (the author):** to take part, the Jakarta event, this challenge, the audiences and the items to build. I chose
-  them from the list in NASA's challenge text.
-- **Done by SI (Claude Code, Anthropic), on my instructions:** a feasibility comparison of the challenges, translation of the challenge
-  text into Malay for me, build order, interface design, all code and data scripts, tests, slide layout, and translating and editing my
-  Malay notes into English text.
-- **Not used:** no SI-generated images, video or audio. Screenshots are real captures of the app.
+- **Decided by me (the author):** to take part, the Jakarta event, this challenge, the three audiences and the twelve items to
+  build, chosen from the list in NASA's challenge text.
+- **Done by SI, on my instructions:** a feasibility comparison of the challenges, translation of the challenge text into Malay for
+  me, build order, interface design, all code, data scripts and tests, slide layout, and the English text, drafted from my choices
+  and the measured results and reviewed by me.
+- **Not used:** no SI-generated images, video or audio. Every image is a real screenshot of the tool.
 
-Details, including "Who decided what": [`SI-DISCLOSURE.md`](SI-DISCLOSURE.md). Machine-readable form:
+Generated source files carry the header `SI-generated: Claude Code (Anthropic)`; each page has an `si-disclosure` meta tag and a
+footer line. Full statement with "Who decided what": [`SI-DISCLOSURE.md`](SI-DISCLOSURE.md). Machine-readable form:
 [`si-disclosure.json`](si-disclosure.json).
 
 ## License
