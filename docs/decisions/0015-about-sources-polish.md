@@ -23,7 +23,7 @@ footer link; H6 forbids SI media, NASA logos and company names; the house rules 
 - `config/features.json` `d_date_time` is now true: the date and time input has existed since P1 and the browser smoke test
   changes it on every run; About would otherwise mark item d "not built".
 - Checks: `tests/test_disclosure.py` (SI header in the first lines of every code file, meta tag + footer link on every page, media
-  files only under `docs/media/`, no company names) and `tests/contrast.test.mjs` (every text colour token on every background
+  files only under `docs/media/`; company names are checked outside the repository, so the list itself is not published) and `tests/contrast.test.mjs` (every text colour token on every background
   token, WCAG 2.x formula). The smoke test opens both new pages in all three profiles.
 
 ## Consequences
