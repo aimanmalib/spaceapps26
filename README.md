@@ -163,6 +163,17 @@ Largest difference: Sun 18.0 percentage points, Earth 1.0 percentage points. At 
 1.1 points and Earth by 0.1 or less. The 18.0 points are at the check point 0.55° from the pole, on a ridge where the PGDA Sun value
 itself ranges from 51.0 % to 84.7 % within the 3 × 3 pixels around it. It is reported as measured.
 
+The same check at 100 random points spread evenly over the area south of 80° S (fixed seed, `scripts/pgda_sample.py`; each point
+has its own LOLA skyline, and its Sun and Earth angles come from the in-browser engine), against the PGDA pixel nearest each point:
+
+| | Median difference | 90th percentile | Largest difference | Inside the PGDA range of the 3 × 3 pixels nearby |
+|---|---|---|---|---|
+| Sun visible | 0.9 | 2.4 | 10.7 | 61 of 100 |
+| Earth visible | 1.1 | 5.6 | 21.8 | 64 of 100 |
+
+Differences are in percentage points and are reported as measured; the periods differ (one year against 18.6 years). Every file
+in `data/` can be rebuilt from the NASA sources with one command: [`docs/REPRODUCE.md`](docs/REPRODUCE.md).
+
 ## Tests
 
 - `bash scripts/gerbang-ujian.sh` — build, JavaScript and Python unit tests.

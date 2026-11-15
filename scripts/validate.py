@@ -6,7 +6,7 @@ For each site in config/sites.json, draw `pairs_per_site` minutes (fixed seed, c
 inside the frozen table range and never on a table row. "Shown" = the frozen hourly table read by the
 page's own code (src/ephem.js, through scripts/shown_angles.mjs, needs Node 22 on PATH). "Horizons" = a
 fresh one-minute Horizons request for the same site and minute (same request shape as fetch_horizons.py).
-Writes data/validation.json (the "pgda" part is kept as is) and updates data/SOURCES.json.
+Writes data/validation.json (the "pgda" and "pgda_sample" parts are kept as is) and updates data/SOURCES.json.
 
 "engine" part (item b, own coordinates): the in-browser engine (scripts/engine_angles.mjs) at the same listed-site
 pairs (Horizons values reused) and at new pairs on the unnamed check points of config/validation.json "engine".
@@ -140,6 +140,7 @@ def main(argv):
         "generated_at": old.get("generated_at", now) if "--engine" in argv else now, "script": SCRIPT, "seed": vcfg["seed"],
         "horizons": horizons, "engine": engine,
         "pgda": old.get("pgda", {"sites": []}),
+        **({"pgda_sample": old["pgda_sample"]} if "pgda_sample" in old else {}),  # written by scripts/pgda_sample.py
     }
     (fh.ROOT / OUT).write_text(json.dumps(result, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     sources = fh.load("data/SOURCES.json")

@@ -3,16 +3,43 @@
   "page_url": "https://pgda.gsfc.nasa.gov/products/69",
   "credit": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
   "maps": {
-    "sun": {"url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG", "label": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.LBL"},
-    "earth": {"url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608_EARTH.IMG", "label": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608_EARTH.LBL"}
+    "sun": {
+      "url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG",
+      "label": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.LBL"
+    },
+    "earth": {
+      "url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608_EARTH.IMG",
+      "label": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608_EARTH.LBL"
+    }
   },
-  "grid": {"size": 7624, "scale_m": 120, "offset_px": 3811.5, "scaling_factor": 0.00004, "moon_radius_m": 1737400},
+  "grid": {
+    "size": 7624,
+    "scale_m": 120,
+    "offset_px": 3811.5,
+    "scaling_factor": 4e-05,
+    "moon_radius_m": 1737400
+  },
   "window_px": 1,
-  "disc_radius_deg": {"sun": 0.267, "earth": 0.95},
+  "disc_radius_deg": {
+    "sun": 0.267,
+    "earth": 0.95
+  },
   "_disc_note": "Angular radius seen from the Moon: Sun 696000 km / 149.6e6 km = 0.267 deg; Earth 6371 km / 384400 km = 0.95 deg (mean distances).",
   "extra_points": [
-    {"id": "pgda-222.69E-89.45S", "lat": -89.45, "lon_east": 222.69, "_note": "Unnamed engineering point (same as the Horizons check point); not a landing site."}
+    {
+      "id": "pgda-222.69E-89.45S",
+      "lat": -89.45,
+      "lon_east": 222.69,
+      "_note": "Unnamed engineering point (same as the Horizons check point); not a landing site."
+    }
   ],
   "decimals": 3,
-  "timeout_seconds": 60
+  "timeout_seconds": 60,
+  "sample": {
+    "_note": "P4q: a larger check of the terrain horizon against the same PGDA maps, at random points (fixed seed) spread evenly over the area south of 80 S (inside the LOLA 80 m grid). Each point gets its own LOLA skyline (scripts/horizon.py ray casting) and Sun/Earth angles from the in-browser engine (src/moonsky.js) over the one-year period of config/ephemeris.json; the PGDA value is the pixel nearest the point and the range of the 3 x 3 pixels around it. Written as the extra block 'pgda_sample' of data/validation.json; the 'pgda' block is not changed.",
+    "seed": 20261115,
+    "count": 100,
+    "lat_max": -80,
+    "decimals_coords": 4
+  }
 }
