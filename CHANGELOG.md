@@ -13,6 +13,9 @@ The project has no numbered releases: the site is one continuous build, and each
   (observer on the ground) to 85.3 % (2 m up), with NASA's 67.7 % between.
 - The validation line on the home page gives the same-period number at the two landing sites and says a ridge test point
   differs more.
+- Compare: every card opens with one short verdict and a 360° strip of the horizon (the LOLA skyline at IM-1 and IM-2) with the
+  Sun and Earth on it. The verdict sentences sit above the side-by-side table on every width; on phones the main buttons follow
+  the cards. The intro sentence is shorter.
 
 ## 2026-11-15, the submitted build
 

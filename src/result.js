@@ -4,6 +4,7 @@ import { fill, escapeHtml as e } from './i18n.js';
 import { skySvg } from './sky.js';
 import { horizonAt } from './terrain.js';
 import { signedDeg } from './facts.js';
+import { panoHtml } from './pano.js';
 
 function deg(v, decimals) {
   return v.toFixed(decimals);
@@ -89,6 +90,7 @@ export function resultHtml(t, r, view) {
     .map((a) => `<span class="sky-az" style="left:${(+a / 360) * 100}%">${e(t(`sky.az.${a}`))}</span>`)
     .join('');
   return (
+    panoHtml(t, r, view) +
     `<ul class="answers">${answer('power', 'sun', 'sky.sun')}${answer('comm', 'earth', 'sky.earth')}</ul>` +
     `<figure class="sky">` +
     `<div class="sky-plot" role="img" aria-label="${e(fill(t('sky.aria'), { saz: deg(sun.az, 0), sel: deg(sun.el, d), eaz: deg(earth.az, 0), eel: deg(earth.el, d) }))}">` +

@@ -59,6 +59,9 @@ Built:
 
 - Pick a landing site and a UTC date and time (2026-11-01 to 2027-11-01); see the Sun and Earth relative to the horizon, whether solar power generation and
   direct-to-Earth communication are possible, and the elevation of each.
+- Horizon first: every card opens with one short verdict (for example "Link to Earth, no sunlight") and a 360° strip of the
+  horizon with the Sun and Earth on it; at IM-1 and IM-2 the ground in the strip is the LRO LOLA skyline. The strip's vertical
+  scale (±5°, ±10°, ±20°, ±45° or ±90°, written in its corner) is the smallest that holds that card's Sun and Earth.
 - Time remaining before sunset or Earthset (or until sunrise or Earthrise), the duration of sunlight and the Earth visibility window
   around the chosen time.
 - Ten known landing sites (all six Apollo landings, CLPS IM-1 and IM-2, Chandrayaan-3, Chang'e 4), each coordinate copied from a
@@ -278,7 +281,8 @@ SI was used in this project: Claude Code (Anthropic).
   for teachers, a guided tour), all chosen by me from that list, then three more that SI suggested (a real NASA photograph on the
   first screen, a one-year overview of every listed site, Indonesian and Malay interface options), also all chosen by me. On the
   evening of 15 November: to aim for a Global Award and to adopt changes from an SI red-team review of the entry (so far the PGDA
-  comparison over the same 18.6 years, with the ridge-point test).
+  comparison over the same 18.6 years, with the ridge-point test, and a 360° horizon strip with a one-line verdict at the top of
+  every card).
 - **Done by SI, on my instructions:** a feasibility comparison of the challenges, translation of the challenge text into Malay for
   me, build order, interface design, all code, data scripts and tests, slide layout, suggested project names, the red-team review of
   the entry with its measurements and the changes adopted from it, the optional Indonesian and

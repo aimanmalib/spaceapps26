@@ -389,6 +389,41 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
   .summary { order: 1; margin-top: 1.25rem; }
   .glance { order: 2; }
 }
+/* Horizon first (ADR 0040): each card opens with one short verdict and a 360-degree strip of the horizon. The strip is
+   stretched to the card width (preserveAspectRatio none), so strokes do not scale and markers and text are HTML. */
+.pano { margin: 0 0 0.75rem; }
+.pano-verdict { margin: 0 0 0.4rem; font-size: clamp(1.15rem, 4.8vw, 1.45rem); font-weight: 650; line-height: 1.25; letter-spacing: -0.01em; }
+.pano-plot { position: relative; height: clamp(5rem, 21vw, 5.75rem); border: 1px solid var(--line); border-radius: 0.5rem; overflow: hidden; background: var(--sky); }
+.pano-svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.pano-svg * { vector-effect: non-scaling-stroke; }
+.pano-dot { position: absolute; width: 0.95rem; height: 0.95rem; border-radius: 50%; transform: translate(-50%, -50%); }
+.pano-sun { color: var(--sun); }
+.pano-earth { color: var(--earth); }
+.pano-dot.is-up { background: currentColor; box-shadow: 0 0 0 2px var(--sky); }
+.pano-dot.is-down { border: 2px dashed currentColor; }
+.pano-tag { position: absolute; margin-left: 0.8rem; transform: translateY(-50%); font-size: 0.75rem; font-weight: 600; line-height: 1; white-space: nowrap;
+  color: var(--text); text-shadow: 0 0 3px var(--bg), 0 0 6px var(--bg); }
+.pano-tag.is-left { margin-left: -0.8rem; transform: translate(-100%, -50%); }
+.pano-corner { position: absolute; top: 0.3rem; font-size: 0.7rem; line-height: 1; color: var(--muted); text-shadow: 0 0 3px var(--bg); font-variant-numeric: tabular-nums; }
+.pano-scale { left: 0.4rem; }
+.pano-kind { right: 0.4rem; }
+.pano-az { position: absolute; bottom: 0.25rem; transform: translateX(-50%); font-size: 0.7rem; line-height: 1; color: var(--muted); text-shadow: 0 0 3px var(--bg); }
+.pano-az.is-first { transform: none; margin-left: 0.4rem; }
+.pano-az.is-last { transform: translateX(-100%); margin-left: -0.4rem; }
+/* The verdict sentences (one per scenario) now sit above the side-by-side table on every width: each card carries
+   its own verdict. Wide windows keep the validation line above the cards. */
+@media (min-width: 60rem) {
+  .summary { display: contents; }
+  .summary .verdicts { order: 1; margin-top: 1.25rem; max-width: 60rem; }
+  .summary .trust { max-width: 60rem; margin-top: 0.25rem; }
+  .glance { order: 2; }
+}
+/* Phones: the main buttons follow the cards, so the verdict, the strip and the first answer open the page. */
+@media (max-width: 30rem) {
+  .tool-actions { order: 1; margin-top: 1rem; }
+  .summary { order: 2; }
+  .glance { order: 3; }
+}
 .answer-more { font-size: 0.875rem; color: var(--muted); }
 .answer-more summary { cursor: pointer; color: var(--muted); min-height: 1.5rem; display: flex; align-items: center; text-decoration: underline; text-underline-offset: 3px; }
 .answer-more summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

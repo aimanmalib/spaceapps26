@@ -32,8 +32,8 @@ ONE_KM_QUERY = "?s=im-2,2026-11-14T00:00"
 TERRAIN_SITES = {"im-1", "im-2"}
 # First screen (P4f): on a 1280 x 900 desktop window both large numbers of the first card end inside it; on an
 # iPhone 13 (664 px tall) the first answer of the first card starts inside it. Positions are page coordinates at scroll 0.
-# P4v: on a 1366 x 768 laptop both answers of the first card end inside it and the Earth view's plot starts at least
-# 20 px above its bottom edge.
+# ADR 0040 (horizon first): on a 1366 x 768 laptop the first card's horizon strip and both answers end inside it; on
+# an iPhone 13 the first card's verdict and horizon strip are inside the first screen and its first answer starts there.
 # P4p (ADR 0033): the one-kilometre example button ends inside the first screen above the cards on the two desktop
 # profiles; on phones (config/view.json example_below_answers_max_width_px) it sits right under the first card's two
 # answers, so the iPhone 13 first answer still starts inside the 664 px first screen.
@@ -43,9 +43,9 @@ UNDER_ANSWERS_JS = """() => { let n = document.querySelector('.card .answers')?.
     if (n?.matches('.ev')) n = n.nextElementSibling; return n?.matches('button.example') ?? false; }"""
 EXAMPLE_BELOW_ANSWERS = {"chromium-320", "webkit-iphone13"}
 FIRST_SCREEN = {
-    "chromium-1280": [(".answer-comm .answer-deg", "bottom", 900)],
-    "chromium-1366": [(".answer-power", "bottom", 768), (".answer-comm", "bottom", 768), (".ev-plot", "top", 748)],
-    "webkit-iphone13": [(".answer-power", "top", 664)],
+    "chromium-1280": [(".answer-comm .answer-deg", "bottom", 900), (".pano-plot", "bottom", 800)],
+    "chromium-1366": [(".pano-plot", "bottom", 768), (".answer-power", "bottom", 768), (".answer-comm", "bottom", 768)],
+    "webkit-iphone13": [(".pano-verdict", "top", 664), (".pano-plot", "bottom", 664), (".answer-power", "top", 664)],
 }
 
 
@@ -477,19 +477,23 @@ def overview_page(page, check, base, shots, name):
 
 
 def summary(page, check):
-    """P4v: verdicts, the validation line and the main buttons come before the cards in the page; on wide windows the
-    verdicts are also drawn above the cards (narrow screens draw them under the cards)."""
+    """Verdicts, the validation line and the main buttons come before the cards in the page; on wide windows the
+    validation line and the buttons are drawn above the cards. ADR 0040: every card opens with its own verdict and a
+    360-degree horizon strip (two markers; the skyline only at terrain sites), so the verdict list sits under the cards."""
     page.locator(".trust a").wait_for()
     r = page.evaluate("""() => {
       const top = s => document.querySelector(s).getBoundingClientRect().top;
       const before = (a, b) => !!(document.querySelector(a).compareDocumentPosition(document.querySelector(b)) & 4);
       return {order: before('.verdicts', '.cards') && before('.tool-actions', '.cards') && before('.trust', '.cards'),
-              wide: innerWidth >= 960, above: top('.verdicts') < top('.cards') && top('.tool-actions') < top('.cards'),
+              wide: innerWidth >= 960, above: top('.trust') < top('.cards') && top('.tool-actions') < top('.cards'),
+              pano: [...document.querySelectorAll('.card')].every(c => c.querySelector('.pano-verdict')?.innerText.trim() &&
+                c.querySelectorAll('.pano-plot .pano-dot').length === 2 && !!c.querySelector('.pano-svg .sky-terrain') === !!c.querySelector('.sky-near')),
               trust: document.querySelector('.trust').innerText, href: document.querySelector('.trust a').getAttribute('href'),
               n: document.querySelectorAll('.verdicts li').length, cards: document.querySelectorAll('.card').length};
     }""")
     check(r["order"], "first screen: verdicts, validation line and buttons before the cards in the page")
-    check(r["above"] or not r["wide"], "first screen: verdicts drawn above the cards on wide windows")
+    check(r["above"] or not r["wide"], "first screen: validation line and buttons drawn above the cards on wide windows")
+    check(r["pano"], "every card opens with a verdict and a 360-degree horizon strip (ADR 0040)")
     check(r["n"] == r["cards"], "one verdict per card")
     check("JPL Horizons" in r["trust"] and "PGDA" in r["trust"] and r["href"].endswith("validation.html"),
           f"validation line with link ({r['trust'][:50]!r})")
