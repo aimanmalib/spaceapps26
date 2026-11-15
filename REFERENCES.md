@@ -71,6 +71,13 @@ The site's Data sources page shows the same per-file list.
   Server 20250011660 — <https://ntrs.nasa.gov/citations/20250011660> (the same nine names; no coordinates).
 - NASA, "Moon Base Phases" — <https://www.nasa.gov/moonbase-phases/> ("Endurance will attempt a landing on the Shackleton Connecting
   Ridge": Blue Origin's Blue Moon Mark 1, a CLPS flight).
+- NASA GSFC, Lunar Eclipses 2021 to 2030 and Five Millennium Catalog of Lunar Eclipses 2001 to 2100 (eclipse predictions by Fred
+  Espenak, NASA/GSFC) — <https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html>,
+  <https://eclipse.gsfc.nasa.gov/LEcat5/LE2001-2100.html> (the ten lunar eclipses from November 2026 to December 2030 copied into
+  `config/eclipses.json`; the eclipse check of ADR 0109).
+- NASA/JPL, DSN Telecommunications Link Design Handbook 810-005, module 301 Rev. N, Table 5 —
+  <https://deepspace.jpl.nasa.gov/dsndocs/810-005/301/301N.pdf> (the coordinates of DSS 14 Goldstone, DSS 63 Madrid and DSS 43
+  Canberra in `config/dsn.json`; ADR 0109).
 
 ## Libraries and tools
 
