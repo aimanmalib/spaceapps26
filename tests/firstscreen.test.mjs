@@ -95,7 +95,8 @@ test('P4v validation line: every number read from data/validation.json', async (
   const v = JSON.parse(readFileSync(new URL('data/validation.json', root), 'utf8'));
   const text = trustText(t, v, 4);
   const h = v.scale?.all_checks ?? v.horizons; // ADR 0108: every Horizons check together
-  assert.ok(text.includes(`${h.max_abs_deg.toFixed(4)}°`));
+  // ADR 0113: the line gives the largest difference of the directions on the sky (Sun or Earth).
+  assert.ok(text.includes(`directions on the sky, largest difference ${Math.max(h.sky_separation.sun.max_deg, h.sky_separation.earth.max_deg).toFixed(4)}°`));
   assert.ok(text.includes(`at ${h.same_answer.of} random times`));
   assert.ok(text.includes(`solar power ${h.same_answer.power} of ${h.same_answer.of}, Earth ${h.same_answer.comm} of ${h.same_answer.of}`));
   assert.ok(text.includes(`${(v.pgda_period.landing_sites.max_abs * 100).toFixed(1)} percentage points`));

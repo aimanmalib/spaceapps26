@@ -36,6 +36,8 @@ The project has no numbered releases: the site is one continuous build, and each
   Lighthouse scores from `scripts/lighthouse.sh`.
 
 ### Changed
+- Dates to the end of 2040. The page now interpolates directions as vectors, and the checks against JPL Horizons judge the
+  direction on the sky (0.05° limit) while still reporting azimuth, which is undefined near the zenith (ADR 0113).
 - Visual pass: a self-hosted typeface (IBM Plex Sans, SIL OFL 1.1), one type scale, the mission check badge and the verdict first
   in every card, page links on one row on phones (ADR 0107).
 - README: Features, limitations, the one-year table, Data and the full Validation moved unchanged to `docs/DETAILS.md`.
