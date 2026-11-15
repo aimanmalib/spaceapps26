@@ -16,6 +16,7 @@ import { makeCustomTables } from './custom.js';
 import { decodeScenarios } from './share.js';
 import { parseUtc } from './ephem.js';
 import { trustHtml } from './trust.js';
+import presetsCfg from '../config/presets.json';
 
 const { t } = initPage();
 
@@ -58,7 +59,7 @@ const shared = decodeScenarios(location.search, { cfg: view.share, siteIds: new 
 const share = { cfg: view.share, range: { startMs: parseUtc(eph.start), endMs: parseUtc(eph.stop) }, ...shared };
 // Earth view (P4v): to-scale window toward Earth/Sun on terrain cards; nearby points reuse item l's data and engine.
 const earthview = items.j_terrain_horizon && engine ? { cfg: evCfg, dirs: shiftsCfg, places, engine } : null;
-if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, bands, features: items, custom, shifts, me: items.k_moon_vs_earth ? meCfg : null, map, surface, share, earthview });
+if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, bands, features: items, custom, shifts, me: items.k_moon_vs_earth ? meCfg : null, map, surface, share, earthview, presets: { box: document.querySelector('.presets'), list: presetsCfg.presets } });
 // One line of measured validation numbers under the verdicts (P4v), loaded after the cards; left empty if it fails.
 const trust = root?.querySelector('.trust');
 if (trust) import('../data/validation.json').then(({ default: v }) => (trust.innerHTML = trustHtml(t, v, vcfg.decimals_report, './validation.html'))).catch(() => {});

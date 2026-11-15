@@ -377,7 +377,7 @@
   "sources.facts.heading": "Fakta Bulan dan Bumi (item k)",
   "sources.cmd.10": "Matahari",
   "sources.cmd.399": "Bumi",
-  "tool.lede": "Pilih tapak pendaratan dan masa UTC, lalu lihat sama ada Matahari (kuasa solar) dan Bumi (hubungan terus) berada di atas ufuk.",
+  "tool.lede": "Pelancaran tertunda atau tapak bertukar? Lihat serta-merta sama ada tapak pendaratan di Bulan masih mendapat cahaya matahari untuk kuasa dan talian terus ke Bumi.",
   "tool.how": "Cara membaca ini",
   "answer.margin_terrain": "{body} {dir} ufuk rupa bumi",
   "answer.margin_sphere": "{body} {dir} ufuk sfera ideal",
@@ -546,5 +546,12 @@
   "lander.name.sun": "Matahari",
   "lander.name.earth": "Bumi",
   "lander.aria": "Pandangan dari pendarat ke azimut {az}° ({dir}), {el}° di atas paras.",
-  "lander.none": "Tiada garis langit rupa bumi untuk tapak ini, jadi tiada pandangan dari pendarat."
+  "lander.none": "Tiada garis langit rupa bumi untuk tapak ini, jadi tiada pandangan dari pendarat.",
+  "preset.heading": "Cuba satu perbandingan",
+  "preset.label": "Perbandingan sedia",
+  "preset.slip": "Pelancaran tertunda dua minggu",
+  "preset.im1": "IM-1: dirancang vs tempat ia mendarat",
+  "preset.apollo_pole": "Apollo 11 vs kutub selatan",
+  "preset.ridge_seasons": "Rabung: musim panas vs musim sejuk",
+  "preset.done": "Dimuatkan: {name}."
 }

@@ -377,7 +377,7 @@
   "sources.facts.heading": "Moon and Earth facts (item k)",
   "sources.cmd.10": "Sun",
   "sources.cmd.399": "Earth",
-  "tool.lede": "Pick a landing site and a UTC time, and see if the Sun (solar power) and Earth (a direct link) are above the horizon.",
+  "tool.lede": "Launch slipped or site changed? See at once whether a lunar landing site still has sunlight for power and a direct line to Earth.",
   "tool.how": "How to read this",
   "answer.margin_terrain": "{body} {dir} the terrain horizon",
   "answer.margin_sphere": "{body} {dir} the ideal sphere horizon",
@@ -546,5 +546,12 @@
   "lander.name.sun": "Sun",
   "lander.name.earth": "Earth",
   "lander.aria": "View from the lander toward azimuth {az}° ({dir}), {el}° up from level.",
-  "lander.none": "No terrain skyline for this site, so there is no view from the lander."
+  "lander.none": "No terrain skyline for this site, so there is no view from the lander.",
+  "preset.heading": "Try a comparison",
+  "preset.label": "Ready-made comparisons",
+  "preset.slip": "Launch slipped two weeks",
+  "preset.im1": "IM-1: planned vs where it landed",
+  "preset.apollo_pole": "Apollo 11 vs the south pole",
+  "preset.ridge_seasons": "Ridge: summer vs winter",
+  "preset.done": "Loaded: {name}."
 }
