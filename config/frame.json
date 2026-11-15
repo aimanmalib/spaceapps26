@@ -1,0 +1,35 @@
+{
+  "_doc": "Site header brand and footer (ADR 0111). Every label is an i18n key. href: a page of this site (./...), 'repo:<suffix>' = config/app.json repo_url + suffix, 'si:' = the SI disclosure (repo_url + si_disclosure_path). Order here is the order on the page.",
+  "home": "./",
+  "tagline": "meta.description",
+  "footer": [
+    {
+      "heading": "footer.product",
+      "links": [
+        { "key": "nav.compare", "href": "./" },
+        { "key": "nav.overview", "href": "./overview.html" },
+        { "key": "nav.play", "href": "./play.html" },
+        { "key": "nav.teach", "href": "./teach.html" },
+        { "key": "nav.about", "href": "./about.html" }
+      ]
+    },
+    {
+      "heading": "footer.science",
+      "links": [
+        { "key": "nav.validation", "href": "./validation.html" },
+        { "key": "nav.sources", "href": "./sources.html" },
+        { "key": "footer.scientist", "href": "repo:#what-a-scientist-can-check" }
+      ]
+    },
+    {
+      "heading": "footer.project",
+      "links": [
+        { "key": "footer.repo", "href": "repo:" },
+        { "key": "footer.slides", "href": "./demo/demo.pdf" },
+        { "key": "footer.licence", "href": "repo:/blob/main/LICENSE" },
+        { "key": "footer.si_link", "href": "si:", "id": "si-link" }
+      ],
+      "notes": ["footer.credits", "footer.made"]
+    }
+  ]
+}
