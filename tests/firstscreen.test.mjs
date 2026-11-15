@@ -80,3 +80,30 @@ test('page order: one-sentence intro, explanation folded, cards before the side-
   assert.ok(at('class="cards"') < at('class="glance"'));
   assert.ok(view.first_card.shifts_open === true && view.first_card.map_open_min_width_px > 0);
 });
+
+test('P4v first screen: verdicts, validation line and buttons come right after the intro, before the cards', () => {
+  const html = readFileSync(new URL('index.html', root), 'utf8');
+  const at = (s) => html.indexOf(s);
+  assert.ok(at('data-i18n="tool.lede"') < at('class="verdicts"'));
+  assert.ok(at('class="verdicts"') < at('class="trust'));
+  assert.ok(at('class="trust') < at('class="tool-actions"'));
+  assert.ok(at('class="tool-actions"') < at('class="cards"'));
+});
+
+test('P4v validation line: every number read from data/validation.json', async () => {
+  const { trustText } = await import('../src/trust.js');
+  const v = JSON.parse(readFileSync(new URL('data/validation.json', root), 'utf8'));
+  const text = trustText(t, v, 4);
+  const h = v.horizons;
+  assert.ok(text.includes(`${h.max_abs_deg.toFixed(4)}°`));
+  assert.ok(text.includes(`at ${h.same_answer.of} random times`));
+  assert.ok(text.includes(`answer ${h.same_answer.power} of ${h.same_answer.of}`));
+  assert.ok(text.includes(`${(v.pgda.sun.max_abs * 100).toFixed(1)} percentage points`));
+  assert.ok(!/[{}]/.test(text));
+});
+
+test('P4v card: elevation line and window length fold under each answer', () => {
+  const { html } = scenario(profile);
+  assert.equal((html.match(/<details class="answer-more">/g) || []).length, 2);
+  assert.match(html, /<details class="answer-more"><summary>Elevation and window length<\/summary><span class="answer-sky">Sun elevation/);
+});

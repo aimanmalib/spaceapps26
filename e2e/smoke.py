@@ -3,7 +3,7 @@
 
     python3 e2e/smoke.py https://example.org/      # needs the Python `playwright` package + its browsers
 
-Profiles: Chromium desktop 1280 px, Chromium 320 px, WebKit iPhone 13.
+Profiles: Chromium desktop 1280 px, Chromium laptop 1366 x 768, Chromium 320 px, WebKit iPhone 13.
 On each: the compare tool renders answers, the site select and the time input
 update them, the step buttons and "If the date moves" table (sequential comparison) work, own coordinates (item b) give answers, the 2D map (item h) and 3D surface (item i) draw, "add" makes one more card, technical details open, the validation
 page shows its numbers, the Play page plays one round, About lists items a–l and limitations, Data sources lists the frozen files;
@@ -20,6 +20,7 @@ from playwright.sync_api import sync_playwright
 
 PROFILES = [
     ("chromium-1280", "chromium", {"viewport": {"width": 1280, "height": 800}}),
+    ("chromium-1366", "chromium", {"viewport": {"width": 1366, "height": 768}}),
     ("chromium-320", "chromium", {"viewport": {"width": 320, "height": 640}}),
     ("webkit-iphone13", "webkit", "iPhone 13"),
 ]
@@ -30,7 +31,13 @@ ONE_KM_QUERY = "?s=im-2,2026-11-14T00:00"
 TERRAIN_SITES = {"im-1", "im-2"}
 # First screen (P4f): on a 1280 x 900 desktop window both large numbers of the first card end inside it; on an
 # iPhone 13 (664 px tall) the first answer of the first card starts inside it. Positions are page coordinates at scroll 0.
-FIRST_SCREEN = {"chromium-1280": (".answer-comm .answer-deg", "bottom", 900), "webkit-iphone13": (".answer-power", "top", 664)}
+# P4v: on a 1366 x 768 laptop both answers of the first card end inside it and the Earth view's plot starts at least
+# 20 px above its bottom edge.
+FIRST_SCREEN = {
+    "chromium-1280": [(".answer-comm .answer-deg", "bottom", 900)],
+    "chromium-1366": [(".answer-power", "bottom", 768), (".answer-comm", "bottom", 768), (".ev-plot", "top", 748)],
+    "webkit-iphone13": [(".answer-power", "top", 664)],
+}
 
 
 def no_overflow(page):
@@ -366,6 +373,25 @@ def teach_page(page, check, base, shots, name):
         check(page.locator(".card").count() == want, f"teach: {href} opens {want} card(s) in the tool")
 
 
+def summary(page, check):
+    """P4v: verdicts, the validation line and the main buttons come before the cards in the page; on wide windows the
+    verdicts are also drawn above the cards (narrow screens draw them under the cards)."""
+    page.locator(".trust a").wait_for()
+    r = page.evaluate("""() => {
+      const top = s => document.querySelector(s).getBoundingClientRect().top;
+      const before = (a, b) => !!(document.querySelector(a).compareDocumentPosition(document.querySelector(b)) & 4);
+      return {order: before('.verdicts', '.cards') && before('.tool-actions', '.cards') && before('.trust', '.cards'),
+              wide: innerWidth >= 960, above: top('.verdicts') < top('.cards') && top('.tool-actions') < top('.cards'),
+              trust: document.querySelector('.trust').innerText, href: document.querySelector('.trust a').getAttribute('href'),
+              n: document.querySelectorAll('.verdicts li').length, cards: document.querySelectorAll('.card').length};
+    }""")
+    check(r["order"], "first screen: verdicts, validation line and buttons before the cards in the page")
+    check(r["above"] or not r["wide"], "first screen: verdicts drawn above the cards on wide windows")
+    check(r["n"] == r["cards"], "one verdict per card")
+    check("JPL Horizons" in r["trust"] and "PGDA" in r["trust"] and r["href"].endswith("validation.html"),
+          f"validation line with link ({r['trust'][:50]!r})")
+
+
 def masthead_photo(page, check):
     """P4r: the NASA photo loads with alt text where it is shown, the title text keeps clear of it, and title contrast >= 4.5:1."""
     r = page.evaluate("""() => {
@@ -420,10 +446,10 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
               "first screen: scenario cards before the side-by-side table")
         check(not page.locator("details.how").evaluate("d => d.open"), "first screen: explanation folded in 'How to read this'")
         check(first.locator(".shifts details").evaluate("d => d.open"), "first screen: small shifts open on the first card")
-        if name in FIRST_SCREEN:
-            sel, edge, limit = FIRST_SCREEN[name]
+        for sel, edge, limit in FIRST_SCREEN.get(name, []):
             pos = first.locator(sel).evaluate("(e, k) => e.getBoundingClientRect()[k] + window.scrollY", edge)
             check(pos <= limit, f"first screen: {sel} {edge} {pos:.0f} px <= {limit} px")
+        summary(page, check)
         masthead_photo(page, check)
         wide = page.evaluate("() => window.innerWidth >= 1024")
         check(first.locator(".map2d details").evaluate("d => d.open") == wide, "first screen: 2D map open only on wide windows")

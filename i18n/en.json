@@ -362,7 +362,7 @@
   "verdict.sun": "At this time {site} has sunlight for solar power but no direct line to Earth.",
   "verdict.earth": "At this time {site} has a direct line to Earth but no sunlight for solar power.",
   "verdict.none": "At this time {site} has no sunlight for solar power and no direct line to Earth.",
-  "verdict.no_answer": "No answer for this scenario; see its card above.",
+  "verdict.no_answer": "No answer for this scenario; see its card.",
   "verdict.part_sun": "The Sun's disc is only partly above the horizon.",
   "verdict.part_earth": "Earth's disc is only partly above the horizon.",
   "share.now": "Set all to now (UTC)",
@@ -419,5 +419,8 @@
   "teach.km.link": "Open the one-kilometre example",
   "teach.facts_heading": "Moon and Earth",
   "teach.facts_intro": "Values quoted from the NASA fact sheets named below; the distance to the horizon is computed from the radius.",
-  "teach.limits": "Limits: dates from {start} to {stop} UTC only; the terrain horizon and the {km} km shifts exist only at IM-1 and IM-2; no model of solar panels, antennas or relay satellites."
+  "teach.limits": "Limits: dates from {start} to {stop} UTC only; the terrain horizon and the {km} km shifts exist only at IM-1 and IM-2; no model of solar panels, antennas or relay satellites.",
+  "tool.trust": "Checked against JPL Horizons at {of} random times: largest angle difference {max}°, same solar power answer {power} of {of}, same Earth answer {comm} of {of}. Terrain skyline against NASA PGDA maps: up to {pp} percentage points apart for the Sun.",
+  "tool.trust_link": "Validation",
+  "answer.more": "Elevation and window length"
 }

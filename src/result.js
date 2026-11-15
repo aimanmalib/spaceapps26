@@ -17,6 +17,17 @@ function marginLabel(t, f, body, terrain, decimals) {
   return { num: `${Math.abs(f.margin).toFixed(decimals)}°`, text };
 }
 
+// Elevation line and window length fold under each answer (P4v): the Earth view below carries the picture.
+function more(t, sky, f) {
+  if (!sky && !f.window) return '';
+  return (
+    `<details class="answer-more"><summary>${e(t('answer.more'))}</summary>` +
+    (sky ? `<span class="answer-sky">${e(sky)}</span>` : '') +
+    (f.window ? `<span class="answer-why">${e(f.window)}<span class="answer-range">${e(f.range)}</span></span>` : '') +
+    `</details>`
+  );
+}
+
 // One answer: plain headline, the margin from the horizon as the large number (item f), time to set/rise (item e),
 // window length (item f); on terrain sites a small line gives the Horizons elevation and the skyline behind the margin.
 function status(t, kind, f, m, sky, disc) {
@@ -29,8 +40,7 @@ function status(t, kind, f, m, sky, disc) {
     `<span class="answer-unit">${e(m.text)}</span></span>` +
     (disc ? `<span class="answer-disc is-${disc.state}">${e(disc.text)}</span>` : '') +
     `<span class="answer-when">${e(f.timing)}</span>` +
-    (sky ? `<span class="answer-sky">${e(sky)}</span>` : '') +
-    (f.window ? `<span class="answer-why">${e(f.window)}<span class="answer-range">${e(f.range)}</span></span>` : '') +
+    more(t, sky, f) +
     `</span></li>`
   );
 }

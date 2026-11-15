@@ -9,11 +9,13 @@ import evCfg from '../config/earthview.json';
 import meCfg from '../config/moon-earth.json';
 import mapCfg from '../config/map2d.json';
 import surfCfg from '../config/surface3d.json';
+import vcfg from '../config/validation.json';
 import { initPage } from './page.js';
 import { mountCompare } from './compare.js';
 import { makeCustomTables } from './custom.js';
 import { decodeScenarios } from './share.js';
 import { parseUtc } from './ephem.js';
+import { trustHtml } from './trust.js';
 
 const { t } = initPage();
 
@@ -49,3 +51,6 @@ const share = { cfg: view.share, range: { startMs: parseUtc(eph.start), endMs: p
 // Earth view (P4v): to-scale window toward Earth/Sun on terrain cards; nearby points reuse item l's data and engine.
 const earthview = items.j_terrain_horizon && engine ? { cfg: evCfg, dirs: shiftsCfg, places, engine } : null;
 if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, features: items, custom, shifts, me: items.k_moon_vs_earth ? meCfg : null, map, surface, share, earthview });
+// One line of measured validation numbers under the verdicts (P4v), loaded after the cards; left empty if it fails.
+const trust = root?.querySelector('.trust');
+if (trust) import('../data/validation.json').then(({ default: v }) => (trust.innerHTML = trustHtml(t, v, vcfg.decimals_report, './validation.html'))).catch(() => {});
