@@ -36,6 +36,11 @@ across. The site list rule stays: every coordinate is copied from a cited source
 - Texts that counted sites are updated in English, Malay and Indonesian (ten terrain sites, seven future targets). The README is
   not changed on this branch; its "Fourteen listed sites" check in `tests/test_ephem.py` is removed until the README names the
   four regions.
+- Measured against PGDA over the same 18.6 years, Haworth agrees as closely as IM-1 and IM-2 (Sun 0.0, Earth 0.1 percentage
+  points), so the home line's "other terrain sites differ more" is no longer true of every one of them. It now says "most other
+  sites differ more" (seven of the eight other terrain sites, tested). "some other terrain sites differ more" was tried first: at
+  1366 × 768 it wraps the line to three lines and pushes the first card's answers to 780 px, below the first screen (smoke);
+  the chosen wording keeps two lines (761 px).
 
 ## Way back
 

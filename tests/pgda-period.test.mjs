@@ -40,9 +40,10 @@ test('same-period block: same points and PGDA values as the one-year check, diff
     assert.equal(pp.other_sites[b].max_abs, Math.max(...others.map((s) => Math.abs(s.diff[b]))));
     assert.equal(pp.other_sites[b].min_abs, Math.min(...others.map((s) => Math.abs(s.diff[b]))));
   }
-  // The home line says some other terrain sites differ more than the two it names. Since ADR 0105 not every one does
-  // (Haworth and Mons Mouton Plateau agree as closely as IM-1 and IM-2), so the line says "some".
-  assert.ok(pp.other_sites.sun.max_abs > pp.landing_sites.max_abs);
+  // The home line says most other sites differ more than the two it names. Since ADR 0105 not every one does (at Haworth
+  // neither body differs by more than at IM-1 and IM-2), so the line says "most": more than half of them, either body.
+  const more = others.filter((s) => Math.max(Math.abs(s.diff.sun), Math.abs(s.diff.earth)) > pp.landing_sites.max_abs).length;
+  assert.ok(more * 2 > others.length, `${more} of ${others.length}`);
 });
 
 test('ridge point: observer heights and the 3 x 3 block as configured; the usual height reproduces the published skyline', () => {
@@ -83,6 +84,6 @@ test('Validation page shows the same-period numbers; "between" is said only when
 test('home line: the same-period number at the landing sites, and it says a ridge test point differs more', () => {
   const text = trustText(t, data, 4);
   assert.ok(text.includes(`maps, same ${pp.period.years} years: within ${(pp.landing_sites.max_abs * 100).toFixed(1)} percentage points at IM-1 and IM-2`));
-  assert.ok(text.includes('some other terrain sites differ more'));
+  assert.ok(text.includes('IM-1 and IM-2; most other sites differ more.'));
   assert.ok(!text.includes((data.pgda.sun.max_abs * 100).toFixed(1)) && !text.includes((pp.sun.max_abs * 100).toFixed(1)));
 });

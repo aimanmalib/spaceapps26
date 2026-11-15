@@ -473,7 +473,7 @@
   "teach.facts_heading": "Bulan dan Bumi",
   "teach.facts_intro": "Nilai dipetik daripada helaian fakta NASA yang dinamakan di bawah; jarak ke ufuk dikira daripada jejari.",
   "teach.limits": "Had: tarikh dari {start} hingga {stop} UTC sahaja; ufuk rupa bumi dan anjakan {km} km hanya wujud di sepuluh tapak kutub selatan; tiada model panel solar, antena atau satelit geganti.",
-  "tool.trust": "Disemak dengan JPL Horizons pada {of} masa rawak: perbezaan sudut terbesar {max}°, jawapan kuasa solar sama {power} daripada {of}, jawapan Bumi sama {comm} daripada {of}. Garis langit rupa bumi berbanding peta NASA PGDA, {years} tahun yang sama: dalam {pp} mata peratusan di IM-1 dan IM-2; sesetengah tapak rupa bumi yang lain berbeza lebih besar.",
+  "tool.trust": "Disemak dengan JPL Horizons pada {of} masa rawak: perbezaan sudut terbesar {max}°, jawapan kuasa solar sama {power} daripada {of}, jawapan Bumi sama {comm} daripada {of}. Garis langit rupa bumi berbanding peta NASA PGDA, {years} tahun yang sama: dalam {pp} mata peratusan di IM-1 dan IM-2; kebanyakan tapak lain berbeza lebih besar.",
   "tool.trust_link": "Pengesahan",
   "answer.more": "Ketinggian dan tempoh tetingkap",
   "nav.overview": "Ringkasan",

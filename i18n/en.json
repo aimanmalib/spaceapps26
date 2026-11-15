@@ -473,7 +473,7 @@
   "teach.facts_heading": "Moon and Earth",
   "teach.facts_intro": "Values quoted from the NASA fact sheets named below; the distance to the horizon is computed from the radius.",
   "teach.limits": "Limits: dates from {start} to {stop} UTC only; the terrain horizon and the {km} km shifts exist only at the ten south polar sites; no model of solar panels, antennas or relay satellites.",
-  "tool.trust": "Checked against JPL Horizons at {of} random times: largest angle difference {max}°, same solar power answer {power} of {of}, same Earth answer {comm} of {of}. Terrain skyline against NASA PGDA maps, same {years} years: within {pp} percentage points at IM-1 and IM-2; some other terrain sites differ more.",
+  "tool.trust": "Checked against JPL Horizons at {of} random times: largest angle difference {max}°, same solar power answer {power} of {of}, same Earth answer {comm} of {of}. Terrain skyline against NASA PGDA maps, same {years} years: within {pp} percentage points at IM-1 and IM-2; most other sites differ more.",
   "tool.trust_link": "Validation",
   "answer.more": "Elevation and window length",
   "nav.overview": "Overview",
