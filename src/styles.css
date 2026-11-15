@@ -14,6 +14,14 @@
   --warn: #ffb4a2;
   --map-low: #16130f;
   --map-high: #e6dccb;
+  /* P4k map layers: slope (flat → steep) and NASA average sunlight (never → always), dark to light so order reads without colour. */
+  --map-slope-0: #14243a;
+  --map-slope-1: #2f6f8f;
+  --map-slope-2: #d9a441;
+  --map-slope-3: #fff1d6;
+  --map-sun-0: #050608;
+  --map-sun-1: #8a6a2a;
+  --map-sun-2: #ffe7a3;
   --radius: 0.75rem;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --space: clamp(1rem, 4vw, 2rem);
@@ -266,6 +274,10 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .key-site::before { background: var(--text); }
 .key-skyline::before { background: var(--ground-line); width: 0.45rem; height: 0.45rem; }
 .map-note { font-size: 0.8125rem; color: var(--muted); }
+.map-layers { margin: 0.5rem 0 0; }
+.map-scale { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.5rem; max-width: 30rem; margin: -0.25rem 0 0.75rem; font-size: 0.8125rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.map-ramp { grid-column: 1 / -1; display: block; min-width: 0; height: 0.6rem; border-radius: 0.3rem; border: 1px solid var(--line); }
+.map-scale-hi { grid-column: 3; }
 
 /* 3D surface (item i): canvas keeps its drawn aspect; the slider spans the frame width. */
 .surface3d { min-width: 0; }

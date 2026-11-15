@@ -4,6 +4,7 @@
     python3 scripts/capture_media.py [base_url]          # needs the Python `playwright` package + Chromium, and Pillow for the GIF
     python3 scripts/capture_media.py --play [base_url]   # only the game shot (play.png)
     python3 scripts/capture_media.py --example [base_url]   # only the one-kilometre example GIF (P4p)
+    python3 scripts/capture_media.py --map-sunlight [base_url]   # only the 2D map's NASA average sunlight layer (P4k)
     python3 scripts/capture_media.py --deck [base_url]   # only the demo-deck crops (config/media.json "deck_png", including
 the gallery's one-year timeline shot)
 
@@ -194,6 +195,21 @@ def capture_play(browser, base):
     ctx.close()
 
 
+def capture_map_sunlight(browser, base):
+    """Gallery shot of the 2D map's "Average sunlight (NASA PGDA)" layer (P4k), same viewport and site as map-2d."""
+    ctx = browser.new_context(viewport=CFG["viewport"], device_scale_factor=CFG["scale"], locale=CFG["locale"])
+    page = ctx.new_page()
+    page.set_default_timeout(TIMEOUT_MS)
+    open_compare(page, base)
+    box = open_block(page, ".map2d", "() => document.querySelector('.card .map-canvas')")
+    box.locator("button[data-layer='sunlight']").click()
+    page.wait_for_function(
+        "() => document.querySelector(\".card .map2d button[data-layer='sunlight']\")?.getAttribute('aria-pressed') === 'true'")
+    page.wait_for_timeout(300)
+    shot(box, "map-sunlight")
+    ctx.close()
+
+
 def capture_overview(browser, base):
     """Gallery shot of the one-year overview (overview.html, P4s): findings and the table of every listed site."""
     ctx = browser.new_context(viewport=viewport("overview"), device_scale_factor=CFG["scale"], locale=CFG["locale"])
@@ -206,7 +222,7 @@ def capture_overview(browser, base):
 
 
 def main():
-    args = [a for a in sys.argv[1:] if a not in ("--deck", "--play", "--overview", "--example")]
+    args = [a for a in sys.argv[1:] if a not in ("--deck", "--play", "--overview", "--example", "--map-sunlight")]
     deck_only = "--deck" in sys.argv[1:]
     play_only = "--play" in sys.argv[1:]
     base = args[0] if args else CFG["base_url"]
@@ -216,6 +232,8 @@ def main():
         try:
             if "--example" in sys.argv[1:]:
                 capture_example_gif(browser, base)
+            elif "--map-sunlight" in sys.argv[1:]:
+                capture_map_sunlight(browser, base)
             elif "--overview" in sys.argv[1:]:
                 capture_overview(browser, base)
             elif play_only:
@@ -223,6 +241,7 @@ def main():
             else:
                 if not deck_only:
                     capture_png(browser, base)
+                    capture_map_sunlight(browser, base)
                     capture_gif(browser, base)
                     capture_example_gif(browser, base)
                     capture_play(browser, base)

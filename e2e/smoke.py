@@ -207,9 +207,35 @@ def map_2d(page, check, shots, name):
     check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "map: fits the card (h)")
     if shots:
         box.screenshot(path=os.path.join(shots, f"smoke-{name}-map.png"))
+    map_layers(page, box, check, shots, name)
     card.locator("select[id$='-site']").select_option("apollo-11")
     page.wait_for_function("() => document.querySelector('.card .map-body')?.innerText.startsWith('No map')")
     card.locator("select[id$='-site']").select_option("im-2")
+
+
+def map_layers(page, box, check, shots, name):
+    """P4k: the layer buttons switch the map to slope and to NASA's average sunlight and back; each draws and fits."""
+    sig = ("c => { const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let s = 0, n = 0;"
+           " for (let i = 0; i < d.length; i += 4) { s += d[i] * 3 + d[i + 1] * 5 + d[i + 2] * 7; n += d[i + 3] > 0; }"
+           " return [s, n / (d.length / 4)]; }")
+    seen = {"heights": box.locator(".map-canvas").evaluate(sig)}
+    for layer in ("slope", "sunlight", "heights"):
+        box.locator(f"button[data-layer='{layer}']").click()
+        page.wait_for_function(
+            "l => document.querySelector(`.card .map2d button[data-layer='${l}']`)?.getAttribute('aria-pressed') === 'true'", arg=layer)
+        s, drawn = box.locator(".map-canvas").evaluate(sig)
+        check(drawn > 0.9, f"map layer {layer}: drawn on the canvas: {drawn:.2f}")
+        if layer != "heights":
+            check(s != seen["heights"][0], f"map layer {layer}: different picture from heights")
+            check(box.locator(".map-scale").count() == 1, f"map layer {layer}: colour scale shown")
+            check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), f"map layer {layer}: fits the card")
+        else:
+            check(s == seen["heights"][0] and box.locator(".map-scale").count() == 0, "map layer heights: back to the same picture")
+        if layer == "sunlight":
+            check("NASA" in box.locator(".map-body").inner_text() and "does not compute shadows" in box.locator(".map-body").inner_text(),
+                  "map layer sunlight: credited to NASA, no shadows computed by the tool")
+            if shots:
+                box.screenshot(path=os.path.join(shots, f"smoke-{name}-map-sunlight.png"))
 
 
 def surface_3d(page, check, shots, name):

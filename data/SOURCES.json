@@ -275,6 +275,24 @@
       "license": "Derived from data/ephem (JPL Horizons System, NASA/JPL-Caltech) and data/horizon (LRO LOLA, NASA PDS Geosciences Node); no new download",
       "script": "scripts/overview.mjs",
       "generated_by": "Claude Code (Anthropic) wrote this script; it only counts hours in the frozen tables and skylines already in data/"
+    },
+    {
+      "file": "map-sunlight/im-1.json",
+      "url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG",
+      "page": "https://pgda.gsfc.nasa.gov/products/69",
+      "retrieved_at": "2026-11-15T07:11:32Z",
+      "license": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
+      "script": "scripts/map_sunlight.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the values are NASA GSFC PGDA average Sun visibility (LOLA Science Team / E. Mazarico)"
+    },
+    {
+      "file": "map-sunlight/im-2.json",
+      "url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG",
+      "page": "https://pgda.gsfc.nasa.gov/products/69",
+      "retrieved_at": "2026-11-15T07:11:32Z",
+      "license": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
+      "script": "scripts/map_sunlight.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the values are NASA GSFC PGDA average Sun visibility (LOLA Science Team / E. Mazarico)"
     }
   ]
 }

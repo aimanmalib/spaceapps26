@@ -6,5 +6,32 @@
   "shade_light_elevation_deg": 45,
   "shade_strength": 0.6,
   "scale_bar_km": 10,
-  "skyline_every_deg": 2
+  "skyline_every_deg": 2,
+  "layers": {
+    "_note": "P4k: layer buttons on the 2D map, first = default. heights = relief shading above; slope = degrees from the same LOLA heights (computed in the page, same gradient as the shading); sunlight = NASA GSFC PGDA average Sun visibility read on the same cells by scripts/map_sunlight.py (data/map-sunlight/), not computed by this tool. Colour stops are CSS tokens (src/styles.css); values outside the range are drawn at the end colour.",
+    "order": [
+      "heights",
+      "slope",
+      "sunlight"
+    ],
+    "slope": {
+      "min": 0,
+      "max": 30,
+      "stops": [
+        "--map-slope-0",
+        "--map-slope-1",
+        "--map-slope-2",
+        "--map-slope-3"
+      ]
+    },
+    "sunlight": {
+      "min": 0,
+      "max": 100,
+      "stops": [
+        "--map-sun-0",
+        "--map-sun-1",
+        "--map-sun-2"
+      ]
+    }
+  }
 }

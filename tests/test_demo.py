@@ -105,7 +105,7 @@ class Deck(unittest.TestCase):
 class Gallery(unittest.TestCase):
     def test_png_and_gif_present_and_small_enough(self):
         names = [f"{n}.png" for n in CFG["png"]] + [f"{CFG['example_gif']['name']}.gif", f"{CFG['gif']['name']}.gif"]
-        self.assertEqual(len(names), 9)  # seven PNG (play.png, P4j; overview.png, P4s) + two GIF (one-km example, P4p)
+        self.assertEqual(len(names), 10)  # eight PNG (play.png, P4j; overview.png, P4s; map-sunlight.png, P4k) + two GIF (one-km example, P4p)
         ex = CFG["example_gif"]["viewport"]
         self.assertGreater(ex["width"], ex["height"])  # landscape
         names = names[:-1] + [f"{d['name']}.png" for d in CFG["deck_png"]["shots"]] + names[-1:]

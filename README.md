@@ -109,6 +109,11 @@ Built:
   between −2.30° and +10.79° elevation; at Apollo 11 within 37.72° of azimuth and between +57.96° and +73.68°.
 - A 2D map and a 3D surface of LRO LOLA heights, 80 × 80 km around each terrain site (IM-1, IM-2), with the site and the Sun and
   Earth directions at the chosen time. The 3D surface can be turned to look in any direction; its heights are stretched 2 times.
+- Map layers (challenge text: "how to represent steep slopes and deep craters that create extreme shadow conditions"): buttons on
+  the 2D map switch between Heights, Slope (degrees, computed in the page from the same LOLA heights, cells 0.5 km apart) and
+  Average sunlight (NASA PGDA): NASA's average solar illumination map of the south pole (share of hourly steps over 18.6 years
+  when any part of the Sun was visible), read on the same cells by `scripts/map_sunlight.py`, not computed by this tool. At the
+  centre cell it gives 47 % at IM-1 and at IM-2, the PGDA values of the validation below.
 
 ## What it does, and limitations
 
@@ -124,6 +129,8 @@ Limitations:
 - Own coordinates (b): ideal sphere horizon only. Local terrain is not computed for own coordinates, even inside the LOLA grids.
 - 2D map (h), 3D surface (i) and the 1 km location shifts (l): only at IM-1 and IM-2. Other sites show the date shifts only.
 - 3D surface (i): the Sun and Earth lines are drawn on top of the ground; terrain does not hide them, and no shadows are drawn.
+- Map layers (h): this tool does not compute shadows on the map. The average sunlight layer is NASA's long-term average over
+  18.6 years, not the one-year period of the tables; slopes shorter than 0.5 km are smoothed out.
 - Yes/no means the centre of the Sun or Earth disc is above the horizon; each answer also says when only part of the disc is above
   it (radius from mean distances). The independent terrain check (Validation, below) counts any part of the disc.
 - Power and communication answers are geometry only: whether the Sun or Earth is above the horizon. Solar panel orientation, power

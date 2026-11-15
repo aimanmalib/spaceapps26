@@ -42,7 +42,11 @@ const shifts = items.l_small_shifts ? { cfg: shiftsCfg, places, year, engine, ra
 const maps = Object.fromEntries(
   Object.entries(import.meta.glob('../data/map/*.json', { import: 'default' })).map(([path, load]) => [path.split('/').pop().replace('.json', ''), load]),
 );
-const map = items.h_map_2d ? { cfg: mapCfg, maps } : null;
+// Map layer "Average sunlight (NASA PGDA)" (P4k): NASA's values on the same cells (data/map-sunlight/), loaded with the map.
+const sun = Object.fromEntries(
+  Object.entries(import.meta.glob('../data/map-sunlight/*.json', { import: 'default' })).map(([path, load]) => [path.split('/').pop().replace('.json', ''), load]),
+);
+const map = items.h_map_2d ? { cfg: mapCfg, maps, sun } : null;
 // 3D surface (item i): the same heights, turned and tilted.
 const surface = items.i_surface_3d ? { cfg: surfCfg, light: mapCfg, maps } : null;
 // Shareable link: scenarios from the address (src/share.js); "Now" works inside the frozen tables' date range.

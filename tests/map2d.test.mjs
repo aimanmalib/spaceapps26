@@ -2,7 +2,7 @@
 // Item h: overlay geometry and relief shading on synthetic grids (no project data locked).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { polar, edgePoint, skylinePoints, relief, pixels, parseColor } from '../src/map2d.js';
+import { polar, edgePoint, skylinePoints, relief, pixels, parseColor, slopes, rampPixels } from '../src/map2d.js';
 
 const near = (a, b, eps = 1e-9) => assert.ok(Math.abs(a - b) < eps, `${a} ≉ ${b}`);
 
@@ -69,4 +69,27 @@ test('pixels: colour between low and high, darkened by shade, transparent withou
 test('parseColor reads hex and rgb()', () => {
   assert.deepEqual(parseColor(' #16130f'), [22, 19, 15]);
   assert.deepEqual(parseColor('rgb(230, 220, 203)'), [230, 220, 203]);
+});
+
+test('slopes: degrees from the height gradient; flat = 0, 45° ramp = 45, missing neighbour = null', () => {
+  const n = 3, half = 1; // cells 1 km apart
+  const flat = { cells: n, half_width_km: half, height_m: new Array(9).fill(100) };
+  assert.ok(slopes(flat).every((v) => v === 0));
+  const ramp = { cells: n, half_width_km: half, height_m: [0, 1000, 2000, 0, 1000, 2000, 0, 1000, 2000] }; // rises 1 km per km east
+  near(slopes(ramp)[4], 45, 1e-9);
+  const hole = { ...flat, height_m: [100, 100, 100, 100, 100, null, 100, 100, 100] };
+  assert.equal(slopes(hole)[4], null);
+  assert.equal(slopes(hole)[5], null);
+});
+
+test('rampPixels: clamps to the range, interpolates between even stops, null = transparent', () => {
+  const stops = [[0, 0, 0], [100, 100, 100], [200, 0, 0]];
+  const px = rampPixels([0, 25, 50, 100, 150, -5, null], 0, 100, stops);
+  assert.deepEqual([...px.slice(0, 4)], [0, 0, 0, 255]);
+  assert.deepEqual([...px.slice(4, 8)], [50, 50, 50, 255]);
+  assert.deepEqual([...px.slice(8, 12)], [100, 100, 100, 255]);
+  assert.deepEqual([...px.slice(12, 16)], [200, 0, 0, 255]);
+  assert.deepEqual([...px.slice(16, 20)], [200, 0, 0, 255]); // above max = end colour
+  assert.deepEqual([...px.slice(20, 24)], [0, 0, 0, 255]); // below min = first colour
+  assert.deepEqual([...px.slice(24, 28)], [0, 0, 0, 0]);
 });
