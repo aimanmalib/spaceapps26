@@ -19,6 +19,7 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
 | Further features suggested by SI (mission window finder, shareable links with a plain verdict and a Now button, a page for teachers, a guided tour built as one button that opens the one-kilometre example; then a real NASA photograph on the first screen, a one-year overview of every listed site, Indonesian and Malay interface options) | Suggested by SI at the author's request on 15 November 2026; the author considered each list and chose all of them |
 | The aim of a Global Award, and adopting changes from an SI red-team review of the entry (15 November 2026, evening): the NASA PGDA comparison repeated over the same 18.6 years, with a sensitivity test at the ridge check point; a 360° horizon strip and a one-line verdict at the top of every card; the terrain range on the terrain cards; four more south polar sites (three future targets and the place where IM-1 came to rest) | Author (the aim, and which changes to adopt); SI (the review, its measurements and the changes) |
 | Features added on the evening of 15 November 2026 because other public entries to this challenge had them: ready-made comparisons with an opening sentence about rescheduling; a mission check (GO / RISKY / NO-GO, longest night, panel geometry estimate); a calendar of every site by day; a view from the lander; dates to the end of 2030 | Author (asked for them); SI (the comparison with the other entries, the design, the code and the tests, built by several SI sessions in parallel) |
+| More additions on the night of 15 November 2026: four more Artemis III candidate regions; a terrain skyline for own coordinates south of 75°S; lunar eclipses, an example battery size and ground stations; a visual pass (typeface, type scale, card hierarchy); a JPL Horizons check at scale and README sections for scientists | Author (the aim, and the instruction to close the gaps to other public entries); SI (the comparison with the other entries and their READMEs, the choice of these additions, the sources, the design, all code, numbers and text) |
 | Indonesian and Malay translations of the interface (optional; English is the default and the reference) | SI, not reviewed by a native speaker |
 | Accepting the open-source participant terms | Author |
 | The list of options itself | Drawn by SI from two parts of NASA's challenge text ("Your solution may include" and "Potential Considerations") and translated into Malay by SI |
@@ -59,6 +60,17 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
    view from the lander, and dates to the end of 2030. Several SI sessions built them in parallel, each on its own branch, and
    one SI session merged the branches that passed the tests. The ideas for these features came from the other entries; the
    code, the numbers and the text were written for this project, and no code, text or image was copied.
+9. 15 November, night: on the same instruction (aim for a Global Award, close the gaps to other public entries), SI compared the
+   live site with the other entries again and read their READMEs, then proposed more additions; the author approved the plan and
+   SI sessions built them in parallel: four more Artemis III candidate regions (SI searched for sources that print a coordinate
+   inside each region and copied one point per region; three regions were left out because no such source was found); a terrain
+   skyline for own coordinates south of 75°S, an option from the challenge text that the author had chosen in step 5 and that an
+   earlier test had dropped; lunar eclipses at the site, an example battery size for the longest night and the Deep Space Network
+   complex in view; a visual pass (self-hosted typeface, one type scale, the decision first in every card); and a JPL Horizons
+   check at scale with README sections for scientists. One SI session merged the branches that passed the tests and moved the
+   README's reference sections to `docs/DETAILS.md`. The ideas for these additions came from the challenge text and from the other
+   entries; no code, text or image was copied. This night's code, numbers and text are SI's work on the author's instructions; the
+   author had not reviewed them line by line when this build was published.
 
 The original chat messages are not published.
 
@@ -70,7 +82,7 @@ numbers: Sun elevation, duration of sunlight, Earth visibility windows · g. Tim
 h. 2D map · i. 3D surface · j. True horizon from terrain (LOLA), not a smooth Moon · k. How conditions on the Moon differ from
 Earth · l. Why small shifts in location or date have a large effect.
 
-Items are built in tiers; anything unfinished at the deadline is listed under "Limitations" in the README.
+Items are built in tiers; anything unfinished at the deadline is listed under "What it does, and limitations" in `docs/DETAILS.md`.
 
 ## Where SI-generated content is
 
