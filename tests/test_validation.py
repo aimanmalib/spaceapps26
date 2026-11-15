@@ -57,7 +57,7 @@ class Helpers(unittest.TestCase):
 class ReadmeNumbers(unittest.TestCase):
     def test_readme_quotes_the_file(self):
         h = load("data/validation.json")["horizons"]
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        readme = ((ROOT / "README.md").read_text(encoding="utf-8") + "\n" + (ROOT / "docs" / "DETAILS.md").read_text(encoding="utf-8"))
         self.assertIn(f"Largest difference over all angles: {h['max_abs_deg']:.4f}°", readme)
         self.assertIn(f"draws {len(h['pairs'])} site-and-time pairs", readme)
         for q in h["by_quantity"].values():
@@ -66,7 +66,7 @@ class ReadmeNumbers(unittest.TestCase):
 
     def test_readme_quotes_the_engine_part(self):
         e = load("data/validation.json")["engine"]
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        readme = ((ROOT / "README.md").read_text(encoding="utf-8") + "\n" + (ROOT / "docs" / "DETAILS.md").read_text(encoding="utf-8"))
         self.assertIn(f"Largest difference over all angles (engine): {e['max_abs_deg']:.4f}°", readme)
         self.assertIn(f"{len(e['pairs'])} pairs in all", readme)
         self.assertIn(f"Same solar power answer: {e['same_answer']['power']} of {e['same_answer']['of']}", readme)

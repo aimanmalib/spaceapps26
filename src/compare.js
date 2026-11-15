@@ -52,7 +52,7 @@ function cardDom(t, sites, sc, custom) {
     `<button type="button" class="btn-quiet card-remove">${e(t('scenario.remove'))}</button></header>` +
     `<div class="fields"><label class="field" for="${id}-site"><span>${e(t('scenario.site'))}</span>` +
     `<select id="${id}-site">${siteOptions(t, sites)}${custom ? customOptionHtml(t) : ''}</select></label>` +
-    (custom ? customFieldsHtml(t, id, custom.cfg) : '') +
+    (custom ? customFieldsHtml(t, id, custom.cfg, custom.own) : '') +
     `<label class="field" for="${id}-time"><span>${e(t('scenario.time'))}</span>` +
     `<input id="${id}-time" type="datetime-local" step="60" required></label></div>` +
     `<div class="card-result" aria-live="polite"></div><div class="card-steps"></div><section class="card-timeline" hidden></section><section class="card-shifts" hidden></section><section class="card-seq" hidden></section><section class="card-win" hidden></section><section class="card-me" hidden></section><section class="card-map" hidden></section><section class="card-surface" hidden></section>`;
@@ -79,6 +79,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
   const verdicts = root.querySelector('.verdicts');
   const siteById = new Map(sites.map((s) => [s.id, s]));
   const cards = [];
+  const ownTerrain = custom?.terrain ?? null; // terrain horizon for own points (ADR 0106), or null
   // Download CSV (ADR 0110): the card's hourly rows for its mission length (the Mission check select, else the defaults).
   const daysOf = (c) => Number(c.mmBox?.querySelector('.mm-days')?.value) || metrics?.default_period_days || csv?.days_without_mission_check;
   const csvOf = (c, i) => c.csvData && { ...c.csvData, n: i + 1, days: daysOf(c) };
@@ -106,14 +107,19 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
     const mine = ++ticket;
     if (exBtn?.closest('.card')) exBtn.remove(); // the results below are rebuilt; placeExample() puts it back
     const inputs = cards.map((c) => ({ c, site: siteFor(c.el), ms: parseUtc(c.el.querySelector('input[type=datetime-local]').value) }));
-    for (const x of inputs) x.c.el.querySelector('.card-result').innerHTML = `<p class="note">${e(t(x.site.custom ? 'custom.computing' : 'state.loading'))}</p>`;
+    // Own point south of the terrain limit (ADR 0106): the first one downloads the LOLA grids, so say so.
+    const loadingKey = (s) => (!s.custom ? 'state.loading' : ownTerrain?.inArea(s) && !ownTerrain.ready() ? 'terrainown.loading' : 'custom.computing');
+    for (const x of inputs) x.c.el.querySelector('.card-result').innerHTML = `<p class="note">${e(fill(t(loadingKey(x.site)), custom?.own ?? {}))}</p>`;
     const rows = await Promise.all(
       inputs.map(async (x) => {
         if (x.site.error) return { ...x, msg: invalidText(t, x.site.error, custom.cfg) };
         try {
           const table = years ? years.table(x.site, x.ms) : x.site.custom ? custom.tables(x.site) : loadTable(view.data_path, x.site.id);
-          const [tb, profile, band] = await Promise.all([table, x.site.custom ? null : horizons[x.site.id]?.() ?? null, x.site.custom ? null : bands[x.site.id]?.() ?? null]);
-          return { ...x, ...answer(x, tb, profile, band) };
+          // Own point south of the terrain limit (ADR 0106): LOLA skyline, the same for every date; sphere if it fails.
+          let terrainFailed = false;
+          const ownSky = x.site.custom && ownTerrain ? ownTerrain.profile(x.site).catch(() => ((terrainFailed = true), null)) : null;
+          const [tb, profile, band] = await Promise.all([table, x.site.custom ? ownSky : horizons[x.site.id]?.() ?? null, x.site.custom ? null : bands[x.site.id]?.() ?? null]);
+          return { ...x, ...answer(x, tb, profile, band), own: custom?.own, terrainFailed };
         } catch {
           return { ...x, msg: t('state.load_error') };
         }
@@ -160,7 +166,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
       box.innerHTML = r.sample ? resultHtml(t, { ...r, scale }, view) : `<p class="note note-warn">${e(r.msg)}</p>`;
       if (r.sample && years) box.querySelector('.horizon-kind')?.insertAdjacentHTML('afterend', sourceHtml(t, r.source, r.ms > years.range.frozenEndMs, years.checked));
       // Earth view (P4v): right under the two answers, only where a LOLA terrain skyline exists.
-      if (r.c.ev && r.sample && r.profile) {
+      if (r.c.ev && r.sample && r.profile && !r.site.custom) {
         box.querySelector('.answers').after(r.c.evBox);
         r.c.ev.draw({ site: r.site, profile: r.profile, sample: r.sample, ms: r.ms, source: r.source });
       } else r.c.ev?.hide();

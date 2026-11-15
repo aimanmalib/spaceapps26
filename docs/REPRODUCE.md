@@ -20,6 +20,8 @@ bash scripts/reproduce.sh          # or: bash scripts/reproduce.sh --list   (pri
 | Sun/Earth tables, one year, hourly | `scripts/fetch_horizons.py` | `data/ephem/`, `data/check/` | JPL Horizons API |
 | DEM download | `scripts/horizon.py --download` | cache folder | LRO LOLA GDR, NASA PDS |
 | Terrain skylines | `scripts/horizon.py` | `data/horizon/` | LOLA DEMs |
+| Grids for own coordinates (80 m pole crop, 400 m and 960 m block means) | `scripts/terrain_coarse.py` | `data/terrain/*.bin` | LOLA DEMs |
+| Their skylines vs the 80 m skylines (97 % gate, ADR 0106) | `scripts/terrain_gate.mjs` | `data/terrain/gate.json` | the files above, the Sun/Earth tables |
 | 2D map | `scripts/map2d.py` | `data/map/` | LOLA DEMs |
 | Skylines one kilometre away | `scripts/shifts.py` | `data/shift/` | LOLA DEMs |
 | Terrain range (nine points 80 m apart, observer 0 m and 2 m) | `scripts/band.py` | `data/band/` | LOLA DEMs, the Sun/Earth tables |
@@ -27,6 +29,7 @@ bash scripts/reproduce.sh          # or: bash scripts/reproduce.sh --list   (pri
 | Site-by-day calendar | `scripts/calendar.mjs` | `data/calendar.json` | the files above |
 | Engine vs JPL Horizons, 2028 to 2030 | `scripts/validate_years.py` | `data/validation-years.json` | JPL Horizons API |
 | Angles vs JPL Horizons | `scripts/validate.py` | `data/validation.json` (`horizons`, `engine`) | JPL Horizons API |
+| Angles vs JPL Horizons at scale: every listed site, 2026 to 2030, 28 batched requests (run after the two lines above) | `scripts/validate.py --scale` | `data/validation-scale.json`, `data/horizons-cache.json`, `data/validation.json` (`scale`) | JPL Horizons API |
 | Terrain vs NASA PGDA, listed points | `scripts/pgda.py` | `data/validation.json` (`pgda`) | NASA GSFC PGDA product 69 |
 | Terrain vs NASA PGDA over the same 18.6 years, ridge-point sensitivity | `scripts/pgda_period.py` | `data/validation.json` (`pgda_period`) | the `pgda` block, LOLA DEMs |
 | Terrain vs NASA PGDA, random points | `scripts/pgda_sample.py` | `data/validation.json` (`pgda_sample`) | NASA GSFC PGDA product 69 |

@@ -69,7 +69,7 @@ class Sites(unittest.TestCase):
         sy = {s["site"]: s for s in load("data/shift-year/shift-year.json")["sites"]}
         mm = sy["malapert-massif"]
         pt = {p["dir"]: p for p in mm["points"]}
-        flat = " ".join((ROOT / "README.md").read_text(encoding="utf-8").split())
+        flat = " ".join(((ROOT / "README.md").read_text(encoding="utf-8") + "\n" + (ROOT / "docs" / "DETAILS.md").read_text(encoding="utf-8")).split())
         self.assertIn(f"Shackleton ridge point the Sun is at least partly in view {ov['shackleton-ridge']['sun'] * 100:.1f} % of the hours", flat)
         self.assertIn(f"above the skyline {mm['centre']['earth'] * 100:.1f} % of the hours, {pt['n']['centre']['earth'] * 100:.1f} % one kilometre north and "
                       f"{pt['s']['centre']['earth'] * 100:.1f} % one kilometre south", flat)

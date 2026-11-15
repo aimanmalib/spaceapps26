@@ -54,8 +54,20 @@ function source(t, site) {
 }
 
 function horizonKey(r) {
+  if (r.profile?.ownTerrain) return 'terrainown.details';
   if (r.profile) return 'details.horizon_terrain';
   return r.site.custom ? 'details.horizon_custom' : 'details.horizon';
+}
+
+// Line under the panorama naming the horizon used; own points get the grid label of ADR 0106 or the sphere.
+function kindKey(r) {
+  if (r.profile?.ownTerrain) {
+    if (r.profile.grid_m === r.own?.pole) return 'terrainown.horizon_pole';
+    return r.profile.grid_m === r.own?.fine ? 'terrainown.horizon' : 'terrainown.horizon_outer';
+  }
+  if (r.profile) return 'horizon.terrain';
+  if (r.site.custom) return r.terrainFailed ? 'terrainown.failed' : 'horizon.custom';
+  return 'horizon.sphere';
 }
 
 // Near-horizon strip (terrain sites): the same panorama at ±view.near_horizon_deg, so the gap between the Sun/Earth
@@ -104,13 +116,13 @@ export function resultHtml(t, r, view) {
     `<span class="key-line">${e(t(r.profile ? 'sky.terrain' : 'sky.sphere'))}</span></figcaption>` +
     `</figure>` +
     (r.profile ? nearStrip(t, r, view, ticks) : '') +
-    `<p class="horizon-kind">${e(t(r.profile ? 'horizon.terrain' : r.site.custom ? 'horizon.custom' : 'horizon.sphere'))}</p>` +
+    `<p class="horizon-kind">${e(fill(t(kindKey(r)), r.own ?? {}))}</p>` +
     `<details class="tech"><summary>${e(t('details.summary'))}</summary>` +
     `<table class="tech-table"><thead><tr><th scope="col">${e(t('details.body'))}</th><th scope="col">${e(t('details.az'))}</th>` +
     `<th scope="col">${e(t('details.el'))}</th></tr></thead><tbody>${row('sky.sun', sun)}${row('sky.earth', earth)}</tbody></table>` +
     `<p>${e(fill(t('details.coords'), { lat: r.site.lat, lon: r.site.lon_east }))} ${source(t, r.site)}</p>` +
     `<p>${e(t(r.site.custom ? 'details.data_custom' : r.source === 'engine' ? 'years.details_data' : 'details.data'))}</p>` +
-    `<p>${e(fill(t(horizonKey(r)), { threshold: view.horizon_threshold_deg, h: r.profile?.observer_height_m, r: r.site.radius_km }))}</p>` +
+    `<p>${e(fill(t(horizonKey(r)), { ...r.own, threshold: view.horizon_threshold_deg, h: r.profile?.observer_height_m, r: r.site.radius_km }))}</p>` +
     `<p>${e(fill(t('details.scale'), { scale: r.scale }))}</p><p>${e(t('details.windows'))}</p></details>`
   );
 }

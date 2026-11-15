@@ -65,7 +65,7 @@ class PgdaTest(unittest.TestCase):
 
     def test_readme_quotes_the_file(self):
         d = json.loads((ROOT / "data/validation.json").read_text(encoding="utf-8"))["pgda"]
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        readme = ((ROOT / "README.md").read_text(encoding="utf-8") + "\n" + (ROOT / "docs" / "DETAILS.md").read_text(encoding="utf-8"))
         self.assertIn(f"Largest difference: Sun {d['sun']['max_abs'] * 100:.1f} percentage points, "
                       f"Earth {d['earth']['max_abs'] * 100:.1f} percentage points.", readme)
         self.assertIn(f"at {len(d['sites'])} points.", readme)
@@ -75,7 +75,7 @@ class PgdaTest(unittest.TestCase):
 
     def test_readme_quotes_the_same_period_block(self):
         pp = json.loads((ROOT / "data/validation.json").read_text(encoding="utf-8"))["pgda_period"]
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        readme = ((ROOT / "README.md").read_text(encoding="utf-8") + "\n" + (ROOT / "docs" / "DETAILS.md").read_text(encoding="utf-8"))
         flat = " ".join(readme.split())
         self.assertIn(f"over {pp['period']['hours']} hourly steps from {pp['period']['start'][:10]}", flat)
         for r in pp["sites"]:

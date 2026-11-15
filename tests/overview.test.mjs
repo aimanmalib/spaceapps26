@@ -94,7 +94,8 @@ test('overview: findings name the top sites from the file and use no ranking wor
 });
 
 test('overview: README lines and table = the findings and numbers of data/overview.json', () => {
-  const readme = readFileSync(new URL('../README.md', import.meta.url), 'utf8');
+  // The table and its lines live in docs/DETAILS.md since the README was split (it is capped at 500 lines).
+  const readme = readFileSync(new URL('../README.md', import.meta.url), 'utf8') + '\n' + readFileSync(new URL('../docs/DETAILS.md', import.meta.url), 'utf8');
   for (const l of findings(t, ov, name)) assert.ok(readme.includes(`- ${l}`), l);
   for (const r of ov.sites) {
     const pc = (v) => (v * 100).toFixed(1);

@@ -85,7 +85,7 @@ class Block(unittest.TestCase):
 class Readme(unittest.TestCase):
     def test_readme_row_per_body_quotes_the_file(self):
         s = load("data/validation.json")["pgda_sample"]
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        readme = ((ROOT / "README.md").read_text(encoding="utf-8") + "\n" + (ROOT / "docs" / "DETAILS.md").read_text(encoding="utf-8"))
         for b, label in (("sun", "Sun visible"), ("earth", "Earth visible")):
             v = s[b]
             row = (f"| {label} | {v['median_abs'] * 100:.1f} | {v['p90_abs'] * 100:.1f} | {v['max_abs'] * 100:.1f} | "

@@ -23,7 +23,7 @@ class Band(unittest.TestCase):
     def test_readme_quotes_the_im2_file(self):
         b = load("data/band/im-2.json")
         cfg = load("config/band.json")
-        flat = " ".join((ROOT / "README.md").read_text(encoding="utf-8").split())
+        flat = " ".join(((ROOT / "README.md").read_text(encoding="utf-8") + "\n" + (ROOT / "docs" / "DETAILS.md").read_text(encoding="utf-8")).split())
         y, ch = b["year"]["centre"], b["year"]["changes"]
         for text in (
             f"the nine points {cfg['offset_m']} m apart around the site, one LOLA pixel, with the observer at "

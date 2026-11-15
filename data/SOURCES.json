@@ -121,6 +121,18 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
     },
     {
+      "file": "calendar.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img"
+      ],
+      "retrieved_at": "2026-11-15T12:30:00Z",
+      "license": "Derived from data/ephem (JPL Horizons System, NASA/JPL-Caltech) and data/horizon (LRO LOLA, NASA PDS Geosciences Node); no new download",
+      "script": "scripts/calendar.mjs",
+      "generated_by": "Claude Code (Anthropic) wrote this script; it only counts hours per UTC day in the frozen tables and skylines already in data/"
+    },
+    {
       "file": "check/check-222.69E-89.45S.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27222.69%2C-89.45%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-14+00%3A00%27&STOP_TIME=%272026-11-14+01%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
       "urls": [
@@ -493,6 +505,15 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
     },
     {
+      "file": "horizons-cache.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "note": "Raw JPL Horizons answers of the check at scale, keyed by request (the full request URL is kept with each answer); a second run reads them instead of asking again.",
+      "retrieved_at": "2026-11-15T14:03:06Z",
+      "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
+      "script": "scripts/validate.py --scale",
+      "generated_by": "Claude Code (Anthropic) wrote this script; reference numbers come from JPL Horizons"
+    },
+    {
       "file": "map-sunlight/de-gerlache-rim-2.json",
       "url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG",
       "page": "https://pgda.gsfc.nasa.gov/products/69",
@@ -703,18 +724,6 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
     },
     {
-      "file": "calendar.json",
-      "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
-      "urls": [
-        "https://ssd.jpl.nasa.gov/api/horizons.api",
-        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img"
-      ],
-      "retrieved_at": "2026-11-15T12:30:00Z",
-      "license": "Derived from data/ephem (JPL Horizons System, NASA/JPL-Caltech) and data/horizon (LRO LOLA, NASA PDS Geosciences Node); no new download",
-      "script": "scripts/calendar.mjs",
-      "generated_by": "Claude Code (Anthropic) wrote this script; it only counts hours per UTC day in the frozen tables and skylines already in data/"
-    },
-    {
       "file": "overview.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
       "urls": [
@@ -859,6 +868,15 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
     },
     {
+      "file": "validation-scale.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "note": "Check at scale (ADR 0108): config/validation.json scale pairs at every listed site, frozen-table and engine dates; Horizons asked in batches of minutes (TLIST, calendar UT), one request per site and body.",
+      "retrieved_at": "2026-11-15T14:03:06Z",
+      "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
+      "script": "scripts/validate.py --scale",
+      "generated_by": "Claude Code (Anthropic) wrote this script; reference numbers come from JPL Horizons"
+    },
+    {
       "file": "validation-years.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
       "note": "Engine (src/moonsky.js) against JPL Horizons on random listed-site pairs after the frozen tables (config/years.json check); one Horizons request per pair and body, 1-minute span.",
@@ -897,6 +915,43 @@
         "script": "scripts/pgda_period.py",
         "generated_by": "Claude Code (Anthropic) wrote this script; reference values come from NASA GSFC PGDA / LOLA"
       }
+    },
+    {
+      "file": "terrain/ldem_80s_400m.bin",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "retrieved_at": "2026-11-14T08:12:15Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/terrain_coarse.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS), block-averaged"
+    },
+    {
+      "file": "terrain/ldem_75s_960m.bin",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img",
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/terrain_coarse.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS), block-averaged"
+    },
+    {
+      "file": "terrain/gate.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img",
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ],
+      "retrieved_at": "2026-11-14T08:12:15Z",
+      "license": "Derived from data/terrain and data/horizon (LRO LOLA, NASA PDS Geosciences Node) and data/ephem (JPL Horizons System, NASA/JPL-Caltech); no new download",
+      "script": "scripts/terrain_gate.mjs",
+      "generated_by": "Claude Code (Anthropic) wrote this script; it only compares skylines and frozen tables already in data/"
+    },
+    {
+      "file": "terrain/ldem_80s_80m_pole.bin",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "retrieved_at": "2026-11-14T08:12:15Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/terrain_coarse.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS), cropped around the pole, unchanged"
     }
   ]
 }

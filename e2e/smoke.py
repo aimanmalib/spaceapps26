@@ -137,7 +137,8 @@ def own_coordinates(page, check):
     lon.evaluate(commit)
     page.wait_for_function("() => document.querySelector('.glance-table')?.innerText.includes('222.69')")
     card.locator(".card-result .answers").wait_for()
-    check(card.locator(".horizon-kind").inner_text().startswith("Horizon: ideal sphere"), "own coordinates: ideal sphere horizon (b)")
+    # ADR 0106: a point south of 75° S gets a LOLA terrain skyline computed in the browser; this one is inside the 80 m pole crop.
+    check(card.locator(".horizon-kind").inner_text().startswith("Horizon: LOLA terrain, full 80 m grid"), "own coordinates: LOLA terrain horizon near the pole (b, ADR 0106)")
     check(card.locator(".tl:not([hidden]) .tl-svg .tl-now").count() == 1, "own coordinates: timeline drawn (b, g)")
     check("Own point" in page.locator(".glance-table").inner_text(), "own coordinates: side-by-side table names the point (b)")
 
@@ -304,6 +305,12 @@ def surface_3d(page, check, shots, name):
     # ADR 0103: "From the lander" swaps the orbit view for a view from the site; "Orbit view" brings the surface back.
     box.locator(".lander-open").click()
     page.wait_for_function("() => document.querySelector('.card .lander-canvas')?.width > 0")
+    try:  # the first frame is drawn after the canvas gets its size: wait for that frame, then judge it (a slow host raced here)
+        page.wait_for_function("() => { const c = document.querySelector('.card .lander-canvas'); if (!c || !c.width) return false;"
+                               " const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0;"
+                               " for (let i = 3; i < d.length; i += 4) n += d[i] > 0; return n / (d.length / 4) > 0.3; }", timeout=15000)
+    except Exception:
+        pass
     check(box.locator(".lander-canvas").evaluate(stats)[0] > 0.3 and box.evaluate("e => e.scrollWidth <= e.clientWidth"), "lander view: drawn, fits the card (ADR 0103)")
     box.locator(".lander-exit").click()
     page.wait_for_function("() => document.querySelector('.card .surf-canvas')?.width > 0 && !document.querySelector('.card .lander-canvas')")

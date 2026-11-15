@@ -43,5 +43,18 @@
       }
     ],
     "max_pairs_total": 40
+  },
+  "scale": {
+    "_note": "Check at scale (ADR 0108, scripts/validate.py --scale): pairs_per_site random minutes (fixed seed, never on a table hour) at EVERY listed site of config/sites.json, from..to, which spans the frozen JPL Horizons tables and the later dates the in-browser engine computes. \"Shown\" = what the page shows at that minute: the frozen table read by src/ephem.js up to the table end, the engine (src/moonsky.js) after it (the rule of src/years.js sourceAt). Horizons is asked for the same minutes in batches (TLIST: one request per site and body, at most batch_max_times minutes each), at most one request every min_interval_seconds, retried up to retries times after retry_wait_seconds (times the attempt number). Every raw Horizons answer is kept in cache_file (keyed by its request URL), so a second run makes no request.",
+    "seed": 20261117,
+    "pairs_per_site": 40,
+    "max_pairs_total": 800,
+    "from": "2026-11-01 00:00",
+    "to": "2031-01-01 00:00",
+    "batch_max_times": 60,
+    "min_interval_seconds": 1.0,
+    "retries": 4,
+    "retry_wait_seconds": 10,
+    "cache_file": "data/horizons-cache.json"
   }
 }
