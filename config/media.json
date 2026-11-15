@@ -58,7 +58,7 @@
     "height_px": 720
   },
   "deck_png": {
-    "_note": "Demo-deck crops (readable at slide size): each shot = the union of its selectors on the live Compare page, default scenarios. 'open' = a card block opened first. Optional per-shot 'viewport' (CSS px) overrides the deck viewport. 'click' = an element clicked first, then 'ready' awaited (shots after it see the clicked state, so such shots go last). 'year' is also a gallery image (item d). Optional per-shot 'pad' overrides pad. A shot with its own viewport goes last (resizing re-lays out the page).",
+    "_note": "Demo-deck crops (readable at slide size): each shot = the union of its selectors on the live Compare page, default scenarios. 'open' = a card block opened first. Optional per-shot 'viewport' (CSS px) overrides the deck viewport. 'click' = an element clicked first, then 'ready' awaited (shots after it see the clicked state, so such shots go last). 'year' is also a gallery image (item d). Optional per-shot 'pad' overrides pad. A shot with its own viewport goes last (resizing re-lays out the page). A shot with 'query' opens the Compare page with those scenarios (a shareable link) on its own page, after the others.",
     "viewport": {
       "width": 1280,
       "height": 800
@@ -105,6 +105,34 @@
           ".cards .card:nth-child(1) .ev"
         ],
         "pad": 4
+      },
+      {
+        "name": "deck-closecall",
+        "query": "?s=im-2,2026-11-06T20:00",
+        "viewport": {
+          "width": 700,
+          "height": 900
+        },
+        "selectors": [
+          ".cards .card:nth-child(1) .pano",
+          ".cards .card:nth-child(1) .answers"
+        ],
+        "pad": 8
+      },
+      {
+        "name": "deck-targets",
+        "query": "?s=malapert-massif,2026-11-14T00:00&s=nobile-rim-1,2026-11-14T00:00&s=shackleton-ridge,2026-11-14T00:00",
+        "viewport": {
+          "width": 1366,
+          "height": 900
+        },
+        "selectors": [
+          ".cards .card:nth-child(1) .card-head",
+          ".cards .card:nth-child(1) .pano",
+          ".cards .card:nth-child(3) .card-head",
+          ".cards .card:nth-child(3) .pano"
+        ],
+        "pad": 8
       }
     ]
   }

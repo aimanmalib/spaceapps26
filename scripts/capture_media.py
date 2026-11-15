@@ -98,6 +98,8 @@ def capture_deck(browser, base):
     open_compare(page, base)
     page.wait_for_timeout(400)
     for item in d["shots"]:
+        if item.get("query"):  # a shot of other scenarios: taken below, on its own page
+            continue
         page.set_viewport_size(item.get("viewport", d["viewport"]))
         page.wait_for_timeout(400)
         if item.get("open"):
@@ -110,6 +112,20 @@ def capture_deck(browser, base):
         path = os.path.join(OUT, f"{item['name']}.png")
         page.screenshot(path=path, clip=clip, full_page=True)
         print(f"{item['name']}.png {os.path.getsize(path)} bytes, {round(clip['width'])} x {round(clip['height'])} css px")
+    # Shots with a "query": the Compare page opened with those scenarios (a shareable link), one fresh page each.
+    for item in [i for i in d["shots"] if i.get("query")]:
+        page = ctx.new_page()
+        page.set_default_timeout(TIMEOUT_MS)
+        page.set_viewport_size(item.get("viewport", d["viewport"]))
+        page.goto(base.rstrip("/") + "/" + item["query"], wait_until="networkidle")
+        page.locator(".card .answers").first.wait_for()
+        page.wait_for_function("() => document.querySelectorAll('.card .answers').length === document.querySelectorAll('.card').length")
+        page.wait_for_timeout(800)
+        clip = union_clip(page, item["selectors"], item.get("pad", d["pad"]))
+        path = os.path.join(OUT, f"{item['name']}.png")
+        page.screenshot(path=path, clip=clip, full_page=True)
+        print(f"{item['name']}.png {os.path.getsize(path)} bytes, {round(clip['width'])} x {round(clip['height'])} css px")
+        page.close()
     ctx.close()
 
 
