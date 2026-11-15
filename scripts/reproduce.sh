@@ -11,6 +11,8 @@ STEPS=(
   "python3 scripts/fetch_horizons.py"   # JPL Horizons one-year Sun/Earth tables (data/ephem, data/check)
   "python3 scripts/horizon.py --download"  # LOLA polar DEMs, about 145 MB, into the cache folder
   "python3 scripts/horizon.py"          # terrain skylines (data/horizon)
+  "python3 scripts/terrain_coarse.py"   # LOLA grids for own coordinates: 80 m pole crop + 400 m / 960 m copies (data/terrain)
+  "node scripts/terrain_gate.mjs"       # their skylines vs the 80 m skylines at every polar site (data/terrain/gate.json)
   "python3 scripts/map2d.py"            # 2D map tiles (data/map)
   "python3 scripts/shifts.py"           # skylines one kilometre away (data/shift)
   "node scripts/shift_year.mjs"         # whole-year shares at those points (data/shift-year)
