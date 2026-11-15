@@ -74,5 +74,7 @@
     "map_open_min_width_px": 1024,
     "sequence_open": true,
     "windows_open": true
-  }
+  },
+  "_note_first_load_motion": "First-load motion (ADR 0112): on the first draw of Compare the first card's 360-degree strip plays one lunar day (lunar_day_days of table time) in duration_ms, and over the last land_fraction of it slides onto the chosen time. Never with prefers-reduced-motion or under automation (navigator.webdriver). Remove the block to turn it off.",
+  "first_load_motion": { "duration_ms": 5000, "lunar_day_days": 29.53, "land_fraction": 0.15 }
 }
