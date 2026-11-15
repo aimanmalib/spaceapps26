@@ -12,7 +12,7 @@ Three steps for a first look:
 1. Open the site. Two scenarios are already on screen, IM-2 and Apollo 11 at 2026-11-14 00:00 UTC, each with two answers:
    solar power possible or not, direct-to-Earth communication possible or not.
 2. On the IM-2 card, read "Small shifts in location or date": Earth is 1.3° above the terrain horizon at the site, and below it
-   1 km east and 1 km south.
+   1 km east and 1 km south. (The 80 m terrain grid does not resolve small craters such as the one where the IM-2 lander stopped.)
 3. Open the Validation page: the differences from JPL Horizons and from the NASA GSFC PGDA illumination maps.
 
 Entry for the **NASA Space Apps Challenge 2026** (Jakarta, virtual), challenge
@@ -69,7 +69,8 @@ Built:
 - Small shifts in location or date: each card can list the same two answers for the chosen time moved 6 hours and 1 day either way,
   and, at the terrain sites (IM-1, IM-2), for points 1 km north, east, south and west, each with its own LOLA terrain horizon.
   Measured example, IM-2 at 2026-11-14 00:00 UTC: Earth is 1.3° above the terrain horizon at the site, but 1.5° below it 1 km east
-  and 2.6° below it 1 km south. On the ideal sphere, 1 km tilts the horizon by only 0.033°.
+  and 2.6° below it 1 km south. On the ideal sphere, 1 km tilts the horizon by only 0.033°. The 80 m terrain grid does not
+  resolve small craters such as the one where the IM-2 lander stopped.
 - Moon and Earth compared: each card can show the length of one day (29.53 days against 24 hours), how fast the Sun moves across
   the sky at the site and chosen time, surface air pressure and the distance to the horizon from 2 m up (2.64 km against 5.05 km),
   with day length, radius and pressure quoted from the NASA NSSDCA Moon and Earth fact sheets. It also gives how far Earth moves in
@@ -80,8 +81,8 @@ Built:
 
 ## What it does, and limitations
 
-I chose all three audiences named in the challenge (mission planners, educators, the public) and all twelve items in the challenge's
-"Your solution may include" list (a–l). The site's About page lists what is built for each item and its limitations; the Data
+I chose all three audiences named in the challenge (mission planners, educators, the public) and all twelve items (a–l) that SI listed
+from the challenge text (its "Your solution may include" list and its "Potential Considerations"). The site's About page lists what is built for each item and its limitations; the Data
 sources page lists every frozen data file with the request it came from.
 
 Limitations:
@@ -164,7 +165,7 @@ itself ranges from 51.0 % to 84.7 % within the 3 × 3 pixels around it. It is re
 SI was used in this project: Claude Code (Anthropic).
 
 - **Decided by me (the author):** to take part, the Jakarta event, this challenge, the three audiences and the twelve items to
-  build, chosen from the list in NASA's challenge text; the project name, chosen from names SI suggested; on 15 November, four
+  build, chosen from a list SI drew from NASA's challenge text; the project name, chosen from names SI suggested; on 15 November, four
   further options that NASA's challenge text names (sequential comparison, an educational game, terrain for custom coordinates,
   slopes and shadow conditions on the map), all chosen from a list SI made of that text; and, also on 15 November, five further
   features that SI suggested at my request (mission window finder, shareable links with a plain verdict and a Now button, a page

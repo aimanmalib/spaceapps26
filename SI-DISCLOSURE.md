@@ -12,13 +12,13 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
 |---|---|
 | Taking part; the Jakarta (virtual) event; the challenge Lunar Landing Site Navigator (after an SI feasibility comparison of the challenges) | Author |
 | The audiences: all three named in the challenge (mission planners, educators, the public) | Author |
-| What the tool shows and does: all twelve items from the challenge's "Your solution may include" list | Author |
+| What the tool shows and does: all twelve items that SI listed from the challenge text (its "Your solution may include" list and its "Potential Considerations") | Author |
 | Team name (the author's own name) | Author |
 | Project name: suggested by SI, chosen by the author | Author (choice); SI (suggestions) |
 | Further options from the challenge text (sequential comparison, an educational game, terrain for custom coordinates, slopes and shadow conditions on the map) | Author, who chose all four on 15 November 2026 from NASA's own wording, listed by SI |
 | Five further features (mission window finder, shareable links with a plain verdict and a Now button, a page for teachers, a guided tour) | Suggested by SI at the author's request on 15 November 2026; the author considered the list and chose all five |
 | Accepting the open-source participant terms | Author |
-| The list of options itself | NASA (challenge text), translated into Malay by SI |
+| The list of options itself | Drawn by SI from two parts of NASA's challenge text ("Your solution may include" and "Potential Considerations") and translated into Malay by SI |
 | Build order (technical dependency and the emphasis in NASA's text), interface design, all code and data scripts, tests, slide layout | SI, on the author's instructions |
 | English text (README, slides, form fields) | English text drafted by SI from the author's choices and the measured results, reviewed by the author |
 | Account, final checks and "Submit for Judging" | Author |
@@ -28,17 +28,19 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
 1. About 12:30: SI compared the 14 challenges by data access and time, recommended this challenge as feasible, and translated the
    challenge text into Malay.
 2. About 12:40: the author created the team and selected this challenge.
-3. About 12:46: the author chose all three audiences and all twelve items from the options that NASA's own challenge text names:
-   three audiences (A–C) and twelve items (a–l).
-4. 15 November, morning: the author asked for the entry to be made stronger; SI listed four options that NASA's challenge text
+3. About 12:44: the author asked SI for an idea. SI declined, because NASA's guidance says SI should not come up with the idea,
+   and instead listed the options in the challenge text: three audiences (A–C) and twelve items (a–l), drawn from its
+   "Your solution may include" list and its "Potential Considerations".
+4. About 12:46: the author chose all three audiences and all twelve items.
+5. 15 November, morning: the author asked for the entry to be made stronger; SI listed four options that NASA's challenge text
    names but the tool did not yet have (sequential comparison, an educational game, terrain for custom coordinates, slopes and
    shadow conditions on the map); the author chose all four.
-5. 15 November, morning: the author asked SI to suggest features; SI suggested five (mission window finder, shareable links with
+6. 15 November, morning: the author asked SI to suggest features; SI suggested five (mission window finder, shareable links with
    a plain verdict and a Now button, a page for teachers, a guided tour); the author considered the list and chose all five.
 
 The original chat messages are not published.
 
-### The twelve items (NASA's list, as shown to the author)
+### The twelve items (listed by SI from NASA's challenge text, as shown to the author)
 
 a. Known sites (Apollo, CLPS targets, other national programmes) · b. Custom coordinates · c. Side-by-side comparison of sites or
 dates · d. Pick a date and time; see changes across the lunar day and season · e. Time left before sunset or Earthset · f. Key
