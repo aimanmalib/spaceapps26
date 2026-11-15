@@ -6,7 +6,7 @@
     "https://eclipse.gsfc.nasa.gov/LEcat5/LE2001-2100.html"
   ],
   "source_read": "2026-11-15",
-  "match_hours": 4,
+  "match_hours": 2,
   "nasa": [
     { "date": "2027-02-20", "greatest_td": "23:14:06", "type": "penumbral", "pen_mag": 0.9266, "umbral_mag": -0.0569 },
     { "date": "2027-07-18", "greatest_td": "16:04:09", "type": "penumbral", "pen_mag": 0.0014, "umbral_mag": -1.068 },

@@ -9,7 +9,7 @@
   "from": "2026-11-01 00:00",
   "to": "2031-01-01 00:00"
  },
- "match_hours": 4,
+ "match_hours": 2,
  "summary": {
   "found": 142,
   "unmatched": 0,
