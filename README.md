@@ -1,6 +1,7 @@
 # Still in View
 
 **Try it:** <https://spaceapps26.aimanmalib.com/> (no sign-in). Demo deck (7 slides): [`demo/demo.pdf`](demo/demo.pdf).
+The "one kilometre" case (IM-2, 2026-11-14 00:00 UTC): <https://spaceapps26.aimanmalib.com/?s=im-2,2026-11-14T00:00>.
 
 Challenge: Lunar Landing Site Navigator (NASA Space Apps Challenge 2026).
 
@@ -47,6 +48,10 @@ Built:
   disc; at most five listed), with start, end and length; a button sets the card to a window's start. One line gives the share of
   hours in the data when both are above it. Measured example, IM-2 (terrain horizon) from 2026-11-14 00:00 UTC: next window
   2026-11-15 07:00 to 2026-11-30 19:00 UTC (15 d 12 h); both above the horizon in 36.0 % of the hours.
+- Shareable link: "Copy link" puts the cards in the web address (`?s=<site id>,<UTC time>`, one `s` per card; own coordinates
+  `?s=custom,<lat>,<lon east>,<UTC time>`); opening it restores the cards, and values that cannot be read are skipped with a
+  visible notice. "Set all to now (UTC)" moves every card to the current hour while it is inside the data (otherwise the button is
+  off and says why). Above the side-by-side table, one plain sentence per scenario repeats the card's two answers.
 - A timeline of one lunar day (29.5 Earth days) on every card: Sun and Earth elevation over time, bars for when each is in view,
   a slider to move through it and a Play button (hidden when the device asks for reduced motion). A switch shows the whole one-year
   table instead (hourly steps, 1 Nov 2026 to 1 Nov 2027), with the share of hours each one is at least partly above the horizon used;

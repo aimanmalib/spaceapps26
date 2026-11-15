@@ -53,6 +53,12 @@
     "default_min_hours": 24,
     "max_listed": 5
   },
+  "_note_share": "Shareable link (SI suggestion chosen by the author, 15 Nov): \"Copy link\" puts the cards in the address as repeated param values, fields joined by separator (site id, then UTC time; own coordinates: \"custom\", latitude, east longitude, time). Opening such a link restores the cards; values that cannot be read are skipped with a visible notice (no readable value = default scenarios). \"Now\" sets every card to the current UTC time rounded down to now_step_minutes, only inside the data range (config/ephemeris.json start/stop).",
+  "share": {
+    "param": "s",
+    "separator": ",",
+    "now_step_minutes": 60
+  },
   "first_card": {
     "shifts_open": true,
     "map_open_min_width_px": 1024,

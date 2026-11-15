@@ -322,5 +322,19 @@
   "win.use": "Use this start time",
   "win.use_label": "Use this start time: {start} UTC",
   "win.none": "No window of that length before {end} UTC (end of the data).",
-  "win.share": "Sun and Earth both above the horizon in {pct} % of the hours from {start} to {end} UTC."
+  "win.share": "Sun and Earth both above the horizon in {pct} % of the hours from {start} to {end} UTC.",
+  "verdict.both": "At this time {site} has sunlight for solar power and a direct line to Earth.",
+  "verdict.sun": "At this time {site} has sunlight for solar power but no direct line to Earth.",
+  "verdict.earth": "At this time {site} has a direct line to Earth but no sunlight for solar power.",
+  "verdict.none": "At this time {site} has no sunlight for solar power and no direct line to Earth.",
+  "verdict.no_answer": "No answer for this scenario; see its card above.",
+  "share.now": "Set all to now (UTC)",
+  "share.now_off": "Now (UTC): outside the data",
+  "share.now_why": "The current time is outside the data ({start} to {end} UTC).",
+  "share.now_done": "All scenarios set to {time} UTC (current hour).",
+  "share.copy": "Copy link",
+  "share.field": "Link to these scenarios",
+  "share.copied": "Link copied. It opens these scenarios.",
+  "share.copy_failed": "Could not copy automatically. The link is selected in the field above; copy it from there.",
+  "share.rejected": "{n} value(s) in the link could not be read and were skipped."
 }

@@ -24,6 +24,8 @@ PROFILES = [
     ("webkit-iphone13", "webkit", "iPhone 13"),
 ]
 TIMEOUT_MS = 15000
+# Direct link to the "one kilometre" case (README, deck slide 4, form text).
+ONE_KM_QUERY = "?s=im-2,2026-11-14T00:00"
 # Sites with a terrain skyline in data/horizon/ (item j); every other site must say "ideal sphere horizon".
 TERRAIN_SITES = {"im-1", "im-2"}
 # First screen (P4f): on a 1280 x 900 desktop window both large numbers of the first card end inside it; on an
@@ -258,6 +260,36 @@ def windows(page, check):
     page.wait_for_function("t => document.querySelector('.card input[type=datetime-local]').value === t", arg=time0)
 
 
+def share(page, check, base):
+    """Shareable link + verdict + Now: the "one kilometre" link opens IM-2 at 2026-11-14 00:00; Copy link gives the same
+    scenario back; Now sets every card to the current hour (inside the data) or is disabled with a reason; a link that
+    cannot be read keeps the default scenarios and says so."""
+    page.goto(base.rstrip("/") + "/" + ONE_KM_QUERY, wait_until="networkidle")
+    page.locator(".card .answers").first.wait_for()
+    check(page.locator(".card").count() == 1 and page.locator(".card select[id$='-site']").first.input_value() == "im-2"
+          and page.locator(".card input[type=datetime-local]").first.input_value() == "2026-11-14T00:00", "link opens the one-kilometre case (share)")
+    v = page.locator(".verdicts li").first.inner_text()
+    check(v.startswith("Scenario 1:") and "IM-2" in v and "direct line to Earth" in v, f"verdict sentence above the table (share): {v[:80]}")
+    page.locator(".share-copy").click()
+    page.locator(".share-field:not([hidden])").wait_for()
+    check(page.locator(".share-url").input_value().endswith(ONE_KM_QUERY), "Copy link gives the same scenario back (share)")
+    check(page.locator(".share-status").inner_text() != "", "copy result is announced (share)")
+    now = page.locator(".share-now")
+    if now.is_disabled():
+        check(page.locator(".share-now-why").is_visible(), "Now disabled with a visible reason (share)")
+    else:
+        now.click()
+        want = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:00")
+        page.wait_for_function("t => document.querySelector('.card input[type=datetime-local]').value === t", arg=want)
+        page.locator(".card .answers").first.wait_for()
+    page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+    check(no_overflow(page), "share controls: no horizontal overflow")
+    page.goto(base.rstrip("/") + "/?s=nowhere,2026-11-14T00:00", wait_until="networkidle")
+    page.locator(".card .answers").first.wait_for()
+    check(page.locator(".card").count() >= 2 and "could not be read" in page.locator(".share-status").inner_text(),
+          "unreadable link: default scenarios + visible notice (share)")
+
+
 def run_profile(p, name, engine, ctx_opts, base, shots):
     browser = getattr(p, engine).launch()
     opts = p.devices[ctx_opts] if isinstance(ctx_opts, str) else ctx_opts
@@ -354,6 +386,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
             tall = page.evaluate("document.documentElement.scrollHeight * devicePixelRatio") > 30000  # WebKit limit 32767 device px
             page.screenshot(path=os.path.join(shots, f"smoke-{name}-compare.png"), full_page=not tall)
 
+        share(page, check, base)
         page.goto(base.rstrip("/") + "/validation.html", wait_until="networkidle")
         page.locator("#validation table").first.wait_for()
         text = page.locator("#validation").inner_text()

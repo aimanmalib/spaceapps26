@@ -15,6 +15,8 @@ import { mountMap } from './map2d-ui.js';
 import { mountSurface } from './surface3d-ui.js';
 import { mountSteps, mountSequence } from './sequence-ui.js';
 import { mountWindows } from './mission-ui.js';
+import { mountShare } from './share-ui.js';
+import { verdictText } from './share.js';
 import { CUSTOM_ID, customOptionHtml, customFieldsHtml, syncFields, readCustom, invalidText } from './custom.js';
 
 let uid = 0;
@@ -59,10 +61,11 @@ function cardDom(t, sites, sc, custom) {
 // shifts = item l settings for src/shifts-ui.js when item l is on; me = config/moon-earth.json when item k is on;
 // map = {cfg: config/map2d.json, maps: siteId → () => Promise<data/map file>} when item h is on;
 // surface = {cfg: config/surface3d.json, light: config/map2d.json, maps} when item i is on.
-export function mountCompare(root, { t, sites, view, horizons = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null }) {
+export function mountCompare(root, { t, sites, view, horizons = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null }) {
   const list = root.querySelector('.cards');
   const add = root.querySelector('.add');
   const glance = root.querySelector('.glance-body');
+  const verdicts = root.querySelector('.verdicts');
   const siteById = new Map(sites.map((s) => [s.id, s]));
   const cards = [];
   let ticket = 0;
@@ -140,6 +143,12 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
       }
     }
     if (glance) glance.innerHTML = glanceHtml(t, rows);
+    // Plain verdict per scenario (SI suggestion chosen by the author), from the same two answers as the card.
+    if (verdicts) {
+      verdicts.innerHTML = rows
+        .map((r, i) => `<li><strong>${e(fill(t('scenario.label'), { n: i + 1 }))}:</strong> ${e(r.sample ? verdictText(t, r.site.name, r.up) : t('verdict.no_answer'))}</li>`)
+        .join('');
+    }
   }
 
   function addCard(sc) {
@@ -199,7 +208,19 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
     cards[cards.length - 1].el.querySelector('select').focus();
   });
 
-  for (const sc of view.default_scenarios.filter((s) => siteById.has(s.site)).slice(0, view.max_scenarios)) addCard(sc);
+  // A shared link (src/share.js) replaces the default scenarios; the defaults stay when it has none that can be read.
+  const start = share?.scenarios?.length ? share.scenarios : view.default_scenarios.filter((s) => siteById.has(s.site)).slice(0, view.max_scenarios);
+  for (const sc of start) addCard(sc);
   renumber();
+  const shareBox = root.querySelector('.share');
+  if (share && shareBox) {
+    const timeOf = (c) => c.el.querySelector('input[type=datetime-local]');
+    const state = () => cards.map((c) => ({ site: c.el.querySelector('select').value, time_utc: timeOf(c).value, coords: [...c.el.querySelectorAll('.custom-fields input')].map((i) => i.value) }));
+    const setTimes = (value) => {
+      for (const c of cards) timeOf(c).value = value;
+      update();
+    };
+    mountShare(shareBox, { t, cfg: share.cfg, range: share.range, rejected: share.rejected, state, setTimes, uid: `share${++uid}` });
+  }
   return update();
 }
