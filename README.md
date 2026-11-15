@@ -62,6 +62,12 @@ Built:
 - Horizon first: every card opens with one short verdict (for example "Link to Earth, no sunlight") and a 360° strip of the
   horizon with the Sun and Earth on it; at IM-1 and IM-2 the ground in the strip is the LRO LOLA skyline. The strip's vertical
   scale (±5°, ±10°, ±20°, ±45° or ±90°, written in its corner) is the smallest that holds that card's Sun and Earth.
+- Terrain range at IM-1 and IM-2: under the two answers, each card says whether an answer changes somewhere inside the terrain
+  range (the skylines of the nine points 80 m apart around the site, one LOLA pixel, with the observer at 0 m and at 2 m) and
+  gives the one-year shares across it; the horizon strip draws the range as a band around the skyline. Measured, IM-2: the Sun's
+  centre is above the skyline 43.8 % of the year's hours at the site and 40.0 % to 44.0 % across the range; Earth 80.1 % and
+  74.7 % to 80.5 %. The Sun answer changes inside the range in 4.2 % of the hours and the Earth answer in 5.8 %
+  (`data/band/`, `scripts/band.py`).
 - Time remaining before sunset or Earthset (or until sunrise or Earthrise), the duration of sunlight and the Earth visibility window
   around the chosen time.
 - Ten known landing sites (all six Apollo landings, CLPS IM-1 and IM-2, Chandrayaan-3, Chang'e 4), each coordinate copied from a
@@ -143,7 +149,9 @@ Limitations:
 - Map layers (h): this tool does not compute shadows on the map. The average sunlight layer is NASA's long-term average over
   18.6 years, not the one-year period of the tables; slopes shorter than 0.5 km are smoothed out.
 - Terrain values on ridges: at a ridge the share of time with the Sun in view depends on the observer's height and changes within
-  about 100 m (Validation, below). The tool places the observer 2 m above the ground everywhere.
+  about 100 m (Validation, below). The tool places the observer 2 m above the ground everywhere. The terrain range on the IM-1
+  and IM-2 cards (nine points 80 m apart, observer at 0 m and at 2 m) is a sensitivity range for the 80 m LOLA grid, not an error
+  bar on the real ground.
 - Yes/no means the centre of the Sun or Earth disc is above the horizon; each answer also says when only part of the disc is above
   it (radius from mean distances). The independent terrain check (Validation, below) counts any part of the disc.
 - Power and communication answers are geometry only: whether the Sun or Earth is above the horizon. Solar panel orientation, power
@@ -281,8 +289,8 @@ SI was used in this project: Claude Code (Anthropic).
   for teachers, a guided tour), all chosen by me from that list, then three more that SI suggested (a real NASA photograph on the
   first screen, a one-year overview of every listed site, Indonesian and Malay interface options), also all chosen by me. On the
   evening of 15 November: to aim for a Global Award and to adopt changes from an SI red-team review of the entry (so far the PGDA
-  comparison over the same 18.6 years, with the ridge-point test, and a 360° horizon strip with a one-line verdict at the top of
-  every card).
+  comparison over the same 18.6 years, with the ridge-point test; a 360° horizon strip with a one-line verdict at the top of
+  every card; and the terrain range on the IM-1 and IM-2 cards).
 - **Done by SI, on my instructions:** a feasibility comparison of the challenges, translation of the challenge text into Malay for
   me, build order, interface design, all code, data scripts and tests, slide layout, suggested project names, the red-team review of
   the entry with its measurements and the changes adopted from it, the optional Indonesian and

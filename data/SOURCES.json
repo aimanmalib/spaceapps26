@@ -1,6 +1,30 @@
 {
   "files": [
     {
+      "file": "band/im-1.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/band.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
+      "file": "band/im-2.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/band.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
       "file": "check/check-222.69E-89.45S.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27222.69%2C-89.45%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-14+00%3A00%27&STOP_TIME=%272026-11-14+01%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
       "urls": [
@@ -181,6 +205,24 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
     },
     {
+      "file": "map-sunlight/im-1.json",
+      "url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG",
+      "page": "https://pgda.gsfc.nasa.gov/products/69",
+      "retrieved_at": "2026-11-15T07:11:32Z",
+      "license": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
+      "script": "scripts/map_sunlight.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the values are NASA GSFC PGDA average Sun visibility (LOLA Science Team / E. Mazarico)"
+    },
+    {
+      "file": "map-sunlight/im-2.json",
+      "url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG",
+      "page": "https://pgda.gsfc.nasa.gov/products/69",
+      "retrieved_at": "2026-11-15T07:11:32Z",
+      "license": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
+      "script": "scripts/map_sunlight.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the values are NASA GSFC PGDA average Sun visibility (LOLA Science Team / E. Mazarico)"
+    },
+    {
       "file": "map/im-1.json",
       "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
       "urls": [
@@ -203,6 +245,30 @@
       "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
       "script": "scripts/map2d.py",
       "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
+      "file": "overview.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img"
+      ],
+      "retrieved_at": "2026-11-15T04:40:00Z",
+      "license": "Derived from data/ephem (JPL Horizons System, NASA/JPL-Caltech) and data/horizon (LRO LOLA, NASA PDS Geosciences Node); no new download",
+      "script": "scripts/overview.mjs",
+      "generated_by": "Claude Code (Anthropic) wrote this script; it only counts hours in the frozen tables and skylines already in data/"
+    },
+    {
+      "file": "shift-year/shift-year.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img"
+      ],
+      "retrieved_at": "2026-11-15T02:40:00Z",
+      "license": "Derived from data/ephem (JPL Horizons System, NASA/JPL-Caltech), data/horizon and data/shift (LRO LOLA, NASA PDS Geosciences Node); no new download",
+      "script": "scripts/shift_year.mjs",
+      "generated_by": "Claude Code (Anthropic) wrote this script; it only counts hours in the frozen tables and skylines already in data/"
     },
     {
       "file": "shift/im-1.json",
@@ -258,48 +324,6 @@
         "script": "scripts/pgda_period.py",
         "generated_by": "Claude Code (Anthropic) wrote this script; reference values come from NASA GSFC PGDA / LOLA"
       }
-    },
-    {
-      "file": "shift-year/shift-year.json",
-      "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
-      "urls": [
-        "https://ssd.jpl.nasa.gov/api/horizons.api",
-        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img"
-      ],
-      "retrieved_at": "2026-11-15T02:40:00Z",
-      "license": "Derived from data/ephem (JPL Horizons System, NASA/JPL-Caltech), data/horizon and data/shift (LRO LOLA, NASA PDS Geosciences Node); no new download",
-      "script": "scripts/shift_year.mjs",
-      "generated_by": "Claude Code (Anthropic) wrote this script; it only counts hours in the frozen tables and skylines already in data/"
-    },
-    {
-      "file": "overview.json",
-      "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
-      "urls": [
-        "https://ssd.jpl.nasa.gov/api/horizons.api",
-        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img"
-      ],
-      "retrieved_at": "2026-11-15T04:40:00Z",
-      "license": "Derived from data/ephem (JPL Horizons System, NASA/JPL-Caltech) and data/horizon (LRO LOLA, NASA PDS Geosciences Node); no new download",
-      "script": "scripts/overview.mjs",
-      "generated_by": "Claude Code (Anthropic) wrote this script; it only counts hours in the frozen tables and skylines already in data/"
-    },
-    {
-      "file": "map-sunlight/im-1.json",
-      "url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG",
-      "page": "https://pgda.gsfc.nasa.gov/products/69",
-      "retrieved_at": "2026-11-15T07:11:32Z",
-      "license": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
-      "script": "scripts/map_sunlight.py",
-      "generated_by": "Claude Code (Anthropic) wrote this script; the values are NASA GSFC PGDA average Sun visibility (LOLA Science Team / E. Mazarico)"
-    },
-    {
-      "file": "map-sunlight/im-2.json",
-      "url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG",
-      "page": "https://pgda.gsfc.nasa.gov/products/69",
-      "retrieved_at": "2026-11-15T07:11:32Z",
-      "license": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
-      "script": "scripts/map_sunlight.py",
-      "generated_by": "Claude Code (Anthropic) wrote this script; the values are NASA GSFC PGDA average Sun visibility (LOLA Science Team / E. Mazarico)"
     }
   ]
 }

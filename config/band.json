@@ -1,0 +1,5 @@
+{
+  "_note": "Terrain range (ADR 0041, scripts/band.py): for each site with a LOLA skyline, the skyline is recomputed at the 3 x 3 block of points offset_m apart (one pixel of the 80 m LOLA grid) with the observer at each of observer_heights_m. The cards show the lowest and highest one-year share over those variants and mark an answer that changes somewhere inside the range (Sun or Earth between the lowest and highest skyline in its direction).",
+  "offset_m": 80,
+  "observer_heights_m": [0, 2]
+}

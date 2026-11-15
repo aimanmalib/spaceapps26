@@ -5,6 +5,7 @@ import { skySvg } from './sky.js';
 import { horizonAt } from './terrain.js';
 import { signedDeg } from './facts.js';
 import { panoHtml } from './pano.js';
+import { bandHtml } from './band.js';
 
 function deg(v, decimals) {
   return v.toFixed(decimals);
@@ -31,10 +32,10 @@ function more(t, sky, f) {
 
 // One answer: plain headline, the margin from the horizon as the large number (item f), time to set/rise (item e),
 // window length (item f); on terrain sites a small line gives the Horizons elevation and the skyline behind the margin.
-function status(t, kind, f, m, sky, disc) {
+function status(t, kind, f, m, sky, disc, flip = false) {
   const up = f.up;
   return (
-    `<li class="answer ${up ? 'is-up' : 'is-down'} answer-${kind}">` +
+    `<li class="answer ${up ? 'is-up' : 'is-down'} answer-${kind}${flip ? ' is-flip' : ''}">` +
     `<span class="answer-dot" aria-hidden="true"></span>` +
     `<span class="answer-text"><strong>${e(t(`${kind}.${up ? 'yes' : 'no'}`))}</strong>` +
     `<span class="answer-num"><span class="answer-deg">${e(m.num)}</span>` +
@@ -84,14 +85,14 @@ export function resultHtml(t, r, view) {
   // Three-state disc label (P4u): whole disc / partly hidden / hidden, against the horizon used.
   const discAt = (b) =>
     r.disc ? { state: r.disc[b], text: fill(t(`disc.${b}.${r.disc[b]}`), { line: t(r.profile ? 'disc.line_terrain' : 'disc.line_sphere') }) } : null;
-  const answer = (kind, b, body) => status(t, kind, r.facts[b], marginLabel(t, r.facts[b], body, !!r.profile, d), skyAt(b, kind), discAt(b));
+  const answer = (kind, b, body) => status(t, kind, r.facts[b], marginLabel(t, r.facts[b], body, !!r.profile, d), skyAt(b, kind), discAt(b), !!r.range?.judge[b].flip);
   const row = (name, p) => `<tr><th scope="row">${e(t(name))}</th><td>${deg(p.az, d)}°</td><td>${deg(p.el, d)}°</td></tr>`;
   const ticks = ['0', '90', '180', '270', '360']
     .map((a) => `<span class="sky-az" style="left:${(+a / 360) * 100}%">${e(t(`sky.az.${a}`))}</span>`)
     .join('');
   return (
     panoHtml(t, r, view) +
-    `<ul class="answers">${answer('power', 'sun', 'sky.sun')}${answer('comm', 'earth', 'sky.earth')}</ul>` +
+    `<ul class="answers">${answer('power', 'sun', 'sky.sun')}${answer('comm', 'earth', 'sky.earth')}${r.range ? bandHtml(t, r.range.band, r.range.judge) : ''}</ul>` +
     `<figure class="sky">` +
     `<div class="sky-plot" role="img" aria-label="${e(fill(t('sky.aria'), { saz: deg(sun.az, 0), sel: deg(sun.el, d), eaz: deg(earth.az, 0), eel: deg(earth.el, d) }))}">` +
     `<span class="sky-el sky-el-top">+${r.scale}°</span><span class="sky-el sky-el-mid">0°</span>` +

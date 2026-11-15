@@ -17,6 +17,11 @@ The project has no numbered releases: the site is one continuous build, and each
   Sun and Earth on it. The verdict sentences sit above the side-by-side table on every width; on phones the main buttons follow
   the cards. The intro sentence is shorter.
 
+### Added
+- Terrain range on the IM-1 and IM-2 cards: the lowest and highest skyline over the nine points 80 m apart around the site, with
+  the observer at 0 m and at 2 m. The card marks an answer that changes inside that range, gives the one-year shares across it,
+  and the horizon strip draws it as a band (`data/band/`, `scripts/band.py`).
+
 ## 2026-11-15, the submitted build
 
 ### Added

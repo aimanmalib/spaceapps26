@@ -39,7 +39,7 @@ export function panoMarks(sample, up, scale) {
   return [earth, sun];
 }
 
-function shapes(profile, scale) {
+function shapes(profile, scale, band = null) {
   const mid = panoY(0, scale).toFixed(2);
   const grid = [90, 180, 270].map((x) => `<line class="sky-grid" x1="${x}" y1="0" x2="${x}" y2="${H}"/>`).join('');
   if (!profile) {
@@ -52,8 +52,17 @@ function shapes(profile, scale) {
   const pts = profile.elev.map((el, i) => `${(i * step).toFixed(1)},${panoY(el, scale).toFixed(2)}`);
   pts.push(`${W},${panoY(profile.elev[0], scale).toFixed(2)}`);
   const line = pts.join(' ');
+  // Terrain range (ADR 0041): the area between the lowest and the highest skyline around the site.
+  let range = '';
+  if (band) {
+    const at = (arr) => arr.map((el, i) => `${(i * band.azimuth_step_deg).toFixed(1)},${panoY(el, scale).toFixed(2)}`);
+    const hi = [...at(band.hi), `${W},${panoY(band.hi[0], scale).toFixed(2)}`];
+    const lo = [...at(band.lo), `${W},${panoY(band.lo[0], scale).toFixed(2)}`].reverse();
+    range = `<polygon class="pano-band" points="${hi.join(' ')} ${lo.join(' ')}"/>`;
+  }
   return (
     grid +
+    range +
     `<polygon class="sky-ground" points="0,${H} ${line} ${W},${H}"/>` +
     `<polyline class="sky-terrain" points="${line}"/>` +
     `<line class="sky-sphere" x1="0" y1="${mid}" x2="${W}" y2="${mid}"/>`
@@ -68,7 +77,7 @@ export function panoHtml(t, r, view) {
   const marks = panoMarks(r.sample, r.up, scale);
   const dots = marks
     .map((m) =>
-      `<span class="pano-dot pano-${m.body} ${m.up ? 'is-up' : 'is-down'}" style="left:${m.x.toFixed(2)}%;top:${m.y.toFixed(2)}%"></span>` +
+      `<span class="pano-dot pano-${m.body} ${m.up ? 'is-up' : 'is-down'}${r.range?.judge[m.body].flip ? ' is-flip' : ''}" style="left:${m.x.toFixed(2)}%;top:${m.y.toFixed(2)}%"></span>` +
       `<span class="pano-tag pano-tag-${m.body}${m.left ? ' is-left' : ''}" style="left:${m.x.toFixed(2)}%;top:${m.y.toFixed(2)}%">${e(t(`sky.${m.body}`))}</span>`)
     .join('');
   const az = ['0', '90', '180', '270', '360']
@@ -80,7 +89,7 @@ export function panoHtml(t, r, view) {
     `<div class="pano">` +
     `<p class="pano-verdict">${e(t(`pano.verdict.${verdictKey(r.up)}`))}</p>` +
     `<div class="pano-plot" role="img" aria-label="${e(aria)}">` +
-    `<svg class="pano-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true" focusable="false">${shapes(r.profile, scale)}</svg>` +
+    `<svg class="pano-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true" focusable="false">${shapes(r.profile, scale, r.range?.band ?? null)}</svg>` +
     `<span class="pano-corner pano-scale" aria-hidden="true">±${scale}°</span>` +
     `<span class="pano-corner pano-kind" aria-hidden="true">${e(t(r.profile ? 'pano.terrain' : 'pano.sphere'))}</span>` +
     `<span aria-hidden="true">${dots}${az}</span>` +

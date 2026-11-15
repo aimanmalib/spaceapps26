@@ -9,6 +9,7 @@ import { glanceHtml } from './glance.js';
 import { relativeTable } from './terrain.js';
 import { judge } from './shifts.js';
 import { discState, discRadii } from './disc.js';
+import { bandJudge } from './band.js';
 import { mountTimeline } from './timeline-ui.js';
 import { mountShifts } from './shifts-ui.js';
 import { mountEarthView } from './earthview-ui.js';
@@ -64,7 +65,7 @@ function cardDom(t, sites, sc, custom) {
 // map = {cfg: config/map2d.json, maps: siteId → () => Promise<data/map file>} when item h is on;
 // surface = {cfg: config/surface3d.json, light: config/map2d.json, maps} when item i is on.
 // earthview = {cfg: config/earthview.json, dirs: config/shifts.json, places, engine} (P4v; terrain sites only).
-export function mountCompare(root, { t, sites, view, horizons = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null, earthview = null }) {
+export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null, earthview = null }) {
   const list = root.querySelector('.cards');
   const add = root.querySelector('.add');
   const glance = root.querySelector('.glance-body');
@@ -100,8 +101,8 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
         if (x.site.error) return { ...x, msg: invalidText(t, x.site.error, custom.cfg) };
         try {
           const table = x.site.custom ? custom.tables(x.site) : loadTable(view.data_path, x.site.id);
-          const [tb, profile] = await Promise.all([table, x.site.custom ? null : horizons[x.site.id]?.() ?? null]);
-          return { ...x, ...answer(x, tb, profile) };
+          const [tb, profile, band] = await Promise.all([table, x.site.custom ? null : horizons[x.site.id]?.() ?? null, x.site.custom ? null : bands[x.site.id]?.() ?? null]);
+          return { ...x, ...answer(x, tb, profile, band) };
         } catch {
           return { ...x, msg: t('state.load_error') };
         }
@@ -117,7 +118,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
     return custom && id === CUSTOM_ID ? readCustom(t, el, custom.cfg) : siteById.get(id);
   }
 
-  function answer(x, table, profile) {
+  function answer(x, table, profile, band = null) {
     const sample = sampleAt(table, x.ms);
     if (!sample) {
       const { startMs, endMs } = tableRange(table);
@@ -134,7 +135,9 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
     const radii = discRadii(view);
     const disc = { sun: discState(j.sun.margin, radii.sun), earth: discState(j.earth.margin, radii.earth) };
     const rel = relativeTable(table, profile);
-    return { sample, up, disc, profile, rel, table, facts: scenarioFacts(t, rel, x.ms, { sample, up, margin }, view) };
+    // Terrain range (ADR 0041): does an answer change between the lowest and highest skyline around the site?
+    const range = band && profile ? { band, judge: bandJudge(sample, band, view.horizon_threshold_deg) } : null;
+    return { sample, up, disc, profile, rel, table, range, facts: scenarioFacts(t, rel, x.ms, { sample, up, margin }, view) };
   }
 
   function draw(rows) {

@@ -26,6 +26,10 @@ const horizons = Object.fromEntries(
 );
 // Sun/Earth tables for any point (own coordinates, item b; nearby points, item l): computed in a Web Worker with
 // Astronomy Engine, loaded only when first used.
+// Terrain range (ADR 0041): lowest and highest skyline around each terrain site (data/band/), loaded with the skyline.
+const bands = Object.fromEntries(
+  Object.entries(import.meta.glob('../data/band/*.json', { import: 'default' })).map(([path, load]) => [path.split('/').pop().replace('.json', ''), load]),
+);
 const items = features.items;
 const engine = items.b_custom_coordinates || items.l_small_shifts
   ? makeCustomTables(customCfg, eph, () => new Worker(new URL('./moonsky-worker.js', import.meta.url), { type: 'module' }))
@@ -54,7 +58,7 @@ const shared = decodeScenarios(location.search, { cfg: view.share, siteIds: new 
 const share = { cfg: view.share, range: { startMs: parseUtc(eph.start), endMs: parseUtc(eph.stop) }, ...shared };
 // Earth view (P4v): to-scale window toward Earth/Sun on terrain cards; nearby points reuse item l's data and engine.
 const earthview = items.j_terrain_horizon && engine ? { cfg: evCfg, dirs: shiftsCfg, places, engine } : null;
-if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, features: items, custom, shifts, me: items.k_moon_vs_earth ? meCfg : null, map, surface, share, earthview });
+if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, bands, features: items, custom, shifts, me: items.k_moon_vs_earth ? meCfg : null, map, surface, share, earthview });
 // One line of measured validation numbers under the verdicts (P4v), loaded after the cards; left empty if it fails.
 const trust = root?.querySelector('.trust');
 if (trust) import('../data/validation.json').then(({ default: v }) => (trust.innerHTML = trustHtml(t, v, vcfg.decimals_report, './validation.html'))).catch(() => {});

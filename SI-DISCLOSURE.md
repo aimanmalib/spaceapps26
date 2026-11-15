@@ -17,7 +17,7 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
 | Project name: suggested by SI, chosen by the author | Author (choice); SI (suggestions) |
 | Further options from the challenge text (sequential comparison, an educational game, terrain for custom coordinates, slopes and shadow conditions on the map) | Author, who chose all four on 15 November 2026 from NASA's own wording, listed by SI |
 | Further features suggested by SI (mission window finder, shareable links with a plain verdict and a Now button, a page for teachers, a guided tour built as one button that opens the one-kilometre example; then a real NASA photograph on the first screen, a one-year overview of every listed site, Indonesian and Malay interface options) | Suggested by SI at the author's request on 15 November 2026; the author considered each list and chose all of them |
-| The aim of a Global Award, and adopting changes from an SI red-team review of the entry (15 November 2026, evening): the NASA PGDA comparison repeated over the same 18.6 years, with a sensitivity test at the ridge check point; a 360° horizon strip and a one-line verdict at the top of every card | Author (the aim, and which changes to adopt); SI (the review, its measurements and the changes) |
+| The aim of a Global Award, and adopting changes from an SI red-team review of the entry (15 November 2026, evening): the NASA PGDA comparison repeated over the same 18.6 years, with a sensitivity test at the ridge check point; a 360° horizon strip and a one-line verdict at the top of every card; the terrain range on the IM-1 and IM-2 cards | Author (the aim, and which changes to adopt); SI (the review, its measurements and the changes) |
 | Indonesian and Malay translations of the interface (optional; English is the default and the reference) | SI, not reviewed by a native speaker |
 | Accepting the open-source participant terms | Author |
 | The list of options itself | Drawn by SI from two parts of NASA's challenge text ("Your solution may include" and "Potential Considerations") and translated into Malay by SI |
@@ -46,7 +46,10 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
    repeated over the same 18.6 years, with a sensitivity test at the ridge check point (the earlier text gave the different
    periods as the reason for the largest difference; the measurement shows they are not); and a 360° horizon strip with a
    one-line verdict at the top of every card, so the first screen shows the horizon, the Sun and Earth (the layout and wording
-   are SI's). The review's findings are SI's, not the author's own analysis.
+   are SI's); and the terrain range on the IM-1 and IM-2 cards (nine points 80 m apart, observer at 0 m and at 2 m), which
+   marks an answer that changes inside that range. The review listed four more changes that were not built (future polar
+   sites, a power index, the actual IM-1 landing point, dates beyond one year). The review's findings are SI's, not the
+   author's own analysis.
 
 The original chat messages are not published.
 

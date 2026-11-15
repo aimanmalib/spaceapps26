@@ -22,6 +22,7 @@ bash scripts/reproduce.sh          # or: bash scripts/reproduce.sh --list   (pri
 | Terrain skylines | `scripts/horizon.py` | `data/horizon/` | LOLA DEMs |
 | 2D map | `scripts/map2d.py` | `data/map/` | LOLA DEMs |
 | Skylines one kilometre away | `scripts/shifts.py` | `data/shift/` | LOLA DEMs |
+| Terrain range (nine points 80 m apart, observer 0 m and 2 m) | `scripts/band.py` | `data/band/` | LOLA DEMs, the Sun/Earth tables |
 | Whole-year shares there | `scripts/shift_year.mjs` | `data/shift-year/` | the files above |
 | Angles vs JPL Horizons | `scripts/validate.py` | `data/validation.json` (`horizons`, `engine`) | JPL Horizons API |
 | Terrain vs NASA PGDA, listed points | `scripts/pgda.py` | `data/validation.json` (`pgda`) | NASA GSFC PGDA product 69 |

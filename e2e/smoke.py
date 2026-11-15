@@ -487,13 +487,14 @@ def summary(page, check):
       return {order: before('.verdicts', '.cards') && before('.tool-actions', '.cards') && before('.trust', '.cards'),
               wide: innerWidth >= 960, above: top('.trust') < top('.cards') && top('.tool-actions') < top('.cards'),
               pano: [...document.querySelectorAll('.card')].every(c => c.querySelector('.pano-verdict')?.innerText.trim() &&
-                c.querySelectorAll('.pano-plot .pano-dot').length === 2 && !!c.querySelector('.pano-svg .sky-terrain') === !!c.querySelector('.sky-near')),
+                c.querySelectorAll('.pano-plot .pano-dot').length === 2 && !!c.querySelector('.pano-svg .sky-terrain') === !!c.querySelector('.sky-near') &&
+                !!c.querySelector('.answers > .band') === !!c.querySelector('.sky-near') && !!c.querySelector('.pano-band') === !!c.querySelector('.sky-near')),
               trust: document.querySelector('.trust').innerText, href: document.querySelector('.trust a').getAttribute('href'),
               n: document.querySelectorAll('.verdicts li').length, cards: document.querySelectorAll('.card').length};
     }""")
     check(r["order"], "first screen: verdicts, validation line and buttons before the cards in the page")
     check(r["above"] or not r["wide"], "first screen: validation line and buttons drawn above the cards on wide windows")
-    check(r["pano"], "every card opens with a verdict and a 360-degree horizon strip (ADR 0040)")
+    check(r["pano"], "every card opens with a verdict and a 360-degree horizon strip; terrain cards show the terrain range (ADR 0040, 0041)")
     check(r["n"] == r["cards"], "one verdict per card")
     check("JPL Horizons" in r["trust"] and "PGDA" in r["trust"] and r["href"].endswith("validation.html"),
           f"validation line with link ({r['trust'][:50]!r})")

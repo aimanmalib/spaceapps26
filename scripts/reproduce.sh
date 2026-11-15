@@ -14,6 +14,7 @@ STEPS=(
   "python3 scripts/map2d.py"            # 2D map tiles (data/map)
   "python3 scripts/shifts.py"           # skylines one kilometre away (data/shift)
   "node scripts/shift_year.mjs"         # whole-year shares at those points (data/shift-year)
+  "python3 scripts/band.py"             # terrain range: lowest and highest skyline within 80 m, observer 0 m and 2 m (data/band)
   "node scripts/overview.mjs"           # one-year overview of every listed site (data/overview.json)
   "python3 scripts/validate.py"         # tool vs JPL Horizons, listed sites and own coordinates (data/validation.json)
   "python3 scripts/pgda.py"             # terrain horizon vs NASA PGDA at the listed points
