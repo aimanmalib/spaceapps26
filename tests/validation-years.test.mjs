@@ -14,8 +14,8 @@ const d = load('config/validation.json').decimals_report;
 test('later years: the page gives the pairs, the largest difference and the same-answer counts of the file', () => {
   const html = yearsHtml(makeT(load('i18n/en.json')), y, d);
   const s = y.summary;
-  assert.equal(y.to, '2041-01-01 00:00');
-  assert.ok(html.includes(`at ${y.pairs.length} random site-and-minute pairs in ${y.from.slice(0, 4)} to 2040`));
+  assert.equal(y.to, '2051-01-01 00:00');
+  assert.ok(html.includes(`at ${y.pairs.length} random site-and-minute pairs in ${y.from.slice(0, 4)} to 2050`));
   assert.ok(html.includes(`largest difference ${s.max_abs_deg.toFixed(d)}°`));
   // For information (ADR 0113): the great-circle angle between the two directions, from the file.
   assert.ok(s.sky_separation, 'the file carries the angle on the sky');

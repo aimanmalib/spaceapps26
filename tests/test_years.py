@@ -47,18 +47,19 @@ class Pairs(unittest.TestCase):
 
 
 class Result(unittest.TestCase):
-    """The recorded run: pairs in 2028-2040 at listed sites, at least 20 of them in 2031-2040; summary and verdict follow from the rows."""
+    """The recorded run: pairs in 2028-2050 at listed sites, at least 20 of them in 2031-2040 and 20 in 2041-2050; summary and verdict follow from the rows."""
 
     def test_recorded_run(self):
         out = load("data/validation-years.json")
         check = load("config/years.json")["check"]
         sites = {s["id"]: s for s in load("config/sites.json")["sites"]}
         self.assertGreaterEqual(len(out["pairs"]), 20)
-        self.assertEqual(len(out["pairs"]), check["pairs"])
+        self.assertEqual(len(out["pairs"]), check["pairs"] + sum(b["pairs"] for b in check.get("extra", [])))
         for r in out["pairs"]:
             self.assertIn(r["site"], sites)
-            self.assertTrue("2028-01-01" <= r["time_utc"] < "2041-01-01")
-        self.assertGreaterEqual(sum(r["time_utc"] >= "2031-01-01" for r in out["pairs"]), 20)
+            self.assertTrue("2028-01-01" <= r["time_utc"] < "2051-01-01")
+        self.assertGreaterEqual(sum("2031-01-01" <= r["time_utc"] < "2041-01-01" for r in out["pairs"]), 20)
+        self.assertGreaterEqual(sum(r["time_utc"] >= "2041-01-01" for r in out["pairs"]), 20)
         biggest = max(abs(r["diff"][b][k]) for r in out["pairs"] for b in ("sun", "earth") for k in ("az", "el"))
         self.assertAlmostEqual(out["summary"]["max_abs_deg"], biggest, places=4)
         same = all((r["shown"][b]["el"] > 0) == (r["horizons"][b]["el"] > 0) for r in out["pairs"] for b in ("sun", "earth"))
@@ -73,7 +74,7 @@ class Result(unittest.TestCase):
         s = y["summary"]
         flat = " ".join(((ROOT / "README.md").read_text(encoding="utf-8") + "\n" + (ROOT / "docs" / "DETAILS.md").read_text(encoding="utf-8")).split())
         last = int(y["to"][:4]) - (1 if y["to"][5:10] == "01-01" else 0)
-        self.assertEqual(last, 2040)
+        self.assertEqual(last, 2050)
         self.assertIn(f"at {len(y['pairs'])} random site-and-minute pairs at the listed sites in {y['from'][:4]} to {last}", flat)
         self.assertIn(f"largest difference {s['max_abs_deg']:.4f}°, average {s['mean_abs_deg']:.4f}°, same solar power answer "
                       f"{s['same_answer']['power']} of {s['same_answer']['of']}", flat)
