@@ -17,6 +17,7 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
 | Project name: suggested by SI, chosen by the author | Author (choice); SI (suggestions) |
 | Further options from the challenge text (sequential comparison, an educational game, terrain for custom coordinates, slopes and shadow conditions on the map) | Author, who chose all four on 15 November 2026 from NASA's own wording, listed by SI |
 | Further features suggested by SI (mission window finder, shareable links with a plain verdict and a Now button, a page for teachers, a guided tour built as one button that opens the one-kilometre example; then a real NASA photograph on the first screen, a one-year overview of every listed site, Indonesian and Malay interface options) | Suggested by SI at the author's request on 15 November 2026; the author considered each list and chose all of them |
+| Indonesian and Malay translations of the interface (optional; English is the default and the reference) | SI, not reviewed by a native speaker |
 | Accepting the open-source participant terms | Author |
 | The list of options itself | Drawn by SI from two parts of NASA's challenge text ("Your solution may include" and "Potential Considerations") and translated into Malay by SI |
 | Build order (technical dependency and the emphasis in NASA's text), interface design, all code and data scripts, tests, slide layout | SI, on the author's instructions |

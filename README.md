@@ -114,6 +114,8 @@ Built:
   Average sunlight (NASA PGDA): NASA's average solar illumination map of the south pole (share of hourly steps over 18.6 years
   when any part of the Sun was visible), read on the same cells by `scripts/map_sunlight.py`, not computed by this tool. At the
   centre cell it gives 47 % at IM-1 and at IM-2, the PGDA values of the validation below.
+- Optional Indonesian and Malay interface text (SI translations, not reviewed by a native speaker): add `?lang=id` or `?lang=ms`
+  to any page address, or use the links in the page footer. English stays the default; the choice is not stored.
 
 ## What it does, and limitations
 
@@ -135,7 +137,8 @@ Limitations:
   it (radius from mean distances). The independent terrain check (Validation, below) counts any part of the disc.
 - Power and communication answers are geometry only: whether the Sun or Earth is above the horizon. Solar panel orientation, power
   output, antennas, relay satellites and link budgets are not modelled.
-- The interface is in English only.
+- Interface language: English is the default and the reference. Indonesian and Malay (`?lang=id`, `?lang=ms`, links in the page
+  footer) are SI translations, not reviewed by a native speaker. Technical terms, numbers and site names are not changed.
 
 ## One year at every listed site
 
@@ -248,8 +251,9 @@ SI was used in this project: Claude Code (Anthropic).
   features that SI suggested at my request (mission window finder, shareable links with a plain verdict and a Now button, a page
   for teachers, a guided tour), all chosen by me from that list.
 - **Done by SI, on my instructions:** a feasibility comparison of the challenges, translation of the challenge text into Malay for
-  me, build order, interface design, all code, data scripts and tests, slide layout, suggested project names, and the English text, drafted from my choices
-  and the measured results and reviewed by me.
+  me, build order, interface design, all code, data scripts and tests, slide layout, suggested project names, the optional Indonesian and
+  Malay interface translations (not reviewed by a native speaker), and the English text, drafted from my choices and the measured
+  results and reviewed by me.
 - **Not used:** no SI-generated images, video or audio. Every image is a real screenshot of the tool, except one credited NASA
   photograph (Apollo 8, AS08-14-2383) on the home page, the About page and slide 1.
 

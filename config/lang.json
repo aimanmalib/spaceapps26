@@ -1,0 +1,10 @@
+{
+  "_note": "Interface languages (P4t, SI suggestion chosen by the author, 15 Nov). English is the default and the complete reference; Indonesian and Malay are optional translations made by SI (not reviewed by a native speaker), chosen with ?lang=<code> in the address. No storage: the choice lives only in the address and is carried to the site's own links. label = the language's own name, shown in the footer switcher. Text files: i18n/<code>.json, every key of i18n/en.json.",
+  "default": "en",
+  "param": "lang",
+  "languages": [
+    { "code": "en", "label": "English" },
+    { "code": "id", "label": "Bahasa Indonesia" },
+    { "code": "ms", "label": "Bahasa Melayu" }
+  ]
+}

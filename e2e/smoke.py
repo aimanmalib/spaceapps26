@@ -8,6 +8,7 @@ On each: the compare tool renders answers, the site select and the time input
 update them, the one-kilometre example button scrolls to the Earth view, the step buttons and "If the date moves" table (sequential comparison) work, own coordinates (item b) give answers, the 2D map (item h) and 3D surface (item i) draw, "add" makes one more card, technical details open, the validation
 page shows its numbers, the Play page plays one round, About lists items a–l and limitations, Data sources lists the frozen files;
 the first answers of the first card fit the first screen (P4f), zero console errors, zero requests to other hosts,
+every page in Indonesian and Malay (?lang=, P4t) with the translation note and no raw keys,
 no horizontal overflow. Prints one line per profile; exit 1 on any failure.
 Screenshots go to $AUTOPILOT_BUKTI_DIR (or $SMOKE_SHOTS) when set.
 """
@@ -515,6 +516,36 @@ def masthead_photo(page, check):
     check(r["contrast"] >= 4.5, f"masthead: title contrast {r['contrast']:.1f}:1 >= 4.5:1")
 
 
+LANG_PAGES = ["", "about.html", "validation.html", "sources.html", "play.html", "teach.html", "overview.html"]
+RAW_KEYS_JS = """() => [...document.querySelectorAll('[data-i18n]')].filter((e) => e.textContent === e.dataset.i18n).map((e) => e.dataset.i18n)"""
+
+
+def languages(page, check, base, shots, name):
+    """P4t: every page in Indonesian and Malay (?lang=id, ?lang=ms): <html lang>, the switcher and the SI translation note in the
+    footer, no untranslated key shown, own links keep the language, no horizontal overflow; English stays the default."""
+    root = base.rstrip("/") + "/"
+    page.goto(root, wait_until="networkidle")
+    check(page.evaluate("document.documentElement.lang") == "en" and page.locator(".foot .lang-note").count() == 0,
+          "lang: English by default, no translation note")
+    for code in ("id", "ms"):
+        for path in LANG_PAGES:
+            page.goto(f"{root}{path}?lang={code}", wait_until="networkidle")
+            where = f"lang {code} /{path}"
+            check(page.evaluate("document.documentElement.lang") == code, f"{where}: <html lang>")
+            check(page.locator(".foot .langs a").count() == 3 and page.locator(".foot .lang-note").is_visible(),
+                  f"{where}: switcher + translation note")
+            raw = page.evaluate(RAW_KEYS_JS)
+            check(not raw, f"{where}: untranslated keys {raw[:3]}")
+            nav = page.locator(".topnav a").first.get_attribute("href") or ""
+            check(f"lang={code}" in nav, f"{where}: nav link keeps the language ({nav})")
+            if not path:
+                page.locator(".card .answers").first.wait_for()
+            page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+            check(no_overflow(page), f"{where}: no horizontal overflow")
+            if shots and path in ("", "play.html"):
+                page.screenshot(path=os.path.join(shots, f"smoke-{name}-lang-{code}-{path or 'index'}.png"), full_page=False)
+
+
 def run_profile(p, name, engine, ctx_opts, base, shots):
     browser = getattr(p, engine).launch()
     opts = p.devices[ctx_opts] if isinstance(ctx_opts, str) else ctx_opts
@@ -653,6 +684,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         check(no_overflow(page), "data sources page: no horizontal overflow")
         if shots:
             page.screenshot(path=os.path.join(shots, f"smoke-{name}-sources.png"), full_page=False)
+        languages(page, check, base, shots, name)
     except Exception as exc:  # noqa: BLE001 — a smoke run reports, it does not crash
         fails.append(f"{type(exc).__name__}: {str(exc).splitlines()[0]}")
     finally:
