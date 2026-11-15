@@ -1,6 +1,7 @@
 // SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
 // Above-horizon windows from a precomputed table: when the Sun/Earth rises and sets around a given time.
-// Rise/set = where the linearly interpolated elevation crosses the threshold (same interpolation as sampleAt).
+// Rise/set = where the linearly interpolated elevation crosses the threshold (sampleAt joins directions, ADR 0113; near the
+// horizon the two agree far below the 0.01° rounding of the tables).
 import { tableRange, isAbove } from './ephem.js';
 
 const MINUTE = 60_000;

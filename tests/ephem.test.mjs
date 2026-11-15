@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { parseUtc, formatUtc, tableRange, lerpAngle, sampleAt, isAbove, sharedScale } from '../src/ephem.js';
+import { parseUtc, formatUtc, tableRange, lerpAngle, lerpDirection, sampleAt, isAbove, sharedScale } from '../src/ephem.js';
 import { skySvg, yFor, VIEW } from '../src/sky.js';
 
 // Fixed fixture (not project data): 3 hourly rows.
@@ -25,6 +25,18 @@ test('tableRange spans first to last row', () => {
   assert.equal(r.endMs - r.startMs, 2 * 3600_000);
 });
 
+test('lerpDirection follows the sky near the zenith, where straight lines in azimuth and elevation do not (ADR 0113)', () => {
+  // A body passing over the zenith between two rows: halfway it is at the zenith, not 0.5° below it at a made-up azimuth.
+  assert.ok(lerpDirection(90, 89.5, 270, 89.5, 0.5).el > 89.999);
+  // Ordinary rows: the same as the straight lines to well under the rounding of the tables (0.01°).
+  const d = lerpDirection(120, 10, 120.5, 10.4, 0.3);
+  assert.ok(Math.abs(d.az - 120.15) < 1e-3 && Math.abs(d.el - 10.12) < 1e-3);
+  // Across north, and the rows themselves stay exact.
+  assert.ok(Math.min(lerpDirection(359, 5, 1, 5, 0.5).az, 360 - lerpDirection(359, 5, 1, 5, 0.5).az) < 1e-6);
+  assert.deepEqual(lerpDirection(10, 20, 30, 40, 0), { az: 10, el: 20 });
+  assert.deepEqual(lerpDirection(10, 20, 30, 40, 1), { az: 30, el: 40 });
+});
+
 test('lerpAngle takes the short way across north', () => {
   assert.equal(lerpAngle(350, 10, 0.5), 0);
   assert.ok(Math.abs(lerpAngle(10, 350, 0.25) - 5) < 1e-9);
@@ -34,9 +46,14 @@ test('lerpAngle takes the short way across north', () => {
 test('sampleAt interpolates between rows, hits rows exactly, and is null outside', () => {
   const t0 = parseUtc(T.start);
   const mid = sampleAt(T, t0 + 30 * 60_000);
-  assert.equal(mid.sun.el, 0);
-  assert.equal(mid.sun.az, 0);
-  assert.equal(mid.earth.el, 4.5);
+  // Symmetric rows: the joined direction lies halfway, as before (to floating-point precision).
+  assert.ok(Math.abs(mid.sun.el) < 1e-9);
+  assert.ok(Math.min(mid.sun.az, 360 - mid.sun.az) < 1e-9);
+  // Rows 10° apart in azimuth: halfway along the sky's arc (same angle to both rows), a little above the straight-line 4.5°.
+  const R = Math.PI / 180;
+  const sep = (p, q) => Math.acos(Math.sin(p.el * R) * Math.sin(q.el * R) + Math.cos(p.el * R) * Math.cos(q.el * R) * Math.cos((p.az - q.az) * R)) / R;
+  assert.ok(Math.abs(sep(mid.earth, { az: 100, el: 5 }) - sep(mid.earth, { az: 110, el: 4 })) < 1e-9);
+  assert.ok(Math.abs(mid.earth.az - 105) < 0.01 && mid.earth.el > 4.5 && mid.earth.el < 4.55);
   const last = sampleAt(T, t0 + 2 * 3600_000);
   assert.deepEqual(last, { sun: { az: 30, el: 3 }, earth: { az: 120, el: 3 } });
   assert.equal(sampleAt(T, t0 - 1), null);
