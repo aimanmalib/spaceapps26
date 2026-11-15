@@ -4,6 +4,16 @@ All notable changes to this project are listed here. The format follows [Keep a 
 The project has no numbered releases: the site is one continuous build, and each page names the commit it was built from
 (`version.json`).
 
+## 2026-11-15, night: Download CSV and a guided tour (ADR 0110)
+
+### Added
+- "Download CSV" at the foot of every card and under the side-by-side table: the hourly rows behind the answers for the
+  card's mission period (Mission check length, 7 days by default): UTC time, Sun and Earth azimuth/elevation, the horizon
+  used at that azimuth, power and Earth yes/no, horizon kind and angle source. Built in the browser (Blob), no server; the
+  file name carries the site and date.
+- "Take the tour": five steps (the decision and badge, the horizon strip, Try a comparison, the one-kilometre example,
+  Validation) in a native dialog; opens only on request, Esc closes it, focus returns to the button. Texts in en, id, ms.
+
 ## 2026-11-15, night: validation at scale (ADR 0108)
 
 ### Added
