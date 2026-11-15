@@ -53,6 +53,22 @@ class Disclosure(unittest.TestCase):
         stray = [r for r in walk() if r.lower().endswith(MEDIA_EXT) and not r.startswith(os.path.join("docs", "media") + os.sep)]
         self.assertEqual(stray, [])
 
+    def test_retracted_origin_claims_do_not_return(self):
+        # ADR 0024: the author did not write Malay notes, and the twelve items were listed by SI from two parts of the
+        # challenge text, not taken from one NASA list. The form kit (docs/hantar/, not tracked) is checked when present.
+        banned = ("Malay notes", "challenge's 'Your solution may include' list")
+        targets = ["README.md", "SI-DISCLOSURE.md", "si-disclosure.json", os.path.join("demo", "slides.html")]
+        targets += [os.path.join("i18n", f) for f in os.listdir(os.path.join(ROOT, "i18n")) if f.endswith(".json")]
+        kit = os.path.join(ROOT, "docs", "hantar")
+        if os.path.isdir(kit):
+            targets += [os.path.join("docs", "hantar", f) for f in os.listdir(kit) if f.endswith(".md") and "hantar1" not in f]
+        hits = []
+        for rel in targets:
+            with open(os.path.join(ROOT, rel), encoding="utf-8") as fh:
+                text = fh.read()
+            hits += [(rel, b) for b in banned if b in text]
+        self.assertEqual(hits, [])
+
 
 if __name__ == "__main__":
     unittest.main()

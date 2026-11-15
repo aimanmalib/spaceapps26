@@ -25,6 +25,8 @@ the small crater where the IM-2 lander stopped.
 - The SI timeline in `SI-DISCLOSURE.md` and the Use of SI form field are told once, in time order: 14 November the author
   asked SI for an idea, SI declined and listed the options in the challenge text, the author chose all of them; 15 November the
   author asked for more, SI listed four options from the challenge text and suggested five features, the author chose them.
+- `tests/test_disclosure.py` fails if "Malay notes" or "challenge's 'Your solution may include' list" appears again in the
+  README, SI disclosure, i18n, slides or the form kit (when present).
 - Slide 7 says some features were suggested by SI. Slide 4 and the README carry the 80 m grid caveat.
 
 The official challenge page could not be fetched from the build host (TLS certificate error), so the source for the two-part
