@@ -6,7 +6,8 @@
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-export function staticMeta(html, en) {
+// share (config/app.json share_image): one absolute image address for link previews; a real screenshot of the tool.
+export function staticMeta(html, en, share) {
   const titleKey = html.match(/<title data-i18n="([^"]+)"/)?.[1];
   const descKey = html.match(/<meta name="description" content="[^"]*" data-i18n-attr="content:([^"]+)"/)?.[1];
   const title = titleKey && en[titleKey];
@@ -19,6 +20,11 @@ export function staticMeta(html, en) {
     '<meta property="og:type" content="website" />',
     title && `<meta property="og:title" content="${esc(title)}" />`,
     desc && `<meta property="og:description" content="${esc(desc)}" />`,
+    share?.url && `<meta property="og:image" content="${esc(share.url)}" />`,
+    share?.url && share.width && `<meta property="og:image:width" content="${esc(share.width)}" />`,
+    share?.url && share.height && `<meta property="og:image:height" content="${esc(share.height)}" />`,
+    share?.url && en[share.alt_key] && `<meta property="og:image:alt" content="${esc(en[share.alt_key])}" />`,
+    share?.url && '<meta name="twitter:card" content="summary_large_image" />',
   ].filter(Boolean);
   if (out.includes('rel="icon"')) return out;
   return out.replace('</head>', `    ${tags.join('\n    ')}\n  </head>`);

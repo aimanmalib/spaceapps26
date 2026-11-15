@@ -59,7 +59,10 @@ class Disclosure(unittest.TestCase):
         # P4y: the favicon is SVG source code (a disc over a line, written like the charts the pages draw), with the SI header.
         photo = os.path.join("public", "media", "as08-14-2383.jpg")
         icon = os.path.join("public", "favicon.svg")
-        self.assertEqual(sorted(stray), sorted([photo, icon]))
+        # Link preview image: a real 1200 x 630 screen capture of the home page (IM-2, 2026-11-14 00:00 UTC), served with the
+        # site so chat apps can fetch it (config/app.json share_image).
+        share = os.path.join("public", "media", "og.png")
+        self.assertEqual(sorted(stray), sorted([photo, icon, share]))
         with open(os.path.join(ROOT, icon), encoding="utf-8") as f:
             self.assertIn("SI-generated: Claude Code", f.read())
         with open(os.path.join(ROOT, "i18n", "en.json"), encoding="utf-8") as f:

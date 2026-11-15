@@ -20,9 +20,10 @@ const copyData = {
 
 // Title, description, og: tags and the favicon link written into every page from i18n/en.json (src/static-meta.js).
 const en = JSON.parse(readFileSync(`${root}i18n/en.json`, 'utf8'));
+const appConfig = JSON.parse(readFileSync(`${root}config/app.json`, 'utf8'));
 const pageMeta = {
   name: 'static-page-meta',
-  transformIndexHtml: { order: 'post', handler: (html) => staticMeta(html, en) },
+  transformIndexHtml: { order: 'post', handler: (html) => staticMeta(html, en, appConfig.share_image) },
 };
 
 // Pages with their source under src/ (repo file scope): the game (P4j), the page for teachers (P4o) and the overview (P4s). Each is served

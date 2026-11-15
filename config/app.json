@@ -1,4 +1,10 @@
 {
   "repo_url": "https://github.com/aimanmalib/spaceapps26",
-  "si_disclosure_path": "/blob/main/SI-DISCLOSURE.md"
+  "si_disclosure_path": "/blob/main/SI-DISCLOSURE.md",
+  "share_image": {
+    "url": "https://aimanmalib.github.io/spaceapps26/media/og.png",
+    "width": 1200,
+    "height": 630,
+    "alt_key": "meta.share_image_alt"
+  }
 }

@@ -1,0 +1,30 @@
+name: Bug report
+description: A page, a number or a script doesn't work as described
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The link from "Copy link" on the home page is the quickest way to share a scenario.
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where
+      options: [Compare (home page), Overview, Play, Teach, Validation, Data sources, About, Data scripts, Slides]
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+    validations:
+      required: true

@@ -42,3 +42,17 @@ test('deploy/pages.sh prepares the gh-pages branch only: no Pages switch, no vis
   assert.match(sh, /\.nojekyll/);
   assert.doesNotMatch(sh, /gh (repo edit|api)|visibility|repos\/[^ ]*\/pages/);
 });
+
+test('the share image is a file in public/, named with an absolute address, and stays under 300 KB for chat previews', () => {
+  const share = JSON.parse(read('config/app.json')).share_image;
+  const en = JSON.parse(read('i18n/en.json'));
+  const out = staticMeta(PAGE, { ...en, 'k.t': 'A', 'k.d': 'D' }, share);
+  assert.match(out, /<meta property="og:image" content="https:\/\/[^"]+\/media\/og\.png" \/>/);
+  assert.match(out, /<meta name="twitter:card" content="summary_large_image" \/>/);
+  assert.match(out, /<meta property="og:image:alt" content="[^"]+" \/>/);
+  assert.doesNotMatch(staticMeta(PAGE, { 'k.t': 'A', 'k.d': 'D' }), /og:image/, 'no share config, no image tag');
+  const png = readFileSync(new URL('public/media/og.png', root));
+  assert.ok(png.length < 300 * 1024, `og.png is ${png.length} bytes`);
+  assert.equal(png.readUInt32BE(16), share.width);
+  assert.equal(png.readUInt32BE(20), share.height);
+});

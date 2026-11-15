@@ -1,0 +1,16 @@
+name: Feature request
+description: Something the tool should show or do
+labels: [enhancement]
+body:
+  - type: textarea
+    id: who
+    attributes:
+      label: Who needs it, and for what?
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What should it show or do?
+    validations:
+      required: true

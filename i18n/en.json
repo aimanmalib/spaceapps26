@@ -474,5 +474,6 @@
   "ov.find.both": "Most hours with both the Sun and Earth in view: {sites}, {pct} %.",
   "ov.find.run": "Longest unbroken stretch with both in view: {sites}, {d} days ({start} to {end}).",
   "ov.note": "Geometry only: no lighting power, communication link or landing hazard is modelled. Sites with a LOLA terrain skyline and sites on the ideal sphere use different horizons, so their numbers are not like for like. The IM-1 and IM-2 shares are the ones checked against NASA PGDA on the Validation page.",
-  "ov.generated": "Counted by scripts/overview.mjs from the frozen hourly tables in data/ (data/overview.json); nothing is computed on this page."
+  "ov.generated": "Counted by scripts/overview.mjs from the frozen hourly tables in data/ (data/overview.json); nothing is computed on this page.",
+  "meta.share_image_alt": "Still in View: IM-2 on 2026-11-14 00:00 UTC, no sunlight for solar power, Earth 1.3° above the terrain horizon (real screenshot)"
 }
