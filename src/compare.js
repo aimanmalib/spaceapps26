@@ -18,6 +18,7 @@ import { mountMap } from './map2d-ui.js';
 import { mountSurface } from './surface3d-ui.js';
 import { mountSteps, mountSequence } from './sequence-ui.js';
 import { mountWindows } from './mission-ui.js';
+import { mountMetrics } from './metrics-ui.js';
 import { mountShare } from './share-ui.js';
 import { verdictText, encodeScenarios } from './share.js';
 import { mountPresets, presetSearch } from './presets.js';
@@ -66,7 +67,8 @@ function cardDom(t, sites, sc, custom) {
 // map = {cfg: config/map2d.json, maps: siteId → () => Promise<data/map file>} when item h is on;
 // surface = {cfg: config/surface3d.json, light: config/map2d.json, maps} when item i is on.
 // earthview = {cfg: config/earthview.json, dirs: config/shifts.json, places, engine} (P4v; terrain sites only).
-export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null, earthview = null, presets = null }) {
+// metrics = config/metrics.json: mission check badge in the card head + numbers under the answers (ADR 0101).
+export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null, earthview = null, presets = null, metrics = null }) {
   const list = root.querySelector('.cards');
   const add = root.querySelector('.add');
   const glance = root.querySelector('.glance-body');
@@ -151,6 +153,11 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
         box.querySelector('.answers').after(r.c.evBox);
         r.c.ev.draw({ site: r.site, profile: r.profile, sample: r.sample, ms: r.ms });
       } else r.c.ev?.hide();
+      // Mission check (ADR 0101): under the answers, after the Earth view when there is one.
+      if (r.c.mm && r.sample) {
+        (r.c.evBox?.parentElement === box ? r.c.evBox : box.querySelector('.answers')).after(r.c.mmBox);
+        r.c.mm.draw({ table: r.table, rel: r.rel, ms: r.ms });
+      } else r.c.mm?.hide();
       if (r.sample) r.c.tl?.draw(r.rel, r.ms);
       else r.c.tl?.hide();
       if (r.sample) r.c.sh?.draw({ site: r.site, table: r.table, profile: r.profile, sample: r.sample, ms: r.ms });
@@ -197,6 +204,10 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
     if (earthview) {
       c.evBox = document.createElement('section');
       c.ev = mountEarthView(c.evBox, { t, view, ev: earthview, uid: `ev${++uid}` });
+    }
+    if (metrics) {
+      c.mmBox = document.createElement('section');
+      c.mm = mountMetrics(c.mmBox, { t, cfg: metrics, view, head: c.el.querySelector('.card-head'), open: first && metrics.first_card_open, uid: `mm${++uid}` });
     }
     if (features.l_small_shifts && shifts) c.sh = mountShifts(c.el.querySelector('.card-shifts'), { t, view, shifts });
     if (first && view.first_card?.shifts_open) openBlock(c.el, '.shifts');
