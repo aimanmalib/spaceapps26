@@ -109,6 +109,7 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .how { margin: 0 0 0.75rem; max-width: 46rem; border-top: 0; padding-top: 0; }
 .how .data-label { margin: 0.5rem 0 0; }
 .horizon-kind { margin: 0.75rem 0 0; color: var(--muted); font-size: 0.875rem; }
+.angle-source { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.875rem; }
 .sky-sun.is-up { fill: var(--sun); }
 .sky-earth.is-up { fill: var(--earth); }
 .sky-sun.is-down, .sky-earth.is-down { fill: none; stroke-width: 2; stroke-dasharray: 3 2; }

@@ -87,5 +87,5 @@ export function sourceKey(source, laterYears, passed) {
 
 // One line under the horizon line of a card: which source gave this card's angles.
 export function sourceHtml(t, source, laterYears, passed) {
-  return `<p class="horizon-kind angle-source is-${source}">${escapeHtml(t(sourceKey(source, laterYears, passed)))}</p>`;
+  return `<p class="angle-source is-${source}">${escapeHtml(t(sourceKey(source, laterYears, passed)))}</p>`;
 }
