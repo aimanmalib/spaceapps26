@@ -377,7 +377,7 @@
   "sources.facts.heading": "Fakta Bulan dan Bumi (butir k)",
   "sources.cmd.10": "Matahari",
   "sources.cmd.399": "Bumi",
-  "tool.lede": "Pilih lokasi pendaratan dan waktu UTC, lalu lihat apakah Matahari (tenaga surya) dan Bumi (hubungan langsung) berada di atas ufuk.",
+  "tool.lede": "Peluncuran mundur atau lokasi berubah? Lihat sekilas apakah lokasi pendaratan di Bulan masih mendapat sinar Matahari untuk daya dan jalur langsung ke Bumi.",
   "tool.how": "Cara membaca ini",
   "answer.margin_terrain": "{body} {dir} ufuk medan",
   "answer.margin_sphere": "{body} {dir} ufuk bola ideal",

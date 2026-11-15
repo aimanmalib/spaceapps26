@@ -377,7 +377,7 @@
   "sources.facts.heading": "Moon and Earth facts (item k)",
   "sources.cmd.10": "Sun",
   "sources.cmd.399": "Earth",
-  "tool.lede": "Pick a landing site and a UTC time, and see if the Sun (solar power) and Earth (a direct link) are above the horizon.",
+  "tool.lede": "Launch slipped or site changed? See at once whether a lunar landing site still has sunlight for power and a direct line to Earth.",
   "tool.how": "How to read this",
   "answer.margin_terrain": "{body} {dir} the terrain horizon",
   "answer.margin_sphere": "{body} {dir} the ideal sphere horizon",

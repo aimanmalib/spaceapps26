@@ -377,7 +377,7 @@
   "sources.facts.heading": "Fakta Bulan dan Bumi (item k)",
   "sources.cmd.10": "Matahari",
   "sources.cmd.399": "Bumi",
-  "tool.lede": "Pilih tapak pendaratan dan masa UTC, lalu lihat sama ada Matahari (kuasa solar) dan Bumi (hubungan terus) berada di atas ufuk.",
+  "tool.lede": "Pelancaran tertunda atau tapak bertukar? Lihat serta-merta sama ada tapak pendaratan di Bulan masih mendapat cahaya matahari untuk kuasa dan talian terus ke Bumi.",
   "tool.how": "Cara membaca ini",
   "answer.margin_terrain": "{body} {dir} ufuk rupa bumi",
   "answer.margin_sphere": "{body} {dir} ufuk sfera ideal",
