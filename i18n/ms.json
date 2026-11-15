@@ -607,7 +607,7 @@
   "realism.eclipse.open": "hujung data",
   "realism.eclipse.timeline": "Tanda gelap pada lorong Matahari = gerhana bulan: Bumi di hadapan Matahari, {from} hingga {to} UTC (baris sejam), sehingga {pct} tertutup.",
   "realism.eclipse.timeline_many": "Tanda gelap pada lorong Matahari = {n} gerhana bulan: Bumi di hadapan Matahari; yang pertama {from} hingga {to} UTC, sehingga {pct} tertutup.",
-  "realism.eclipse.metrics": "Gerhana bulan dalam tempoh ini: Bumi menutup sebahagian Matahari selama {hours} j (sehingga {pct}, pada {peak} UTC). Daripadanya, {centre} j dengan pusat Matahari tertutup dikira sebagai malam, dan anggaran kuasa hanya mengambil bahagian yang tidak tertutup.",
+  "realism.eclipse.metrics": "Gerhana bulan dalam tempoh ini: Bumi berada di hadapan Matahari selama {hours} j, menutup sehingga {pct} daripadanya (pada {peak} UTC). Daripadanya, {centre} j dengan pusat Matahari tertutup dikira sebagai malam, dan anggaran kuasa hanya mengambil bahagian yang tidak tertutup.",
   "realism.battery.heading": "Bateri untuk malam terpanjang",
   "realism.battery.note": "Pada beban contoh {w} W sepanjang malam terpanjang. Anggaran geometri: tanpa kehilangan, pemanas atau rizab.",
   "realism.battery.none": "Tidak perlu (tiada malam)",

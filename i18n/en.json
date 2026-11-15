@@ -607,7 +607,7 @@
   "realism.eclipse.open": "the end of the data",
   "realism.eclipse.timeline": "Dark mark on the Sun lane = lunar eclipse: Earth in front of the Sun, {from} to {to} UTC (hourly rows), up to {pct} covered.",
   "realism.eclipse.timeline_many": "Dark marks on the Sun lane = {n} lunar eclipses: Earth in front of the Sun; the first {from} to {to} UTC, up to {pct} covered.",
-  "realism.eclipse.metrics": "Lunar eclipse in this period: Earth covers part of the Sun for {hours} h (up to {pct}, at {peak} UTC). Of these, {centre} h with the Sun's centre covered count as night, and the power estimate keeps only the uncovered part.",
+  "realism.eclipse.metrics": "Lunar eclipse in this period: Earth is in front of the Sun for {hours} h, covering up to {pct} of it (at {peak} UTC). Of these, {centre} h with the Sun's centre covered count as night, and the power estimate keeps only the uncovered part.",
   "realism.battery.heading": "Battery for the longest night",
   "realism.battery.note": "At an example load of {w} W through the longest night. Geometry estimate: no losses, heaters or reserve.",
   "realism.battery.none": "None needed (no night)",
