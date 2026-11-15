@@ -25,7 +25,9 @@ export function rowsIn(table, from, to) {
   for (let k = first; k < table.sun.el.length; k++) {
     const ms = startMs + k * step;
     if (ms > to) break;
-    out.push({ ms, sun: table.sun.el[k], earth: table.earth.el[k] });
+    // Lunar eclipse seen from the site (ADR 0109): share of the Sun behind Earth, and whether its centre is.
+    const ecl = table.eclipse ? { cover: table.eclipse.share[k], hid: !!table.eclipse.centre[k] } : null;
+    out.push({ ms, sun: table.sun.el[k], earth: table.earth.el[k], ...(ecl && ecl.cover > 0 ? ecl : {}) });
   }
   return out;
 }
@@ -38,9 +40,24 @@ export function thinRows(rows, n) {
   return out;
 }
 
+// Above the threshold, and for the Sun not behind Earth (row.hid, ADR 0109).
+const lit = (r, body, th) => isAbove(r[body], th) && !(body === 'sun' && r.hid);
+
 // Share (0–1) of rows with the body above the threshold.
 export function shareAbove(rows, body, th = 0) {
-  return rows.length ? rows.filter((r) => isAbove(r[body], th)).length / rows.length : 0;
+  return rows.length ? rows.filter((r) => lit(r, body, th)).length / rows.length : 0;
+}
+
+// Stretches of rows with part of the Sun behind Earth: [{from, to, cover}] (ms, largest share).
+export function eclipseMarks(rows) {
+  const out = [];
+  for (const r of rows) {
+    if (!(r.cover > 0)) continue;
+    const last = out[out.length - 1];
+    if (last && r.ms - last.to <= (rows[1]?.ms - rows[0]?.ms || 0) * 1.01) Object.assign(last, { to: r.ms, cover: Math.max(last.cover, r.cover) });
+    else out.push({ from: r.ms, to: r.ms, cover: r.cover });
+  }
+  return out;
 }
 
 // Runs of consecutive rows with the body above the threshold → [[x0, x1]] in SVG units.
@@ -48,7 +65,7 @@ function bands(rows, body, th, x) {
   const out = [];
   let open = null;
   rows.forEach((r, i) => {
-    const up = isAbove(r[body], th);
+    const up = lit(r, body, th);
     if (up && open === null) open = i;
     if ((!up || i === rows.length - 1) && open !== null) {
       out.push([x(rows[open].ms), x(rows[up ? i : i - 1].ms)]);
@@ -70,6 +87,15 @@ export function timelineSvg(rows, span, ms, scale, th = 0, lineEvery = 1) {
       .join('');
   const mid = TL.h / 2;
   const at = Math.max(0, Math.min(TL.w, x(ms))).toFixed(1);
+  // Lunar eclipse seen from the site (ADR 0109): a dark mark with a Sun-coloured edge on the Sun lane, at least 3 units wide.
+  const marks = eclipseMarks(rows)
+    .map((m) => {
+      const a = x(m.from);
+      const b = x(m.to);
+      const w = Math.max(3, b - a);
+      return `<rect class="tl-eclipse" x="${((a + b - w) / 2).toFixed(1)}" y="${TL.h + 1}" width="${w.toFixed(1)}" height="8" rx="1"/>`;
+    })
+    .join('');
   return (
     `<svg class="tl-svg" viewBox="0 0 ${TL.w} ${TL.h + 16}" preserveAspectRatio="none" aria-hidden="true" focusable="false">` +
     `<rect class="sky-above" x="0" y="0" width="${TL.w}" height="${mid}"/>` +
@@ -79,6 +105,7 @@ export function timelineSvg(rows, span, ms, scale, th = 0, lineEvery = 1) {
     `<polyline class="tl-line tl-sun" points="${line('sun')}"/>` +
     lane('sun', TL.h + 2) +
     lane('earth', TL.h + 9) +
+    marks +
     `<line class="tl-now" x1="${at}" y1="0" x2="${at}" y2="${TL.h + 16}"/>` +
     `</svg>`
   );

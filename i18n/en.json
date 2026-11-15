@@ -597,5 +597,18 @@
   "years.ev_caption": "Toward {body} (azimuth {az}°), {time} UTC. {w}° wide, drawn to scale (same degrees across and up); angles from the in-browser engine, past the end of the frozen NASA tables: the {body} disc is {diam}° across; skyline from LRO LOLA ({grid} m grid, {step}° steps); dashed line = smooth Moon (0°).",
   "val.years.heading": "Dates after the frozen tables: the engine against JPL Horizons",
   "val.years.intro": "Dates after the end of the frozen JPL Horizons tables use the in-browser engine at the listed sites too. It was compared with JPL Horizons, asked directly, at {n} random site-and-minute pairs in {from} to {to} (fixed seed, never on a table hour): largest difference {max}°, average {mean}°, same solar power answer {power} of {of}, same Earth answer {comm} of {of}. The cards say \"validated\" only while the largest difference stays below {limit}°.",
-  "val.years.generated": "Measured {at} by scripts/validate_years.py (random seed {seed}). Source file: data/validation-years.json."
+  "val.years.generated": "Measured {at} by scripts/validate_years.py (random seed {seed}). Source file: data/validation-years.json.",
+  "preset.eclipse": "Lunar eclipse at the south pole",
+  "realism.eclipse.unit": "of the Sun is behind Earth",
+  "realism.eclipse.line_hidden": "Lunar eclipse: the Sun is {margin} above the {line}, but Earth is in front of it, centre included (people on Earth see a lunar eclipse).",
+  "realism.eclipse.line_part": "Lunar eclipse: Earth covers {pct} of the Sun until {end} UTC, so less power; the Sun's centre is still clear.",
+  "realism.eclipse.timing": "Earth uncovers the Sun's centre in {dur}; eclipse over at {end} UTC",
+  "realism.eclipse.timing_open": "Earth still covers the Sun's centre at the end of the data",
+  "realism.eclipse.open": "the end of the data",
+  "realism.eclipse.timeline": "Dark mark on the Sun lane = lunar eclipse: Earth in front of the Sun, {from} to {to} UTC (hourly rows), up to {pct} covered.",
+  "realism.eclipse.timeline_many": "Dark marks on the Sun lane = {n} lunar eclipses: Earth in front of the Sun; the first {from} to {to} UTC, up to {pct} covered.",
+  "realism.eclipse.metrics": "Lunar eclipse in this period: Earth covers part of the Sun for {hours} h (up to {pct}, at {peak} UTC). Of these, {centre} h with the Sun's centre covered count as night, and the power estimate keeps only the uncovered part.",
+  "realism.battery.heading": "Battery for the longest night",
+  "realism.battery.note": "At an example load of {w} W through the longest night. Geometry estimate: no losses, heaters or reserve.",
+  "realism.battery.none": "None needed (no night)"
 }

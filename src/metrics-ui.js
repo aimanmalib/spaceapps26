@@ -5,7 +5,8 @@ import { fill, escapeHtml as e } from './i18n.js';
 import { cardBlock } from './cardblock.js';
 import { duration } from './facts.js';
 import { formatUtc } from './ephem.js';
-import { missionMetrics, decide } from './metrics.js';
+import { missionMetrics, decide, batteryKwh } from './metrics.js';
+import { pctText } from './eclipse-ui.js';
 
 const HOUR = 3_600_000;
 const utc = (ms) => formatUtc(ms).replace('T', ' ');
@@ -38,6 +39,23 @@ function bar(cls, label, pct, value, tick, tickLabel) {
     (tick == null ? '' : `<span class="mm-tick" style="left:${clamp(tick)}%" title="${e(tickLabel)}"></span>`) +
     `</span><span class="mm-val">${e(value)}</span></div>`
   );
+}
+
+// Battery to last the longest night (ADR 0109): example load from config/metrics.json battery, geometry estimate.
+export function batteryStat(t, m, battery) {
+  if (!battery) return '';
+  const kwh = batteryKwh(m.night.hours, battery.load_w);
+  const big = m.night.hours ? `${m.night.open ? '≥ ' : ''}${kwh.toFixed(kwh < 10 ? 1 : 0)} kWh` : t('realism.battery.none');
+  return (
+    `<div class="mm-stat mm-battery"><dt>${e(t('realism.battery.heading'))}</dt><dd class="mm-big">${e(big)}</dd>` +
+    `<dd class="mm-lim">${e(fill(t('realism.battery.note'), { w: battery.load_w }))}</dd></div>`
+  );
+}
+
+// Lunar eclipse in the period (ADR 0109): how long Earth covers part of a visible Sun, and how much at most.
+export function eclipseLine(t, m) {
+  if (!m.eclipse?.hours) return '';
+  return `<p class="note mm-eclipse">${e(fill(t('realism.eclipse.metrics'), { hours: Math.round(m.eclipse.hours), pct: pctText(m.eclipse.share), centre: Math.round(m.eclipse.centreHours), peak: utc(m.eclipse.peakMs) }))}</p>`;
 }
 
 export function mountMetrics(box, { t, cfg, view, head, open, uid }) {
@@ -102,7 +120,10 @@ export function mountMetrics(box, { t, cfg, view, head, open, uid }) {
       `<div class="mm-stat${fail('night')}"><dt>${e(t('metrics.night'))}</dt><dd class="mm-big">${e(runText(t, m.night))}</dd>` +
       `<dd class="mm-lim">${e(fill(t('metrics.night_limit'), { night_max: rules.night_max_hours }))}</dd></div>` +
       `<div class="mm-stat"><dt>${e(t('metrics.gap'))}</dt><dd class="mm-big">${e(runText(t, m.gap))}</dd>` +
-      `<dd class="mm-lim">${e(t('metrics.gap_note'))}</dd></div></dl>` +
+      `<dd class="mm-lim">${e(t('metrics.gap_note'))}</dd></div>` +
+      batteryStat(t, m, cfg.battery) +
+      `</dl>` +
+      eclipseLine(t, m) +
       `<h4 class="mm-sub">${e(t('metrics.hours_heading'))}</h4>` +
       `<div class="mm-bars">` +
       bar(`mm-sun${fail('sun')}`, t('metrics.hours_sun'), m.sunPct, pctText(m.sunPct), rules.sun_min_pct, fill(t('metrics.tick'), { v: rules.sun_min_pct })) +

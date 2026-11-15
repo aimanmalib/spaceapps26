@@ -597,5 +597,18 @@
   "years.ev_caption": "Ke arah {body} (azimut {az}°), {time} UTC. Lebar {w}°, dilukis mengikut skala (darjah yang sama melintang dan menegak); sudut daripada enjin dalam pelayar, selepas hujung jadual NASA yang dibekukan: cakera {body} berukuran {diam}° rentas; garis langit daripada LRO LOLA (grid {grid} m, langkah {step}°); garis putus-putus = Bulan licin (0°).",
   "val.years.heading": "Tarikh selepas jadual beku: enjin berbanding JPL Horizons",
   "val.years.intro": "Tarikh selepas tamat jadual JPL Horizons yang dibekukan memakai enjin dalam pelayar, juga di tapak tersenarai. Enjin itu dibandingkan dengan JPL Horizons, yang ditanya terus, pada {n} pasangan tapak-dan-minit rawak pada {from} hingga {to} (benih tetap, tidak pernah tepat pada jam jadual): perbezaan terbesar {max}°, purata {mean}°, jawapan kuasa solar sama {power} daripada {of}, jawapan Bumi sama {comm} daripada {of}. Kad hanya menyebut \"disahkan\" selagi perbezaan terbesar kekal di bawah {limit}°.",
-  "val.years.generated": "Diukur {at} oleh scripts/validate_years.py (benih rawak {seed}). Fail sumber: data/validation-years.json."
+  "val.years.generated": "Diukur {at} oleh scripts/validate_years.py (benih rawak {seed}). Fail sumber: data/validation-years.json.",
+  "preset.eclipse": "Gerhana bulan di kutub selatan",
+  "realism.eclipse.unit": "daripada Matahari berada di belakang Bumi",
+  "realism.eclipse.line_hidden": "Gerhana bulan: Matahari {margin} di atas {line}, tetapi Bumi berada di hadapannya, termasuk pusatnya (orang di Bumi melihat gerhana bulan).",
+  "realism.eclipse.line_part": "Gerhana bulan: Bumi menutup {pct} Matahari hingga {end} UTC, jadi kuasa berkurang; pusat Matahari masih jelas.",
+  "realism.eclipse.timing": "Bumi mendedahkan semula pusat Matahari dalam {dur}; gerhana tamat pada {end} UTC",
+  "realism.eclipse.timing_open": "Bumi masih menutup pusat Matahari pada hujung data",
+  "realism.eclipse.open": "hujung data",
+  "realism.eclipse.timeline": "Tanda gelap pada lorong Matahari = gerhana bulan: Bumi di hadapan Matahari, {from} hingga {to} UTC (baris sejam), sehingga {pct} tertutup.",
+  "realism.eclipse.timeline_many": "Tanda gelap pada lorong Matahari = {n} gerhana bulan: Bumi di hadapan Matahari; yang pertama {from} hingga {to} UTC, sehingga {pct} tertutup.",
+  "realism.eclipse.metrics": "Gerhana bulan dalam tempoh ini: Bumi menutup sebahagian Matahari selama {hours} j (sehingga {pct}, pada {peak} UTC). Daripadanya, {centre} j dengan pusat Matahari tertutup dikira sebagai malam, dan anggaran kuasa hanya mengambil bahagian yang tidak tertutup.",
+  "realism.battery.heading": "Bateri untuk malam terpanjang",
+  "realism.battery.note": "Pada beban contoh {w} W sepanjang malam terpanjang. Anggaran geometri: tanpa kehilangan, pemanas atau rizab.",
+  "realism.battery.none": "Tidak perlu (tiada malam)"
 }

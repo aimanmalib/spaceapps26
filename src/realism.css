@@ -1,0 +1,18 @@
+/* SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md */
+/* Lunar eclipse seen from the site, battery and ground stations (ADR 0109). Own file so styles.css stays untouched. */
+.answer-eclipse {
+  display: block;
+  margin-top: 0.35rem;
+  padding: 0.3rem 0.5rem;
+  border-left: 3px solid var(--warn);
+  background: color-mix(in srgb, var(--warn) 10%, transparent);
+  color: var(--text);
+  font-size: 0.9em;
+  line-height: 1.35;
+}
+.tl-eclipse { fill: var(--bg); stroke: var(--sun); stroke-width: 1; }
+.tl-eclipse-note { margin: 0.25rem 0 0; font-size: 0.85em; }
+.tl-eclipse-note::before { content: ''; display: inline-block; width: 0.8em; height: 0.8em; margin-right: 0.35em; vertical-align: -0.1em; border-radius: 50%; background: var(--bg); box-shadow: 0 0 0 1.5px var(--sun); }
+.mm-eclipse { margin: 0.4rem 0 0; }
+.mm-battery .mm-big { font-variant-numeric: tabular-nums; }
+.dsn-line { margin: 0.25rem 0 0; }
