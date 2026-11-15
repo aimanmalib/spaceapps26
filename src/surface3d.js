@@ -23,9 +23,9 @@ export function frame(h, zMin, zMax, cam) {
   return { left: -R, right: R, bottom: -R * cam.st + zMin * cam.ct, top: R * cam.st + zMax * cam.ct };
 }
 
-// Quads of the grid every `stride` cells, far → near. Each = {i: cell index of its first corner, pts: 4 projected corners}.
-// z = height (m) / 1000 × exaggeration. Quads touching a cell without data are left out.
-export function quads(map, stride, exaggeration, cam) {
+// Every `stride`-th vertex of the map (last row/column kept) as fn(east km, north km, height m); null where the map has no
+// data. Shared with the view from the lander (src/lander.js).
+export function sampleGrid(map, stride, fn) {
   const n = map.cells;
   const h = map.half_width_km;
   const step = (2 * h) / (n - 1);
@@ -37,9 +37,16 @@ export function quads(map, stride, exaggeration, cam) {
   for (let r = 0; r < m; r++) {
     for (let c = 0; c < m; c++) {
       const v = map.height_m[idx[r] * n + idx[c]];
-      pts[r * m + c] = v === null ? null : project(-h + idx[c] * step, h - idx[r] * step, (v / 1000) * exaggeration, cam);
+      pts[r * m + c] = v === null ? null : fn(-h + idx[c] * step, h - idx[r] * step, v);
     }
   }
+  return { m, idx, n, pts };
+}
+
+// Quads of the grid every `stride` cells, far → near. Each = {i: cell index of its first corner, pts: 4 projected corners}.
+// z = height (m) / 1000 × exaggeration. Quads touching a cell without data are left out.
+export function quads(map, stride, exaggeration, cam) {
+  const { m, idx, n, pts } = sampleGrid(map, stride, (x, y, v) => project(x, y, (v / 1000) * exaggeration, cam));
   const out = [];
   for (let r = 0; r < m - 1; r++) {
     for (let c = 0; c < m - 1; c++) {

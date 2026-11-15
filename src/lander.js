@@ -3,6 +3,7 @@
 // terrain skyline (site height + observer height), on the curved Moon, heights not stretched, so every angle is true.
 // Local frame at the eye: x = east, y = north, z = up (km).
 import { horizonAt } from './terrain.js';
+import { sampleGrid } from './surface3d.js';
 
 const rad = (d) => (d * Math.PI) / 180;
 const deg = (r) => (r * 180) / Math.PI;
@@ -21,21 +22,7 @@ export function toLocal(east, north, hM, eyeM, radiusKm) {
 
 // Every `stride`-th vertex of the map in the local frame (null where the map has no data), plus the grid indices used.
 export function localGrid(map, eyeM, radiusKm, stride) {
-  const n = map.cells;
-  const h = map.half_width_km;
-  const step = (2 * h) / (n - 1);
-  const idx = [];
-  for (let k = 0; k < n; k += stride) idx.push(k);
-  if (idx[idx.length - 1] !== n - 1) idx.push(n - 1);
-  const m = idx.length;
-  const pts = new Array(m * m);
-  for (let r = 0; r < m; r++) {
-    for (let c = 0; c < m; c++) {
-      const v = map.height_m[idx[r] * n + idx[c]];
-      pts[r * m + c] = v === null ? null : toLocal(-h + idx[c] * step, h - idx[r] * step, v, eyeM, radiusKm);
-    }
-  }
-  return { m, idx, n, pts };
+  return sampleGrid(map, stride, (east, north, v) => toLocal(east, north, v, eyeM, radiusKm));
 }
 
 // Unit direction of azimuth az (from north toward east) and elevation el (deg).
