@@ -71,7 +71,7 @@ class Deck(unittest.TestCase):
                       f"NASA {pp['ridge']['pgda']['sun']['value'] * 100:.1f} %", self.html)
 
     def test_shift_and_range_numbers_match_readme(self):
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        readme = ((ROOT / "README.md").read_text(encoding="utf-8") + "\n" + (ROOT / "docs" / "DETAILS.md").read_text(encoding="utf-8"))
         for slide, doc in (("1.3°</span> above", "1.3° above"), ("1.5°</span> below", "1.5° below"), ("2.6°</span> below", "2.6° below"),
                            ("0.033°", "0.033°")):
             self.assertIn(slide, self.html)

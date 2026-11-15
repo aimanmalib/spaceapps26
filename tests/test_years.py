@@ -64,7 +64,7 @@ class Result(unittest.TestCase):
     def test_readme_quotes_the_later_years_check(self):
         y = json.loads((ROOT / "data/validation-years.json").read_text(encoding="utf-8"))
         s = y["summary"]
-        flat = " ".join((ROOT / "README.md").read_text(encoding="utf-8").split())
+        flat = " ".join(((ROOT / "README.md").read_text(encoding="utf-8") + "\n" + (ROOT / "docs" / "DETAILS.md").read_text(encoding="utf-8")).split())
         self.assertIn(f"at {len(y['pairs'])} random site-and-minute pairs at the listed sites in {y['from'][:4]} to 2030", flat)
         self.assertIn(f"largest difference {s['max_abs_deg']:.4f}°, average {s['mean_abs_deg']:.4f}°, same solar power answer "
                       f"{s['same_answer']['power']} of {s['same_answer']['of']}", flat)

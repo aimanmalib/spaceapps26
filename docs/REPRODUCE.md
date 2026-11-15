@@ -29,6 +29,7 @@ bash scripts/reproduce.sh          # or: bash scripts/reproduce.sh --list   (pri
 | Site-by-day calendar | `scripts/calendar.mjs` | `data/calendar.json` | the files above |
 | Engine vs JPL Horizons, 2028 to 2030 | `scripts/validate_years.py` | `data/validation-years.json` | JPL Horizons API |
 | Angles vs JPL Horizons | `scripts/validate.py` | `data/validation.json` (`horizons`, `engine`) | JPL Horizons API |
+| Angles vs JPL Horizons at scale: every listed site, 2026 to 2030, 28 batched requests (run after the two lines above) | `scripts/validate.py --scale` | `data/validation-scale.json`, `data/horizons-cache.json`, `data/validation.json` (`scale`) | JPL Horizons API |
 | Terrain vs NASA PGDA, listed points | `scripts/pgda.py` | `data/validation.json` (`pgda`) | NASA GSFC PGDA product 69 |
 | Terrain vs NASA PGDA over the same 18.6 years, ridge-point sensitivity | `scripts/pgda_period.py` | `data/validation.json` (`pgda_period`) | the `pgda` block, LOLA DEMs |
 | Terrain vs NASA PGDA, random points | `scripts/pgda_sample.py` | `data/validation.json` (`pgda_sample`) | NASA GSFC PGDA product 69 |

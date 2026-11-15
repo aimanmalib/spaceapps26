@@ -14,7 +14,7 @@ function tile(label, value, unit = '') {
   return `<div class="stat"><dt>${e(label)}</dt><dd>${e(value)}${unit ? `<span class="stat-unit">${e(unit)}</span>` : ''}</dd></div>`;
 }
 
-function summaryHtml(t, h, d) {
+export function summaryHtml(t, h, d) {
   const same = h.same_answer;
   const tiles =
     tile(t('val.max'), deg(h.max_abs_deg, d)) +
@@ -33,7 +33,7 @@ function summaryHtml(t, h, d) {
 }
 
 // nameOf(pair) → row label.
-function pairsHtml(t, pairs, nameOf, d) {
+export function pairsHtml(t, pairs, nameOf, d) {
   const prow = (p) =>
     `<tr><th scope="row">${e(nameOf(p))}</th><td>${e(p.time_utc.replace('T', ' '))}</td>` +
     `<td>${deg(p.shown.sun.el, d)}</td><td>${deg(p.horizons.sun.el, d)}</td>` +

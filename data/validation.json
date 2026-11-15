@@ -11239,5 +11239,148 @@
     }
    }
   ]
+ },
+ "scale": {
+  "generated_at": "2026-11-15T14:03:06Z",
+  "script": "scripts/validate.py --scale",
+  "seed": 20261117,
+  "from": "2026-11-01 00:00",
+  "to": "2031-01-01 00:00",
+  "sites": 18,
+  "pairs_per_site": 40,
+  "horizons_requests": 36,
+  "file": "validation-scale.json",
+  "max_abs_deg": 0.0446,
+  "mean_abs_deg": 0.0016,
+  "by_quantity": {
+   "sun_az": {
+    "max_abs_deg": 0.0446,
+    "mean_abs_deg": 0.002
+   },
+   "sun_el": {
+    "max_abs_deg": 0.0045,
+    "mean_abs_deg": 0.0014
+   },
+   "earth_az": {
+    "max_abs_deg": 0.015,
+    "mean_abs_deg": 0.0018
+   },
+   "earth_el": {
+    "max_abs_deg": 0.0047,
+    "mean_abs_deg": 0.0013
+   }
+  },
+  "same_answer": {
+   "power": 720,
+   "comm": 720,
+   "of": 720
+  },
+  "sky_separation": {
+   "sun": {
+    "max_deg": 0.0061,
+    "mean_deg": 0.0023
+   },
+   "earth": {
+    "max_deg": 0.0063,
+    "mean_deg": 0.002
+   }
+  },
+  "by_source": {
+   "table": {
+    "max_abs_deg": 0.0054,
+    "mean_abs_deg": 0.0021,
+    "by_quantity": {
+     "sun_az": {
+      "max_abs_deg": 0.0054,
+      "mean_abs_deg": 0.0022
+     },
+     "sun_el": {
+      "max_abs_deg": 0.0045,
+      "mean_abs_deg": 0.0021
+     },
+     "earth_az": {
+      "max_abs_deg": 0.0049,
+      "mean_abs_deg": 0.002
+     },
+     "earth_el": {
+      "max_abs_deg": 0.0047,
+      "mean_abs_deg": 0.002
+     }
+    },
+    "same_answer": {
+     "power": 178,
+     "comm": 178,
+     "of": 178
+    },
+    "first": "2026-11-06T06:18",
+    "last": "2027-10-31T19:28"
+   },
+   "engine": {
+    "max_abs_deg": 0.0446,
+    "mean_abs_deg": 0.0015,
+    "by_quantity": {
+     "sun_az": {
+      "max_abs_deg": 0.0446,
+      "mean_abs_deg": 0.002
+     },
+     "sun_el": {
+      "max_abs_deg": 0.0043,
+      "mean_abs_deg": 0.0012
+     },
+     "earth_az": {
+      "max_abs_deg": 0.015,
+      "mean_abs_deg": 0.0018
+     },
+     "earth_el": {
+      "max_abs_deg": 0.0042,
+      "mean_abs_deg": 0.0011
+     }
+    },
+    "same_answer": {
+     "power": 542,
+     "comm": 542,
+     "of": 542
+    },
+    "first": "2027-11-02T15:51",
+    "last": "2030-12-28T15:50"
+   }
+  },
+  "different_answers": [],
+  "all_checks": {
+   "max_abs_deg": 0.0446,
+   "mean_abs_deg": 0.0017,
+   "by_quantity": {
+    "sun_az": {
+     "max_abs_deg": 0.0446,
+     "mean_abs_deg": 0.002
+    },
+    "sun_el": {
+     "max_abs_deg": 0.0077,
+     "mean_abs_deg": 0.0015
+    },
+    "earth_az": {
+     "max_abs_deg": 0.0446,
+     "mean_abs_deg": 0.0019
+    },
+    "earth_el": {
+     "max_abs_deg": 0.0047,
+     "mean_abs_deg": 0.0014
+    }
+   },
+   "same_answer": {
+    "power": 864,
+    "comm": 864,
+    "of": 864
+   },
+   "pairs": 864,
+   "angles": 3456,
+   "parts": {
+    "table": 90,
+    "engine_points": 30,
+    "later_years": 24,
+    "scale": 720
+   },
+   "different": 0
+  }
  }
 }

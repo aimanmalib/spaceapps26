@@ -9,6 +9,8 @@ import { sampleHtml } from './validation-sample.js';
 import { periodHtml } from './validation-period.js';
 import { yearsHtml } from './validation-years.js';
 import yearsData from '../data/validation-years.json';
+import scalePairs from '../data/validation-scale.json';
+import { scaleHtml } from './validation-scale.js';
 
 const { t } = initPage();
 
@@ -16,6 +18,7 @@ const names = new Map(sitesConfig.sites.map((s) => [s.id, s.name]));
 const root = document.getElementById('validation');
 if (root) {
   root.innerHTML =
+    (data.scale && scalePairs?.pairs?.length ? scaleHtml(t, data.scale, scalePairs.pairs, (id) => names.get(id), vcfg.decimals_report) : '') +
     validationHtml(t, data, (id) => names.get(id) ?? id, vcfg.decimals_report) +
     (data.engine?.pairs?.length ? engineHtml(t, data.engine, (id) => names.get(id), vcfg.decimals_report) : '') +
     (yearsData?.pairs?.length ? yearsHtml(t, yearsData, vcfg.decimals_report) : '') +
