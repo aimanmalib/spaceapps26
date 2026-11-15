@@ -140,7 +140,8 @@ def earth_view(page, check, shots, name):
     if shots:
         ev.screenshot(path=os.path.join(shots, f"earthview-{name}.png"))
     ev.locator(".ev-btn[data-body=sun]").click()
-    page.wait_for_function("() => document.querySelector('.card .ev-title')?.innerText.includes('Sun')")
+    # The title changes at once; the picture is drawn after the nearby point's angles arrive, so wait for the drawing itself.
+    page.wait_for_function("() => { const v = document.querySelector('.card .ev'); return v?.querySelector('.ev-title')?.innerText.includes('Sun') && v.querySelectorAll('.ev-sun').length === 1; }", timeout=30000)
     check(ev.locator(".ev-sun").count() == 1, "earth view: switch to the Sun (P4v)")
     ev.locator(".ev-btn[data-point=site]").click()
     ev.locator(".ev-btn[data-body=earth]").click()
