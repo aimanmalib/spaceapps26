@@ -116,12 +116,16 @@ export function gateValues(gate, terrainCfg, siteNames = {}) {
   const mb = terrainCfg.grids.reduce((s, g) => s + g.size * g.size * 2, 0) / 1e6;
   const pole = terrainCfg.grids.find((g) => g.factor === 1);
   const blocks = terrainCfg.grids.filter((g) => g.factor > 1);
+  // Every listed site below the gate on the coarse copies, worst first: the labels name each one (ADR 0106).
+  const failed = gate.sites.filter((s) => !s.coarse_only_pass).sort((a, b) => a.coarse_only_both_same_pct - b.coarse_only_both_same_pct);
   return {
     gate: gate.gate_pct,
     pass: gate.sites.filter((s) => s.coarse_only_pass).length,
     total: gate.sites.length,
     lowSite: name(low.site),
     lowPct: low.coarse_only_both_same_pct,
+    below: failed.map((s) => `${name(s.site)} (${s.coarse_only_both_same_pct} %)`).join(', '),
+    belowIds: failed.map((s) => s.site),
     terrainLat: String(-terrainCfg.lat_max),
     mb: mb.toFixed(1),
     pole: pole?.scale_m ?? null,

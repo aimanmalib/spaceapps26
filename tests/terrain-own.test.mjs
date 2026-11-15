@@ -96,9 +96,14 @@ test('gate record: every listed site with an 80 m skyline is measured; labels ta
   assert.equal(gate.gate_pct, tcfg.gate_pct);
   for (const s of gate.sites) assert.equal(s.pass, s.both_same_pct >= gate.gate_pct, s.site);
   for (const s of gate.sites) assert.equal(s.coarse_only_pass, s.coarse_only_both_same_pct >= gate.gate_pct, s.site);
-  // As shipped (pole crop + coarse copies) every measured point passes; the labels name the coarse-copy numbers.
-  for (const s of [...gate.sites, ...gate.check_points]) assert.ok(s.pass, `${s.site} ${s.both_same_pct}`);
+  // The check points lie inside the 80 m pole crop and pass as shipped. A listed site may fall below the gate (ADR 0106:
+  // "any failure named on the card"): then the labels name it, with its coarse-copy number, and none that passed.
+  for (const s of gate.check_points) assert.ok(s.pass, `${s.site} ${s.both_same_pct}`);
   const v = gateValues(gate, tcfg, Object.fromEntries(sites.map((s) => [s.id, s.name])));
+  assert.deepEqual([...v.belowIds].sort(), gate.sites.filter((s) => !s.coarse_only_pass).map((s) => s.site).sort());
+  for (const s of gate.sites) if (!s.pass) assert.ok(v.belowIds.includes(s.site), `${s.site} below the gate as shipped but not named`);
+  for (const s of gate.sites.filter((x) => !x.coarse_only_pass)) assert.ok(v.below.includes(`(${s.coarse_only_both_same_pct} %)`), s.site);
+  assert.ok(v.below.length > 0 && !v.below.includes('{'), 'at least Shackleton connecting ridge is below the gate on the coarse copies');
   assert.equal(v.total, gate.sites.length);
   assert.equal(v.pass, gate.sites.filter((s) => s.coarse_only_pass).length);
   assert.equal(v.lowPct, gate.lowest_coarse_only_both_same_pct);
