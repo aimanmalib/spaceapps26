@@ -35,9 +35,11 @@ class Disclosure(unittest.TestCase):
         self.assertEqual(missing, [])
 
     def test_pages_have_meta_and_footer_link(self):
-        # Served name -> source file; the game page is built from src/play.html to /play.html (vite.config.js, P4j).
+        # Served name -> source file; the game page and the page for teachers are built from src/ to the site root
+        # (vite.config.js SRC_PAGES, P4j + P4o).
         files = {f: f for f in os.listdir(ROOT) if f.endswith(".html")}
-        files["play.html"] = os.path.join("src", "play.html")
+        for page in ("play.html", "teach.html"):
+            files[page] = os.path.join("src", page)
         pages = list(files)
         self.assertGreaterEqual(len(pages), 5)
         for f in pages:

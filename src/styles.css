@@ -327,3 +327,26 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .game-links { margin: 1rem 0 0; }
 .game-links a { color: var(--text); }
 .game-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* Page for teachers (teach.html, P4o): numbered steps, then the Moon and Earth facts; a plain print layout. */
+.teach { max-width: 46rem; }
+.teach-steps { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 1rem; }
+.teach-step { border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem; background: var(--surface); min-width: 0; overflow-wrap: anywhere; }
+.teach-step h2 { font-size: 1.05rem; margin: 0 0 0.5rem; }
+.teach-step p { margin: 0 0 0.5rem; }
+.teach-step .data-label { margin-bottom: 0.5rem; }
+.teach-link { margin: 0; }
+.teach-link .btn { margin-top: 0.25rem; display: inline-flex; align-items: center; text-decoration: none; }
+.print-url { display: none; }
+.teach-facts { margin-top: 2rem; }
+.teach-facts h2 { font-size: 1.05rem; margin: 0 0 0.5rem; }
+.teach > .note { margin-top: 1.5rem; max-width: 46rem; }
+@media print {
+  html, body { background: #fff; color: #000; }
+  .topnav, #teach-print, .teach .eyebrow { display: none; }
+  .teach-step { background: none; border-color: #999; break-inside: avoid; }
+  .teach .data-label, .teach .note, .me-table tbody th, .foot { color: #333; }
+  .teach-link .btn { display: none; }
+  .print-url { display: block; font-size: 0.8rem; overflow-wrap: anywhere; }
+  .teach a { color: #000; }
+}
+.teach-facts a { color: var(--text); }

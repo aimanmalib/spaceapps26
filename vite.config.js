@@ -15,21 +15,26 @@ const copyData = {
   },
 };
 
-// The game page (P4j) has its source at src/play.html; it is served and built as /play.html. Its plain links (nav) are
-// already written for the site root; only the bundled asset paths need one level less.
-const playAtRoot = {
-  name: 'play-page-at-root',
+// Pages with their source under src/ (repo file scope): the game (P4j) and the page for teachers (P4o). Each is served
+// and built as /<name>.html. Their plain links (nav) are already written for the site root; only the bundled asset paths
+// need one level less.
+const SRC_PAGES = ['play', 'teach'];
+const srcPagesAtRoot = {
+  name: 'src-pages-at-root',
   configureServer(server) {
     server.middlewares.use((req, _res, next) => {
-      if (req.url === '/play.html' || req.url.startsWith('/play.html?')) req.url = req.url.replace('/play.html', '/src/play.html');
+      for (const p of SRC_PAGES) {
+        if (req.url === `/${p}.html` || req.url.startsWith(`/${p}.html?`)) req.url = req.url.replace(`/${p}.html`, `/src/${p}.html`);
+      }
       next();
     });
   },
   closeBundle() {
-    const from = `${root}dist/src/play.html`;
-    if (!existsSync(from)) return;
-    writeFileSync(`${root}dist/play.html`, readFileSync(from, 'utf8').replaceAll('"../assets/', '"./assets/'));
-    rmSync(`${root}dist/src`, { recursive: true });
+    for (const p of SRC_PAGES) {
+      const from = `${root}dist/src/${p}.html`;
+      if (existsSync(from)) writeFileSync(`${root}dist/${p}.html`, readFileSync(from, 'utf8').replaceAll('"../assets/', '"./assets/'));
+    }
+    rmSync(`${root}dist/src`, { recursive: true, force: true });
   },
 };
 
@@ -44,9 +49,9 @@ export default defineConfig({
         validation: `${root}validation.html`,
         sources: `${root}sources.html`,
         about: `${root}about.html`,
-        play: `${root}src/play.html`,
+        ...Object.fromEntries(SRC_PAGES.map((p) => [p, `${root}src/${p}.html`])),
       },
     },
   },
-  plugins: [copyData, playAtRoot],
+  plugins: [copyData, srcPagesAtRoot],
 });

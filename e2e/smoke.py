@@ -317,6 +317,27 @@ def play_game(page, check, base, shots, name):
     check(page.locator(".card").count() == 1, "play: scenario link opens one card in the tool")
 
 
+def teach_page(page, check, base, shots, name):
+    """Page for teachers (teach.html): three steps, each with a link; the scenario links open the tool with the
+    step's cards, and the game link opens the game. No answers in degrees are written on the page itself."""
+    page.goto(base.rstrip("/") + "/teach.html", wait_until="networkidle")
+    page.locator(".teach-step").first.wait_for()
+    steps = page.locator(".teach-step").count()
+    check(steps == 3, f"teach: three steps ({steps})")
+    check("°" not in page.locator("#teach-steps").inner_text(), "teach: no answers written in the steps")
+    check(page.locator("#teach-facts .me-table tbody tr").count() >= 3, "teach: Moon and Earth facts table")
+    check(no_overflow(page), "teach page: no horizontal overflow")
+    if shots:
+        page.screenshot(path=os.path.join(shots, f"smoke-{name}-teach.png"), full_page=True)
+    hrefs = page.locator(".teach-link a").evaluate_all("as => as.map(a => a.getAttribute('href'))")
+    check(hrefs[0] == "./play.html", f"teach: step 1 opens the game ({hrefs[0]})")
+    for href in hrefs[1:]:
+        want = href.count("s=")
+        page.goto(base.rstrip("/") + "/" + href.lstrip("./"), wait_until="networkidle")
+        page.locator(".card .answers").first.wait_for()
+        check(page.locator(".card").count() == want, f"teach: {href} opens {want} card(s) in the tool")
+
+
 def run_profile(p, name, engine, ctx_opts, base, shots):
     browser = getattr(p, engine).launch()
     opts = p.devices[ctx_opts] if isinstance(ctx_opts, str) else ctx_opts
@@ -415,6 +436,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
 
         share(page, check, base)
         play_game(page, check, base, shots, name)
+        teach_page(page, check, base, shots, name)
         page.goto(base.rstrip("/") + "/validation.html", wait_until="networkidle")
         page.locator("#validation table").first.wait_for()
         text = page.locator("#validation").inner_text()

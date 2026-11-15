@@ -1,0 +1,14 @@
+{
+  "_note": "Page for teachers (SI suggestion chosen by the author, 15 Nov; challenge text: \"an educational tool to help students and the public understand lunar exploration challenges\"). One class activity in steps; each step has a question and a link to the game or to a scenario of the Compare tool. The page holds no answers: they appear in the tool when the link is opened. minutes = suggested time per step (the total is shown). facts = rows of the Moon and Earth table (item k), values quoted from config/moon-earth.json. Text in i18n/en.json teach.*.",
+  "steps": [
+    { "key": "play", "minutes": 5, "page": "play.html" },
+    { "key": "pole", "minutes": 5, "scenarios": [
+      { "site": "apollo-11", "time_utc": "2026-11-14T00:00" },
+      { "site": "im-2", "time_utc": "2026-11-14T00:00" }
+    ] },
+    { "key": "km", "minutes": 5, "scenarios": [
+      { "site": "im-2", "time_utc": "2026-11-14T00:00" }
+    ] }
+  ],
+  "facts": ["day", "air", "horizon"]
+}

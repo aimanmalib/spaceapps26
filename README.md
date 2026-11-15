@@ -57,6 +57,10 @@ Built:
   presses Check. The answers are not stored in the config: they are computed with the same tables, terrain skylines and judgement
   as the Compare page, with one sentence per answer giving the elevation, the horizon in that direction and the margin, the
   horizon picture and a link that opens the round in the tool. Score out of 12; no timer, account, storage or sound.
+- Teach (page for teachers, SI suggestion chosen by the author): `/teach.html` (source `src/teach.html`), a 15-minute class
+  activity in three steps from `config/teach.json` (the game; Apollo 11 and IM-2 at the same time; the one-kilometre example),
+  each with one question and a link. The page holds no answers: they appear in the tool when a link is opened. Below the steps,
+  the Moon and Earth rows quoted from the NASA fact sheets. Printing hides the navigation and shows each link as a full address.
 - A timeline of one lunar day (29.5 Earth days) on every card: Sun and Earth elevation over time, bars for when each is in view,
   a slider to move through it and a Play button (hidden when the device asks for reduced motion). A switch shows the whole one-year
   table instead (hourly steps, 1 Nov 2026 to 1 Nov 2027), with the share of hours each one is at least partly above the horizon used;
