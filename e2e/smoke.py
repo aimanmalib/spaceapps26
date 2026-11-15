@@ -29,7 +29,8 @@ TIMEOUT_MS = 15000
 # Direct link to the "one kilometre" case (README, deck slide 4, form text).
 ONE_KM_QUERY = "?s=im-2,2026-11-14T00:00"
 # Sites with a terrain skyline in data/horizon/ (item j); every other site must say "ideal sphere horizon".
-TERRAIN_SITES = {"im-1", "im-2", "im-1-landed", "malapert-massif", "nobile-rim-1", "shackleton-ridge"}
+TERRAIN_SITES = {"im-1", "im-2", "im-1-landed", "malapert-massif", "nobile-rim-1", "shackleton-ridge",
+                 "haworth", "mons-mouton-plateau", "nobile-rim-2", "de-gerlache-rim-2"}
 # First screen (P4f): on a 1280 x 900 desktop window both large numbers of the first card end inside it; on an
 # iPhone 13 (664 px tall) the first answer of the first card starts inside it. Positions are page coordinates at scroll 0.
 # ADR 0040 (horizon first): on a 1366 x 768 laptop the first card's horizon strip and both answers end inside it; on

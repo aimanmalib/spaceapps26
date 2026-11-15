@@ -2,7 +2,7 @@
   "generated_by": "scripts/terrain_gate.mjs (Claude Code, Anthropic); inputs config/sites.json, config/terrain-own.json, data/terrain, data/horizon, data/ephem",
   "gate_pct": 97,
   "threshold_deg": 0,
-  "lowest_both_same_pct": 97.24,
+  "lowest_both_same_pct": 93.43,
   "lowest_coarse_only_both_same_pct": 53.8,
   "sites": [
     {
@@ -81,6 +81,58 @@
       "skyline_diff_p95_deg": 0.02,
       "pass": true,
       "coarse_only_both_same_pct": 53.8,
+      "coarse_only_pass": false
+    },
+    {
+      "site": "haworth",
+      "hours": 8761,
+      "site_grid_m": 400,
+      "both_same_pct": 99.51,
+      "sun_same_pct": 99.95,
+      "earth_same_pct": 99.55,
+      "skyline_diff_median_deg": 0.02,
+      "skyline_diff_p95_deg": 0.2,
+      "pass": true,
+      "coarse_only_both_same_pct": 99.51,
+      "coarse_only_pass": true
+    },
+    {
+      "site": "mons-mouton-plateau",
+      "hours": 8761,
+      "site_grid_m": 400,
+      "both_same_pct": 98.19,
+      "sun_same_pct": 98.44,
+      "earth_same_pct": 99.73,
+      "skyline_diff_median_deg": 0.03,
+      "skyline_diff_p95_deg": 0.77,
+      "pass": true,
+      "coarse_only_both_same_pct": 98.19,
+      "coarse_only_pass": true
+    },
+    {
+      "site": "nobile-rim-2",
+      "hours": 8761,
+      "site_grid_m": 400,
+      "both_same_pct": 98.2,
+      "sun_same_pct": 98.45,
+      "earth_same_pct": 99.75,
+      "skyline_diff_median_deg": 0.04,
+      "skyline_diff_p95_deg": 1.13,
+      "pass": true,
+      "coarse_only_both_same_pct": 98.2,
+      "coarse_only_pass": true
+    },
+    {
+      "site": "de-gerlache-rim-2",
+      "hours": 8761,
+      "site_grid_m": 400,
+      "both_same_pct": 93.43,
+      "sun_same_pct": 98.74,
+      "earth_same_pct": 94.67,
+      "skyline_diff_median_deg": 0.1,
+      "skyline_diff_p95_deg": 1.35,
+      "pass": false,
+      "coarse_only_both_same_pct": 93.43,
       "coarse_only_pass": false
     }
   ],

@@ -1,6 +1,30 @@
 {
   "files": [
     {
+      "file": "band/de-gerlache-rim-2.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/band.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
+      "file": "band/haworth.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/band.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
       "file": "band/im-1-landed.json",
       "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
       "urls": [
@@ -49,7 +73,31 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
     },
     {
+      "file": "band/mons-mouton-plateau.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/band.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
       "file": "band/nobile-rim-1.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/band.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
+      "file": "band/nobile-rim-2.json",
       "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
       "urls": [
         "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
@@ -193,6 +241,30 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
     },
     {
+      "file": "ephem/de-gerlache-rim-2.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27298.832681%2C-88.515661%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+      "urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27298.832681%2C-88.515661%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27298.832681%2C-88.515661%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27"
+      ],
+      "retrieved_at": "2026-11-15T12:41:28Z",
+      "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
+      "script": "scripts/fetch_horizons.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
+    },
+    {
+      "file": "ephem/haworth.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27336.3%2C-86.7%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+      "urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27336.3%2C-86.7%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%27336.3%2C-86.7%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27"
+      ],
+      "retrieved_at": "2026-11-15T12:41:04Z",
+      "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
+      "script": "scripts/fetch_horizons.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
+    },
+    {
       "file": "ephem/im-1-landed.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%271.44%2C-80.13%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
       "urls": [
@@ -241,6 +313,18 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
     },
     {
+      "file": "ephem/mons-mouton-plateau.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%2730.719%2C-84.528%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+      "urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%2730.719%2C-84.528%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%2730.719%2C-84.528%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27"
+      ],
+      "retrieved_at": "2026-11-15T12:41:12Z",
+      "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
+      "script": "scripts/fetch_horizons.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
+    },
+    {
       "file": "ephem/nobile-rim-1.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%2732.315156%2C-85.363%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
       "urls": [
@@ -248,6 +332,18 @@
         "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%2732.315156%2C-85.363%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27"
       ],
       "retrieved_at": "2026-11-15T11:22:45Z",
+      "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
+      "script": "scripts/fetch_horizons.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
+    },
+    {
+      "file": "ephem/nobile-rim-2.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%2760.69989%2C-84.20156%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+      "urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%2760.69989%2C-84.20156%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27",
+        "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&CENTER=%27coord%40301%27&COORD_TYPE=%27GEODETIC%27&SITE_COORD=%2760.69989%2C-84.20156%2C0%27&EPHEM_TYPE=%27OBSERVER%27&QUANTITIES=%274%27&START_TIME=%272026-11-01+00%3A00%27&STOP_TIME=%272027-11-01+00%3A00%27&STEP_SIZE=%2760+m%27&OBJ_DATA=%27NO%27&ANG_FORMAT=%27DEG%27&CSV_FORMAT=%27YES%27&MAKE_EPHEM=%27YES%27"
+      ],
+      "retrieved_at": "2026-11-15T12:41:20Z",
       "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
       "script": "scripts/fetch_horizons.py",
       "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
@@ -263,6 +359,30 @@
       "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
       "script": "scripts/fetch_horizons.py",
       "generated_by": "Claude Code (Anthropic) wrote this script; the numbers come from JPL Horizons"
+    },
+    {
+      "file": "horizon/de-gerlache-rim-2.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/horizon.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
+      "file": "horizon/haworth.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/horizon.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
     },
     {
       "file": "horizon/im-1-landed.json",
@@ -313,7 +433,31 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
     },
     {
+      "file": "horizon/mons-mouton-plateau.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/horizon.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
       "file": "horizon/nobile-rim-1.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/horizon.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
+      "file": "horizon/nobile-rim-2.json",
       "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
       "urls": [
         "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
@@ -347,6 +491,24 @@
       "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
       "script": "scripts/horizon.py",
       "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
+      "file": "map-sunlight/de-gerlache-rim-2.json",
+      "url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG",
+      "page": "https://pgda.gsfc.nasa.gov/products/69",
+      "retrieved_at": "2026-11-15T12:41:49Z",
+      "license": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
+      "script": "scripts/map_sunlight.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the values are NASA GSFC PGDA average Sun visibility (LOLA Science Team / E. Mazarico)"
+    },
+    {
+      "file": "map-sunlight/haworth.json",
+      "url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG",
+      "page": "https://pgda.gsfc.nasa.gov/products/69",
+      "retrieved_at": "2026-11-15T12:41:49Z",
+      "license": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
+      "script": "scripts/map_sunlight.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the values are NASA GSFC PGDA average Sun visibility (LOLA Science Team / E. Mazarico)"
     },
     {
       "file": "map-sunlight/im-1-landed.json",
@@ -385,10 +547,28 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the values are NASA GSFC PGDA average Sun visibility (LOLA Science Team / E. Mazarico)"
     },
     {
+      "file": "map-sunlight/mons-mouton-plateau.json",
+      "url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG",
+      "page": "https://pgda.gsfc.nasa.gov/products/69",
+      "retrieved_at": "2026-11-15T12:41:49Z",
+      "license": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
+      "script": "scripts/map_sunlight.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the values are NASA GSFC PGDA average Sun visibility (LOLA Science Team / E. Mazarico)"
+    },
+    {
       "file": "map-sunlight/nobile-rim-1.json",
       "url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG",
       "page": "https://pgda.gsfc.nasa.gov/products/69",
       "retrieved_at": "2026-11-15T11:23:03Z",
+      "license": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
+      "script": "scripts/map_sunlight.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the values are NASA GSFC PGDA average Sun visibility (LOLA Science Team / E. Mazarico)"
+    },
+    {
+      "file": "map-sunlight/nobile-rim-2.json",
+      "url": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.IMG",
+      "page": "https://pgda.gsfc.nasa.gov/products/69",
+      "retrieved_at": "2026-11-15T12:41:49Z",
       "license": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
       "script": "scripts/map_sunlight.py",
       "generated_by": "Claude Code (Anthropic) wrote this script; the values are NASA GSFC PGDA average Sun visibility (LOLA Science Team / E. Mazarico)"
@@ -401,6 +581,30 @@
       "license": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
       "script": "scripts/map_sunlight.py",
       "generated_by": "Claude Code (Anthropic) wrote this script; the values are NASA GSFC PGDA average Sun visibility (LOLA Science Team / E. Mazarico)"
+    },
+    {
+      "file": "map/de-gerlache-rim-2.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/map2d.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
+      "file": "map/haworth.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/map2d.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
     },
     {
       "file": "map/im-1-landed.json",
@@ -451,7 +655,31 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
     },
     {
+      "file": "map/mons-mouton-plateau.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/map2d.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
       "file": "map/nobile-rim-1.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/map2d.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
+      "file": "map/nobile-rim-2.json",
       "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
       "urls": [
         "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
@@ -511,6 +739,30 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; it only counts hours in the frozen tables and skylines already in data/"
     },
     {
+      "file": "shift/de-gerlache-rim-2.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/shifts.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
+      "file": "shift/haworth.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/shifts.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
       "file": "shift/im-1-landed.json",
       "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
       "urls": [
@@ -559,7 +811,31 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
     },
     {
+      "file": "shift/mons-mouton-plateau.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/shifts.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
       "file": "shift/nobile-rim-1.json",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+      "urls": [
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_75s_240m.img"
+      ],
+      "retrieved_at": "2026-11-14T08:12:01Z",
+      "license": "LRO LOLA Gridded Data Records (LRO-L-LOLA-4-GDR-V1.0), NASA PDS Geosciences Node; LOLA Science Team, NASA GSFC (public, no login)",
+      "script": "scripts/shifts.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
+    },
+    {
+      "file": "shift/nobile-rim-2.json",
       "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
       "urls": [
         "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img",
@@ -595,7 +871,7 @@
       "file": "validation.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
       "note": "One Horizons request per pair and body (same parameters as the ephem tables, 1-minute span). The \"engine\" part reuses the listed-site answers and adds pairs at unnamed check points (config/validation.json).",
-      "retrieved_at": "2026-11-15T11:26:17Z",
+      "retrieved_at": "2026-11-15T12:43:18Z",
       "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
       "script": "scripts/validate.py",
       "generated_by": "Claude Code (Anthropic) wrote this script; reference numbers come from JPL Horizons",
@@ -609,7 +885,7 @@
           "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.LBL",
           "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608_EARTH.LBL"
         ],
-        "retrieved_at": "2026-11-15T11:35:06Z",
+        "retrieved_at": "2026-11-15T12:54:45Z",
         "license": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
         "script": "scripts/pgda.py",
         "generated_by": "Claude Code (Anthropic) wrote this script; reference values come from NASA GSFC PGDA / LOLA"
@@ -617,7 +893,7 @@
       "pgda_period": {
         "note": "No download: PGDA values from the pgda block; skylines from data/horizon/ and, for the ridge point, LOLA ray casting (DEM files as for data/horizon/); Sun/Earth angles from Astronomy Engine.",
         "label": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.LBL",
-        "computed_at": "2026-11-15T11:39:16Z",
+        "computed_at": "2026-11-15T12:59:43Z",
         "script": "scripts/pgda_period.py",
         "generated_by": "Claude Code (Anthropic) wrote this script; reference values come from NASA GSFC PGDA / LOLA"
       }
