@@ -182,7 +182,8 @@ def separation_summary(rows, nd):
     zenith and nadir, where a small shift on the sky turns the azimuth a lot; this number does not."""
     out = {}
     for b in ("sun", "earth"):
-        vals = [sky_separation(r["shown"][b], r["horizons"][b]) for r in rows]
+        # Each row's own sky_deg (from the unrounded shown direction) when it has one, so the summary is the rows' largest value.
+        vals = [r["sky_deg"][b] if "sky_deg" in r else sky_separation(r["shown"][b], r["horizons"][b]) for r in rows]
         out[b] = {"max_deg": round(max(vals), nd), "mean_deg": round(sum(vals) / len(vals), nd)}
     return out
 

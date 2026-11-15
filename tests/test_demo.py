@@ -54,7 +54,7 @@ class Deck(unittest.TestCase):
         self.assertEqual(same["power"], same["of"])
         self.assertEqual(same["comm"], same["of"])
         self.assertEqual(allc["pairs"], same["of"])
-        self.assertIn(f"Horizons, {allc['pairs']} random pairs, 2026 to 2040</td><td><span class=\"num\">{allc['max_abs_deg']:.4f}°</span> largest difference, "
+        self.assertIn(f"Horizons, {allc['pairs']} random pairs, 2026 to 2050</td><td><span class=\"num\">{allc['max_abs_deg']:.4f}°</span> largest difference, "
                       f"same answers {same['of']} of {same['of']}", self.html)
         # Eclipse row (ADR 0109) and own-point terrain row (ADR 0106): each from its own data file.
         ecl = json.loads((ROOT / "data" / "eclipses.json").read_text(encoding="utf-8"))

@@ -1,17 +1,25 @@
 {
   "_note": "Dates past the frozen JPL Horizons tables (ADR 0104). Every listed site (and own coordinates) accepts dates from config/ephemeris.json start to stop below. Inside the frozen table range the page reads the JPL Horizons table; after its end it computes the Sun and Earth angles in the browser with the same engine as own coordinates (src/moonsky.js, Astronomy Engine), on the same hourly grid and with the same horizon (LRO LOLA skyline on terrain sites, ideal sphere elsewhere).",
-  "stop": "2041-01-01 00:00",
+  "stop": "2051-01-01 00:00",
   "_note_chunks": "After the frozen tables the engine computes one block of chunk_days (counted from the frozen table end) per site and time, plus pad_days on each side so the timeline, \"If the date moves\" and \"Next windows\" run on across a block edge. A block that starts at the frozen table end keeps the Horizons rows for its first pad_days. Times within pad_days of the frozen table end already use the block, so the tables after the card's time continue past it.",
   "chunk_days": 365,
   "pad_days": 45,
   "_note_cache": "Merged tables kept in memory per page (listed sites past the frozen range); older ones are rebuilt when chosen again.",
   "cache_tables": 8,
-  "_note_check": "Engine against JPL Horizons over the later years (scripts/validate_years.py, result data/validation-years.json): pairs random site-and-minute pairs (fixed seed) from the listed sites, from..to, never on a table hour. The engine label on the cards says \"validated against JPL Horizons\" only when, at every pair, the direction shown is within max_sky_deg of the Horizons direction on the sky (great circle, Sun and Earth) and every yes/no answer is the same; otherwise it says the later years are not validated. Azimuth and elevation differences are still reported; azimuth is not used for the rule because it is undefined at the zenith (ADR 0113).",
+  "_note_check": "Engine against JPL Horizons over the later years (scripts/validate_years.py, result data/validation-years.json): pairs random site-and-minute pairs (fixed seed) from the listed sites, from..to, never on a table hour. The engine label on the cards says \"validated against JPL Horizons\" only when, at every pair, the direction shown is within max_sky_deg of the Horizons direction on the sky (great circle, Sun and Earth) and every yes/no answer is the same; otherwise it says the later years are not validated. Azimuth and elevation differences are still reported; azimuth is not used for the rule because it is undefined at the zenith (ADR 0113). Extra blocks (check.extra) add random pairs over later ranges with their own fixed seed (2041 to 2050, ADR 0113).",
   "check": {
     "seed": 20261116,
     "pairs": 60,
     "from": "2028-01-01 00:00",
     "to": "2041-01-01 00:00",
-    "max_sky_deg": 0.05
+    "max_sky_deg": 0.05,
+    "extra": [
+      {
+        "seed": 20261118,
+        "pairs": 24,
+        "from": "2041-01-01 00:00",
+        "to": "2051-01-01 00:00"
+      }
+    ]
   }
 }
