@@ -14,6 +14,11 @@ import metricsCfg from '../config/metrics.json';
 import { initPage } from './page.js';
 import { mountCompare } from './compare.js';
 import { makeCustomTables } from './custom.js';
+import terrainOwnCfg from '../config/terrain-own.json';
+import horizonCfg from '../config/horizon.json';
+import terrainGate from '../data/terrain/gate.json';
+import { gateValues } from './terrain-own.js';
+import { makeTerrainOwn } from './terrain-own-client.js';
 import { decodeScenarios } from './share.js';
 import { parseUtc } from './ephem.js';
 import { trustHtml } from './trust.js';
@@ -36,7 +41,12 @@ const items = features.items;
 const engine = items.b_custom_coordinates || items.l_small_shifts
   ? makeCustomTables(customCfg, eph, () => new Worker(new URL('./moonsky-worker.js', import.meta.url), { type: 'module' }))
   : null;
-const custom = items.b_custom_coordinates ? { cfg: customCfg, tables: engine } : null;
+// Terrain horizon for own points south of config/terrain-own.json lat_max (ADR 0106): coarse LOLA grids loaded on first use.
+const terrain = items.j_terrain_horizon
+  ? makeTerrainOwn(terrainOwnCfg, horizonCfg, () => new Worker(new URL('./terrain-worker.js', import.meta.url), { type: 'module' }), document.baseURI)
+  : null;
+const own = gateValues(terrainGate, terrainOwnCfg, Object.fromEntries(sitesConfig.sites.map((s) => [s.id, s.name])));
+const custom = items.b_custom_coordinates ? { cfg: customCfg, tables: engine, terrain, own } : null;
 // Small shifts (item l): terrain horizons of points near each terrain site (data/shift/), loaded on first use.
 const places = Object.fromEntries(
   Object.entries(import.meta.glob('../data/shift/*.json', { import: 'default' })).map(([path, load]) => [path.split('/').pop().replace('.json', ''), load]),

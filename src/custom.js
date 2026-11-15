@@ -13,14 +13,15 @@ export function customOptionHtml(t) {
   return `<optgroup label="${e(t('sites.group.custom'))}"><option value="${CUSTOM_ID}">${e(t('custom.option'))}</option></optgroup>`;
 }
 
-export function customFieldsHtml(t, id, cfg) {
+// more = extra hint values (terrain limit of ADR 0106).
+export function customFieldsHtml(t, id, cfg, more = {}) {
   const field = (key, name) =>
     `<label class="field" for="${id}-${key}"><span>${e(t(`custom.${key}`))}</span>` +
     `<input id="${id}-${key}" name="${name}" type="text" autocomplete="off" spellcheck="false" aria-describedby="${id}-hint"></label>`;
   return (
     `<fieldset class="custom-fields" hidden><legend>${e(t('custom.legend'))}</legend>` +
     `<div class="custom-pair">${field('lat', 'lat')}${field('lon', 'lon')}</div>` +
-    `<p class="note custom-hint" id="${id}-hint">${e(fill(t('custom.hint'), { latMin: num(cfg.lat_min), latMax: num(cfg.lat_max) }))}</p></fieldset>`
+    `<p class="note custom-hint" id="${id}-hint">${e(fill(t('custom.hint'), { ...more, latMin: num(cfg.lat_min), latMax: num(cfg.lat_max) }))}</p></fieldset>`
   );
 }
 

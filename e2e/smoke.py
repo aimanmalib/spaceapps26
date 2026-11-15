@@ -104,7 +104,8 @@ def own_coordinates(page, check):
     lon.evaluate(commit)
     page.wait_for_function("() => document.querySelector('.glance-table')?.innerText.includes('222.69')")
     card.locator(".card-result .answers").wait_for()
-    check(card.locator(".horizon-kind").inner_text().startswith("Horizon: ideal sphere"), "own coordinates: ideal sphere horizon (b)")
+    # ADR 0106: a point south of 75° S gets the coarse LOLA terrain skyline, labelled as such.
+    check(card.locator(".horizon-kind").inner_text().startswith("Horizon: LOLA terrain, coarse 400 m grid"), "own coordinates: coarse terrain horizon south of 75° S (b, ADR 0106)")
     check(card.locator(".tl:not([hidden]) .tl-svg .tl-now").count() == 1, "own coordinates: timeline drawn (b, g)")
     check("Own point" in page.locator(".glance-table").inner_text(), "own coordinates: side-by-side table names the point (b)")
 
