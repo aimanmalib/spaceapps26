@@ -154,11 +154,12 @@ Limitations:
   calendar, year shares, the NASA PGDA checks) covers that first year only.
 - Mission check: geometry only. The W/m² estimate uses 1361 W/m² (NASA NSSDCA Moon Fact Sheet) with no panel efficiency, no
   temperature and no Sun-distance correction, and the GO limits are settings, not the requirements of any mission.
-- Azimuth near the zenith: the page interpolates azimuth and elevation between hourly rows, so when the Sun or Earth passes
-  within about a degree of the zenith the azimuth shown can be off by degrees for that hour. The direction on the sky differs far
-  less and the yes/no answers are not affected; it can only happen near the Moon's equator, not at the south polar sites. The
-  check of dates to 2040 met one such case (0.1465° in azimuth at Apollo 11 with the Sun 0.56° from the zenith, 0.0063° or less
-  on the sky), so the checks now judge the direction on the sky and still report the azimuth (ADR 0113).
+- Azimuth near the zenith: the page interpolates the direction between hourly rows as a vector (east, north, up), so the
+  direction on the sky stays on its arc. Azimuth itself is undefined at the zenith: when the Sun or Earth passes within about a
+  degree of it, a small shift on the sky turns the azimuth a lot, so the azimuth shown can differ from JPL Horizons by more than
+  the direction does. The yes/no answers are not affected; it can only happen near the Moon's equator, not at the south polar
+  sites. The check of dates to 2040 met one such case (0.1465° in azimuth at Apollo 11 with the Sun 0.56° from the zenith, 0.0015°
+  on the sky), so the checks judge the direction on the sky and still report the azimuth (ADR 0113).
 - Lunar eclipses: Earth's disc is taken at its mean size (radius 0.95°; it ranges from 0.90° to 1.03°), so the contact times can be
   minutes off; sunlight bent through Earth's atmosphere is not modelled; the timeline and the mission check use hourly rows, so an
   eclipse shorter than one row can be missed there (the card uses its own minute). The Overview calendar covers the frozen year,
