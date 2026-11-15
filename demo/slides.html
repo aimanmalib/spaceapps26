@@ -73,7 +73,7 @@
     <p class="line muted">Challenge: Lunar Landing Site Navigator · Team: Aiman Malib · Member: Muhammad Aiman Bin Malib</p>
   </div>
   <div class="shot"><img src="../docs/media/deck-cards.png" alt="Screenshot: the view toward Earth from the IM-2 site at 2026-11-14 00:00 UTC, drawn to scale over the LOLA skyline, with the buttons for the points 1 km away"></div>
-  <p class="foot"><span>Try it: spaceapps26.aimanmalib.com · Code: github.com/aimanmalib/spaceapps26 · Images: real screenshots of the app, and one NASA photo.</span><span>1 / 7</span></p>
+  <p class="foot"><span>Try it: aimanmalib.github.io/spaceapps26 · Code: github.com/aimanmalib/spaceapps26 · Images: real screenshots of the app, and one NASA photo.</span><span>1 / 7</span></p>
 </section>
 
 <section class="slide">
@@ -120,7 +120,7 @@
     </ul>
   </div>
   <div class="shot tall"><img src="../docs/media/small-shifts.png" alt="Screenshot: the Small shifts in location or date table for IM-2"></div>
-  <p class="foot"><span>Measured with the terrain horizon from LRO LOLA. Open this case: spaceapps26.aimanmalib.com/?s=im-2,2026-11-14T00:00</span><span>4 / 7</span></p>
+  <p class="foot"><span>Measured with the terrain horizon from LRO LOLA. Open this case: aimanmalib.github.io/spaceapps26/?s=im-2,2026-11-14T00:00</span><span>4 / 7</span></p>
 </section>
 
 <section class="slide">
@@ -144,17 +144,13 @@
   <div>
     <p class="kicker">NASA data, and how I checked it</p>
     <ul class="tight">
-      <li><b>JPL Horizons</b>: Sun and Earth positions, hourly for one year.</li>
-      <li><b>LRO LOLA</b>: the terrain horizon, the 2D map, the 3D surface, the 1 km shifts.</li>
-      <li><b>NASA GSFC PGDA</b> illumination maps: an independent check.</li>
-      <li><b>NSSDCA</b> and <b>LROC</b>: site coordinates, Moon and Earth values.</li>
+      <li><b>JPL Horizons</b>: Sun and Earth, hourly. <b>LRO LOLA</b>: terrain. <b>GSFC PGDA</b>: an independent check.</li>
     </ul>
-    <h2 style="margin-top:14px">Checked</h2>
     <table class="checked">
-      <tr><td>JPL Horizons, 50 random pairs</td><td><span class="num">0.0439°</span> largest difference, same answers 50 of 50</td></tr>
-      <tr><td>In-browser engine, 80 pairs</td><td><span class="num">0.0446°</span> largest difference, same answers 80 of 80</td></tr>
+      <tr><td>Horizons, 50 random pairs</td><td><span class="num">0.0439°</span> largest difference, same answers 50 of 50</td></tr>
+      <tr><td>Browser engine, 80 pairs</td><td><span class="num">0.0446°</span> largest difference, same answers 80 of 80</td></tr>
       <tr><td>PGDA at IM-1 and IM-2</td><td>Sun within <span class="num">1.1</span> percentage points, Earth within <span class="num">0.1</span></td></tr>
-      <tr><td>PGDA at a ridge point 0.55° from the pole</td><td>Sun differs by <span class="num">18.0</span> points; the map itself spans 51.0 % to 84.7 % across nine pixels there</td></tr>
+      <tr><td>PGDA, ridge point 0.55° from the pole</td><td>Sun differs by <span class="num">18.0</span> points; the map itself spans 51.0 % to 84.7 % across nine pixels there</td></tr>
     </table>
   </div>
   <div class="shot tall"><img src="../docs/media/validation.png" alt="Screenshot: validation page"></div>
@@ -163,17 +159,17 @@
 
 <section class="slide one">
   <div>
-    <p class="kicker">Who it is for, and what it does not do</p>
+    <p class="kicker">Who it is for, and its limits</p>
     <ul>
-      <li>For mission planners, educators and the public: plain answers first, technical details one click away.</li>
-      <li>Limits: one year of dates. Terrain horizon and maps only at IM-1 and IM-2. Geometry only: no panels, antennas or link budgets. English only.</li>
+      <li>For mission planners, educators and the public.</li>
+      <li>Limits: one year of dates; terrain only at IM-1 and IM-2; geometry only, no power or link budgets.</li>
       <li data-owner-check="C">Next: the terrain horizon for any point south of 75°S, and more years of dates.</li>
-      <li>SI use: code, data scripts, tests and layout were generated with Claude Code (Anthropic) under my direction. I chose the challenge, the audiences and the features; some features were suggested by SI. No SI images, video or audio. Details: SI-DISCLOSURE.md.</li>
-      <li>Try it: spaceapps26.aimanmalib.com · Code (Apache-2.0): github.com/aimanmalib/spaceapps26</li>
+      <li>SI (Claude Code) generated the code, tests and layout under my direction; no SI images. I chose the challenge, the audiences and the features; some features were suggested by SI.</li>
+      <li>Try it: aimanmalib.github.io/spaceapps26 · Code (Apache-2.0): github.com/aimanmalib/spaceapps26</li>
     </ul>
     <p class="closing" data-owner-check="B">I hope that the next time a landing date slips, someone can open this page and see what changed: is there still sunlight, is Earth still in view. And I hope a teacher can use the one-kilometre example to show a class why the Moon's south pole is hard.</p>
   </div>
-  <p class="foot"><span>Team Aiman Malib · NASA Space Apps Challenge 2026</span><span>7 / 7</span></p>
+  <p class="foot"><span>Team Aiman Malib · NASA Space Apps Challenge 2026 · SI statement: SI-DISCLOSURE.md</span><span>7 / 7</span></p>
 </section>
 
 </body>
