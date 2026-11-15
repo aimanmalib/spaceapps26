@@ -40,7 +40,7 @@ export function filesHtml(t, sources, repoUrl) {
     return `<li class="src-item"><h3 class="src-file">${link(`./data/${f.file}`, `data/${f.file}`)}</h3><dl class="src-dl">` +
       `<dt>${e(t('sources.col.source'))}</dt><dd>${sourceLinks(t, f)}</dd>` +
       `<dt>${e(t('sources.col.retrieved'))}</dt><dd>${e(f.retrieved_at)}</dd>` +
-      `<dt>${e(t('sources.col.script'))}</dt><dd>${link(`${repoUrl}/blob/main/${f.script}`, f.script)}</dd>` +
+      `<dt>${e(t('sources.col.script'))}</dt><dd>${link(`${repoUrl}/blob/main/${f.script.split(' ')[0]}`, f.script)}</dd>` +
       `<dt>${e(t('sources.col.credit'))}</dt><dd>${credit}</dd></dl></li>`;
   });
   return `<ul class="src-list">${rows.join('')}</ul>`;
