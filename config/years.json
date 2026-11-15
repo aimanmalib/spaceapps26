@@ -1,6 +1,6 @@
 {
   "_note": "Dates past the frozen JPL Horizons tables (ADR 0104). Every listed site (and own coordinates) accepts dates from config/ephemeris.json start to stop below. Inside the frozen table range the page reads the JPL Horizons table; after its end it computes the Sun and Earth angles in the browser with the same engine as own coordinates (src/moonsky.js, Astronomy Engine), on the same hourly grid and with the same horizon (LRO LOLA skyline on terrain sites, ideal sphere elsewhere).",
-  "stop": "2031-01-01 00:00",
+  "stop": "2041-01-01 00:00",
   "_note_chunks": "After the frozen tables the engine computes one block of chunk_days (counted from the frozen table end) per site and time, plus pad_days on each side so the timeline, \"If the date moves\" and \"Next windows\" run on across a block edge. A block that starts at the frozen table end keeps the Horizons rows for its first pad_days. Times within pad_days of the frozen table end already use the block, so the tables after the card's time continue past it.",
   "chunk_days": 365,
   "pad_days": 45,
@@ -9,9 +9,9 @@
   "_note_check": "Engine against JPL Horizons over the later years (scripts/validate_years.py, result data/validation-years.json): pairs random site-and-minute pairs (fixed seed) from the listed sites, from..to, never on a table hour. The engine label on the cards says \"validated against JPL Horizons\" only when every difference is at most max_diff_deg and every yes/no answer is the same; otherwise it says the later years are not validated.",
   "check": {
     "seed": 20261116,
-    "pairs": 24,
+    "pairs": 60,
     "from": "2028-01-01 00:00",
-    "to": "2031-01-01 00:00",
+    "to": "2041-01-01 00:00",
     "max_diff_deg": 0.05
   }
 }

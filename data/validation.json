@@ -11241,7 +11241,7 @@
   ]
  },
  "scale": {
-  "generated_at": "2026-11-15T14:03:06Z",
+  "generated_at": "2026-11-15T14:39:40Z",
   "script": "scripts/validate.py --scale",
   "seed": 20261117,
   "from": "2026-11-01 00:00",
@@ -11347,15 +11347,15 @@
   },
   "different_answers": [],
   "all_checks": {
-   "max_abs_deg": 0.0446,
-   "mean_abs_deg": 0.0017,
+   "max_abs_deg": 5.4775,
+   "mean_abs_deg": 0.0033,
    "by_quantity": {
     "sun_az": {
-     "max_abs_deg": 0.0446,
-     "mean_abs_deg": 0.002
+     "max_abs_deg": 5.4775,
+     "mean_abs_deg": 0.0083
     },
     "sun_el": {
-     "max_abs_deg": 0.0077,
+     "max_abs_deg": 0.0137,
      "mean_abs_deg": 0.0015
     },
     "earth_az": {
@@ -11368,16 +11368,16 @@
     }
    },
    "same_answer": {
-    "power": 864,
-    "comm": 864,
-    "of": 864
+    "power": 900,
+    "comm": 900,
+    "of": 900
    },
-   "pairs": 864,
-   "angles": 3456,
+   "pairs": 900,
+   "angles": 3600,
    "parts": {
     "table": 90,
     "engine_points": 30,
-    "later_years": 24,
+    "later_years": 60,
     "scale": 720
    },
    "different": 0
