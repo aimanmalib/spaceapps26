@@ -46,8 +46,10 @@ export function nowTime(nowMs, { startMs, endMs }, stepMinutes) {
   return ms >= startMs && ms <= endMs ? formatUtc(ms) : null;
 }
 
-// One plain sentence from the same two answers as the card (up = {sun, earth}).
-export function verdictText(t, siteName, up) {
+// One plain sentence from the same two answers as the card (up = {sun, earth}); disc = {sun, earth} three-state
+// labels (src/disc.js) add one short sentence for each disc that is only partly above the horizon.
+export function verdictText(t, siteName, up, disc = null) {
   const key = up.sun ? (up.earth ? 'both' : 'sun') : up.earth ? 'earth' : 'none';
-  return fill(t(`verdict.${key}`), { site: siteName });
+  const part = disc ? ['sun', 'earth'].filter((b) => disc[b] === 'part').map((b) => ' ' + t(`verdict.part_${b}`)).join('') : '';
+  return fill(t(`verdict.${key}`), { site: siteName }) + part;
 }

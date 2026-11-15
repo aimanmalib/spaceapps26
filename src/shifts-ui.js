@@ -4,7 +4,7 @@
 import { fill, escapeHtml as e } from './i18n.js';
 import { cardBlock } from './cardblock.js';
 import { duration, signedDeg } from './facts.js';
-import { judge, timeRows, placeRows, changedCount, sphereTiltDeg } from './shifts.js';
+import { judge, timeRows, placeRows, changedCount, sphereTiltDeg, yearRows } from './shifts.js';
 
 const HOUR = 3_600_000;
 
@@ -41,6 +41,31 @@ export function mountShifts(box, { t, view, shifts }) {
     );
   }
 
+  // Over the whole year (P4u): second small table + one generated sentence, from data/shift-year/ (terrain sites only).
+  const pct = (v) => `${(v * 100).toFixed(1)}\u00a0%`;
+  function yearHtml(entry, period) {
+    const { rows, far } = yearRows(entry);
+    const name = (r) => (r.dir ? fill(t('shift.place'), { km: cfg.location_offset_km, dir: t(`shift.dir.${r.dir}`) }) : t('shift.year_here'));
+    const body = rows.map((r, i) => `<tr class="${i ? '' : 'shift-base'}"><th scope="row">${e(name(r))}</th><td>${pct(r.sun)}</td><td>${pct(r.earth)}</td></tr>`).join('');
+    const sentence = fill(t('shift.year_sentence'), { earth: pct(entry.centre.earth), far: pct(far.earth), sun: pct(entry.centre.sun), farsun: pct(far.sun), km: cfg.location_offset_km, dir: t(`shift.dir.${far.dir}`) });
+    return (
+      `<h3 class="shift-year-h">${e(t('shift.year_heading'))}</h3>` +
+      `<table class="tech-table shift-table shift-year"><thead><tr><th scope="col">${e(t('shift.col.point'))}</th>` +
+      `<th scope="col">${e(t('shift.col.sun_year'))}</th><th scope="col">${e(t('shift.col.earth_year'))}</th></tr></thead><tbody>${body}</tbody></table>` +
+      `<p class="shift-sum">${e(sentence)}</p><p>${e(fill(t('shift.year_note'), { hours: entry.hours, start: period.start.slice(0, 10), stop: period.stop.slice(0, 10), effect: (entry.site_angles_effect_max * 100).toFixed(1) }))}</p>`
+    );
+  }
+  async function yearPart(site) {
+    if (site.custom || !shifts.year) return '';
+    try {
+      const file = await shifts.year();
+      const entry = file.sites.find((s) => s.site === site.id);
+      return entry ? yearHtml(entry, file.period) : '';
+    } catch {
+      return '';
+    }
+  }
+
   async function render() {
     const sc = block.sc;
     if (!sc || !details.open) return;
@@ -60,7 +85,9 @@ export function mountShifts(box, { t, view, shifts }) {
       const tables = await Promise.all(file.points.map((p) => shifts.engine({ lat: p.lat, lon_east: p.lon_east })));
       if (mine !== ticket) return;
       const places = placeRows(file.points, tables, file.azimuth_step_deg, sc.ms, th);
-      body.innerHTML = html(base, [...times, ...places], t('shift.place_source'));
+      const yr = await yearPart(sc.site);
+      if (mine !== ticket) return;
+      body.innerHTML = html(base, [...times, ...places], t('shift.place_source')) + yr;
     } catch {
       if (mine === ticket) body.innerHTML = html(base, times, t('shift.place_error'));
     }

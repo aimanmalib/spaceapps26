@@ -251,6 +251,18 @@
         "script": "scripts/pgda.py",
         "generated_by": "Claude Code (Anthropic) wrote this script; reference values come from NASA GSFC PGDA / LOLA"
       }
+    },
+    {
+      "file": "shift-year/shift-year.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img"
+      ],
+      "retrieved_at": "2026-11-15T02:40:00Z",
+      "license": "Derived from data/ephem (JPL Horizons System, NASA/JPL-Caltech), data/horizon and data/shift (LRO LOLA, NASA PDS Geosciences Node); no new download",
+      "script": "scripts/shift_year.mjs",
+      "generated_by": "Claude Code (Anthropic) wrote this script; it only counts hours in the frozen tables and skylines already in data/"
     }
   ]
 }

@@ -40,3 +40,16 @@ export function changedCount(base, rows) {
 export function sphereTiltDeg(km, radiusKm) {
   return (km / radiusKm) * (180 / Math.PI);
 }
+
+// Over the whole year (P4u): rows for one site of data/shift-year/shift-year.json (centre-of-disc shares) and the
+// nearby point whose Earth share (then Sun share) differs most from the site, for the one generated sentence.
+export function yearRows(entry) {
+  const rows = [{ dir: null, sun: entry.centre.sun, earth: entry.centre.earth }, ...entry.points.map((p) => ({ dir: p.dir, sun: p.centre.sun, earth: p.centre.earth }))];
+  const gap = (p) => [Math.abs(p.earth - entry.centre.earth), Math.abs(p.sun - entry.centre.sun)];
+  const far = rows.slice(1).reduce((a, p) => {
+    const [ae, as] = gap(a);
+    const [pe, ps] = gap(p);
+    return pe > ae || (pe === ae && ps > as) ? p : a;
+  });
+  return { rows, far };
+}

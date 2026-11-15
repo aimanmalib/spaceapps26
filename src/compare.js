@@ -8,6 +8,7 @@ import { scenarioFacts } from './facts.js';
 import { glanceHtml } from './glance.js';
 import { relativeTable } from './terrain.js';
 import { judge } from './shifts.js';
+import { discState, discRadii } from './disc.js';
 import { mountTimeline } from './timeline-ui.js';
 import { mountShifts } from './shifts-ui.js';
 import { mountMoonEarth } from './moonearth-ui.js';
@@ -118,8 +119,11 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
     const j = judge(sample, profile, view.horizon_threshold_deg);
     const up = { sun: j.sun.up, earth: j.earth.up };
     const margin = { sun: j.sun.margin, earth: j.earth.margin };
+    // Three-state label (P4u): whole disc / part of it / none above the horizon used; yes/no stays the centre rule.
+    const radii = discRadii(view);
+    const disc = { sun: discState(j.sun.margin, radii.sun), earth: discState(j.earth.margin, radii.earth) };
     const rel = relativeTable(table, profile);
-    return { sample, up, profile, rel, table, facts: scenarioFacts(t, rel, x.ms, { sample, up, margin }, view) };
+    return { sample, up, disc, profile, rel, table, facts: scenarioFacts(t, rel, x.ms, { sample, up, margin }, view) };
   }
 
   function draw(rows) {
@@ -146,7 +150,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
     // Plain verdict per scenario (SI suggestion chosen by the author), from the same two answers as the card.
     if (verdicts) {
       verdicts.innerHTML = rows
-        .map((r, i) => `<li><strong>${e(fill(t('scenario.label'), { n: i + 1 }))}:</strong> ${e(r.sample ? verdictText(t, r.site.name, r.up) : t('verdict.no_answer'))}</li>`)
+        .map((r, i) => `<li><strong>${e(fill(t('scenario.label'), { n: i + 1 }))}:</strong> ${e(r.sample ? verdictText(t, r.site.name, r.up, r.disc) : t('verdict.no_answer'))}</li>`)
         .join('');
     }
   }

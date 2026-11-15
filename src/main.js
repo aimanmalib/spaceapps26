@@ -32,7 +32,9 @@ const custom = items.b_custom_coordinates ? { cfg: customCfg, tables: engine } :
 const places = Object.fromEntries(
   Object.entries(import.meta.glob('../data/shift/*.json', { import: 'default' })).map(([path, load]) => [path.split('/').pop().replace('.json', ''), load]),
 );
-const shifts = items.l_small_shifts ? { cfg: shiftsCfg, places, engine, radiusKm: customCfg.moon_radius_km } : null;
+// Over the whole year (P4u): hour shares at each terrain site and its nearby points (data/shift-year/, scripts/shift_year.mjs).
+const year = () => import('../data/shift-year/shift-year.json').then((m) => m.default);
+const shifts = items.l_small_shifts ? { cfg: shiftsCfg, places, year, engine, radiusKm: customCfg.moon_radius_km } : null;
 // 2D map (item h): heights around each terrain site (data/map/), loaded on first use.
 const maps = Object.fromEntries(
   Object.entries(import.meta.glob('../data/map/*.json', { import: 'default' })).map(([path, load]) => [path.split('/').pop().replace('.json', ''), load]),

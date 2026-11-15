@@ -74,7 +74,12 @@ Built:
   and, at the terrain sites (IM-1, IM-2), for points 1 km north, east, south and west, each with its own LOLA terrain horizon.
   Measured example, IM-2 at 2026-11-14 00:00 UTC: Earth is 1.3° above the terrain horizon at the site, but 1.5° below it 1 km east
   and 2.6° below it 1 km south. On the ideal sphere, 1 km tilts the horizon by only 0.033°. The 80 m terrain grid does not
-  resolve small craters such as the one where the IM-2 lander stopped.
+  resolve small craters such as the one where the IM-2 lander stopped. Over the whole year (8761 hourly steps, 2026-11-01 to
+  2027-11-01), Earth's centre is above the skyline 80.1 % of the hours at the IM-2 site, 64.4 % 1 km east and 56.6 % 1 km south
+  (Sun: 43.8 %, 35.1 %, 45.7 %); at IM-1, 100.0 % at the site and 83.2 % 1 km east (`data/shift-year/`, `scripts/shift_year.mjs`).
+- Whole disc or part of it: each Sun and Earth answer also says whether the whole disc, part of it, or none of it is above the
+  horizon used (angular radius seen from the Moon: Sun 0.267°, Earth 0.95°, mean distances). The yes/no answer itself uses the
+  centre of the disc, the same rule as in the validation below.
 - Moon and Earth compared: each card can show the length of one day (29.53 days against 24 hours), how fast the Sun moves across
   the sky at the site and chosen time, surface air pressure and the distance to the horizon from 2 m up (2.64 km against 5.05 km),
   with day length, radius and pressure quoted from the NASA NSSDCA Moon and Earth fact sheets. It also gives how far Earth moves in
@@ -97,8 +102,8 @@ Limitations:
 - Own coordinates (b): ideal sphere horizon only. Local terrain is not computed for own coordinates, even inside the LOLA grids.
 - 2D map (h), 3D surface (i) and the 1 km location shifts (l): only at IM-1 and IM-2. Other sites show the date shifts only.
 - 3D surface (i): the Sun and Earth lines are drawn on top of the ground; terrain does not hide them, and no shadows are drawn.
-- In view means the centre of the Sun or Earth disc is above the horizon; a partly risen disc counts as not in view. The independent
-  terrain check (Validation, below) counts any part of the disc.
+- Yes/no means the centre of the Sun or Earth disc is above the horizon; each answer also says when only part of the disc is above
+  it (radius from mean distances). The independent terrain check (Validation, below) counts any part of the disc.
 - Power and communication answers are geometry only: whether the Sun or Earth is above the horizon. Solar panel orientation, power
   output, antennas, relay satellites and link budgets are not modelled.
 - The interface is in English only.

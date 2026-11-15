@@ -19,7 +19,7 @@ function marginLabel(t, f, body, terrain, decimals) {
 
 // One answer: plain headline, the margin from the horizon as the large number (item f), time to set/rise (item e),
 // window length (item f); on terrain sites a small line gives the Horizons elevation and the skyline behind the margin.
-function status(t, kind, f, m, sky) {
+function status(t, kind, f, m, sky, disc) {
   const up = f.up;
   return (
     `<li class="answer ${up ? 'is-up' : 'is-down'} answer-${kind}">` +
@@ -27,6 +27,7 @@ function status(t, kind, f, m, sky) {
     `<span class="answer-text"><strong>${e(t(`${kind}.${up ? 'yes' : 'no'}`))}</strong>` +
     `<span class="answer-num"><span class="answer-deg">${e(m.num)}</span>` +
     `<span class="answer-unit">${e(m.text)}</span></span>` +
+    (disc ? `<span class="answer-disc is-${disc.state}">${e(disc.text)}</span>` : '') +
     `<span class="answer-when">${e(f.timing)}</span>` +
     (sky ? `<span class="answer-sky">${e(sky)}</span>` : '') +
     (f.window ? `<span class="answer-why">${e(f.window)}<span class="answer-range">${e(f.range)}</span></span>` : '') +
@@ -69,7 +70,10 @@ export function resultHtml(t, r, view) {
     r.profile
       ? fill(t('answer.el_line'), { label: t(`${kind}.el_label`), el: r.facts[b].elText, sky: signedDeg(horizonAt(r.profile, r.sample[b].az), d) })
       : null;
-  const answer = (kind, b, body) => status(t, kind, r.facts[b], marginLabel(t, r.facts[b], body, !!r.profile, d), skyAt(b, kind));
+  // Three-state disc label (P4u): whole disc / partly hidden / hidden, against the horizon used.
+  const discAt = (b) =>
+    r.disc ? { state: r.disc[b], text: fill(t(`disc.${b}.${r.disc[b]}`), { line: t(r.profile ? 'disc.line_terrain' : 'disc.line_sphere') }) } : null;
+  const answer = (kind, b, body) => status(t, kind, r.facts[b], marginLabel(t, r.facts[b], body, !!r.profile, d), skyAt(b, kind), discAt(b));
   const row = (name, p) => `<tr><th scope="row">${e(t(name))}</th><td>${deg(p.az, d)}°</td><td>${deg(p.el, d)}°</td></tr>`;
   const ticks = ['0', '90', '180', '270', '360']
     .map((a) => `<span class="sky-az" style="left:${(+a / 360) * 100}%">${e(t(`sky.az.${a}`))}</span>`)

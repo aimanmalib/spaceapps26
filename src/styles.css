@@ -83,6 +83,9 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .answer.is-down .answer-deg { color: var(--muted); }
 .answer-unit { color: var(--muted); font-size: 0.8rem; }
 .answer-when { color: var(--text); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+.answer-disc { color: var(--muted); font-size: 0.875rem; }
+.answer-disc.is-part { color: var(--text); font-weight: 600; }
+.g-disc { display: block; color: var(--muted); font-size: 0.8rem; }
 .answer-range { display: block; font-size: 0.8rem; }
 .sky { margin: 0; }
 .sky-plot { position: relative; padding-left: 2.6rem; }
@@ -213,6 +216,7 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 /* Small shifts (item l): compact table that wraps on narrow screens. */
 .shifts { min-width: 0; }
 .shift-table { width: 100%; }
+.shift-year-h { margin: 1rem 0 0.4rem; font-size: 0.95rem; }
 .shift-table th, .shift-table td { padding: 0.3rem 0.6rem 0.3rem 0; vertical-align: top; overflow-wrap: break-word; }
 .shift-table tbody th { font-weight: 400; color: var(--muted); }
 .shift-table .shift-base th, .shift-table .shift-base td { border-bottom: 1px solid var(--line); color: var(--text); }

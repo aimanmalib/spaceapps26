@@ -67,3 +67,12 @@ test('verdict sentence follows the two answers', () => {
   assert.match(verdictText(t, 'X', { sun: true, earth: true }), /sunlight for solar power and a direct line to Earth/);
   assert.match(verdictText(t, 'X', { sun: false, earth: false }), /no sunlight for solar power and no direct line to Earth/);
 });
+
+test('verdictText adds one sentence per disc that is only partly above the horizon (P4u)', () => {
+  const en = JSON.parse(readFileSync(new URL('../i18n/en.json', import.meta.url), 'utf8'));
+  const tt = (k) => en[k] ?? k;
+  const both = verdictText(tt, 'X', { sun: true, earth: true }, { sun: 'part', earth: 'full' });
+  assert.ok(both.endsWith(en['verdict.part_sun']));
+  assert.ok(!both.includes(en['verdict.part_earth']));
+  assert.equal(verdictText(tt, 'X', { sun: true, earth: true }, { sun: 'full', earth: 'full' }), verdictText(tt, 'X', { sun: true, earth: true }));
+});

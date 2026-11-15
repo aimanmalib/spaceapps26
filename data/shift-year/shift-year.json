@@ -1,0 +1,152 @@
+{
+ "generated_by": "scripts/shift_year.mjs (Claude Code, Anthropic); inputs data/ephem, data/horizon, data/shift",
+ "period": {
+  "start": "2026-11-01 00:00",
+  "stop": "2027-11-01 00:00",
+  "step_minutes": 60
+ },
+ "offset_km": 1,
+ "rule_centre": "share of hourly rows with the centre of the disc more than 0 deg above the skyline (the yes/no answer on the cards)",
+ "rule_disc": "share of hourly rows with any part of the disc above the skyline (the PGDA rule, as in data/validation.json \"pgda\")",
+ "disc_radius_deg": {
+  "sun": 0.267,
+  "earth": 0.95
+ },
+ "angles": "site: JPL Horizons table; nearby points: Astronomy Engine in the browser code (src/moonsky.js); site_angles_effect_max = largest change of any share if the site Horizons angles were used at the nearby points instead",
+ "sites": [
+  {
+   "site": "im-1",
+   "hours": 8761,
+   "centre": {
+    "sun": 0.448,
+    "earth": 1
+   },
+   "disc": {
+    "sun": 0.456,
+    "earth": 1
+   },
+   "points": [
+    {
+     "dir": "n",
+     "lat": -80.167022,
+     "lon_east": 1,
+     "centre": {
+      "sun": 0.469,
+      "earth": 1
+     },
+     "disc": {
+      "sun": 0.477,
+      "earth": 1
+     }
+    },
+    {
+     "dir": "e",
+     "lat": -80.199945,
+     "lon_east": 1.193748,
+     "centre": {
+      "sun": 0.392,
+      "earth": 0.832
+     },
+     "disc": {
+      "sun": 0.402,
+      "earth": 1
+     }
+    },
+    {
+     "dir": "s",
+     "lat": -80.232978,
+     "lon_east": 1,
+     "centre": {
+      "sun": 0.483,
+      "earth": 1
+     },
+     "disc": {
+      "sun": 0.491,
+      "earth": 1
+     }
+    },
+    {
+     "dir": "w",
+     "lat": -80.199945,
+     "lon_east": 0.806252,
+     "centre": {
+      "sun": 0.491,
+      "earth": 1
+     },
+     "disc": {
+      "sun": 0.5,
+      "earth": 1
+     }
+    }
+   ],
+   "site_angles_effect_max": 0.001
+  },
+  {
+   "site": "im-2",
+   "hours": 8761,
+   "centre": {
+    "sun": 0.438,
+    "earth": 0.801
+   },
+   "disc": {
+    "sun": 0.457,
+    "earth": 0.932
+   },
+   "points": [
+    {
+     "dir": "n",
+     "lat": -84.757622,
+     "lon_east": 29.1957,
+     "centre": {
+      "sun": 0.427,
+      "earth": 0.782
+     },
+     "disc": {
+      "sun": 0.44,
+      "earth": 0.88
+     }
+    },
+    {
+     "dir": "e",
+     "lat": -84.790496,
+     "lon_east": 29.558904,
+     "centre": {
+      "sun": 0.351,
+      "earth": 0.644
+     },
+     "disc": {
+      "sun": 0.363,
+      "earth": 0.706
+     }
+    },
+    {
+     "dir": "s",
+     "lat": -84.823578,
+     "lon_east": 29.1957,
+     "centre": {
+      "sun": 0.457,
+      "earth": 0.566
+     },
+     "disc": {
+      "sun": 0.481,
+      "earth": 0.616
+     }
+    },
+    {
+     "dir": "w",
+     "lat": -84.790496,
+     "lon_east": 28.832496,
+     "centre": {
+      "sun": 0.428,
+      "earth": 0.816
+     },
+     "disc": {
+      "sun": 0.445,
+      "earth": 0.978
+     }
+    }
+   ],
+   "site_angles_effect_max": 0.005
+  }
+ ]
+}
