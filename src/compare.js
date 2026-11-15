@@ -153,7 +153,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
       // Earth view (P4v): right under the two answers, only where a LOLA terrain skyline exists.
       if (r.c.ev && r.sample && r.profile) {
         box.querySelector('.answers').after(r.c.evBox);
-        r.c.ev.draw({ site: r.site, profile: r.profile, sample: r.sample, ms: r.ms });
+        r.c.ev.draw({ site: r.site, profile: r.profile, sample: r.sample, ms: r.ms, source: r.source });
       } else r.c.ev?.hide();
       if (r.sample) r.c.tl?.draw(r.rel, r.ms);
       else r.c.tl?.hide();

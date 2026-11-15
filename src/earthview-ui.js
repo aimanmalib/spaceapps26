@@ -83,7 +83,8 @@ export function mountEarthView(box, { t, view, ev, uid }) {
       dir: t(margin > 0 ? 'answer.above' : 'answer.below'),
       disc: fill(t(`disc.${body}.${discState(margin, r)}`), { line: t('disc.line_terrain') }),
     });
-    caption.textContent = fill(t('ev.caption'), {
+    // Past the frozen Horizons tables (ADR 0104) the caption names the in-browser engine instead of the frozen data.
+    caption.textContent = fill(t(sc.source === 'engine' ? 'years.ev_caption' : 'ev.caption'), {
       body: t(`sky.${body}`),
       az: got.pos.az.toFixed(d),
       time: formatUtc(sc.ms).replace('T', ' '),

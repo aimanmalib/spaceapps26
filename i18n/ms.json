@@ -510,5 +510,6 @@
   "years.source.engine_unchecked": "Sudut Matahari dan Bumi: enjin dalam pelayar. Belum disahkan dengan JPL Horizons untuk tarikh selepas jadual yang dikira terlebih dahulu.",
   "years.el_line": "{label} {el} (enjin dalam pelayar) · garis langit rupa bumi ke arah itu {sky}",
   "years.details_data": "Jadual JPL Horizons yang dikira terlebih dahulu untuk tapak ini tamat sebelum masa ini, jadi kedudukan dikira dalam pelayar dengan Astronomy Engine (lesen MIT), enjin yang sama dengan koordinat sendiri, pada grid setiap jam yang sama dan diinterpolasi secara linear antara jam. Ufuknya sama seperti tarikh jadual. Beza terukur daripada JPL Horizons pada tarikh rawak 2028 hingga 2030: data/validation-years.json.",
-  "years.out_of_range": "Tiada data untuk masa ini. Tersedia: {start} hingga {end} UTC (jadual JPL Horizons hingga hujung julatnya, kemudian enjin dalam pelayar)."
+  "years.out_of_range": "Tiada data untuk masa ini. Tersedia: {start} hingga {end} UTC (jadual JPL Horizons hingga hujung julatnya, kemudian enjin dalam pelayar).",
+  "years.ev_caption": "Ke arah {body} (azimut {az}°), {time} UTC. Lebar {w}°, dilukis mengikut skala (darjah yang sama melintang dan menegak); sudut daripada enjin dalam pelayar, selepas hujung jadual NASA yang dibekukan: cakera {body} berukuran {diam}° rentas; garis langit daripada LRO LOLA (grid {grid} m, langkah {step}°); garis putus-putus = Bulan licin (0°)."
 }

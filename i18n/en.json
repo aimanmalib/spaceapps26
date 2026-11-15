@@ -510,5 +510,6 @@
   "years.source.engine_unchecked": "Sun and Earth angles: in-browser engine. Not validated against JPL Horizons for dates after the precomputed tables.",
   "years.el_line": "{label} {el} (in-browser engine) · terrain skyline in that direction {sky}",
   "years.details_data": "The precomputed JPL Horizons table for this site ends before this time, so the positions are computed in browser with Astronomy Engine (MIT license), the same engine as own coordinates, on the same hourly grid and linearly interpolated between hours. The horizon is the same as for the table dates. Measured differences from JPL Horizons on random dates in 2028 to 2030: data/validation-years.json.",
-  "years.out_of_range": "No data for this time. Available: {start} to {end} UTC (JPL Horizons table to the end of its range, then the in-browser engine)."
+  "years.out_of_range": "No data for this time. Available: {start} to {end} UTC (JPL Horizons table to the end of its range, then the in-browser engine).",
+  "years.ev_caption": "Toward {body} (azimuth {az}°), {time} UTC. {w}° wide, drawn to scale (same degrees across and up); angles from the in-browser engine, past the end of the frozen NASA tables: the {body} disc is {diam}° across; skyline from LRO LOLA ({grid} m grid, {step}° steps); dashed line = smooth Moon (0°)."
 }
