@@ -60,20 +60,27 @@
   .photo img { display: block; width: 300px; height: 150px; object-fit: cover; object-position: 50% 72%; border-radius: 10px; border: 1px solid var(--line); }
   .photo figcaption { color: var(--muted); font-size: 12px; margin-top: 4px; text-align: right; }
   .beside-photo { padding-right: 330px; }
+  /* Slide 1: the photo sits in the text column, above the title; a tall screenshot takes the right half. */
+  .slide.first .photo { position: static; margin: 0 0 12px; width: 260px; }
+  .slide.first .photo img { width: 260px; height: 96px; }
+  .slide.first h1 { font-size: 54px; margin: 0 0 12px; }
+  .slide.first .lead { font-size: 20px; }
+  .slide.first .line { font-size: 17px; line-height: 1.4; margin: 12px 0 0; }
 </style>
 </head>
 <body>
 
-<section class="slide stack">
-  <figure class="photo"><img src="../public/media/as08-14-2383.jpg" alt="Photograph: Earth rising over the lunar horizon, taken from Apollo 8 on 24 December 1968 (NASA, AS08-14-2383)"><figcaption>Apollo 8, 1968 (AS08-14-2383). Credit: NASA</figcaption></figure>
-  <div class="beside-photo">
+<section class="slide first">
+  <div>
     <p class="kicker">NASA Space Apps Challenge 2026 · Jakarta (virtual)</p>
+    <figure class="photo"><img src="../public/media/as08-14-2383.jpg" alt="Photograph: Earth rising over the lunar horizon, taken from Apollo 8 on 24 December 1968 (NASA, AS08-14-2383)"><figcaption>Apollo 8, 1968 (AS08-14-2383). Credit: NASA</figcaption></figure>
     <h1>Still in View</h1>
-    <p class="lead">Sunlight for power and a direct line to Earth, for any landing site and date on the Moon, side by side.</p>
-    <p class="line">Measured at the IM-2 site over one year: Earth's centre is above the skyline <span class="num">80.1&nbsp;%</span> of the time, and <span class="num">64.4&nbsp;%</span> one kilometre east.</p>
+    <p class="lead">Launch slipped or site changed? See at once whether a lunar landing site still has sunlight for power and a direct line to Earth.</p>
+    <p class="line"><b>It says when an answer is not certain.</b> An answer that would change within 80 m is marked on the card, and the terrain skyline matches NASA's PGDA maps within <span class="num">0.1</span> percentage points at IM-1 and IM-2.</p>
+    <p class="line"><b>One kilometre can decide.</b> At the IM-2 site Earth's centre is above the skyline <span class="num">80.1&nbsp;%</span> of the year, and <span class="num">64.4&nbsp;%</span> one kilometre east.</p>
     <p class="line muted">Challenge: Lunar Landing Site Navigator · Team: Aiman Malib · Member: Muhammad Aiman Bin Malib</p>
   </div>
-  <div class="shot"><img src="../docs/media/deck-cards.png" alt="Screenshot: the view toward Earth from the IM-2 site at 2026-11-14 00:00 UTC, drawn to scale over the LOLA skyline, with the buttons for the points 1 km away"></div>
+  <div class="shot tall"><img src="../docs/media/deck-closecall.png" alt="Screenshot: the IM-2 card at 2026-11-06 20:00 UTC, Earth 0.6° above the skyline, with the line 'Close call: the Earth link answer changes inside the terrain range'"></div>
   <p class="foot"><span>Try it: aimanmalib.github.io/spaceapps26 · Code: github.com/aimanmalib/spaceapps26 · Images: real screenshots of the app, and one NASA photo.</span><span>1 / 7</span></p>
 </section>
 
@@ -94,16 +101,16 @@
 
 <section class="slide stack">
   <div>
-    <p class="kicker">What you see</p>
-    <h2>Pick a site and a date. Read two answers.</h2>
+    <p class="kicker">For planners</p>
+    <h2>A GO / RISKY / NO-GO line for each plan, and the two answers behind it.</h2>
     <ul class="cols">
-      <li>Solar power possible, or not. Direct-to-Earth communication possible, or not.</li>
-      <li>With each answer: the elevation in degrees, the time left before sunset or Earthset, and how long the window lasts.</li>
-      <li>Fourteen sites, three of them future south polar targets, or your own coordinates. Any time from 2026-11-01 to 2027-11-01 (UTC).</li>
-      <li>Up to four scenarios side by side.</li>
+      <li>Mission check: GO, RISKY or NO-GO for a stay of 7, 14 or 29.5 days, with the longest night and a panel estimate in W/m². The limits are settings.</li>
+      <li>Ready comparisons such as "Launch slipped two weeks" and "IM-1: planned vs where it landed". Up to four scenarios side by side.</li>
+      <li>Every card opens with one verdict and the whole horizon in one strip: the Sun, Earth and the LOLA skyline.</li>
+      <li>Fourteen sites, three of them future south polar targets, or your own coordinates. Any time to the end of 2030 (UTC).</li>
     </ul>
   </div>
-  <div class="shot"><img src="../docs/media/deck-compare.png" alt="Screenshot: the side-by-side table for IM-2 at 2026-11-14 and two days later"></div>
+  <div class="shot"><img src="../docs/media/deck-top.png" alt="Screenshot: the Compare page with the ready comparisons and two cards for IM-2, each with a GO line, a verdict, the horizon strip and the two answers"></div>
   <p class="foot"><span>Example: IM-2 at 2026-11-14 00:00 UTC and two days later.</span><span>3 / 7</span></p>
 </section>
 
@@ -126,19 +133,20 @@
 
 <section class="slide">
   <div>
-    <p class="kicker">One lunar day, real terrain</p>
-    <h2>The Sun and Earth over 29.5 Earth days, against the real skyline.</h2>
+    <p class="kicker">Every site, every day</p>
+    <h2>A calendar of the year, and the view from the lander.</h2>
     <ul>
-      <li>A timeline with a slider and a Play button on every card, over one lunar day or one year.</li>
+      <li>Overview: every listed site by UTC day, coloured by the hours with the Sun and Earth both in view, the Sun only, Earth only, or neither. Any day opens on Compare.</li>
+      <li>From the lander: the ground, the LOLA skyline and the Sun and Earth at their true size, heights not stretched.</li>
       <li>At six south polar sites the horizon is traced from LRO LOLA heights, one ray every 0.5°, out to 300 km or the edge of the grid.</li>
-      <li>A 2D map and a 3D surface of the ground 80 × 80 km around the site show where the Sun and Earth are.</li>
+      <li>Also on every card: a timeline of one lunar day or one year, a 2D map and a 3D surface.</li>
     </ul>
   </div>
   <div class="pair">
-    <div class="shot"><img src="../docs/media/deck-timeline.png" alt="Screenshot: the lunar-day timeline of the IM-2 card, Sun and Earth elevation against the terrain horizon"></div>
-    <div class="shot"><img src="../docs/media/deck-surface.png" alt="Screenshot: 3D surface of LOLA heights around IM-2, with the site, Sun and Earth directions"></div>
+    <div class="shot"><img src="../docs/media/deck-calendar.png" alt="Screenshot: the calendar of every listed site by day on the Overview page"></div>
+    <div class="shot"><img src="../docs/media/deck-lander.png" alt="Screenshot: the view from the lander at IM-2, Earth above the LOLA skyline"></div>
   </div>
-  <p class="foot"><span>Relief shading uses a fixed light, not the real Sun.</span><span>5 / 7</span></p>
+  <p class="foot"><span>Lander view: IM-2, 2026-11-16 00:00 UTC, facing Earth. Relief in the 3D surface uses a fixed light, not the real Sun.</span><span>5 / 7</span></p>
 </section>
 
 <section class="slide">
@@ -150,6 +158,7 @@
     <table class="checked">
       <tr><td>Horizons, 70 random pairs</td><td><span class="num">0.0439°</span> largest difference, same answers 70 of 70</td></tr>
       <tr><td>Browser engine, 100 pairs</td><td><span class="num">0.0446°</span> largest difference, same answers 100 of 100</td></tr>
+      <tr><td>Engine in 2028 to 2030, 24 pairs</td><td><span class="num">0.0045°</span> largest difference, same answers 24 of 24</td></tr>
       <tr><td>PGDA at IM-1 and IM-2, same 18.6 years</td><td>Sun within <span class="num">0.1</span> percentage points, Earth within <span class="num">0.1</span></td></tr>
       <tr><td>PGDA, ridge point 0.55° from the pole</td><td>Sun differs by <span class="num">17.6</span> points; the tool gives 57.2 % with the observer on the ground, 85.3 % at 2 m; NASA 67.7 %</td></tr>
       <tr><td>PGDA, 100 random points south of 80°S</td><td>Sun median difference <span class="num">0.9</span> points (largest 10.7), Earth <span class="num">1.1</span> (largest 21.8)</td></tr>
@@ -164,9 +173,9 @@
     <p class="kicker">Who it is for, and its limits</p>
     <ul>
       <li>For mission planners, educators and the public.</li>
-      <li>Limits: one year of dates; terrain only at six south polar sites; geometry only, no power or link budgets.</li>
+      <li>Limits: terrain only at six south polar sites; geometry only, no power or link budgets; the one-year numbers cover the first year of dates.</li>
       <li data-owner-check="C">Next: the terrain horizon for any point south of 75°S, and more years of dates.</li>
-      <li>SI (Claude Code) generated the code, tests and layout under my direction; no SI images. I chose the challenge, the audiences and the features; some features were suggested by SI.</li>
+      <li>SI (Claude Code) generated the code, tests and layout under my direction; no SI images. I chose the challenge, the audiences and the features; some were suggested by SI, some I asked for after seeing other entries.</li>
       <li>Try it: aimanmalib.github.io/spaceapps26 · Code (Apache-2.0): github.com/aimanmalib/spaceapps26</li>
     </ul>
     <p class="closing" data-owner-check="B">I hope that the next time a landing date slips, someone can open this page and see what changed: is there still sunlight, is Earth still in view. And I hope a teacher can use the one-kilometre example to show a class why the Moon's south pole is hard.</p>
