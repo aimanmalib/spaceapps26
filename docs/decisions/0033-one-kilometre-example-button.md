@@ -20,7 +20,10 @@ plus a landscape GIF; no multi-step tour. That is what was built.
 - First screen on phones: on a 390 px phone the five buttons of that row need three rows, which pushed the first answer of the
   first card to about 700 px, below the 664 px iPhone 13 first screen. That limit is the owner's (P4f) and stays at 664 px.
   So on windows at most `example_below_answers_max_width_px` (config/view.json, 480) wide the button moves right under the first
-  card's two answers (above the Earth view it scrolls to), re-placed after every redraw and when the window crosses the width;
+  card's two answers (after that card's Earth view when it shows one, which keeps its own place under the answers, P4v),
+  re-placed after every redraw and when the window crosses the width. Because it then lives inside the first card, it is
+  taken out before that card's results are rebuilt or the card is removed and put back afterwards (the review found it lost
+  after the example click or removing scenario 1 on phones; smoke now checks it after the click, a new time and a removal);
   wider windows keep it first in the row above the cards. Smoke: the button ends inside the first screen on the 1280 and 1366
   profiles, sits right under the first card's answers on the 320 and iPhone 13 profiles, and the iPhone 13 first answer starts
   at or above 664 px. (A first version raised the iPhone limit to 720 px; the review rejected that, 15 November 2026.)

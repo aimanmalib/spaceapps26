@@ -37,6 +37,9 @@ TERRAIN_SITES = {"im-1", "im-2"}
 # profiles; on phones (config/view.json example_below_answers_max_width_px) it sits right under the first card's two
 # answers, so the iPhone 13 first answer still starts inside the 664 px first screen.
 EXAMPLE_IN_FIRST_SCREEN = {"chromium-1280": 800, "chromium-1366": 768}
+# Right under the first card's answers, or under its view toward Earth when that view is there (it keeps its P4v place).
+UNDER_ANSWERS_JS = """() => { let n = document.querySelector('.card .answers')?.nextElementSibling;
+    if (n?.matches('.ev')) n = n.nextElementSibling; return n?.matches('button.example') ?? false; }"""
 EXAMPLE_BELOW_ANSWERS = {"chromium-320", "webkit-iphone13"}
 FIRST_SCREEN = {
     "chromium-1280": [(".answer-comm .answer-deg", "bottom", 900)],
@@ -319,6 +322,25 @@ def example_button(page, check, base, shots, name):
     check(no_overflow(page), "example: no horizontal overflow (P4p)")
     if shots:
         page.screenshot(path=os.path.join(shots, f"example-{name}.png"))
+    # The button must survive its own click, a new time on card 1 and removing scenario 1 (on phones it sits inside card 1).
+    example_still_there(page, check, name, "after the example click")
+    tinput = page.locator(".card input[type=datetime-local]").first
+    tinput.fill("2026-11-14T06:00")
+    tinput.dispatch_event("change")
+    page.wait_for_function("() => document.querySelector('.card .answers') && document.querySelector('.card input[type=datetime-local]').value === '2026-11-14T06:00'")
+    example_still_there(page, check, name, "after a new time on scenario 1")
+    page.locator(".add").click()
+    page.wait_for_function("() => document.querySelectorAll('.card .answers').length === 2")
+    page.locator(".card").first.locator(".card-remove").click()
+    page.wait_for_function("() => document.querySelectorAll('.card').length === 1 && document.querySelector('.card .answers')")
+    example_still_there(page, check, name, "after removing scenario 1")
+
+
+def example_still_there(page, check, name, when):
+    check(page.locator("button.example").count() == 1 and page.locator("button.example").is_visible(), f"example button still in the page {when} (P4p)")
+    if name in EXAMPLE_BELOW_ANSWERS:
+        under = page.evaluate(UNDER_ANSWERS_JS)
+        check(under, f"phone: example button under the first card's answers {when} (P4p)")
 
 
 def share(page, check, base):
@@ -501,7 +523,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
             pos = page.locator(".tool-actions .example").evaluate("e => e.getBoundingClientRect().bottom + window.scrollY")
             check(pos <= limit, f"first screen: example button bottom {pos:.0f} px <= {limit} px (P4p)")
         if name in EXAMPLE_BELOW_ANSWERS:
-            under = page.evaluate("() => document.querySelector('.card .answers')?.nextElementSibling?.matches('button.example') ?? false")
+            under = page.evaluate(UNDER_ANSWERS_JS)
             check(under, "phone: example button right under the first card's answers (P4p)")
         summary(page, check)
         masthead_photo(page, check)

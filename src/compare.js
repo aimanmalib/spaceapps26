@@ -71,6 +71,13 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
   const verdicts = root.querySelector('.verdicts');
   const siteById = new Map(sites.map((s) => [s.id, s]));
   const cards = [];
+  // Kept here, not looked up each time: on phones the button lives inside the first card, so it is parked back in
+  // .tool-actions before any card is removed (otherwise it leaves the page with that card).
+  const exBtn = root.querySelector('.example');
+  const exActions = root.querySelector('.tool-actions');
+  const parkExample = () => {
+    if (exBtn && exActions && exBtn.parentElement !== exActions) exActions.prepend(exBtn);
+  };
   const exampleNarrow = view.example_below_answers_max_width_px && window.matchMedia?.(`(max-width: ${view.example_below_answers_max_width_px}px)`);
   let ticket = 0;
 
@@ -85,6 +92,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
 
   async function update() {
     const mine = ++ticket;
+    if (exBtn?.closest('.card')) exBtn.remove(); // the results below are rebuilt; placeExample() puts it back
     const inputs = cards.map((c) => ({ c, site: siteFor(c.el), ms: parseUtc(c.el.querySelector('input[type=datetime-local]').value) }));
     for (const x of inputs) x.c.el.querySelector('.card-result').innerHTML = `<p class="note">${e(t(x.site.custom ? 'custom.computing' : 'state.loading'))}</p>`;
     const rows = await Promise.all(
@@ -204,6 +212,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
     if (first && wide && window.matchMedia(`(min-width: ${wide}px)`).matches) openBlock(c.el, '.map2d');
     if (features.i_surface_3d && surface) c.surf = mountSurface(c.el.querySelector('.card-surface'), { t, ...surface, uid: `surf${++uid}` });
     c.el.querySelector('.card-remove').addEventListener('click', () => {
+      parkExample();
       c.tl?.destroy();
       cards.splice(cards.indexOf(c), 1);
       c.el.remove();
@@ -227,13 +236,14 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
 
   // "Show me the one-kilometre example" (P4p): view.example replaces the cards, then the page scrolls to its Earth view.
   function mountExample() {
-    const btn = root.querySelector('.example');
+    const btn = exBtn;
     const status = root.querySelector('.example-status');
     const sc = view.example;
     if (!btn || !sc || !siteById.has(sc.site)) return;
     btn.textContent = t('tool.example');
     btn.hidden = false;
     btn.addEventListener('click', async () => {
+      parkExample();
       for (const c of cards.splice(0)) {
         c.tl?.destroy();
         c.el.remove();
@@ -257,12 +267,12 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
   // Narrow windows (config example_below_answers_max_width_px): the example button sits right under the first card's two
   // answers, so the first answer still starts inside a phone's first screen (ADR 0033); wider windows keep it above the cards.
   function placeExample() {
-    const btn = root.querySelector('.example');
-    const actions = root.querySelector('.tool-actions');
-    if (!btn || btn.hidden) return;
+    if (!exBtn || exBtn.hidden) return;
     const answers = exampleNarrow?.matches && cards[0]?.el.querySelector('.card-result .answers');
-    if (answers) answers.after(btn);
-    else if (btn.parentElement !== actions) actions?.prepend(btn);
+    // The view toward Earth keeps its place right under the answers (P4v); the button then follows that view.
+    const ev = cards[0]?.evBox;
+    if (answers) (ev?.parentElement === answers.parentElement ? ev : answers).after(exBtn);
+    else parkExample();
   }
 
   // A shared link (src/share.js) replaces the default scenarios; the defaults stay when it has none that can be read.
