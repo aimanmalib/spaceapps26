@@ -82,7 +82,7 @@ export function mountShifts(box, { t, view, shifts }) {
     body.innerHTML = html(base, times, t('shift.place_computing'));
     try {
       const file = await load();
-      const tables = await Promise.all(file.points.map((p) => shifts.engine({ lat: p.lat, lon_east: p.lon_east })));
+      const tables = await Promise.all(file.points.map((p) => shifts.engine({ lat: p.lat, lon_east: p.lon_east }, sc.ms)));
       if (mine !== ticket) return;
       const places = placeRows(file.points, tables, file.azimuth_step_deg, sc.ms, th);
       const yr = await yearPart(sc.site);

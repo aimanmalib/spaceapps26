@@ -504,5 +504,11 @@
   "footer.entry": "Still in View, peserta NASA Space Apps Challenge 2026 (Lunar Landing Site Navigator)",
   "footer.team": "Tim Aiman Malib",
   "footer.code": "Kode sumber",
-  "footer.slides": "Salindia (PDF)"
+  "footer.slides": "Salindia (PDF)",
+  "years.source.horizons": "Sudut Matahari dan Bumi: tabel JPL Horizons, dihitung sebelumnya untuk situs ini.",
+  "years.source.engine": "Sudut Matahari dan Bumi: mesin di peramban, divalidasi terhadap JPL Horizons.",
+  "years.source.engine_unchecked": "Sudut Matahari dan Bumi: mesin di peramban. Belum divalidasi terhadap JPL Horizons untuk tanggal setelah tabel yang dihitung sebelumnya.",
+  "years.el_line": "{label} {el} (mesin di peramban) · garis langit medan ke arah itu {sky}",
+  "years.details_data": "Tabel JPL Horizons yang dihitung sebelumnya untuk situs ini berakhir sebelum waktu ini, jadi posisi dihitung di peramban dengan Astronomy Engine (lisensi MIT), mesin yang sama dengan koordinat sendiri, pada kisi per jam yang sama dan diinterpolasi linear antarjam. Cakrawalanya sama dengan tanggal tabel. Selisih terukur dari JPL Horizons pada tanggal acak 2028 sampai 2030: data/validation-years.json.",
+  "years.out_of_range": "Tidak ada data untuk waktu ini. Tersedia: {start} sampai {end} UTC (tabel JPL Horizons sampai akhir rentangnya, lalu mesin di peramban)."
 }

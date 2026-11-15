@@ -48,7 +48,7 @@ export function mountEarthView(box, { t, view, ev, uid }) {
     if (state.point === 'site') return { profile: sc.profile, pos: sc.sample[state.body] };
     const file = await ev.places[sc.site.id]();
     const p = file.points.find((q) => q.dir === state.point);
-    const table = await ev.engine({ lat: p.lat, lon_east: p.lon_east });
+    const table = await ev.engine({ lat: p.lat, lon_east: p.lon_east }, sc.ms);
     const sample = sampleAt(table, sc.ms);
     return sample ? { profile: { elev: p.elev, azimuth_step_deg: file.azimuth_step_deg }, pos: sample[state.body] } : null;
   }

@@ -20,6 +20,7 @@ import { mountSteps, mountSequence } from './sequence-ui.js';
 import { mountWindows } from './mission-ui.js';
 import { mountShare } from './share-ui.js';
 import { verdictText, encodeScenarios } from './share.js';
+import { sourceHtml } from './years.js';
 import { CUSTOM_ID, customOptionHtml, customFieldsHtml, syncFields, readCustom, invalidText } from './custom.js';
 
 let uid = 0;
@@ -65,7 +66,8 @@ function cardDom(t, sites, sc, custom) {
 // map = {cfg: config/map2d.json, maps: siteId → () => Promise<data/map file>} when item h is on;
 // surface = {cfg: config/surface3d.json, light: config/map2d.json, maps} when item i is on.
 // earthview = {cfg: config/earthview.json, dirs: config/shifts.json, places, engine} (P4v; terrain sites only).
-export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null, earthview = null }) {
+// years = src/years.js makeYears() + {checked} (ADR 0104): tables for dates past the frozen Horizons range.
+export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null, earthview = null, years = null }) {
   const list = root.querySelector('.cards');
   const add = root.querySelector('.add');
   const glance = root.querySelector('.glance-body');
@@ -100,7 +102,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
       inputs.map(async (x) => {
         if (x.site.error) return { ...x, msg: invalidText(t, x.site.error, custom.cfg) };
         try {
-          const table = x.site.custom ? custom.tables(x.site) : loadTable(view.data_path, x.site.id);
+          const table = years ? years.table(x.site, x.ms) : x.site.custom ? custom.tables(x.site) : loadTable(view.data_path, x.site.id);
           const [tb, profile, band] = await Promise.all([table, x.site.custom ? null : horizons[x.site.id]?.() ?? null, x.site.custom ? null : bands[x.site.id]?.() ?? null]);
           return { ...x, ...answer(x, tb, profile, band) };
         } catch {
@@ -121,11 +123,11 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
   function answer(x, table, profile, band = null) {
     const sample = sampleAt(table, x.ms);
     if (!sample) {
-      const { startMs, endMs } = tableRange(table);
+      const { startMs, endMs } = years?.range ?? tableRange(table);
       const input = x.c.el.querySelector('input[type=datetime-local]');
       input.min = formatUtc(startMs);
       input.max = formatUtc(endMs);
-      return { msg: fill(t('state.out_of_range'), { start: formatUtc(startMs).replace('T', ' '), end: formatUtc(endMs).replace('T', ' ') }) };
+      return { msg: fill(t(years ? 'years.out_of_range' : 'state.out_of_range'), { start: formatUtc(startMs).replace('T', ' '), end: formatUtc(endMs).replace('T', ' ') }) };
     }
     // Same judgement as the small-shifts table (item l), so the card and that table show one set of numbers.
     const j = judge(sample, profile, view.horizon_threshold_deg);
@@ -137,7 +139,9 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
     const rel = relativeTable(table, profile);
     // Terrain range (ADR 0041): does an answer change between the lowest and highest skyline around the site?
     const range = band && profile ? { band, judge: bandJudge(sample, band, view.horizon_threshold_deg) } : null;
-    return { sample, up, disc, profile, rel, table, range, facts: scenarioFacts(t, rel, x.ms, { sample, up, margin }, view) };
+    // Where the angles come from (ADR 0104): the JPL Horizons table or the in-browser engine.
+    const source = years ? years.sourceAt(x.site, x.ms) : x.site.custom ? 'engine' : 'horizons';
+    return { sample, up, disc, profile, rel, table, range, source, facts: scenarioFacts(t, rel, x.ms, { sample, up, margin }, view) };
   }
 
   function draw(rows) {
@@ -145,6 +149,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
     for (const r of rows) {
       const box = r.c.el.querySelector('.card-result');
       box.innerHTML = r.sample ? resultHtml(t, { ...r, scale }, view) : `<p class="note note-warn">${e(r.msg)}</p>`;
+      if (r.sample && years) box.querySelector('.horizon-kind')?.insertAdjacentHTML('afterend', sourceHtml(t, r.source, r.ms > years.range.frozenEndMs, years.checked));
       // Earth view (P4v): right under the two answers, only where a LOLA terrain skyline exists.
       if (r.c.ev && r.sample && r.profile) {
         box.querySelector('.answers').after(r.c.evBox);
