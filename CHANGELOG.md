@@ -4,15 +4,29 @@ All notable changes to this project are listed here. The format follows [Keep a 
 The project has no numbered releases: the site is one continuous build, and each page names the commit it was built from
 (`version.json`).
 
-## 2026-11-15, night: validation at scale (ADR 0108)
+## 2026-11-15, night: more sites, terrain for own points, eclipses, a visual pass, validation at scale
 
 ### Added
+- Four more Artemis III candidate regions, one cited point each (Haworth, Mons Mouton Plateau, Nobile Rim 2, de Gerlache Rim 2):
+  eighteen listed sites, ten with a LOLA skyline, seven future targets. Three regions are left out because no source with a
+  coordinate was found (ADR 0105).
+- Own coordinates south of 75°S get a terrain skyline, computed in the browser from the LOLA grids (full 80 m grid within 20 km of
+  the pole, 400 m and 960 m copies elsewhere). Against the 80 m skylines of the ten listed terrain sites both answers agree in
+  97.2 % to 99.9 % of the hours at nine sites and 93.4 % at the de Gerlache Rim 2 point, which the card names (ADR 0106).
+- Lunar eclipses at the site (no sunlight while the Sun's centre is behind Earth), matched to NASA GSFC's eclipse list to 2030
+  (142 stretches at eighteen sites, none unmatched); an example battery size for the longest night; the Deep Space Network
+  complex that sees the Moon, in the card details (ADR 0109).
 - Validation at scale: `python3 scripts/validate.py --scale` checks 720 random minutes, 40 at each of the 18 listed sites
   from 2026-11-01 to 2030-12-31 (frozen tables and in-browser engine), against JPL Horizons asked in 36 batched, cached,
   rate-limited requests: largest difference 0.0446° (0.0061° on the sky), same answers 720 of 720. Every Horizons check
   together: 864 pairs, same answers 864 of 864. Shown first on the Validation page; the first-screen line now quotes the total.
 - README: "What a scientist can check" (claim, data file, one line to repeat it), a flow diagram, "What we do not claim", and
   Lighthouse scores from `scripts/lighthouse.sh`.
+
+### Changed
+- Visual pass: a self-hosted typeface (IBM Plex Sans, SIL OFL 1.1), one type scale, the mission check badge and the verdict first
+  in every card, page links on one row on phones (ADR 0107).
+- README: Features, limitations, the one-year table, Data and the full Validation moved unchanged to `docs/DETAILS.md`.
 
 ## 2026-11-15, evening: changes adopted from an SI red-team review
 

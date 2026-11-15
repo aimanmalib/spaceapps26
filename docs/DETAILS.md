@@ -47,6 +47,18 @@ Built:
   one (1361 W/m² × geometry × the visible share of the Sun's disc; no panel efficiency). GO needs the Sun in at least 70 % and
   Earth in at least 50 % of the hours and no night longer than 72 hours; one failed check gives RISKY, two or more NO-GO. These
   limits are settings (`config/metrics.json`), not the requirements of any mission.
+- Lunar eclipses at the site: when Earth passes in front of the Sun as seen from the site, the card says so. The rule is the same
+  as for the horizon: no sunlight for solar power while the Sun's centre is behind Earth; the covered share is shown and lowers the
+  power estimate. The timeline, the mission check, the next windows and the Overview calendar follow, and a ready-made comparison
+  opens one case (IM-2 on 2027-08-17, 05:00 against 07:00 UTC: the Sun stays 6.3° above the LOLA skyline while Earth covers 54 % of
+  it, centre included). Checked against NASA GSFC's list of lunar eclipses: from 2026-11-01 to 2031-01-01 the tables hold 142
+  stretches of hours with part of the Sun behind Earth at the eighteen sites, and every one lies within 2 hours of one of the 10
+  eclipses on NASA's list (`data/eclipses.json`, `scripts/eclipses.mjs`, ADR 0109).
+- Battery for the longest night (mission check): an example load of 100 W × the longest night of the stay, in kWh (`config/metrics.json`).
+- Ground stations (card details): the Moon's elevation at the card time from the three Deep Space Network complexes (Goldstone
+  DSS 14, Madrid DSS 63, Canberra DSS 43; coordinates from the NASA/JPL DSN handbook 810-005, module 301) against an example limit
+  of 10°, and when none sees the Moon, the first that will within 24 hours. At the time tested the three elevations agree with JPL
+  Horizons within 0.001° (`config/dsn.json`, `tests/dsn.test.mjs`, ADR 0109).
 - Dates to the end of 2030: the frozen JPL Horizons tables cover 2026-11-01 to 2027-11-01; later dates are computed in the browser
   on the same hourly grid, and each card says which source its angles come from (checked against JPL Horizons, below).
 - Sequential comparison: buttons on every card step to the previous or next listed site (date kept) or move the time 1 day
@@ -130,6 +142,12 @@ Limitations:
   calendar, year shares, the NASA PGDA checks) covers that first year only.
 - Mission check: geometry only. The W/m² estimate uses 1361 W/m² (NASA NSSDCA Moon Fact Sheet) with no panel efficiency, no
   temperature and no Sun-distance correction, and the GO limits are settings, not the requirements of any mission.
+- Lunar eclipses: Earth's disc is taken at its mean size (radius 0.95°; it ranges from 0.90° to 1.03°), so the contact times can be
+  minutes off; sunlight bent through Earth's atmosphere is not modelled; the timeline and the mission check use hourly rows, so an
+  eclipse shorter than one row can be missed there (the card uses its own minute). The Overview calendar covers the frozen year,
+  which holds penumbral eclipses only.
+- Battery and ground stations: the battery line is an example load × the longest night, with no losses, heaters or reserve; the
+  ground station line is geometry only (an example 10° limit; no antenna masks, schedules or link budget).
 - From the lander: the 3D ground uses 0.5 km cells out to 40 km, so its own skyline can differ from the LOLA 80 m line that the
   answers use (by up to 0.73° at the place where IM-1 came to rest); the view draws that line and says which one is judged.
 - Terrain horizon (j): only at the ten listed sites inside the LOLA south polar grids used here (75°S to the pole): IM-1 at two
