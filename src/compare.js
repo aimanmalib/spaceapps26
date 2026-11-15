@@ -23,6 +23,9 @@ import { mountShare } from './share-ui.js';
 import { verdictText, encodeScenarios } from './share.js';
 import { mountPresets, presetSearch } from './presets.js';
 import { sourceHtml } from './years.js';
+import { eclipseAround, withEclipses } from './eclipse.js';
+import { eclipseFacts } from './eclipse-ui.js';
+import { mountDsn } from './dsn-ui.js';
 import { CUSTOM_ID, customOptionHtml, customFieldsHtml, syncFields, readCustom, invalidText } from './custom.js';
 
 let uid = 0;
@@ -140,17 +143,22 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
     }
     // Same judgement as the small-shifts table (item l), so the card and that table show one set of numbers.
     const j = judge(sample, profile, view.horizon_threshold_deg);
-    const up = { sun: j.sun.up, earth: j.earth.up };
+    const radii = discRadii(view);
+    // Lunar eclipse seen from the site (ADR 0109): Earth in front of the Sun while some of the Sun is above the horizon
+    // used. Same centre rule as the horizon: the Sun's centre behind Earth = no sunlight.
+    const eclipse = j.sun.margin + radii.sun > view.horizon_threshold_deg ? eclipseAround(table, x.ms, radii) : null;
+    const up = { sun: j.sun.up && !eclipse?.now.centre, earth: j.earth.up };
     const margin = { sun: j.sun.margin, earth: j.earth.margin };
     // Three-state label (P4u): whole disc / part of it / none above the horizon used; yes/no stays the centre rule.
-    const radii = discRadii(view);
     const disc = { sun: discState(j.sun.margin, radii.sun), earth: discState(j.earth.margin, radii.earth) };
-    const rel = relativeTable(table, profile);
+    const rel = withEclipses(relativeTable(table, profile), table, radii);
     // Terrain range (ADR 0041): does an answer change between the lowest and highest skyline around the site?
     const range = band && profile ? { band, judge: bandJudge(sample, band, view.horizon_threshold_deg) } : null;
     // Where the angles come from (ADR 0104): the JPL Horizons table or the in-browser engine.
     const source = years ? years.sourceAt(x.site, x.ms) : x.site.custom ? 'engine' : 'horizons';
-    return { sample, up, disc, profile, rel, table, range, source, facts: scenarioFacts(t, rel, x.ms, { sample, up, margin }, view) };
+    const facts = scenarioFacts(t, rel, x.ms, { sample, up: { sun: j.sun.up, earth: j.earth.up }, margin }, view);
+    if (eclipse) facts.sun = eclipseFacts(t, facts.sun, eclipse, j.sun.up, x.ms, t(profile ? 'disc.line_terrain' : 'disc.line_sphere'));
+    return { sample, up, disc, profile, rel, table, range, source, eclipse, facts };
   }
 
   function draw(rows) {
@@ -159,6 +167,8 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
       const box = r.c.el.querySelector('.card-result');
       box.innerHTML = r.sample ? resultHtml(t, { ...r, scale }, view) : `<p class="note note-warn">${e(r.msg)}</p>`;
       if (r.sample && years) box.querySelector('.horizon-kind')?.insertAdjacentHTML('afterend', sourceHtml(t, r.source, r.ms > years.range.frozenEndMs, years.checked));
+      // Ground stations (ADR 0109): which DSN complex sees the Moon, in the technical details only.
+      if (r.sample) mountDsn(box.querySelector('details.tech'), { t, ms: r.ms, earthUp: r.up.earth });
       // Earth view (P4v): right under the two answers, only where a LOLA terrain skyline exists.
       if (r.c.ev && r.sample && r.profile && !r.site.custom) {
         box.querySelector('.answers').after(r.c.evBox);

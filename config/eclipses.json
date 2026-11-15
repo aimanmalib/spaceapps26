@@ -1,0 +1,22 @@
+{
+  "_note": "Lunar eclipses seen from the site (ADR 0109): when Earth passes in front of the Sun as seen from the Moon (a lunar eclipse for people on Earth) the site loses sunlight even with the Sun above its horizon. The page computes the Sun–Earth angle from the same hourly tables as the answers (JPL Horizons, then the in-browser engine) and compares it with the disc radii of config/view.json timeline.year.disc_radius_deg (Sun 0.267°, Earth 0.95°: mean distances, solid Earth). Rule, same as the horizon: no sunlight while the Sun's CENTRE is behind Earth; the covered share of the disc lowers the power estimate. Not modelled: Earth's distance changing (its disc is 0.90° to 1.03° across the month, so contact times can move by minutes) and the thin ring of sunlight bent through Earth's atmosphere.",
+  "_note_nasa": "Every lunar eclipse from the first table day to the end of the date range, copied from NASA GSFC (Fred Espenak): date, greatest eclipse (TD), type, penumbral and umbral magnitude. scripts/eclipses.mjs checks that every eclipse the tables show at any listed site is one of these (greatest eclipse within match_hours) and that every eclipse with umbral magnitude above zero (partial or total: part of the Moon in the full shadow) is seen at every listed site. Result: data/eclipses.json; tests/eclipse.test.mjs reads it.",
+  "source_urls": [
+    "https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html",
+    "https://eclipse.gsfc.nasa.gov/LEcat5/LE2001-2100.html"
+  ],
+  "source_read": "2026-11-15",
+  "match_hours": 2,
+  "nasa": [
+    { "date": "2027-02-20", "greatest_td": "23:14:06", "type": "penumbral", "pen_mag": 0.9266, "umbral_mag": -0.0569 },
+    { "date": "2027-07-18", "greatest_td": "16:04:09", "type": "penumbral", "pen_mag": 0.0014, "umbral_mag": -1.068 },
+    { "date": "2027-08-17", "greatest_td": "07:14:59", "type": "penumbral", "pen_mag": 0.5456, "umbral_mag": -0.5254 },
+    { "date": "2028-01-12", "greatest_td": "04:14:13", "type": "partial", "pen_mag": 1.0468, "umbral_mag": 0.0662 },
+    { "date": "2028-07-06", "greatest_td": "18:20:57", "type": "partial", "pen_mag": 1.4266, "umbral_mag": 0.3892 },
+    { "date": "2028-12-31", "greatest_td": "16:53:15", "type": "total", "pen_mag": 2.2742, "umbral_mag": 1.2463 },
+    { "date": "2029-06-26", "greatest_td": "03:23:22", "type": "total", "pen_mag": 2.8266, "umbral_mag": 1.8436 },
+    { "date": "2029-12-20", "greatest_td": "22:43:12", "type": "total", "pen_mag": 2.2008, "umbral_mag": 1.1174 },
+    { "date": "2030-06-15", "greatest_td": "18:34:34", "type": "partial", "pen_mag": 1.448, "umbral_mag": 0.5025 },
+    { "date": "2030-12-09", "greatest_td": "22:28:51", "type": "penumbral", "pen_mag": 0.9416, "umbral_mag": -0.1628 }
+  ]
+}

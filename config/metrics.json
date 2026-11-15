@@ -11,5 +11,9 @@
     "earth_min_pct": 50,
     "night_max_hours": 72
   },
-  "first_card_open": false
+  "first_card_open": false,
+  "_note_battery": "Battery to last the longest night (ADR 0109): load_w x longest night (hours, as above) / 1000 = kWh, shown under the longest night. load_w is an EXAMPLE load, not a mission value; change it here. Geometry estimate only: no losses, no heaters, no reserve, and a night that touches the period edge is shown as at least that long.",
+  "battery": {
+    "load_w": 100
+  }
 }

@@ -51,6 +51,8 @@ export function rowPower(el, margin, solar, radius) {
 }
 
 // table = true elevations, rel = the same rows above the horizon used (terrain.relativeTable); o = {threshold, solar, sunRadius}.
+// rel.eclipse (src/eclipse.js withEclipses, ADR 0109): hours with the Sun's centre behind Earth count as no sunlight, and
+// the power estimate keeps only the uncovered share of the disc; eclipse = hours with any part of a visible Sun covered.
 export function missionMetrics(table, rel, fromMs, days, o) {
   const { k0, k1, truncated, endMs } = periodRows(table, fromMs, days);
   const stepH = table.step_minutes / 60;
@@ -58,12 +60,21 @@ export function missionMetrics(table, rel, fromMs, days, o) {
   const earth = [];
   let tracking = 0;
   let flat = 0;
+  const ecl = { rows: 0, centre: 0, share: 0, peakK: -1 };
   for (let k = k0; k < k1; k++) {
-    sun.push(isAbove(rel.sun.el[k], o.threshold));
+    const covered = rel.eclipse ? rel.eclipse.share[k] : 0;
+    const behind = !!rel.eclipse?.centre[k];
+    const up = isAbove(rel.sun.el[k], o.threshold);
+    sun.push(up && !behind);
     earth.push(isAbove(rel.earth.el[k], o.threshold));
     const p = rowPower(table.sun.el[k], rel.sun.el[k], o.solar, o.sunRadius);
-    tracking += p.tracking;
-    flat += p.flat;
+    tracking += p.tracking * (1 - covered);
+    flat += p.flat * (1 - covered);
+    if (covered > 0 && rel.sun.el[k] + o.sunRadius > o.threshold) {
+      ecl.rows++;
+      if (up && behind) ecl.centre++;
+      if (covered > ecl.share) Object.assign(ecl, { share: covered, peakK: k });
+    }
   }
   const n = sun.length;
   const pct = (flags) => (n ? (flags.filter(Boolean).length / n) * 100 : 0);
@@ -83,7 +94,14 @@ export function missionMetrics(table, rel, fromMs, days, o) {
     night: run(sun),
     gap: run(earth),
     power: { tracking: n ? tracking / n : 0, flat: n ? flat / n : 0 },
+    eclipse: { hours: ecl.rows * stepH, centreHours: ecl.centre * stepH, share: ecl.share, peakMs: ecl.peakK < 0 ? null : tableRange(table).startMs + ecl.peakK * table.step_minutes * MINUTE },
   };
+}
+
+// Battery to last the longest night (ADR 0109): load (W) x longest night (h) → kWh. Geometry only: no losses, no
+// heaters, no reserve; open = the night may be longer than the period shows.
+export function batteryKwh(nightHours, loadW) {
+  return (nightHours * loadW) / 1000;
 }
 
 // GO = every check passes, RISKY = one fails, NO-GO = two or more. fails = failing checks in a fixed order.

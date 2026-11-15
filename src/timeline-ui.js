@@ -4,7 +4,8 @@
 // Play moves the card's time forward step by step; it is hidden when the user asks for reduced motion.
 import { fill, escapeHtml as e } from './i18n.js';
 import { formatUtc, sharedScale, tableRange } from './ephem.js';
-import { timelineSpan, rowsIn, shareAbove, timelineSvg } from './timeline.js';
+import { timelineSpan, rowsIn, shareAbove, timelineSvg, eclipseMarks } from './timeline.js';
+import { pctText } from './eclipse-ui.js';
 import { discShare } from './terrain.js';
 
 const MINUTE = 60_000;
@@ -29,6 +30,7 @@ export function mountTimeline(box, { t, view, onTime, uid }) {
     `<p class="tl-legend"><span class="key key-sun">${e(t('tl.sun'))}</span><span class="key key-earth">${e(t('tl.earth'))}</span>` +
     `<span class="tl-lanes">${e(t('tl.lanes'))}</span></p>` +
     `<p class="tl-year-share" hidden></p>` +
+    `<p class="tl-eclipse-note" hidden></p>` +
     `<div class="tl-controls"><button type="button" class="btn tl-play" aria-pressed="false">${e(t('tl.play'))}</button>` +
     `<label class="tl-scrub" for="${uid}-tl"><span class="tl-scrub-label"></span><input id="${uid}-tl" type="range" min="0" value="0"></label></div>`;
   const plot = box.querySelector('.tl-plot');
@@ -36,6 +38,7 @@ export function mountTimeline(box, { t, view, onTime, uid }) {
   const play = box.querySelector('.tl-play');
   const motion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
   const share = box.querySelector('.tl-year-share');
+  const eclNote = box.querySelector('.tl-eclipse-note');
   let mode = 'day';
   let span = null;
   let ms = NaN;
@@ -106,6 +109,12 @@ export function mountTimeline(box, { t, view, onTime, uid }) {
       const th = view.horizon_threshold_deg;
       const scale = sharedScale(rows.flatMap((r) => [r.sun, r.earth]), view.elevation_scale_steps_deg);
       plot.innerHTML = timelineSvg(rows, span, at, scale, th, mode === 'year' ? year.line_every_steps : 1);
+      // Lunar eclipses seen from the site in the span (ADR 0109).
+      const marks = eclipseMarks(rows);
+      eclNote.hidden = !marks.length;
+      eclNote.textContent = marks.length
+        ? fill(t(marks.length > 1 ? 'realism.eclipse.timeline_many' : 'realism.eclipse.timeline'), { n: marks.length, from: utc(marks[0].from), to: utc(marks[0].to), pct: pctText(Math.max(...marks.map((m) => m.cover))) })
+        : '';
       if (mode === 'year') {
         const d = year.disc_radius_deg;
         share.textContent = fill(t('tl.year_share'), { sun: pct1(discShare(relTable, 'sun', d.sun)), earth: pct1(discShare(relTable, 'earth', d.earth)), hours: relTable.sun.el.length });
