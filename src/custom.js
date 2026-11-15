@@ -71,7 +71,8 @@ export function readCustom(t, cardEl, cfg) {
   return p.error ? { error: p.error, name: t('custom.option') } : customSite(t, p, cfg.moon_radius_km);
 }
 
-// site → Promise<table> on the frozen tables' grid (config/ephemeris.json); one worker, small LRU cache.
+// (site, span?) → Promise<table> on the frozen tables' grid (config/ephemeris.json); span = {startMs, endMs} on that grid,
+// default the frozen tables' range (later dates, ADR 0104: src/years.js). One worker, small LRU cache.
 export function makeCustomTables(cfg, eph, makeWorker) {
   const cache = new Map();
   const waiting = new Map();
@@ -92,14 +93,15 @@ export function makeCustomTables(cfg, eph, makeWorker) {
       worker = null;
     };
   }
-  return (site) => {
-    const key = `${site.lat},${site.lon_east}`;
+  return (site, span = null) => {
+    const o = span ? { ...opts, startMs: span.startMs, endMs: span.endMs } : opts;
+    const key = `${site.lat},${site.lon_east},${o.startMs},${o.endMs}`;
     if (!cache.has(key)) {
       if (!worker) start();
       const id = ++next;
       const p = new Promise((resolve, reject) => waiting.set(id, { resolve, reject }));
       p.catch(() => cache.delete(key));
-      worker.postMessage({ id, site: { lat: site.lat, lon_east: site.lon_east }, opts });
+      worker.postMessage({ id, site: { lat: site.lat, lon_east: site.lon_east }, opts: o });
       cache.set(key, p);
       if (cache.size > cfg.cache_tables) cache.delete(cache.keys().next().value);
     }

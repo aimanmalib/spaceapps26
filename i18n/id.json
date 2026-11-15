@@ -587,5 +587,12 @@
   "metrics.power_label": "Perkiraan geometri, tanpa efisiensi panel.",
   "metrics.power_note": "{solar} W/m² × geometri (cos elevasi Matahari untuk panel tegak, sin untuk panel datar) × bagian piringan Matahari di atas cakrawala yang dipakai; jam malam dihitung nol. Tanpa efisiensi panel, debu, suhu atau bayangan pada panel itu sendiri.",
   "metrics.rules": "GO bila Matahari terlihat paling sedikit {sun_min} % dari jam, Bumi paling sedikit {earth_min} % dan malam terpanjang paling lama {night_max} jam; BERISIKO bila satu cek gagal; NO-GO bila dua atau lebih gagal. Aturan penyaringan untuk membandingkan lokasi, bukan persyaratan misi.",
-  "metrics.days_week": "{n} h (satu pekan permukaan)"
+  "metrics.days_week": "{n} h (satu pekan permukaan)",
+  "years.source.horizons": "Sudut Matahari dan Bumi: tabel JPL Horizons, dihitung sebelumnya untuk situs ini.",
+  "years.source.engine": "Sudut Matahari dan Bumi: mesin di peramban, divalidasi terhadap JPL Horizons.",
+  "years.source.engine_unchecked": "Sudut Matahari dan Bumi: mesin di peramban. Belum divalidasi terhadap JPL Horizons untuk tanggal setelah tabel yang dihitung sebelumnya.",
+  "years.el_line": "{label} {el} (mesin di peramban) · garis langit medan ke arah itu {sky}",
+  "years.details_data": "Tabel JPL Horizons yang dihitung sebelumnya untuk situs ini berakhir sebelum waktu ini, jadi posisi dihitung di peramban dengan Astronomy Engine (lisensi MIT), mesin yang sama dengan koordinat sendiri, pada kisi per jam yang sama dan diinterpolasi linear antarjam. Cakrawalanya sama dengan tanggal tabel. Selisih terukur dari JPL Horizons pada tanggal acak 2028 sampai 2030: data/validation-years.json.",
+  "years.out_of_range": "Tidak ada data untuk waktu ini. Tersedia: {start} sampai {end} UTC (tabel JPL Horizons sampai akhir rentangnya, lalu mesin di peramban).",
+  "years.ev_caption": "Ke arah {body} (azimut {az}°), {time} UTC. Lebar {w}°, digambar sesuai skala (derajat mendatar dan tegak sama); sudut dari mesin di peramban, setelah akhir tabel NASA yang dibekukan: piringan {body} berdiameter {diam}°; garis langit dari LRO LOLA (grid {grid} m, langkah {step}°); garis putus-putus = Bulan mulus (0°)."
 }

@@ -587,5 +587,12 @@
   "metrics.power_label": "Anggaran geometri, tanpa kecekapan panel.",
   "metrics.power_note": "{solar} W/m² × geometri (kos sudut dongak Matahari untuk panel menegak, sin untuk panel mendatar) × bahagian cakera Matahari di atas ufuk yang digunakan; jam malam dikira sifar. Tanpa kecekapan panel, debu, suhu atau bayang pada panel itu sendiri.",
   "metrics.rules": "GO bila Matahari kelihatan sekurang-kurangnya {sun_min} % daripada jam, Bumi sekurang-kurangnya {earth_min} % dan malam terpanjang paling lama {night_max} jam; BERISIKO bila satu semakan gagal; NO-GO bila dua atau lebih gagal. Peraturan saringan untuk membandingkan tapak, bukan keperluan misi.",
-  "metrics.days_week": "{n} h (satu minggu permukaan)"
+  "metrics.days_week": "{n} h (satu minggu permukaan)",
+  "years.source.horizons": "Sudut Matahari dan Bumi: jadual JPL Horizons, dikira terlebih dahulu untuk tapak ini.",
+  "years.source.engine": "Sudut Matahari dan Bumi: enjin dalam pelayar, disahkan dengan JPL Horizons.",
+  "years.source.engine_unchecked": "Sudut Matahari dan Bumi: enjin dalam pelayar. Belum disahkan dengan JPL Horizons untuk tarikh selepas jadual yang dikira terlebih dahulu.",
+  "years.el_line": "{label} {el} (enjin dalam pelayar) · garis langit rupa bumi ke arah itu {sky}",
+  "years.details_data": "Jadual JPL Horizons yang dikira terlebih dahulu untuk tapak ini tamat sebelum masa ini, jadi kedudukan dikira dalam pelayar dengan Astronomy Engine (lesen MIT), enjin yang sama dengan koordinat sendiri, pada grid setiap jam yang sama dan diinterpolasi secara linear antara jam. Ufuknya sama seperti tarikh jadual. Beza terukur daripada JPL Horizons pada tarikh rawak 2028 hingga 2030: data/validation-years.json.",
+  "years.out_of_range": "Tiada data untuk masa ini. Tersedia: {start} hingga {end} UTC (jadual JPL Horizons hingga hujung julatnya, kemudian enjin dalam pelayar).",
+  "years.ev_caption": "Ke arah {body} (azimut {az}°), {time} UTC. Lebar {w}°, dilukis mengikut skala (darjah yang sama melintang dan menegak); sudut daripada enjin dalam pelayar, selepas hujung jadual NASA yang dibekukan: cakera {body} berukuran {diam}° rentas; garis langit daripada LRO LOLA (grid {grid} m, langkah {step}°); garis putus-putus = Bulan licin (0°)."
 }
