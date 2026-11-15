@@ -6,5 +6,23 @@
   "look_default_deg": 0,
   "look_step_deg": 15,
   "ray_km": 30,
-  "canvas_width_px": 720
+  "canvas_width_px": 720,
+  "_note_lander": "From the lander (ADR 0103): perspective view from the observer of the terrain skyline (data/horizon site_height_m + observer_height_m) over the same heights, on a sphere of moon_radius_km, heights NOT stretched so every angle is true. hfov_deg = horizontal field of view; the canvas is canvas_width_px wide and aspect × that tall; Sun and Earth discs are drawn to scale (radii = config/view.json timeline.year.disc_radius_deg). every_cells = grid step of the ground; near_km = nearest ground drawn. The view opens aim_above_deg above the chosen body so the skyline sits in the lower part. Drag turns the view (drag_deg_per_px × field of view per CSS px), arrow keys by key_step_deg; pitch stays in pitch_min_deg..pitch_max_deg. The 3D ground's own skyline is sampled every gap_az_step_deg / gap_km_step and compared with the LOLA 80 m profile; differences above gap_note_deg are stated in the caption. Compass labels every tick_step_deg.",
+  "lander": {
+    "hfov_deg": 60,
+    "aspect": 0.5625,
+    "every_cells": 1,
+    "near_km": 0.0005,
+    "moon_radius_km": 1737.4,
+    "drag_deg_per_px": 1,
+    "key_step_deg": 5,
+    "pitch_min_deg": -30,
+    "pitch_max_deg": 60,
+    "gap_az_step_deg": 0.5,
+    "gap_km_step": 0.25,
+    "gap_note_deg": 0.1,
+    "tick_step_deg": 15,
+    "start": "earth",
+    "aim_above_deg": 6
+  }
 }
