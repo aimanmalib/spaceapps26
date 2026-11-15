@@ -115,9 +115,10 @@ Taken from the [limitations](#what-it-does-and-limitations) below; nothing here 
 - Geometry only. A yes means the centre of the Sun or Earth disc is above the horizon used. Solar panel orientation, power
   output, antennas, relay satellites and link budgets are not modelled; the GO / RISKY / NO-GO limits and the W/m² estimate
   (1361 W/m², no panel efficiency, temperature or Sun-distance correction) are settings, not the requirements of any mission.
-- Terrain on an 80 m grid, at six south polar sites only. Every other listed site and own coordinates use the ideal sphere
-  horizon. The terrain range (nine points 80 m apart, observer at 0 m and 2 m) is a sensitivity range for that grid, not an
-  error bar on the real ground; on ridges the answer changes within about 100 m.
+- Terrain from the LOLA grids only: at the ten listed south polar sites (80 m grid) and at own coordinates south of 75°S
+  (coarser copies, 400 m or 960 m, except within 20 km of the pole). Every other listed site, and own coordinates north of 75°S,
+  use the ideal sphere horizon. The terrain range (nine points 80 m apart, observer at 0 m and 2 m) is a sensitivity range for
+  the 80 m grid, not an error bar on the real ground; on ridges the answer changes within about 100 m.
 - One year for the year numbers. Overview, calendar, year shares and the NASA PGDA checks cover 2026-11-01 to 2027-11-01;
   later dates come from the in-browser engine (checked against JPL Horizons, above), not from frozen tables.
 - Future targets are points, not landing sites: each is one point inside a candidate or target area several kilometres across.
@@ -213,8 +214,12 @@ Built:
   table instead (hourly steps, 1 Nov 2026 to 1 Nov 2027), with the share of hours each one is at least partly above the horizon used;
   for the sites with a terrain skyline these are the same "this tool" numbers as in the NASA PGDA check below.
 - Own coordinates: type any latitude and longitude on the Moon. Sun and Earth positions for these are computed in browser,
-  validated against JPL Horizons (Astronomy Engine; differences below). They use the ideal sphere horizon only: local terrain is not
-  computed for own coordinates, even inside the LRO LOLA grids.
+  validated against JPL Horizons (Astronomy Engine; differences below). South of 75°S an own point gets a terrain skyline, computed in the
+  browser from the LRO LOLA south polar grids: the full 80 m grid within 20 km of the pole, block-averaged copies elsewhere
+  (400 m south of 80°S, 960 m from 75°S to 80°S), loaded once when first needed (up to 6.9 MB). North of 75°S an own point
+  uses the ideal sphere horizon. Checked against the 80 m skylines of the ten listed terrain sites over the year's 8,761 hours:
+  both answers agree in 97.2 % to 99.9 % of the hours at 9 sites and in 93.4 % at the de Gerlache Rim 2 point, which the card
+  names (`data/terrain/gate.json`, `scripts/terrain_gate.mjs`, ADR 0106).
 - Local terrain horizon from LRO LOLA for the south polar sites inside the elevation grids used here (75°S to the pole: IM-1 at two points, IM-2 and the seven future targets);
   every other site uses the ideal sphere horizon and says so.
 - Small shifts in location or date: each card can list the same two answers for the chosen time moved 6 hours and 1 day either way,
@@ -268,7 +273,11 @@ Limitations:
 - Terrain horizon (j): only at the ten listed sites inside the LOLA south polar grids used here (75°S to the pole): IM-1 at two
   points, IM-2 and the seven future targets.
   Every other listed site uses the ideal sphere horizon.
-- Own coordinates (b): ideal sphere horizon only. Local terrain is not computed for own coordinates, even inside the LOLA grids.
+- Own coordinates (b): north of 75°S, ideal sphere horizon only. South of 75°S the skyline comes from coarser copies of the
+  LOLA grids (400 m; 960 m from 75°S to 80°S, a band with no listed site to check against), except within 20 km of the pole
+  (full 80 m grid). On narrow ridges and crater rims the coarse grid lowers the ground: 93.4 % of hours agree at the
+  de Gerlache Rim 2 point, and on the 400 m copy alone only 53.8 % at the Shackleton ridge point, which is why the full grid is
+  kept near the pole. Own points have no map, no 1 km shifts and no terrain range.
 - 2D map (h), 3D surface (i) and the 1 km location shifts (l): only at those ten sites. Other sites show the date shifts only.
 - Future targets: each is one point inside a candidate or target area several kilometres across, as given by the cited page, not
   a chosen landing point; the answers there change within a kilometre (the cards show the 1 km shifts and the terrain range).

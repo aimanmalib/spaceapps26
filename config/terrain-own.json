@@ -1,0 +1,14 @@
+{
+  "_note": "Terrain horizon for own coordinates (ADR 0106, revisits ADR 0037). scripts/terrain_coarse.py writes into data/terrain/ the full 80 m grid within 20 km of the pole (crop_px × crop_px around the pole; on the 400 m copy alone the two measured points there fail the gate, ADR 0106) and block-mean copies (factor) of the two LOLA south-polar grids of config/horizon.json (16-bit little-endian, height = DN * dn_scale_m above moon_radius_m, south pole at the grid centre). The page loads them only when an own point lies at or south of lat_max, once per page, and casts the same rays as scripts/horizon.py (ray settings from config/horizon.json) in a Web Worker. Finest grid first. scripts/terrain_gate.mjs measures the agreement with the 80 m profiles (data/horizon/) at every listed site that has one; gate_pct is the share of hours in which both answers (Sun up, Earth up) must agree.",
+  "_note_pole": "The pole crop keeps the 80 m pixels unchanged (factor 1); its max_lat is the latitude at the middle of its edge, for reading only. Rays leave it and continue on the 400 m and 960 m copies.",
+  "lat_max": -75,
+  "grids": [
+    {"name": "ldem_80s_80m_pole", "from": "ldem_80s_80m", "factor": 1, "crop_px": 500, "size": 500, "scale_m": 80, "offset_px": 249.5, "max_lat": -89.34, "dn_scale_m": 0.5, "file": "terrain/ldem_80s_80m_pole.bin"},
+    {"name": "ldem_80s_400m", "from": "ldem_80s_80m", "factor": 5, "size": 1520, "scale_m": 400, "offset_px": 759.5, "max_lat": -80, "dn_scale_m": 0.5, "file": "terrain/ldem_80s_400m.bin"},
+    {"name": "ldem_75s_960m", "from": "ldem_75s_240m", "factor": 4, "size": 953, "scale_m": 960, "offset_px": 476, "max_lat": -75, "dn_scale_m": 0.5, "file": "terrain/ldem_75s_960m.bin"}
+  ],
+  "cache_profiles": 12,
+  "_note_cache": "Skylines kept in memory per page (most recent own points); older ones are computed again when chosen.",
+  "gate_pct": 97,
+  "gate_file": "terrain/gate.json"
+}

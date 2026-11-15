@@ -74,6 +74,11 @@ export function mountShifts(box, { t, view, shifts }) {
     const base = judge(sc.sample, sc.profile, th);
     const times = timeRows(sc.table, sc.profile, sc.ms, cfg.time_offsets_hours, th);
     const load = sc.site.custom ? null : shifts.places[sc.site.id];
+    if (sc.profile?.ownTerrain) {
+      // Own point with a LOLA skyline (ADR 0106): nearby skylines are precomputed for listed sites only.
+      body.innerHTML = html(base, times, t('terrainown.shift_none'));
+      return;
+    }
     if (!load || !sc.profile) {
       const deg = sphereTiltDeg(cfg.location_offset_km, shifts.radiusKm).toFixed(3);
       body.innerHTML = html(base, times, fill(t('shift.place_none'), { km: cfg.location_offset_km, deg }));

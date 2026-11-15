@@ -20,6 +20,8 @@ bash scripts/reproduce.sh          # or: bash scripts/reproduce.sh --list   (pri
 | Sun/Earth tables, one year, hourly | `scripts/fetch_horizons.py` | `data/ephem/`, `data/check/` | JPL Horizons API |
 | DEM download | `scripts/horizon.py --download` | cache folder | LRO LOLA GDR, NASA PDS |
 | Terrain skylines | `scripts/horizon.py` | `data/horizon/` | LOLA DEMs |
+| Grids for own coordinates (80 m pole crop, 400 m and 960 m block means) | `scripts/terrain_coarse.py` | `data/terrain/*.bin` | LOLA DEMs |
+| Their skylines vs the 80 m skylines (97 % gate, ADR 0106) | `scripts/terrain_gate.mjs` | `data/terrain/gate.json` | the files above, the Sun/Earth tables |
 | 2D map | `scripts/map2d.py` | `data/map/` | LOLA DEMs |
 | Skylines one kilometre away | `scripts/shifts.py` | `data/shift/` | LOLA DEMs |
 | Terrain range (nine points 80 m apart, observer 0 m and 2 m) | `scripts/band.py` | `data/band/` | LOLA DEMs, the Sun/Earth tables |

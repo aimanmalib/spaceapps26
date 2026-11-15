@@ -1,6 +1,8 @@
 # 0037 — Terrain horizon for own coordinates: measured, not shipped (P4l)
 
 Status: accepted, 15 November 2026. SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md.
+Superseded the same evening by ADR 0106: the 400 m / 960 m setting ships for own points south of 75° S, with the full 80 m grid
+within 20 km of the pole. The measurements below stand.
 
 ## Context
 
