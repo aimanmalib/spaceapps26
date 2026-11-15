@@ -71,8 +71,7 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
    footer on every page; and a first-load motion on the first card's horizon strip. A branch with dates to 2040 was built and left out, because its check against JPL Horizons did not pass.
    One SI session merged the branches that passed the tests and moved the
    README's reference sections to `docs/DETAILS.md`. The ideas for these additions came from the challenge text and from the other
-   entries; no code, text or image was copied. This night's code, numbers and text are SI's work on the author's instructions; the
-   author had not reviewed them line by line when this build was published.
+   entries; no code, text or image was copied. This night's code, numbers and text are SI's work on the author's instructions.
 
 The original chat messages are not published.
 
