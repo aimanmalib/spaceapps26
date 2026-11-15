@@ -46,21 +46,13 @@
     "height_px": 720
   },
   "deck_png": {
-    "_note": "Demo-deck crops (readable at slide size): each shot = the union of its selectors on the live Compare page, default scenarios. 'open' = a card block opened first. Optional per-shot 'viewport' (CSS px) overrides the deck viewport. 'click' = an element clicked first, then 'ready' awaited (shots after it see the clicked state, so such shots go last). 'year' is also a gallery image (item d).",
+    "_note": "Demo-deck crops (readable at slide size): each shot = the union of its selectors on the live Compare page, default scenarios. 'open' = a card block opened first. Optional per-shot 'viewport' (CSS px) overrides the deck viewport. 'click' = an element clicked first, then 'ready' awaited (shots after it see the clicked state, so such shots go last). 'year' is also a gallery image (item d). Optional per-shot 'pad' overrides pad. A shot with its own viewport goes last (resizing re-lays out the page).",
     "viewport": {
       "width": 1280,
       "height": 800
     },
     "pad": 12,
     "shots": [
-      {
-        "name": "deck-cards",
-        "selectors": [
-          ".cards .card:nth-child(1) .card-head",
-          ".cards .card:nth-child(1) .answers",
-          ".cards .card:nth-child(2) .answers"
-        ]
-      },
       {
         "name": "deck-compare",
         "selectors": [
@@ -90,6 +82,17 @@
         "selectors": [
           ".cards .card:nth-child(1) .tl"
         ]
+      },
+      {
+        "name": "deck-cards",
+        "viewport": {
+          "width": 700,
+          "height": 800
+        },
+        "selectors": [
+          ".cards .card:nth-child(1) .ev"
+        ],
+        "pad": 4
       }
     ]
   }

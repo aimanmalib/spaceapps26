@@ -9,8 +9,8 @@ Challenge: Lunar Landing Site Navigator (NASA Space Apps Challenge 2026).
 
 Three steps for a first look:
 
-1. Open the site. Two scenarios are already on screen, IM-2 and Apollo 11 at 2026-11-14 00:00 UTC, each with two answers:
-   solar power possible or not, direct-to-Earth communication possible or not.
+1. Open the site. Two scenarios are already on screen, IM-2 at 2026-11-14 00:00 UTC and IM-2 two days later, each with two
+   answers: solar power possible or not, direct-to-Earth communication possible or not (the Sun answer differs between them).
 2. On the IM-2 card, read "Small shifts in location or date": Earth is 1.3° above the terrain horizon at the site, and below it
    1 km east and 1 km south. (The 80 m terrain grid does not resolve small craters such as the one where the IM-2 lander stopped.)
 3. Open the Validation page: the differences from JPL Horizons and from the NASA GSFC PGDA illumination maps.

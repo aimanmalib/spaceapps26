@@ -103,7 +103,7 @@ def capture_deck(browser, base):
             page.locator(item["click"]).first.click()
             page.wait_for_function(item["ready"], timeout=TIMEOUT_MS)
             page.wait_for_timeout(400)
-        clip = union_clip(page, item["selectors"], d["pad"])
+        clip = union_clip(page, item["selectors"], item.get("pad", d["pad"]))
         path = os.path.join(OUT, f"{item['name']}.png")
         page.screenshot(path=path, clip=clip, full_page=True)
         print(f"{item['name']}.png {os.path.getsize(path)} bytes, {round(clip['width'])} x {round(clip['height'])} css px")

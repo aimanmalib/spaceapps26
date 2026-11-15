@@ -8,10 +8,11 @@
       "time_utc": "2026-11-14T00:00"
     },
     {
-      "site": "apollo-11",
-      "time_utc": "2026-11-14T00:00"
+      "site": "im-2",
+      "time_utc": "2026-11-16T00:00"
     }
   ],
+  "_note_default_scenarios": "Default pair (P4v): the two cards must differ in at least one answer. Rule: the first card stays IM-2 at 2026-11-14 00:00 UTC; the other south polar terrain site (IM-1) at the same time gives the same two answers (Sun no, Earth yes), so the second card is the same site two days later (Sun yes, Earth yes). Unit test: tests/defaults.test.mjs.",
   "horizon_threshold_deg": 0,
   "elevation_scale_steps_deg": [
     10,
