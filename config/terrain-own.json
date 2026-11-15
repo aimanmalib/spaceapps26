@@ -1,0 +1,12 @@
+{
+  "_note": "Terrain horizon for own coordinates (ADR 0106, revisits ADR 0037). scripts/terrain_coarse.py writes block-mean copies of the two LOLA south-polar grids of config/horizon.json into data/terrain/ (16-bit little-endian, height = DN * dn_scale_m above moon_radius_m, south pole at the grid centre). The page loads them only when an own point lies at or south of lat_max, once per page, and casts the same rays as scripts/horizon.py (ray settings from config/horizon.json) in a Web Worker. Finest grid first. scripts/terrain_gate.mjs measures the agreement with the 80 m profiles (data/horizon/) at every listed site that has one; gate_pct is the share of hours in which both answers (Sun up, Earth up) must agree.",
+  "lat_max": -75,
+  "grids": [
+    {"name": "ldem_80s_400m", "from": "ldem_80s_80m", "factor": 5, "size": 1520, "scale_m": 400, "offset_px": 759.5, "max_lat": -80, "dn_scale_m": 0.5, "file": "terrain/ldem_80s_400m.bin"},
+    {"name": "ldem_75s_960m", "from": "ldem_75s_240m", "factor": 4, "size": 953, "scale_m": 960, "offset_px": 476, "max_lat": -75, "dn_scale_m": 0.5, "file": "terrain/ldem_75s_960m.bin"}
+  ],
+  "cache_profiles": 12,
+  "_note_cache": "Skylines kept in memory per page (most recent own points); older ones are computed again when chosen.",
+  "gate_pct": 97,
+  "gate_file": "terrain/gate.json"
+}

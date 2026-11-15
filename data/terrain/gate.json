@@ -1,0 +1,68 @@
+{
+  "generated_by": "scripts/terrain_gate.mjs (Claude Code, Anthropic); inputs config/sites.json, config/terrain-own.json, data/terrain, data/horizon, data/ephem",
+  "gate_pct": 97,
+  "threshold_deg": 0,
+  "lowest_both_same_pct": 53.8,
+  "sites": [
+    {
+      "site": "im-1",
+      "hours": 8761,
+      "both_same_pct": 97.24,
+      "sun_same_pct": 97.24,
+      "earth_same_pct": 100,
+      "skyline_diff_median_deg": 0.17,
+      "skyline_diff_p95_deg": 1.36,
+      "pass": true
+    },
+    {
+      "site": "im-2",
+      "hours": 8761,
+      "both_same_pct": 99.5,
+      "sun_same_pct": 99.71,
+      "earth_same_pct": 99.78,
+      "skyline_diff_median_deg": 0.03,
+      "skyline_diff_p95_deg": 0.61,
+      "pass": true
+    },
+    {
+      "site": "im-1-landed",
+      "hours": 8761,
+      "both_same_pct": 99.45,
+      "sun_same_pct": 99.45,
+      "earth_same_pct": 100,
+      "skyline_diff_median_deg": 0.18,
+      "skyline_diff_p95_deg": 0.66,
+      "pass": true
+    },
+    {
+      "site": "malapert-massif",
+      "hours": 8761,
+      "both_same_pct": 97.91,
+      "sun_same_pct": 98.47,
+      "earth_same_pct": 99.42,
+      "skyline_diff_median_deg": 0.06,
+      "skyline_diff_p95_deg": 0.39,
+      "pass": true
+    },
+    {
+      "site": "nobile-rim-1",
+      "hours": 8761,
+      "both_same_pct": 98.24,
+      "sun_same_pct": 99.34,
+      "earth_same_pct": 98.9,
+      "skyline_diff_median_deg": 0.15,
+      "skyline_diff_p95_deg": 0.52,
+      "pass": true
+    },
+    {
+      "site": "shackleton-ridge",
+      "hours": 8761,
+      "both_same_pct": 53.8,
+      "sun_same_pct": 71.2,
+      "earth_same_pct": 72.15,
+      "skyline_diff_median_deg": 0.33,
+      "skyline_diff_p95_deg": 5.27,
+      "pass": false
+    }
+  ]
+}
