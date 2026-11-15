@@ -57,10 +57,21 @@ function identity(doc, t) {
   foot.prepend(p);
 }
 
+// The page links are one row that scrolls sideways when it does not fit (phones, ADR 0107): start it scrolled so the
+// current page's link is in view. Sets scrollLeft of the row only, so the page itself never moves.
+export function revealCurrentLink(doc) {
+  const nav = doc.querySelector('.topnav');
+  const cur = nav?.querySelector('a[aria-current="page"]');
+  if (!cur || nav.scrollWidth <= nav.clientWidth) return;
+  const off = cur.getBoundingClientRect().left - nav.getBoundingClientRect().left + nav.scrollLeft;
+  nav.scrollLeft = Math.max(0, off - (nav.clientWidth - cur.offsetWidth) / 2);
+}
+
 export function initPage(doc = document) {
   const t = makeT(dict);
   doc.documentElement.lang = lang;
   applyText(doc, t);
+  revealCurrentLink(doc);
   const si = doc.getElementById('si-link');
   if (si) si.href = app.repo_url + app.si_disclosure_path;
   identity(doc, t);
