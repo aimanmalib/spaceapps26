@@ -18,8 +18,11 @@ import { mountMap } from './map2d-ui.js';
 import { mountSurface } from './surface3d-ui.js';
 import { mountSteps, mountSequence } from './sequence-ui.js';
 import { mountWindows } from './mission-ui.js';
+import { mountMetrics } from './metrics-ui.js';
 import { mountShare } from './share-ui.js';
 import { verdictText, encodeScenarios } from './share.js';
+import { mountPresets, presetSearch } from './presets.js';
+import { sourceHtml } from './years.js';
 import { CUSTOM_ID, customOptionHtml, customFieldsHtml, syncFields, readCustom, invalidText } from './custom.js';
 
 let uid = 0;
@@ -65,7 +68,9 @@ function cardDom(t, sites, sc, custom) {
 // map = {cfg: config/map2d.json, maps: siteId → () => Promise<data/map file>} when item h is on;
 // surface = {cfg: config/surface3d.json, light: config/map2d.json, maps} when item i is on.
 // earthview = {cfg: config/earthview.json, dirs: config/shifts.json, places, engine} (P4v; terrain sites only).
-export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null, earthview = null }) {
+// metrics = config/metrics.json: mission check badge in the card head + numbers under the answers (ADR 0101).
+// years = src/years.js makeYears() + {checked} (ADR 0104): tables for dates past the frozen Horizons range.
+export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null, earthview = null, presets = null, metrics = null, years = null }) {
   const list = root.querySelector('.cards');
   const add = root.querySelector('.add');
   const glance = root.querySelector('.glance-body');
@@ -100,7 +105,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
       inputs.map(async (x) => {
         if (x.site.error) return { ...x, msg: invalidText(t, x.site.error, custom.cfg) };
         try {
-          const table = x.site.custom ? custom.tables(x.site) : loadTable(view.data_path, x.site.id);
+          const table = years ? years.table(x.site, x.ms) : x.site.custom ? custom.tables(x.site) : loadTable(view.data_path, x.site.id);
           const [tb, profile, band] = await Promise.all([table, x.site.custom ? null : horizons[x.site.id]?.() ?? null, x.site.custom ? null : bands[x.site.id]?.() ?? null]);
           return { ...x, ...answer(x, tb, profile, band) };
         } catch {
@@ -121,11 +126,11 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
   function answer(x, table, profile, band = null) {
     const sample = sampleAt(table, x.ms);
     if (!sample) {
-      const { startMs, endMs } = tableRange(table);
+      const { startMs, endMs } = years?.range ?? tableRange(table);
       const input = x.c.el.querySelector('input[type=datetime-local]');
       input.min = formatUtc(startMs);
       input.max = formatUtc(endMs);
-      return { msg: fill(t('state.out_of_range'), { start: formatUtc(startMs).replace('T', ' '), end: formatUtc(endMs).replace('T', ' ') }) };
+      return { msg: fill(t(years ? 'years.out_of_range' : 'state.out_of_range'), { start: formatUtc(startMs).replace('T', ' '), end: formatUtc(endMs).replace('T', ' ') }) };
     }
     // Same judgement as the small-shifts table (item l), so the card and that table show one set of numbers.
     const j = judge(sample, profile, view.horizon_threshold_deg);
@@ -137,7 +142,9 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
     const rel = relativeTable(table, profile);
     // Terrain range (ADR 0041): does an answer change between the lowest and highest skyline around the site?
     const range = band && profile ? { band, judge: bandJudge(sample, band, view.horizon_threshold_deg) } : null;
-    return { sample, up, disc, profile, rel, table, range, facts: scenarioFacts(t, rel, x.ms, { sample, up, margin }, view) };
+    // Where the angles come from (ADR 0104): the JPL Horizons table or the in-browser engine.
+    const source = years ? years.sourceAt(x.site, x.ms) : x.site.custom ? 'engine' : 'horizons';
+    return { sample, up, disc, profile, rel, table, range, source, facts: scenarioFacts(t, rel, x.ms, { sample, up, margin }, view) };
   }
 
   function draw(rows) {
@@ -145,11 +152,17 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
     for (const r of rows) {
       const box = r.c.el.querySelector('.card-result');
       box.innerHTML = r.sample ? resultHtml(t, { ...r, scale }, view) : `<p class="note note-warn">${e(r.msg)}</p>`;
+      if (r.sample && years) box.querySelector('.horizon-kind')?.insertAdjacentHTML('afterend', sourceHtml(t, r.source, r.ms > years.range.frozenEndMs, years.checked));
       // Earth view (P4v): right under the two answers, only where a LOLA terrain skyline exists.
       if (r.c.ev && r.sample && r.profile) {
         box.querySelector('.answers').after(r.c.evBox);
-        r.c.ev.draw({ site: r.site, profile: r.profile, sample: r.sample, ms: r.ms });
+        r.c.ev.draw({ site: r.site, profile: r.profile, sample: r.sample, ms: r.ms, source: r.source });
       } else r.c.ev?.hide();
+      // Mission check (ADR 0101): under the answers, after the Earth view when there is one.
+      if (r.c.mm && r.sample) {
+        (r.c.evBox?.parentElement === box ? r.c.evBox : box.querySelector('.answers')).after(r.c.mmBox);
+        r.c.mm.draw({ table: r.table, rel: r.rel, ms: r.ms });
+      } else r.c.mm?.hide();
       if (r.sample) r.c.tl?.draw(r.rel, r.ms);
       else r.c.tl?.hide();
       if (r.sample) r.c.sh?.draw({ site: r.site, table: r.table, profile: r.profile, sample: r.sample, ms: r.ms });
@@ -197,6 +210,10 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
       c.evBox = document.createElement('section');
       c.ev = mountEarthView(c.evBox, { t, view, ev: earthview, uid: `ev${++uid}` });
     }
+    if (metrics) {
+      c.mmBox = document.createElement('section');
+      c.mm = mountMetrics(c.mmBox, { t, cfg: metrics, view, head: c.el.querySelector('.card-head'), open: first && metrics.first_card_open, uid: `mm${++uid}` });
+    }
     if (features.l_small_shifts && shifts) c.sh = mountShifts(c.el.querySelector('.card-shifts'), { t, view, shifts });
     if (first && view.first_card?.shifts_open) openBlock(c.el, '.shifts');
     // Sequential comparison (challenge text): step buttons + "If the date moves", open on the first card only.
@@ -237,44 +254,52 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
     cards[cards.length - 1].el.querySelector('select').focus();
   });
 
+  // Replace every card with these scenarios (one-kilometre example, P4p; ready-made comparisons, ADR 0100), put the
+  // matching shareable link in the address and, with jump, move to the first card's view toward Earth.
+  async function loadScenarios(scenarios, { search, jump = false, say }) {
+    const status = root.querySelector('.example-status');
+    parkExample();
+    for (const c of cards.splice(0)) {
+      c.tl?.destroy();
+      c.el.remove();
+    }
+    for (const sc of scenarios) addCard({ ...sc });
+    renumber();
+    if (share) history.replaceState(null, '', search);
+    await update();
+    if (status) status.textContent = say;
+    if (!jump) return;
+    const c = cards[0];
+    const target = c.evBox && !c.evBox.hidden && c.evBox.isConnected ? c.evBox : c.el;
+    const heading = target.querySelector('.ev-title, .card-title');
+    heading?.setAttribute('tabindex', '-1');
+    heading?.focus({ preventScroll: true });
+    // Jump, never animate (ADR 0033): on WebKit iPhone a smooth scroll started after the cards are replaced can end at the
+    // page bottom. Wait two frames for the new card's layout, jump, then check once more after late content (map, 3D).
+    const margin = view.example_scroll_margin_px ?? 0;
+    const go = () => {
+      if (!target.isConnected) return;
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - margin, behavior: 'auto' });
+    };
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    go();
+    setTimeout(() => {
+      const top = target.getBoundingClientRect().top;
+      if (top < -1 || top > window.innerHeight / 2) go();
+    }, view.example_scroll_recheck_ms ?? 400);
+  }
+
   // "Show me the one-kilometre example" (P4p): view.example replaces the cards, then the page scrolls to its Earth view.
   function mountExample() {
     const btn = exBtn;
-    const status = root.querySelector('.example-status');
     const sc = view.example;
     if (!btn || !sc || !siteById.has(sc.site)) return;
     btn.textContent = t('tool.example');
     btn.hidden = false;
-    btn.addEventListener('click', async () => {
-      parkExample();
-      for (const c of cards.splice(0)) {
-        c.tl?.destroy();
-        c.el.remove();
-      }
-      addCard({ ...sc });
-      renumber();
-      if (share) history.replaceState(null, '', encodeScenarios([sc], share.cfg));
-      await update();
-      const c = cards[0];
-      const target = c.evBox && !c.evBox.hidden && c.evBox.isConnected ? c.evBox : c.el;
-      const heading = target.querySelector('.ev-title, .card-title');
+    btn.addEventListener('click', () => {
       const km = earthview?.dirs?.location_offset_km ?? '';
-      status.textContent = fill(t('tool.example_done'), { site: siteById.get(sc.site).name, time: sc.time_utc.replace('T', ' '), km });
-      heading?.setAttribute('tabindex', '-1');
-      heading?.focus({ preventScroll: true });
-      // Jump, never animate (ADR 0033): on WebKit iPhone a smooth scroll started after the cards are replaced can end at the
-      // page bottom. Wait two frames for the new card's layout, jump, then check once more after late content (map, 3D).
-      const margin = view.example_scroll_margin_px ?? 0;
-      const jump = () => {
-        if (!target.isConnected) return;
-        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - margin, behavior: 'auto' });
-      };
-      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
-      jump();
-      setTimeout(() => {
-        const top = target.getBoundingClientRect().top;
-        if (top < -1 || top > window.innerHeight / 2) jump();
-      }, view.example_scroll_recheck_ms ?? 400);
+      const say = fill(t('tool.example_done'), { site: siteById.get(sc.site).name, time: sc.time_utc.replace('T', ' '), km });
+      loadScenarios([sc], { search: share ? encodeScenarios([sc], share.cfg) : location.search, jump: true, say });
     });
   }
 
@@ -304,6 +329,18 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
     mountShare(shareBox, { t, cfg: share.cfg, range: share.range, rejected: share.rejected, state, setTimes, uid: `share${++uid}` });
   }
   mountExample();
+  // "Try a comparison" (ADR 0100): ready-made scenarios as shareable links; a plain click swaps the cards in place.
+  if (presets && share) {
+    mountPresets(presets.box, {
+      t, presets: presets.list.filter((p) => p.scenarios.every((sc) => siteById.has(sc.site))), cfg: share.cfg,
+      onPick: (p) => loadScenarios(p.scenarios, { search: presetSearch(location.search, p.scenarios, share.cfg), jump: !!p.jump_to_earth_view, say: fill(t('preset.done'), { name: t(`preset.${p.id}`) }) }),
+    });
+    // The chip stays marked only while its cards are untouched.
+    const unmark = () => presets.box?.querySelector('[aria-current]')?.removeAttribute('aria-current');
+    root.addEventListener('change', unmark);
+    add.addEventListener('click', unmark);
+    exBtn?.addEventListener('click', unmark);
+  }
   placeExample();
   exampleNarrow?.addEventListener?.('change', placeExample);
   return update();

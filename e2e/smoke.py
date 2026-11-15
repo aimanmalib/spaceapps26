@@ -269,6 +269,12 @@ def surface_3d(page, check, shots, name):
     check(box.evaluate("e => e.scrollWidth <= e.clientWidth"), "surface: fits the card (i)")
     if shots:
         box.screenshot(path=os.path.join(shots, f"smoke-{name}-surface.png"))
+    # ADR 0103: "From the lander" swaps the orbit view for a view from the site; "Orbit view" brings the surface back.
+    box.locator(".lander-open").click()
+    page.wait_for_function("() => document.querySelector('.card .lander-canvas')?.width > 0")
+    check(box.locator(".lander-canvas").evaluate(stats)[0] > 0.3 and box.evaluate("e => e.scrollWidth <= e.clientWidth"), "lander view: drawn, fits the card (ADR 0103)")
+    box.locator(".lander-exit").click()
+    page.wait_for_function("() => document.querySelector('.card .surf-canvas')?.width > 0 && !document.querySelector('.card .lander-canvas')")
     card.locator("select[id$='-site']").select_option("apollo-11")
     page.wait_for_function("() => document.querySelector('.card .surf-body')?.innerText.startsWith('No 3D')")
     card.locator("select[id$='-site']").select_option("im-2")
@@ -464,6 +470,8 @@ def overview_page(page, check, base, shots, name):
     rows = page.locator("#overview tbody tr").count()
     check(rows >= 10, f"overview: one row per listed site ({rows})")
     check(page.locator("#ov-findings li").count() == 3, "overview: three findings read off the table")
+    cal = page.evaluate("() => { const c = [...document.querySelectorAll('#calendar .cal-cell')]; return [c.length, c.every(a => /[?&]s=/.test(a.getAttribute('href') || ''))]; }")
+    check(cal[0] >= 28 * rows and cal[0] % rows == 0 and cal[1], f"overview: calendar of every site by day, each day a link to Compare ({cal[0]} cells, ADR 0102)")
     page.locator('.ov-sort[data-col="name"]').focus()
     page.keyboard.press("Enter")
     sorted_ok = page.evaluate("""() => {
@@ -491,12 +499,15 @@ def summary(page, check):
               pano: [...document.querySelectorAll('.card')].every(c => c.querySelector('.pano-verdict')?.innerText.trim() &&
                 c.querySelectorAll('.pano-plot .pano-dot').length === 2 && !!c.querySelector('.pano-svg .sky-terrain') === !!c.querySelector('.sky-near') &&
                 !!c.querySelector('.answers > .band') === !!c.querySelector('.sky-near') && !!c.querySelector('.pano-band') === !!c.querySelector('.sky-near')),
+              plan: [...document.querySelectorAll('.card')].every(c => /^(GO|RISKY|NO-GO)/.test(c.querySelector('.card-head .mm-badge')?.innerText.trim() || '')) &&
+                [...document.querySelectorAll('.presets a')].filter(a => /[?&]s=/.test(a.getAttribute('href') || '')).length >= 3,
               trust: document.querySelector('.trust').innerText, href: document.querySelector('.trust a').getAttribute('href'),
               n: document.querySelectorAll('.verdicts li').length, cards: document.querySelectorAll('.card').length};
     }""")
     check(r["order"], "first screen: verdicts, validation line and buttons before the cards in the page")
     check(r["above"] or not r["wide"], "first screen: validation line and buttons drawn above the cards on wide windows")
     check(r["pano"], "every card opens with a verdict and a 360-degree horizon strip; terrain cards show the terrain range (ADR 0040, 0041)")
+    check(r["plan"], "ready-made comparisons above the cards and a mission check badge in every card head (ADR 0100, 0101)")
     check(r["n"] == r["cards"], "one verdict per card")
     check("JPL Horizons" in r["trust"] and "PGDA" in r["trust"] and r["href"].endswith("validation.html"),
           f"validation line with link ({r['trust'][:50]!r})")

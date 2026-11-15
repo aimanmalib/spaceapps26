@@ -6,9 +6,11 @@ import { fill, escapeHtml as e } from './i18n.js';
 import { cardBlock } from './cardblock.js';
 import { relief, pixels, parseColor } from './map2d.js';
 import { camera, project, frame, quads, rayEnd } from './surface3d.js';
+import { showLander } from './lander-ui.js';
 
-// maps = {siteId: () => Promise<data/map file>}; cfg = config/surface3d.json; light = config/map2d.json (same shading).
-export function mountSurface(box, { t, cfg, light, maps, uid }) {
+// maps = {siteId: () => Promise<data/map file>}; cfg = config/surface3d.json; light = config/map2d.json (same shading);
+// radii = Sun and Earth disc radii (config/view.json) for the view from the lander (ADR 0103).
+export function mountSurface(box, { t, cfg, light, maps, uid, radii }) {
   box.className = 'surface3d';
   box.innerHTML =
     `<details class="tech surf-box"><summary>${e(t('surface.heading'))}</summary><div class="surf-body"></div></details>`;
@@ -16,6 +18,8 @@ export function mountSurface(box, { t, cfg, light, maps, uid }) {
   const body = box.querySelector('.surf-body');
   const cache = new Map(); // siteId → {map, colours}
   let look = cfg.look_default_deg;
+  let lander = false; // ADR 0103: "From the lander" instead of the orbit view
+  let face = cfg.lander.start;
   let ticket = 0;
 
   const css = (name) => getComputedStyle(box).getPropertyValue(name).trim();
@@ -83,6 +87,7 @@ export function mountSurface(box, { t, cfg, light, maps, uid }) {
     const w = 2 * map.half_width_km;
     return (
       `<p>${e(fill(t('surface.intro'), { w, x: cfg.exaggeration }))}</p>` +
+      (sc.profile ? `<div class="ev-btns"><button type="button" class="ev-btn lander-open">${e(t('lander.open'))}</button></div>` : '') +
       `<label class="surf-turn" for="${uid}">${e(t('surface.turn'))} <output class="surf-value"></output></label>` +
       `<input id="${uid}" class="surf-range" type="range" min="0" max="${360 - cfg.look_step_deg}" step="${cfg.look_step_deg}" value="${look}">` +
       `<div class="surf-frame"><canvas class="surf-canvas" role="img"></canvas></div>` +
@@ -102,6 +107,12 @@ export function mountSurface(box, { t, cfg, light, maps, uid }) {
     }));
   }
 
+  // Switch between the orbit view and the view from the lander; keyboard focus moves to the button that switches back.
+  function toggle(on, focusSel) {
+    lander = on;
+    render().then(() => body.querySelector(focusSel)?.focus({ preventScroll: true }));
+  }
+
   async function render() {
     const sc = block.sc;
     if (!sc || !details.open) return;
@@ -119,7 +130,12 @@ export function mountSurface(box, { t, cfg, light, maps, uid }) {
       }
       if (mine !== ticket) return;
       const { map, col } = cache.get(sc.site.id);
+      if (lander && sc.profile) {
+        showLander(body, { t, cfg, map, col, sc, radii, uid, css, dirName, face, onFace: (b) => (face = b), onExit: () => toggle(false, '.lander-open') });
+        return;
+      }
       body.innerHTML = html(map, sc);
+      body.querySelector('.lander-open')?.addEventListener('click', () => toggle(true, '.lander-exit'));
       body.querySelector('.surf-range').addEventListener('input', (ev) => {
         look = +ev.target.value;
         redraw(map, col, sc);

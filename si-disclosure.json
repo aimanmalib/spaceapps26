@@ -18,6 +18,7 @@
         "slide layout",
         "suggested project names",
         "suggested features (chosen by the author)",
+        "comparison with other public entries to this challenge and, from it, features built by several SI sessions in parallel (15 November 2026)",
         "red-team review of the entry against the aim of a Global Award, its measurements, and the changes the author adopted from it (15 November 2026)",
         "Indonesian and Malay translations of the interface (optional; English is the default and the reference), not reviewed by a native speaker",
         "English text, drafted from the author's choices and the measured results, reviewed by the author"
@@ -34,7 +35,8 @@
     "accepting the open-source participant terms",
     "submission",
     "further features suggested by SI (mission window finder, shareable links with a plain verdict and a Now button, a page for teachers, a guided tour built as one button that opens the one-kilometre example; then a real NASA photograph on the first screen, a one-year overview of every listed site, Indonesian and Malay interface options): suggested by SI at the author's request on 15 November 2026; the author considered each list and chose all of them",
-    "the aim of a Global Award, and which changes to adopt from an SI red-team review of the entry (15 November 2026): the NASA PGDA comparison over the same 18.6 years with a sensitivity test at the ridge check point; a 360-degree horizon strip and a one-line verdict at the top of every card; the terrain range on the terrain cards; four more south polar sites (three future targets picked by SI from NASA and LROC pages that state a coordinate, and the place where IM-1 came to rest)"
+    "the aim of a Global Award, and which changes to adopt from an SI red-team review of the entry (15 November 2026): the NASA PGDA comparison over the same 18.6 years with a sensitivity test at the ridge check point; a 360-degree horizon strip and a one-line verdict at the top of every card; the terrain range on the terrain cards; four more south polar sites (three future targets picked by SI from NASA and LROC pages that state a coordinate, and the place where IM-1 came to rest)",
+    "features that other public entries to this challenge had (15 November 2026): ready-made comparisons with an opening sentence about rescheduling, a mission check with a GO / RISKY / NO-GO line, a calendar of every site by day, a view from the lander, dates to the end of 2030; asked for by the author, built by SI"
   ],
   "si_generated_paths": [
     "src/",

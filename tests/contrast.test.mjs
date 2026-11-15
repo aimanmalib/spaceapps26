@@ -26,7 +26,7 @@ test('contrast formula matches known values', () => {
 
 test('every text colour token reaches 4.5:1 on the page and card backgrounds', () => {
   const low = [];
-  for (const fg of ['text', 'muted', 'accent', 'earth', 'warn']) {
+  for (const fg of ['text', 'muted', 'accent', 'earth', 'warn', 'go']) {
     for (const bg of ['bg', 'surface', 'sky']) {
       const r = ratio(token(fg), token(bg));
       if (r < 4.5) low.push(`${fg} on ${bg}: ${r.toFixed(2)}`);

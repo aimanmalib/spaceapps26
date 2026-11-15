@@ -48,7 +48,7 @@ export function mountEarthView(box, { t, view, ev, uid }) {
     if (state.point === 'site') return { profile: sc.profile, pos: sc.sample[state.body] };
     const file = await ev.places[sc.site.id]();
     const p = file.points.find((q) => q.dir === state.point);
-    const table = await ev.engine({ lat: p.lat, lon_east: p.lon_east });
+    const table = await ev.engine({ lat: p.lat, lon_east: p.lon_east }, sc.ms);
     const sample = sampleAt(table, sc.ms);
     return sample ? { profile: { elev: p.elev, azimuth_step_deg: file.azimuth_step_deg }, pos: sample[state.body] } : null;
   }
@@ -83,7 +83,8 @@ export function mountEarthView(box, { t, view, ev, uid }) {
       dir: t(margin > 0 ? 'answer.above' : 'answer.below'),
       disc: fill(t(`disc.${body}.${discState(margin, r)}`), { line: t('disc.line_terrain') }),
     });
-    caption.textContent = fill(t('ev.caption'), {
+    // Past the frozen Horizons tables (ADR 0104) the caption names the in-browser engine instead of the frozen data.
+    caption.textContent = fill(t(sc.source === 'engine' ? 'years.ev_caption' : 'ev.caption'), {
       body: t(`sky.${body}`),
       az: got.pos.az.toFixed(d),
       time: formatUtc(sc.ms).replace('T', ' '),
