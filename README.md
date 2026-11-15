@@ -61,15 +61,13 @@ always change). No account, key or login is needed.
 | The page's hourly interpolation of the frozen tables | `data/validation.json` (`horizons`) | `python3 scripts/validate.py` |
 | Own coordinates: the in-browser engine at unnamed points | `data/validation.json` (`engine`) | `python3 scripts/validate.py --engine` |
 | Dates after the frozen tables, 2028 to 2030 | `data/validation-years.json` | `python3 scripts/validate_years.py` |
-| Terrain skyline against NASA PGDA maps, same 18.6 years | `data/validation.json` (`pgda_period`) | `python3 scripts/horizon.py --download && python3 scripts/pgda_period.py` |
-| Terrain skyline against NASA PGDA at random points | `data/validation.json` (`pgda_sample`) | `python3 scripts/horizon.py --download && python3 scripts/pgda_sample.py` |
+| Terrain skyline against NASA PGDA maps: same 18.6 years; random points | `data/validation.json` (`pgda_period`; `pgda_sample`) | `python3 scripts/horizon.py --download && python3 scripts/pgda_period.py && python3 scripts/pgda_sample.py` |
 | The one-kilometre finding | `data/shift-year/shift-year.json` | `python3 scripts/horizon.py --download && python3 scripts/shifts.py && node scripts/shift_year.mjs` |
 | The frozen Sun and Earth tables | `data/ephem/<site>.json` | `python3 scripts/fetch_horizons.py im-2` |
 | All of the above, from the public NASA sources | all of `data/` | `bash scripts/reproduce.sh` ([steps](docs/REPRODUCE.md)) |
 
-The Horizons check at scale asks for many minutes in one request (Horizons `TLIST`), one request per site and body, at most one
-request per second, retried after errors; the raw answers stay in `data/horizons-cache.json`, so a second run sends no request.
-The LOLA download (`--download`, about 145 MB) goes to a cache folder outside the repository.
+The check at scale sends one Horizons request per site and body (`TLIST` of minutes), at most one per second, retried after errors;
+a second run reads `data/horizons-cache.json` and sends none. `--download` (LOLA, about 145 MB) saves outside the repository.
 
 ```mermaid
 flowchart LR
@@ -93,18 +91,11 @@ flowchart LR
     W["src/ephem.js reads the tables, src/moonsky.js computes later dates and own coordinates"]
     U["Cards, calendar, Validation page"]
   end
-  H --> F --> E
-  L --> Z --> K
-  H --> V
+  H --> F --> E --> W --> U
+  L --> Z --> K --> W
+  H --> V --> R --> U
   W -.->|same code, run by the scripts| V
-  V --> R
-  P --> G --> R
-  L --> G
-  K --> G
-  E --> W
-  K --> W
-  W --> U
-  R --> U
+  P & L & K --> G --> R
   R --> T["npm test: validation numbers on the pages and in this README match their files"]
 ```
 
@@ -339,15 +330,8 @@ Sun and Earth positions come from the JPL Horizons System; terrain comes from LR
 At scale (ADR 0108): `scripts/validate.py --scale` draws 720 random site-and-minute pairs (40 at each of the 18 listed sites,
 fixed seed, never on a table hour) from 2026-11-01 to 2030-12-31: 178 on the dates of the frozen tables, which the page reads,
 and 542 on the later dates, which the browser computes. JPL Horizons is asked for the same minutes in 36 batched requests
-(`data/validation-scale.json`; summary in `data/validation.json`, block `scale`; raw answers in `data/horizons-cache.json`):
-
-| Angle | Largest difference | Average difference |
-|---|---|---|
-| Sun azimuth | 0.0446° | 0.0020° |
-| Sun elevation | 0.0045° | 0.0014° |
-| Earth azimuth | 0.0150° | 0.0018° |
-| Earth elevation | 0.0047° | 0.0013° |
-
+(`data/validation-scale.json`; summary in `data/validation.json`, block `scale`; raw answers in `data/horizons-cache.json`).
+Largest / average difference: Sun azimuth 0.0446° / 0.0020°, Sun elevation 0.0045° / 0.0014°, Earth azimuth 0.0150° / 0.0018°, Earth elevation 0.0047° / 0.0013°.
 Over all angles: largest difference 0.0446°; same solar power answer 720 of 720, same Earth answer 720 of 720.
 Frozen-table dates: largest 0.0054°; engine dates: largest 0.0446°. Measured on the sky (the angle between the
 two directions), the largest difference is 0.0061° for the Sun and 0.0063° for Earth: the 0.0446° is a Sun azimuth
@@ -471,9 +455,8 @@ in `data/` can be rebuilt from the NASA sources with one command: [`docs/REPRODU
 | Compare | 54, 60 | 100, 100 | 100, 100 | 100, 100 |
 | Overview | 98, 96 | 96, 96 | 100, 100 | 100, 100 |
 
-  On Compare about 25 Performance points are lost to layout shift of the comparison section after load (CLS 1.07);
-  the rest is blocking time, which changes with the server's load. Accessibility on Overview: the calendar cells are smaller
-  than the touch-target size Lighthouse asks for.
+  Compare loses about 25 Performance points to layout shift of the comparison section after load (CLS 1.07), the rest to blocking
+  time, which changes with the server's load. Overview accessibility: the calendar cells are below Lighthouse's touch-target size.
 
 ## AI disclosure (Super Intelligence / SI use)
 

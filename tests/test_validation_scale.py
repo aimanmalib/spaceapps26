@@ -102,8 +102,9 @@ class Recorded(unittest.TestCase):
         rows = load("data/validation-scale.json")["pairs"]
         top = max(rows, key=lambda r: abs(r["diff"]["sun"]["az"]))
         self.assertIn(f"Sun azimuth with the Sun {top['horizons']['sun']['el']:.1f}° high", readme)
-        for q in s["by_quantity"].values():
-            self.assertIn(f"| {q['max_abs_deg']:.4f}° | {q['mean_abs_deg']:.4f}° |", readme)
+        names = {"sun_az": "Sun azimuth", "sun_el": "Sun elevation", "earth_az": "Earth azimuth", "earth_el": "Earth elevation"}
+        for k, q in s["by_quantity"].items():
+            self.assertIn(f"{names[k]} {q['max_abs_deg']:.4f}° / {q['mean_abs_deg']:.4f}°", readme)
         for src, word in (("table", "Frozen-table dates"), ("engine", "engine dates")):
             self.assertIn(f"{word}: largest {s['by_source'][src]['max_abs_deg']:.4f}°", readme)
         self.assertIn(f"{s['by_source']['table']['same_answer']['of']} on the dates of the frozen tables, which the page reads, and "
