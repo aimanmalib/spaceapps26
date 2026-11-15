@@ -571,6 +571,15 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
     },
     {
+      "file": "validation-years.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "note": "Engine (src/moonsky.js) against JPL Horizons on random listed-site pairs after the frozen tables (config/years.json check); one Horizons request per pair and body, 1-minute span.",
+      "retrieved_at": "2026-11-15T12:41:07Z",
+      "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
+      "script": "scripts/validate_years.py",
+      "generated_by": "Claude Code (Anthropic) wrote this script; reference numbers come from JPL Horizons"
+    },
+    {
       "file": "validation.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
       "note": "One Horizons request per pair and body (same parameters as the ephem tables, 1-minute span). The \"engine\" part reuses the listed-site answers and adds pairs at unnamed check points (config/validation.json).",
