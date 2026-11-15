@@ -4,6 +4,7 @@ import { fill, escapeHtml as e } from './i18n.js';
 import { loadTable } from './data.js';
 import { parseUtc, formatUtc, tableRange, sampleAt, sharedScale } from './ephem.js';
 import { resultHtml } from './result.js';
+import { playFirstDay } from './first-day.js';
 import { scenarioFacts } from './facts.js';
 import { glanceHtml } from './glance.js';
 import { relativeTable } from './terrain.js';
@@ -96,6 +97,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
   };
   const exampleNarrow = view.example_below_answers_max_width_px && window.matchMedia?.(`(max-width: ${view.example_below_answers_max_width_px}px)`);
   let ticket = 0;
+  let drawnOnce = false; // first-load motion (ADR 0112) plays on the first draw only
 
   function renumber() {
     cards.forEach((c, i) => {
@@ -211,6 +213,11 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
       verdicts.innerHTML = rows
         .map((r, i) => `<li><strong>${e(fill(t('scenario.label'), { n: i + 1 }))}:</strong> ${e(r.sample ? verdictText(t, r.site.name, r.up, r.disc) : t('verdict.no_answer'))}</li>`)
         .join('');
+    }
+    // First-load motion (ADR 0112): once per load, the first card's strip plays one lunar day and lands on the chosen time.
+    if (!drawnOnce) {
+      drawnOnce = true;
+      if (rows[0]?.sample) playFirstDay(rows[0].c.el.querySelector('.card-result .pano-plot'), rows[0], view);
     }
   }
 

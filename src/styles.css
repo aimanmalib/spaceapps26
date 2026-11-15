@@ -517,6 +517,8 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
   color: var(--text); text-shadow: 0 0 3px var(--bg), 0 0 6px var(--bg); }
 .pano-tag.is-left { margin-left: -0.8rem; transform: translate(-100%, -50%); }
 .pano-corner { position: absolute; top: 0.3rem; font-size: var(--fs-2xs); line-height: 1; color: var(--muted); text-shadow: 0 0 3px var(--bg); font-variant-numeric: tabular-nums; }
+/* First-load motion (ADR 0112): while the strip plays a lunar day, its corner labels step aside (no animation). */
+.pano-plot.is-playing .pano-corner { visibility: hidden; }
 .pano-scale { left: 0.4rem; }
 .pano-kind { right: 0.4rem; }
 .pano-az { position: absolute; bottom: 0.25rem; transform: translateX(-50%); font-size: var(--fs-2xs); line-height: 1; color: var(--muted); text-shadow: 0 0 3px var(--bg); }
