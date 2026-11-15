@@ -74,9 +74,12 @@ export function makeYears({ eph, cfg, frozen, engine }) {
 
 // Label key for the card: Horizons table, or the engine (validated / not validated over the later years).
 // check = summary from data/validation-years.json ({max_abs_deg, same_answer:{power, comm, of}}).
-export function checkPassed(check, maxDiffDeg) {
-  if (!check || !check.same_answer?.of) return false;
-  return check.max_abs_deg <= maxDiffDeg && check.same_answer.power === check.same_answer.of && check.same_answer.comm === check.same_answer.of;
+// Rule (ADR 0113): Sun and Earth directions within maxSkyDeg on the sky (great circle); azimuth is undefined at the zenith.
+export function checkPassed(check, maxSkyDeg) {
+  const sky = check?.sky_separation;
+  if (!check || !check.same_answer?.of || !sky?.sun || !sky?.earth) return false;
+  return sky.sun.max_deg <= maxSkyDeg && sky.earth.max_deg <= maxSkyDeg
+    && check.same_answer.power === check.same_answer.of && check.same_answer.comm === check.same_answer.of;
 }
 
 export function sourceKey(source, laterYears, passed) {

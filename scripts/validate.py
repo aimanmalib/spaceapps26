@@ -110,7 +110,10 @@ def compare(pairs, shown, refs, nd):
         diff = {b: {"az": round(az_diff(sample[b]["az"], ref[b]["az"]), nd), "el": round(sample[b]["el"] - ref[b]["el"], nd)}
                 for b in ("sun", "earth")}
         shown_r = {b: {k: round(v, nd) for k, v in sample[b].items()} for b in ("sun", "earth")}
-        rows.append(dict(pair, shown=shown_r, horizons=ref, diff=diff))
+        # For information (ADR 0113): the angle on the sky between the shown and the Horizons direction (great circle); the
+        # pass rules stay on the azimuth and elevation differences.
+        sky = {b: round(sky_separation(sample[b], ref[b]), nd) for b in ("sun", "earth")}
+        rows.append(dict(pair, shown=shown_r, horizons=ref, diff=diff, sky_deg=sky))
         print(f"{pair['site']} {pair['time_utc']}: {diff}", flush=True)
     return rows
 
@@ -205,7 +208,7 @@ def all_checks(v, years, scale_rows, listed, nd, threshold):
         "scale": scale_rows,
     }
     rows = [r for part in parts.values() for r in part]
-    return dict(summarize(rows, nd, threshold), pairs=len(rows), angles=4 * len(rows),
+    return dict(summarize(rows, nd, threshold), sky_separation=separation_summary(rows, nd), pairs=len(rows), angles=4 * len(rows),
                 parts={k: len(p) for k, p in parts.items()}, different=len(differing([dict(r, source="") for r in rows], threshold)))
 
 
