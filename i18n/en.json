@@ -603,5 +603,6 @@
   "terrainown.horizon_outer": "Horizon: LOLA terrain, coarse {coarse} m grid ({terrainLat}° S to {fineLat}° S). Not checked against 80 m profiles: no listed site with one lies in this band.",
   "terrainown.details": "Above the horizon means more than {threshold}° above the terrain skyline in that direction. For own coordinates the skyline is computed in your browser from the LRO LOLA south polar grids: the full {pole} m grid within {poleKm} km of the pole, block-averaged copies elsewhere ({fine} m from the 80 m grid, {coarse} m from the 240 m grid), with the same rays as the listed sites' skylines (observer {h} m above the surface, same ideal-sphere reference as the JPL Horizons angles). Hours of the year in which both answers match the 80 m skyline: {list}.",
   "terrainown.failed": "Horizon: ideal sphere horizon. The LOLA terrain for this point could not be loaded; choose the point again to retry.",
-  "terrainown.horizon_pole": "Horizon: LOLA terrain, full {pole} m grid (within {poleKm} km of the pole), the same grid as the listed sites' skylines (ADR 0106)."
+  "terrainown.horizon_pole": "Horizon: LOLA terrain, full {pole} m grid (within {poleKm} km of the pole), the same grid as the listed sites' skylines (ADR 0106).",
+  "terrainown.shift_none": "Location shifts are precomputed for the listed sites only. To compare a nearby point, type its coordinates in another scenario: it gets its own LOLA skyline."
 }

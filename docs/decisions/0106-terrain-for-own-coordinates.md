@@ -31,8 +31,10 @@ needed, with the gate measured again at every listed polar site that has an 80 m
   pole)"; on the 400 m copy "LOLA terrain, coarse 400 m grid — agrees with the 80 m profiles in ≥ 97 % of hours at 5 of 6
   polar sites (ADR 0037). Not at Shackleton connecting ridge (53.8 %): on narrow ridges and crater rims the coarse grid lowers
   the ground, so treat the answer there as rough."; on the 960 m copy (75° S to 80° S) "not checked against 80 m profiles".
-  The numbers come from `data/terrain/gate.json`, not from the text. Technical details list every measured site.
+  The numbers come from `data/terrain/gate.json`, not from the text. Technical details list every measured listed site.
 - If the download fails the card falls back to the ideal sphere and says so.
+- "Small shifts" on such a card has no precomputed nearby skylines (those exist for listed sites only); it says so and
+  suggests typing the nearby point as another scenario, which then gets its own skyline.
 
 ## Measured gate (both answers the same, centre of the disc, threshold 0°)
 

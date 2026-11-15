@@ -603,5 +603,6 @@
   "terrainown.horizon_outer": "Ufuk: rupa bumi LOLA, grid kasar {coarse} m ({terrainLat}° S hingga {fineLat}° S). Tidak disemak dengan profil 80 m: tiada tapak tersenarai yang mempunyainya dalam jalur ini.",
   "terrainown.details": "Di atas ufuk bermaksud lebih daripada {threshold}° di atas garis langit rupa bumi pada arah itu. Untuk koordinat sendiri garis langit dikira dalam pelayar anda dari grid kutub selatan LRO LOLA: grid penuh {pole} m dalam lingkungan {poleKm} km dari kutub, salinan purata blok di tempat lain ({fine} m dari grid 80 m, {coarse} m dari grid 240 m), dengan sinar yang sama seperti garis langit tapak tersenarai (pemerhati {h} m di atas permukaan, rujukan sfera ideal yang sama seperti sudut JPL Horizons). Jam dalam setahun yang kedua-dua jawapan sepadan dengan garis langit 80 m: {list}.",
   "terrainown.failed": "Ufuk: ufuk sfera ideal. Rupa bumi LOLA untuk titik ini tidak dapat dimuatkan; pilih titik itu semula untuk mencuba lagi.",
-  "terrainown.horizon_pole": "Ufuk: rupa bumi LOLA, grid penuh {pole} m (dalam lingkungan {poleKm} km dari kutub), grid yang sama seperti garis langit tapak tersenarai (ADR 0106)."
+  "terrainown.horizon_pole": "Ufuk: rupa bumi LOLA, grid penuh {pole} m (dalam lingkungan {poleKm} km dari kutub), grid yang sama seperti garis langit tapak tersenarai (ADR 0106).",
+  "terrainown.shift_none": "Anjakan lokasi dikira lebih awal untuk tapak tersenarai sahaja. Untuk membandingkan titik berhampiran, taip koordinatnya dalam senario lain: ia mendapat garis langit LOLA sendiri."
 }

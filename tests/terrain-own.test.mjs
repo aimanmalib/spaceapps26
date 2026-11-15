@@ -130,7 +130,7 @@ test('client: points north of the limit resolve to null without starting the wor
 test('i18n: the terrain label says coarse grid, 80 m profiles and ADR 0037 in every language file', () => {
   for (const lang of ['en', 'id', 'ms']) {
     const d = read(`i18n/${lang}.json`);
-    for (const k of ['terrainown.horizon', 'terrainown.horizon_pole', 'terrainown.horizon_outer', 'terrainown.details', 'terrainown.loading', 'terrainown.failed']) assert.ok(d[k], `${lang} ${k}`);
+    for (const k of ['terrainown.horizon', 'terrainown.horizon_pole', 'terrainown.horizon_outer', 'terrainown.details', 'terrainown.loading', 'terrainown.failed', 'terrainown.shift_none']) assert.ok(d[k], `${lang} ${k}`);
     assert.ok(d['terrainown.horizon'].includes('ADR 0037') && d['terrainown.horizon'].includes('80 m') && d['terrainown.horizon'].includes('{fine} m'), lang);
   }
 });
