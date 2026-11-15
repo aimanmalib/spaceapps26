@@ -1,0 +1,13 @@
+{
+  "_note": "Mission check (ADR 0101): per card, over a mission period starting at the card time (period_days_options, default_period_days; 29.5 = one lunar day, a synodic month), counted on the hourly table against the horizon used (centre of the disc, view.horizon_threshold_deg, same rule as the answers). Longest night = longest unbroken run of hours with the Sun's centre below that horizon; longest Earth gap = same for Earth. Power = geometry estimate only, no panel efficiency: solar_constant_w_m2 x geometry x share of the Sun's disc above the horizon used (disc radius view.timeline.year.disc_radius_deg.sun); vertical panel turning to face the Sun = cos(elevation), flat panel = sin(elevation).",
+  "period_days_options": [29.5, 14],
+  "default_period_days": 29.5,
+  "solar_constant_w_m2": 1361,
+  "_note_decision": "GO when every check passes; RISKY when exactly one fails; NO-GO when two or more fail. Shares in % of the counted hours; night in hours.",
+  "decision": {
+    "sun_min_pct": 70,
+    "earth_min_pct": 50,
+    "night_max_hours": 72
+  },
+  "first_card_open": false
+}
