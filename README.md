@@ -58,7 +58,7 @@ Built during the event weekend (14–15 November 2026). Pages on the live site: 
 
 Built:
 
-- Pick a landing site and a UTC date and time (2026-11-01 to 2027-11-01); see the Sun and Earth relative to the horizon, whether solar power generation and
+- Pick a landing site and a UTC date and time (2026-11-01 to the end of 2030); see the Sun and Earth relative to the horizon, whether solar power generation and
   direct-to-Earth communication are possible, and the elevation of each.
 - Horizon first: every card opens with one short verdict (for example "Link to Earth, no sunlight") and a 360° strip of the
   horizon with the Sun and Earth on it; at the six south polar sites the ground in the strip is the LRO LOLA skyline. The strip's vertical
@@ -84,6 +84,17 @@ Built:
   with IM-2 at one time:
   <https://aimanmalib.github.io/spaceapps26/?s=im-2,2026-11-14T00:00&s=malapert-massif,2026-11-14T00:00&s=nobile-rim-1,2026-11-14T00:00&s=shackleton-ridge,2026-11-14T00:00>
 - Up to four scenarios at once, as cards and in one side-by-side table.
+- Try a comparison: a row of ready-made comparisons above the cards, each one a shareable link: "Launch slipped two weeks" (IM-2 on
+  2026-11-17 against 2026-12-01: the sunlight is lost, Earth stays in view), "IM-1: planned vs where it landed", "Apollo 11 vs the
+  south pole" and "Ridge: summer vs winter" (`config/presets.json`; the tests recompute each comparison's answers from the data).
+- Mission check on every card: a GO / RISKY / NO-GO line in the card head for a stay of 7, 14 or 29.5 days from the chosen time,
+  and under the answers the numbers behind it: the share of hours with the Sun, Earth and both above the horizon used, the longest
+  night, the longest gap without Earth, and a geometry estimate in W/m² for a vertical panel that turns to the Sun against a flat
+  one (1361 W/m² × geometry × the visible share of the Sun's disc; no panel efficiency). GO needs the Sun in at least 70 % and
+  Earth in at least 50 % of the hours and no night longer than 72 hours; one failed check gives RISKY, two or more NO-GO. These
+  limits are settings (`config/metrics.json`), not the requirements of any mission.
+- Dates to the end of 2030: the frozen JPL Horizons tables cover 2026-11-01 to 2027-11-01; later dates are computed in the browser
+  on the same hourly grid, and each card says which source its angles come from (checked against JPL Horizons, below).
 - Sequential comparison: buttons on every card step to the previous or next listed site (date kept) or move the time 1 day
   earlier or later (site kept). "If the date moves" lists the same two answers, with their margins from the horizon used, for the
   chosen time and the next 14 days at the same time of day, marks the dates where an answer differs and counts them. Measured
@@ -140,6 +151,11 @@ Built:
   Average sunlight (NASA PGDA): NASA's average solar illumination map of the south pole (share of hourly steps over 18.6 years
   when any part of the Sun was visible), read on the same cells by `scripts/map_sunlight.py`, not computed by this tool. At the
   centre cell it gives 47 % at IM-1 and at IM-2, the PGDA values of the validation below.
+- Day by day at every site (Overview page): a calendar of all listed sites by UTC day. Each cell shows how that day's 24 hours
+  split between the Sun and Earth both in view, the Sun only, Earth only and neither; pick a month, sort by power, communication or
+  both, and open any day on Compare (`data/calendar.json`, `scripts/calendar.mjs`).
+- From the lander: in the 3D block of the terrain sites, a view from the lander's own position on the curved Moon, heights not
+  stretched, facing Earth or the Sun, with the LOLA skyline drawn over the ground and both discs at their true size.
 - Optional Indonesian and Malay interface text (SI translations, not reviewed by a native speaker): add `?lang=id` or `?lang=ms`
   to any page address, or use the links in the page footer. English stays the default; the choice is not stored.
 
@@ -151,7 +167,13 @@ sources page lists every frozen data file with the request it came from.
 
 Limitations:
 
-- Dates (d): the Sun and Earth tables cover 2026-11-01 00:00 to 2027-11-01 00:00 UTC only, one row per hour, interpolated in between.
+- Dates (d): 2026-11-01 to 2030-12-31 UTC. The frozen JPL Horizons tables cover 2026-11-01 00:00 to 2027-11-01 00:00, one row per
+  hour, interpolated in between; later dates use the in-browser engine on the same hourly grid. Every one-year number (Overview,
+  calendar, year shares, the NASA PGDA checks) covers that first year only.
+- Mission check: geometry only. The W/m² estimate uses 1361 W/m² (NASA NSSDCA Moon Fact Sheet) with no panel efficiency, no
+  temperature and no Sun-distance correction, and the GO limits are settings, not the requirements of any mission.
+- From the lander: the 3D ground uses 0.5 km cells out to 40 km, so its own skyline can differ from the LOLA 80 m line that the
+  answers use (by up to 0.73° at the place where IM-1 came to rest); the view draws that line and says which one is judged.
 - Terrain horizon (j): only at the six listed sites inside the LOLA south polar grids used here (75°S to the pole): IM-1 at two
   points, IM-2 and the three future targets.
   Every other listed site uses the ideal sphere horizon.
@@ -240,6 +262,11 @@ Largest difference over all angles (engine): 0.0446°. Same solar power answer: 
 The largest difference is the Earth azimuth on the far side (0°N 180°E, 2027-09-26 08:16 UT) with the Earth 88.4° below the
 horizon, where azimuth is nearly undefined.
 
+Dates after the frozen tables: `scripts/validate_years.py` compares the in-browser engine with JPL Horizons at 24 random
+site-and-minute pairs at the listed sites in 2028 to 2030 (fixed seed, never on a table hour; `data/validation-years.json`): largest
+difference 0.0045°, average 0.0013°, same solar power answer 24 of 24, same Earth communication answer
+24 of 24.
+
 Is the terrain horizon right? `scripts/pgda.py` compares it with an independent NASA product, the average Sun and Earth visibility
 maps of the lunar south pole (E. Mazarico, NASA GSFC PGDA, LOLA grid 120 m per pixel), at 7 points. A map value is the share
 of hourly steps over 18.6 years when any part of the disc was visible; the tool's value in this first table is the share of hours
@@ -320,7 +347,9 @@ SI was used in this project: Claude Code (Anthropic).
   evening of 15 November: to aim for a Global Award and to adopt changes from an SI red-team review of the entry (so far the PGDA
   comparison over the same 18.6 years, with the ridge-point test; a 360° horizon strip with a one-line verdict at the top of
   every card; the terrain range on the terrain cards; and four more south polar sites, three of them future targets that SI
-  picked from NASA and LROC pages that state a coordinate).
+  picked from NASA and LROC pages that state a coordinate). Also that evening: to add features that other public entries to this
+  challenge had and this one lacked (ready-made comparisons, a mission check, a calendar of every site by day, a view from the
+  lander, dates to the end of 2030); SI compared the entries and several SI sessions built the features in parallel.
 - **Done by SI, on my instructions:** a feasibility comparison of the challenges, translation of the challenge text into Malay for
   me, build order, interface design, all code, data scripts and tests, slide layout, suggested project names, the red-team review of
   the entry with its measurements and the changes adopted from it, the optional Indonesian and
