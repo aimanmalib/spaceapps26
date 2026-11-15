@@ -45,7 +45,7 @@ export function mountMetrics(box, { t, cfg, view, head, open, uid }) {
   const rules = cfg.decision;
   const d = view.decimals;
   const opts = cfg.period_days_options
-    .map((n) => `<option value="${n}"${n === cfg.default_period_days ? ' selected' : ''}>${e(fill(t('metrics.days'), { n }))}</option>`)
+    .map((n) => `<option value="${n}"${n === cfg.default_period_days ? ' selected' : ''}>${e(fill(t(n === cfg.week_days ? 'metrics.days_week' : 'metrics.days'), { n }))}</option>`)
     .join('');
   box.innerHTML =
     `<details class="mm-box" id="${uid}-d"${open ? ' open' : ''}><summary>${e(t('metrics.heading'))}</summary>` +

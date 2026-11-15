@@ -537,5 +537,6 @@
   "metrics.power_flat": "Mendatar di permukaan",
   "metrics.power_label": "Anggaran geometri, tanpa kecekapan panel.",
   "metrics.power_note": "{solar} W/m² × geometri (kos sudut dongak Matahari untuk panel menegak, sin untuk panel mendatar) × bahagian cakera Matahari di atas ufuk yang digunakan; jam malam dikira sifar. Tanpa kecekapan panel, debu, suhu atau bayang pada panel itu sendiri.",
-  "metrics.rules": "GO bila Matahari kelihatan sekurang-kurangnya {sun_min} % daripada jam, Bumi sekurang-kurangnya {earth_min} % dan malam terpanjang paling lama {night_max} jam; BERISIKO bila satu semakan gagal; NO-GO bila dua atau lebih gagal. Peraturan saringan untuk membandingkan tapak, bukan keperluan misi."
+  "metrics.rules": "GO bila Matahari kelihatan sekurang-kurangnya {sun_min} % daripada jam, Bumi sekurang-kurangnya {earth_min} % dan malam terpanjang paling lama {night_max} jam; BERISIKO bila satu semakan gagal; NO-GO bila dua atau lebih gagal. Peraturan saringan untuk membandingkan tapak, bukan keperluan misi.",
+  "metrics.days_week": "{n} h (satu minggu permukaan)"
 }

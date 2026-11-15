@@ -23,7 +23,9 @@ const opts = { threshold: 0, solar: 1361, sunRadius: 0.267 };
 
 test('config/metrics.json: default period is one of the options, thresholds as agreed', () => {
   assert.ok(cfg.period_days_options.includes(cfg.default_period_days));
-  assert.deepEqual(cfg.period_days_options, [29.5, 14]);
+  assert.deepEqual(cfg.period_days_options, [7, 14, 29.5]);
+  assert.equal(cfg.default_period_days, 7);
+  assert.ok(cfg.period_days_options.includes(cfg.week_days));
   assert.equal(cfg.solar_constant_w_m2, 1361);
   assert.deepEqual(cfg.decision, { sun_min_pct: 70, earth_min_pct: 50, night_max_hours: 72 });
 });
@@ -149,4 +151,23 @@ test('real tables: a lit polar ridge (Shackleton ridge) reaches GO over one luna
   const o = { threshold: view.horizon_threshold_deg, solar: cfg.solar_constant_w_m2, sunRadius: view.timeline.year.disc_radius_deg.sun };
   const m = missionMetrics(table, rel, parseUtc('2026-11-01T00:00'), 29.5, o);
   assert.equal(decide(m, cfg.decision).decision, 'go', JSON.stringify(m));
+});
+
+test('real tables: the default cards (IM-2, 2026-11-14 and 16) are GO over the default one surface week', () => {
+  const table = load('data/ephem/im-2.json');
+  const rel = relativeTable(table, load('data/horizon/im-2.json'));
+  const o = { threshold: view.horizon_threshold_deg, solar: cfg.solar_constant_w_m2, sunRadius: view.timeline.year.disc_radius_deg.sun };
+  for (const sc of view.default_scenarios) {
+    const m = missionMetrics(table, rel, parseUtc(sc.time_utc), cfg.default_period_days, o);
+    assert.equal(m.rows, 168);
+    assert.equal(decide(m, cfg.decision).decision, 'go', `${sc.time_utc}: ${JSON.stringify(m)}`);
+  }
+});
+
+test('i18n: the week option label names the length and does not claim a mission', () => {
+  for (const lang of ['en', 'id', 'ms']) {
+    const v = load(`i18n/${lang}.json`)['metrics.days_week'];
+    assert.ok(v.includes('{n}'), `${lang}: ${v}`);
+  }
+  assert.equal(load('i18n/en.json')['metrics.days_week'].replace('{n}', '7'), '7 d (one surface week)');
 });

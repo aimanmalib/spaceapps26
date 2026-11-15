@@ -12,7 +12,8 @@ judgement and no power number.
 ## Decision
 
 - `src/metrics.js` (pure): over a mission period that starts at the card time (`config/metrics.json`
-  `period_days_options`, default 29.5 days = one lunar day, option 14 days), on the hourly table and the horizon used by the
+  `period_days_options`: 7 days, labelled "one surface week" without claiming any mission's length, is the default; 14 and
+  29.5 days = one lunar day are the other options), on the hourly table and the horizon used by the
   card (terrain skyline or ideal sphere, centre of the disc, `view.horizon_threshold_deg`: the same rule as the answers):
   longest night (Sun below that horizon), longest gap without Earth, the share of hours with the Sun, Earth and both up, and a
   mean irradiance geometry estimate for a vertical panel that turns to face the Sun (cos elevation) and a flat panel
@@ -28,7 +29,16 @@ judgement and no power number.
 - Runs that touch the period edge show "≥" (they may be longer). A period that runs past the end of the data is counted up to
   the end and says so.
 
-## Measured (default rule, one lunar day, every day of the table)
+## Measured (default rule, every daily start in the table)
+
+Default changed from 29.5 to 7 days the same evening: with 29.5 days almost every card read NO-GO, which hides the differences
+between sites and times. Over 7 days (359 starts per site, GO / RISKY / NO-GO): Apollo 11 145/21/193, Apollo 12 144/24/191,
+Apollo 14 145/22/192, Apollo 15 146/18/195, Apollo 16 143/21/195, Apollo 17 143/24/192, Chandrayaan-3 143/23/193,
+Chang'e 4 0/150/209 (Earth never in view), IM-1 130/20/209, IM-1 landed 106/22/231, IM-2 106/36/217, Malapert Massif
+15/92/252, Nobile Rim 1 73/58/228, Shackleton connecting ridge 138/141/80. Both default cards (IM-2, 14 and 16 November 2026)
+are GO over 7 days (Sun 81.5 % and 100 %, Earth 100 %; unit test).
+
+Over one lunar day:
 
 Every listed site is NO-GO for every 29.5-day start except Shackleton connecting ridge (68 GO starts of 336): a lunar day
 holds a two-week night almost everywhere. With 14 days, the Apollo and Chandrayaan-3 sites are GO for about 80 starts, IM-2

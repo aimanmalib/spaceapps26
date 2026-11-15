@@ -537,5 +537,6 @@
   "metrics.power_flat": "Datar di permukaan",
   "metrics.power_label": "Perkiraan geometri, tanpa efisiensi panel.",
   "metrics.power_note": "{solar} W/m² × geometri (cos elevasi Matahari untuk panel tegak, sin untuk panel datar) × bagian piringan Matahari di atas cakrawala yang dipakai; jam malam dihitung nol. Tanpa efisiensi panel, debu, suhu atau bayangan pada panel itu sendiri.",
-  "metrics.rules": "GO bila Matahari terlihat paling sedikit {sun_min} % dari jam, Bumi paling sedikit {earth_min} % dan malam terpanjang paling lama {night_max} jam; BERISIKO bila satu cek gagal; NO-GO bila dua atau lebih gagal. Aturan penyaringan untuk membandingkan lokasi, bukan persyaratan misi."
+  "metrics.rules": "GO bila Matahari terlihat paling sedikit {sun_min} % dari jam, Bumi paling sedikit {earth_min} % dan malam terpanjang paling lama {night_max} jam; BERISIKO bila satu cek gagal; NO-GO bila dua atau lebih gagal. Aturan penyaringan untuk membandingkan lokasi, bukan persyaratan misi.",
+  "metrics.days_week": "{n} h (satu pekan permukaan)"
 }

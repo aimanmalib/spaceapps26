@@ -537,5 +537,6 @@
   "metrics.power_flat": "Flat on the ground",
   "metrics.power_label": "Geometry estimate, no panel efficiency.",
   "metrics.power_note": "{solar} W/m² × geometry (cos of the Sun's elevation for the vertical panel, sin for the flat one) × share of the Sun's disc above the horizon used; night hours count as zero. No panel efficiency, dust, temperature or shadow on the panel itself.",
-  "metrics.rules": "GO when the Sun is in view at least {sun_min} % of the hours, Earth at least {earth_min} % and the longest night is at most {night_max} h; RISKY when one check fails; NO-GO when two or more fail. A screening rule for comparing sites, not a mission requirement."
+  "metrics.rules": "GO when the Sun is in view at least {sun_min} % of the hours, Earth at least {earth_min} % and the longest night is at most {night_max} h; RISKY when one check fails; NO-GO when two or more fail. A screening rule for comparing sites, not a mission requirement.",
+  "metrics.days_week": "{n} d (one surface week)"
 }
