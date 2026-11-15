@@ -17,8 +17,15 @@ The project has no numbered releases: the site is one continuous build, and each
   Sun and Earth on it. The verdict sentences sit above the side-by-side table on every width; on phones the main buttons follow
   the cards. The intro sentence is shorter.
 
+### Fixed
+- Phones: a long site name in the site list no longer widens the page (seen in WebKit with the IM-1 name).
+
 ### Added
-- Terrain range on the IM-1 and IM-2 cards: the lowest and highest skyline over the nine points 80 m apart around the site, with
+- Four more south polar sites, each with its own LOLA skyline, map, 1 km shifts and terrain range: three future targets (Malapert
+  Massif and Nobile Rim 1, two of NASA's Artemis candidate landing regions, and the Shackleton connecting ridge, the target ridge
+  of Blue Moon Mark 1) and the place where IM-1 Odysseus came to rest. Each coordinate is copied from a cited LROC or NASA page.
+  The checks now cover all fourteen sites (70 random pairs against JPL Horizons, seven points against NASA PGDA).
+- Terrain range on the terrain cards (first built for IM-1 and IM-2): the lowest and highest skyline over the nine points 80 m apart around the site, with
   the observer at 0 m and at 2 m. The card marks an answer that changes inside that range, gives the one-year shares across it,
   and the horizon strip draws it as a band (`data/band/`, `scripts/band.py`).
 

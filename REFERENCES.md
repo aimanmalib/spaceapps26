@@ -46,7 +46,17 @@ The site's Data sources page shows the same per-file list.
 - NASA NSSDCA, "Lunar landing sites" — <https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html> (Apollo 11, 12, 14, 15, 16, 17; Lunar Module positions).
 - Lunar Reconnaissance Orbiter Camera (LROC) team pages — <https://lroc.im-ldi.com/images/1321> (IM-1 nominal landing area),
   <https://lroc.im-ldi.com/featured_sites/im2/flip-book> (IM-2 Athena), <https://lroc.im-ldi.com/images/1314> (Chandrayaan-3),
-  <https://lroc.im-ldi.com/images/1100> (Chang'e 4).
+  <https://lroc.im-ldi.com/images/1100> (Chang'e 4), <https://lroc.im-ldi.com/images/1360> (IM-1 Odysseus, where it came to rest),
+  <https://lroc.im-ldi.com/images/1294> (Malapert Massif: "the heart of the Artemis 3 landing region", 86°S, 0°E),
+  <https://lroc.im-ldi.com/images/1247> (the Shackleton to de Gerlache ridge where it meets the rim of Shackleton, 89.684°S, 196.739°E).
+- NASA Ames Research Center, P. Agrawal et al. (2025), "Terrain Obstruction and Visibility Analysis of Artemis Landing Regions Using
+  Celestial Mapping System", NASA Technical Reports Server 20250009664 — <https://ntrs.nasa.gov/citations/20250009664>
+  (Figure 1: a point placed in the Nobile Rim 1 region, Lat -85.3630°, Lon 32.315156°).
+- NASA news release, "NASA Provides Update on Artemis III Moon Landing Regions" (October 2024) —
+  <https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/> (the nine candidate landing regions,
+  among them Malapert Massif and Nobile Rim 1).
+- NASA, "Moon Base Phases" — <https://www.nasa.gov/moonbase-phases/> ("Endurance will attempt a landing on the Shackleton Connecting
+  Ridge": Blue Origin's Blue Moon Mark 1, a CLPS flight).
 
 ## Libraries and tools
 

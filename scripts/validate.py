@@ -140,7 +140,8 @@ def main(argv):
         "generated_at": old.get("generated_at", now) if "--engine" in argv else now, "script": SCRIPT, "seed": vcfg["seed"],
         "horizons": horizons, "engine": engine,
         "pgda": old.get("pgda", {"sites": []}),
-        **({"pgda_sample": old["pgda_sample"]} if "pgda_sample" in old else {}),  # written by scripts/pgda_sample.py
+        # Blocks written by scripts/pgda_period.py and scripts/pgda_sample.py are kept as they are.
+        **{k: old[k] for k in ("pgda_period", "pgda_sample") if k in old},
     }
     (fh.ROOT / OUT).write_text(json.dumps(result, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     sources = fh.load("data/SOURCES.json")

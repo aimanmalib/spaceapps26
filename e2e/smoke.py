@@ -29,7 +29,7 @@ TIMEOUT_MS = 15000
 # Direct link to the "one kilometre" case (README, deck slide 4, form text).
 ONE_KM_QUERY = "?s=im-2,2026-11-14T00:00"
 # Sites with a terrain skyline in data/horizon/ (item j); every other site must say "ideal sphere horizon".
-TERRAIN_SITES = {"im-1", "im-2"}
+TERRAIN_SITES = {"im-1", "im-2", "im-1-landed", "malapert-massif", "nobile-rim-1", "shackleton-ridge"}
 # First screen (P4f): on a 1280 x 900 desktop window both large numbers of the first card end inside it; on an
 # iPhone 13 (664 px tall) the first answer of the first card starts inside it. Positions are page coordinates at scroll 0.
 # ADR 0040 (horizon first): on a 1366 x 768 laptop the first card's horizon strip and both answers end inside it; on
@@ -610,6 +610,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         options = [o for o in options if o != "custom"]
         sel.select_option(options[-1] if sel.input_value() != options[-1] else options[0])
         page.wait_for_function("b => document.querySelector('.card .card-result').innerText !== b", arg=before)
+        check(no_overflow(page), "no horizontal overflow with a long site name in the select")
         before = answers(page, 0)
         tinput = page.locator(".card input[type=datetime-local]").first
         old_t = tinput.input_value()

@@ -1,14 +1,14 @@
 {
- "generated_at": "2026-11-14T08:46:56Z",
+ "generated_at": "2026-11-15T11:26:17Z",
  "script": "scripts/validate.py",
  "seed": 20261114,
  "horizons": {
   "max_abs_deg": 0.0439,
-  "mean_abs_deg": 0.0022,
+  "mean_abs_deg": 0.0021,
   "by_quantity": {
    "sun_az": {
     "max_abs_deg": 0.0439,
-    "mean_abs_deg": 0.0027
+    "mean_abs_deg": 0.0025
    },
    "sun_el": {
     "max_abs_deg": 0.0077,
@@ -16,17 +16,17 @@
    },
    "earth_az": {
     "max_abs_deg": 0.0047,
-    "mean_abs_deg": 0.0019
+    "mean_abs_deg": 0.0018
    },
    "earth_el": {
-    "max_abs_deg": 0.0042,
-    "mean_abs_deg": 0.0022
+    "max_abs_deg": 0.0043,
+    "mean_abs_deg": 0.002
    }
   },
   "same_answer": {
-   "power": 50,
-   "comm": 50,
-   "of": 50
+   "power": 70,
+   "comm": 70,
+   "of": 70
   },
   "pairs": [
    {
@@ -1728,16 +1728,696 @@
       "el": -0.0011
      }
     }
+   },
+   {
+    "site": "im-1-landed",
+    "time_utc": "2027-02-18T11:32",
+    "shown": {
+     "sun": {
+      "az": 32.228,
+      "el": 8.1313
+     },
+     "earth": {
+      "az": 357.4273,
+      "el": 12.518
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 32.226964,
+      "el": 8.130748
+     },
+     "earth": {
+      "az": 357.426436,
+      "el": 12.516404
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.001,
+      "el": 0.0006
+     },
+     "earth": {
+      "az": 0.0009,
+      "el": 0.0016
+     }
+    }
+   },
+   {
+    "site": "im-1-landed",
+    "time_utc": "2027-07-18T17:21",
+    "shown": {
+     "sun": {
+      "az": 358.6115,
+      "el": 9.42
+     },
+     "earth": {
+      "az": 359.379,
+      "el": 7.8475
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 358.611893,
+      "el": 9.418231
+     },
+     "earth": {
+      "az": 359.38281,
+      "el": 7.84623
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0004,
+      "el": 0.0018
+     },
+     "earth": {
+      "az": -0.0038,
+      "el": 0.0013
+     }
+    }
+   },
+   {
+    "site": "im-1-landed",
+    "time_utc": "2027-09-04T17:05",
+    "shown": {
+     "sun": {
+      "az": 131.9575,
+      "el": -5.805
+     },
+     "earth": {
+      "az": 5.7317,
+      "el": 2.8292
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 131.954801,
+      "el": -5.806922
+     },
+     "earth": {
+      "az": 5.732828,
+      "el": 2.83005
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0027,
+      "el": 0.0019
+     },
+     "earth": {
+      "az": -0.0012,
+      "el": -0.0009
+     }
+    }
+   },
+   {
+    "site": "im-1-landed",
+    "time_utc": "2027-09-06T05:40",
+    "shown": {
+     "sun": {
+      "az": 113.4667,
+      "el": -3.0967
+     },
+     "earth": {
+      "az": 5.9033,
+      "el": 3.0233
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 113.465885,
+      "el": -3.094096
+     },
+     "earth": {
+      "az": 5.903657,
+      "el": 3.025403
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0008,
+      "el": -0.0026
+     },
+     "earth": {
+      "az": -0.0003,
+      "el": -0.0021
+     }
+    }
+   },
+   {
+    "site": "im-1-landed",
+    "time_utc": "2027-10-14T14:50",
+    "shown": {
+     "sun": {
+      "az": 5.735,
+      "el": 11.3183
+     },
+     "earth": {
+      "az": 354.1333,
+      "el": 15.345
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 5.732427,
+      "el": 11.320267
+     },
+     "earth": {
+      "az": 354.134619,
+      "el": 15.34393
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0026,
+      "el": -0.0019
+     },
+     "earth": {
+      "az": -0.0013,
+      "el": 0.0011
+     }
+    }
+   },
+   {
+    "site": "malapert-massif",
+    "time_utc": "2027-02-18T16:04",
+    "shown": {
+     "sun": {
+      "az": 31.066,
+      "el": 3.1807
+     },
+     "earth": {
+      "az": 359.2347,
+      "el": 6.3453
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 31.064753,
+      "el": 3.179281
+     },
+     "earth": {
+      "az": 359.234642,
+      "el": 6.34461
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0012,
+      "el": 0.0014
+     },
+     "earth": {
+      "az": 0.0,
+      "el": 0.0007
+     }
+    }
+   },
+   {
+    "site": "malapert-massif",
+    "time_utc": "2027-07-01T04:36",
+    "shown": {
+     "sun": {
+      "az": 214.534,
+      "el": -4.162
+     },
+     "earth": {
+      "az": 353.76,
+      "el": 10.178
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 214.530643,
+      "el": -4.162374
+     },
+     "earth": {
+      "az": 353.761359,
+      "el": 10.182262
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0034,
+      "el": 0.0004
+     },
+     "earth": {
+      "az": -0.0014,
+      "el": -0.0043
+     }
+    }
+   },
+   {
+    "site": "malapert-massif",
+    "time_utc": "2027-07-16T09:16",
+    "shown": {
+     "sun": {
+      "az": 28.614,
+      "el": 3.0053
+     },
+     "earth": {
+      "az": 3.8567,
+      "el": -0.8993
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 28.61136,
+      "el": 3.004784
+     },
+     "earth": {
+      "az": 3.855841,
+      "el": -0.900098
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0026,
+      "el": 0.0005
+     },
+     "earth": {
+      "az": 0.0008,
+      "el": 0.0008
+     }
+    }
+   },
+   {
+    "site": "malapert-massif",
+    "time_utc": "2027-07-22T18:08",
+    "shown": {
+     "sun": {
+      "az": 310.832,
+      "el": 2.276
+     },
+     "earth": {
+      "az": 355.2933,
+      "el": 7.4367
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 310.831392,
+      "el": 2.276561
+     },
+     "earth": {
+      "az": 355.291978,
+      "el": 7.432371
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0006,
+      "el": -0.0006
+     },
+     "earth": {
+      "az": 0.0014,
+      "el": 0.0043
+     }
+    }
+   },
+   {
+    "site": "malapert-massif",
+    "time_utc": "2027-08-12T11:40",
+    "shown": {
+     "sun": {
+      "az": 57.4267,
+      "el": 2.3867
+     },
+     "earth": {
+      "az": 5.0267,
+      "el": -1.0467
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 57.426023,
+      "el": 2.384856
+     },
+     "earth": {
+      "az": 5.025253,
+      "el": -1.048308
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0006,
+      "el": 0.0018
+     },
+     "earth": {
+      "az": 0.0014,
+      "el": 0.0016
+     }
+    }
+   },
+   {
+    "site": "nobile-rim-1",
+    "time_utc": "2027-02-21T10:03",
+    "shown": {
+     "sun": {
+      "az": 325.2645,
+      "el": 3.459
+     },
+     "earth": {
+      "az": 331.343,
+      "el": 1.6565
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 325.25976,
+      "el": 3.459331
+     },
+     "earth": {
+      "az": 331.343958,
+      "el": 1.652979
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0047,
+      "el": -0.0003
+     },
+     "earth": {
+      "az": -0.001,
+      "el": 0.0035
+     }
+    }
+   },
+   {
+    "site": "nobile-rim-1",
+    "time_utc": "2027-03-30T15:43",
+    "shown": {
+     "sun": {
+      "az": 232.1645,
+      "el": -4.0815
+     },
+     "earth": {
+      "az": 328.687,
+      "el": 0.0858
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 232.162865,
+      "el": -4.084255
+     },
+     "earth": {
+      "az": 328.690859,
+      "el": 0.08655
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0016,
+      "el": 0.0028
+     },
+     "earth": {
+      "az": -0.0039,
+      "el": -0.0007
+     }
+    }
+   },
+   {
+    "site": "nobile-rim-1",
+    "time_utc": "2027-06-23T03:26",
+    "shown": {
+     "sun": {
+      "az": 280.559,
+      "el": -0.2073
+     },
+     "earth": {
+      "az": 325.204,
+      "el": 4.0317
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 280.558316,
+      "el": -0.206552
+     },
+     "earth": {
+      "az": 325.204953,
+      "el": 4.029237
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0007,
+      "el": -0.0008
+     },
+     "earth": {
+      "az": -0.001,
+      "el": 0.0024
+     }
+    }
+   },
+   {
+    "site": "nobile-rim-1",
+    "time_utc": "2027-10-21T15:59",
+    "shown": {
+     "sun": {
+      "az": 248.9983,
+      "el": -0.1593
+     },
+     "earth": {
+      "az": 324.9395,
+      "el": 6.171
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 248.994451,
+      "el": -0.155623
+     },
+     "earth": {
+      "az": 324.93923,
+      "el": 6.167359
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0039,
+      "el": -0.0037
+     },
+     "earth": {
+      "az": 0.0003,
+      "el": 0.0036
+     }
+    }
+   },
+   {
+    "site": "nobile-rim-1",
+    "time_utc": "2027-10-26T04:41",
+    "shown": {
+     "sun": {
+      "az": 193.8615,
+      "el": -2.9968
+     },
+     "earth": {
+      "az": 329.5342,
+      "el": -0.5642
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 193.857717,
+      "el": -2.991981
+     },
+     "earth": {
+      "az": 329.531434,
+      "el": -0.56396
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0038,
+      "el": -0.0049
+     },
+     "earth": {
+      "az": 0.0027,
+      "el": -0.0002
+     }
+    }
+   },
+   {
+    "site": "shackleton-ridge",
+    "time_utc": "2027-01-29T19:38",
+    "shown": {
+     "sun": {
+      "az": 75.987,
+      "el": 0.35
+     },
+     "earth": {
+      "az": 169.971,
+      "el": -7.3563
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 75.986148,
+      "el": 0.35218
+     },
+     "earth": {
+      "az": 169.974375,
+      "el": -7.357459
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0009,
+      "el": -0.0022
+     },
+     "earth": {
+      "az": -0.0034,
+      "el": 0.0011
+     }
+    }
+   },
+   {
+    "site": "shackleton-ridge",
+    "time_utc": "2027-04-26T21:27",
+    "shown": {
+     "sun": {
+      "az": 95.3605,
+      "el": -1.58
+     },
+     "earth": {
+      "az": 164.113,
+      "el": -4.0175
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 95.359503,
+      "el": -1.577401
+     },
+     "earth": {
+      "az": 164.114881,
+      "el": -4.018377
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.001,
+      "el": -0.0026
+     },
+     "earth": {
+      "az": -0.0019,
+      "el": 0.0009
+     }
+    }
+   },
+   {
+    "site": "shackleton-ridge",
+    "time_utc": "2027-09-16T01:21",
+    "shown": {
+     "sun": {
+      "az": 158.6315,
+      "el": 0.78
+     },
+     "earth": {
+      "az": 159.646,
+      "el": 4.074
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 158.631464,
+      "el": 0.78306
+     },
+     "earth": {
+      "az": 159.644431,
+      "el": 4.073799
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0,
+      "el": -0.0031
+     },
+     "earth": {
+      "az": 0.0016,
+      "el": 0.0002
+     }
+    }
+   },
+   {
+    "site": "shackleton-ridge",
+    "time_utc": "2027-10-02T04:26",
+    "shown": {
+     "sun": {
+      "az": 321.839,
+      "el": 1.58
+     },
+     "earth": {
+      "az": 169.333,
+      "el": -7.18
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 321.841673,
+      "el": 1.582848
+     },
+     "earth": {
+      "az": 169.331266,
+      "el": -7.181994
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0027,
+      "el": -0.0028
+     },
+     "earth": {
+      "az": 0.0017,
+      "el": 0.002
+     }
+    }
+   },
+   {
+    "site": "shackleton-ridge",
+    "time_utc": "2027-10-25T20:42",
+    "shown": {
+     "sun": {
+      "az": 33.483,
+      "el": 1.77
+     },
+     "earth": {
+      "az": 164.645,
+      "el": -4.435
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 33.48293,
+      "el": 1.772806
+     },
+     "earth": {
+      "az": 164.642529,
+      "el": -4.436219
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0001,
+      "el": -0.0028
+     },
+     "earth": {
+      "az": 0.0025,
+      "el": 0.0012
+     }
+    }
    }
   ]
  },
  "engine": {
   "max_abs_deg": 0.0446,
-  "mean_abs_deg": 0.0018,
+  "mean_abs_deg": 0.0016,
   "by_quantity": {
    "sun_az": {
     "max_abs_deg": 0.0207,
-    "mean_abs_deg": 0.002
+    "mean_abs_deg": 0.0017
    },
    "sun_el": {
     "max_abs_deg": 0.007,
@@ -1745,7 +2425,7 @@
    },
    "earth_az": {
     "max_abs_deg": 0.0446,
-    "mean_abs_deg": 0.0031
+    "mean_abs_deg": 0.0027
    },
    "earth_el": {
     "max_abs_deg": 0.0028,
@@ -1753,9 +2433,9 @@
    }
   },
   "same_answer": {
-   "power": 80,
-   "comm": 80,
-   "of": 80
+   "power": 100,
+   "comm": 100,
+   "of": 100
   },
   "seed": 20261115,
   "points": 6,
@@ -3561,6 +4241,726 @@
     }
    },
    {
+    "site": "im-1-landed",
+    "time_utc": "2027-02-18T11:32",
+    "lat": -80.13,
+    "lon_east": 1.44,
+    "shown": {
+     "sun": {
+      "az": 32.2275,
+      "el": 8.129
+     },
+     "earth": {
+      "az": 357.4289,
+      "el": 12.5153
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 32.226964,
+      "el": 8.130748
+     },
+     "earth": {
+      "az": 357.426436,
+      "el": 12.516404
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0006,
+      "el": -0.0017
+     },
+     "earth": {
+      "az": 0.0024,
+      "el": -0.0011
+     }
+    }
+   },
+   {
+    "site": "im-1-landed",
+    "time_utc": "2027-07-18T17:21",
+    "lat": -80.13,
+    "lon_east": 1.44,
+    "shown": {
+     "sun": {
+      "az": 358.6118,
+      "el": 9.4177
+     },
+     "earth": {
+      "az": 359.3834,
+      "el": 7.8466
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 358.611893,
+      "el": 9.418231
+     },
+     "earth": {
+      "az": 359.38281,
+      "el": 7.84623
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0001,
+      "el": -0.0006
+     },
+     "earth": {
+      "az": 0.0005,
+      "el": 0.0004
+     }
+    }
+   },
+   {
+    "site": "im-1-landed",
+    "time_utc": "2027-09-04T17:05",
+    "lat": -80.13,
+    "lon_east": 1.44,
+    "shown": {
+     "sun": {
+      "az": 131.9537,
+      "el": -5.8084
+     },
+     "earth": {
+      "az": 5.7325,
+      "el": 2.8285
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 131.954801,
+      "el": -5.806922
+     },
+     "earth": {
+      "az": 5.732828,
+      "el": 2.83005
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0011,
+      "el": -0.0015
+     },
+     "earth": {
+      "az": -0.0003,
+      "el": -0.0015
+     }
+    }
+   },
+   {
+    "site": "im-1-landed",
+    "time_utc": "2027-09-06T05:40",
+    "lat": -80.13,
+    "lon_east": 1.44,
+    "shown": {
+     "sun": {
+      "az": 113.4647,
+      "el": -3.095
+     },
+     "earth": {
+      "az": 5.903,
+      "el": 3.0237
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 113.465885,
+      "el": -3.094096
+     },
+     "earth": {
+      "az": 5.903657,
+      "el": 3.025403
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0012,
+      "el": -0.0009
+     },
+     "earth": {
+      "az": -0.0007,
+      "el": -0.0017
+     }
+    }
+   },
+   {
+    "site": "im-1-landed",
+    "time_utc": "2027-10-14T14:50",
+    "lat": -80.13,
+    "lon_east": 1.44,
+    "shown": {
+     "sun": {
+      "az": 5.73,
+      "el": 11.3185
+     },
+     "earth": {
+      "az": 354.1328,
+      "el": 15.3422
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 5.732427,
+      "el": 11.320267
+     },
+     "earth": {
+      "az": 354.134619,
+      "el": 15.34393
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0024,
+      "el": -0.0018
+     },
+     "earth": {
+      "az": -0.0018,
+      "el": -0.0018
+     }
+    }
+   },
+   {
+    "site": "malapert-massif",
+    "time_utc": "2027-02-18T16:04",
+    "lat": -86.0,
+    "lon_east": 0.0,
+    "shown": {
+     "sun": {
+      "az": 31.0662,
+      "el": 3.1781
+     },
+     "earth": {
+      "az": 359.2367,
+      "el": 6.3435
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 31.064753,
+      "el": 3.179281
+     },
+     "earth": {
+      "az": 359.234642,
+      "el": 6.34461
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0014,
+      "el": -0.0012
+     },
+     "earth": {
+      "az": 0.002,
+      "el": -0.0011
+     }
+    }
+   },
+   {
+    "site": "malapert-massif",
+    "time_utc": "2027-07-01T04:36",
+    "lat": -86.0,
+    "lon_east": 0.0,
+    "shown": {
+     "sun": {
+      "az": 214.5304,
+      "el": -4.161
+     },
+     "earth": {
+      "az": 353.7622,
+      "el": 10.1816
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 214.530643,
+      "el": -4.162374
+     },
+     "earth": {
+      "az": 353.761359,
+      "el": 10.182262
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0002,
+      "el": 0.0014
+     },
+     "earth": {
+      "az": 0.0008,
+      "el": -0.0007
+     }
+    }
+   },
+   {
+    "site": "malapert-massif",
+    "time_utc": "2027-07-16T09:16",
+    "lat": -86.0,
+    "lon_east": 0.0,
+    "shown": {
+     "sun": {
+      "az": 28.6113,
+      "el": 3.0038
+     },
+     "earth": {
+      "az": 3.8562,
+      "el": -0.9005
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 28.61136,
+      "el": 3.004784
+     },
+     "earth": {
+      "az": 3.855841,
+      "el": -0.900098
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0001,
+      "el": -0.001
+     },
+     "earth": {
+      "az": 0.0004,
+      "el": -0.0004
+     }
+    }
+   },
+   {
+    "site": "malapert-massif",
+    "time_utc": "2027-07-22T18:08",
+    "lat": -86.0,
+    "lon_east": 0.0,
+    "shown": {
+     "sun": {
+      "az": 310.8313,
+      "el": 2.2775
+     },
+     "earth": {
+      "az": 355.2923,
+      "el": 7.4335
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 310.831392,
+      "el": 2.276561
+     },
+     "earth": {
+      "az": 355.291978,
+      "el": 7.432371
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0001,
+      "el": 0.001
+     },
+     "earth": {
+      "az": 0.0004,
+      "el": 0.0012
+     }
+    }
+   },
+   {
+    "site": "malapert-massif",
+    "time_utc": "2027-08-12T11:40",
+    "lat": -86.0,
+    "lon_east": 0.0,
+    "shown": {
+     "sun": {
+      "az": 57.4253,
+      "el": 2.3827
+     },
+     "earth": {
+      "az": 5.025,
+      "el": -1.0503
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 57.426023,
+      "el": 2.384856
+     },
+     "earth": {
+      "az": 5.025253,
+      "el": -1.048308
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0007,
+      "el": -0.0022
+     },
+     "earth": {
+      "az": -0.0003,
+      "el": -0.002
+     }
+    }
+   },
+   {
+    "site": "nobile-rim-1",
+    "time_utc": "2027-02-21T10:03",
+    "lat": -85.363,
+    "lon_east": 32.315156,
+    "shown": {
+     "sun": {
+      "az": 325.2607,
+      "el": 3.4587
+     },
+     "earth": {
+      "az": 331.346,
+      "el": 1.6517
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 325.25976,
+      "el": 3.459331
+     },
+     "earth": {
+      "az": 331.343958,
+      "el": 1.652979
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0009,
+      "el": -0.0006
+     },
+     "earth": {
+      "az": 0.0021,
+      "el": -0.0013
+     }
+    }
+   },
+   {
+    "site": "nobile-rim-1",
+    "time_utc": "2027-03-30T15:43",
+    "lat": -85.363,
+    "lon_east": 32.315156,
+    "shown": {
+     "sun": {
+      "az": 232.1629,
+      "el": -4.0827
+     },
+     "earth": {
+      "az": 328.6917,
+      "el": 0.085
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 232.162865,
+      "el": -4.084255
+     },
+     "earth": {
+      "az": 328.690859,
+      "el": 0.08655
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0001,
+      "el": 0.0016
+     },
+     "earth": {
+      "az": 0.0009,
+      "el": -0.0016
+     }
+    }
+   },
+   {
+    "site": "nobile-rim-1",
+    "time_utc": "2027-06-23T03:26",
+    "lat": -85.363,
+    "lon_east": 32.315156,
+    "shown": {
+     "sun": {
+      "az": 280.5587,
+      "el": -0.2053
+     },
+     "earth": {
+      "az": 325.2061,
+      "el": 4.0308
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 280.558316,
+      "el": -0.206552
+     },
+     "earth": {
+      "az": 325.204953,
+      "el": 4.029237
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0004,
+      "el": 0.0012
+     },
+     "earth": {
+      "az": 0.0012,
+      "el": 0.0016
+     }
+    }
+   },
+   {
+    "site": "nobile-rim-1",
+    "time_utc": "2027-10-21T15:59",
+    "lat": -85.363,
+    "lon_east": 32.315156,
+    "shown": {
+     "sun": {
+      "az": 248.9934,
+      "el": -0.1564
+     },
+     "earth": {
+      "az": 324.9384,
+      "el": 6.166
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 248.994451,
+      "el": -0.155623
+     },
+     "earth": {
+      "az": 324.93923,
+      "el": 6.167359
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.001,
+      "el": -0.0007
+     },
+     "earth": {
+      "az": -0.0008,
+      "el": -0.0014
+     }
+    }
+   },
+   {
+    "site": "nobile-rim-1",
+    "time_utc": "2027-10-26T04:41",
+    "lat": -85.363,
+    "lon_east": 32.315156,
+    "shown": {
+     "sun": {
+      "az": 193.8572,
+      "el": -2.9928
+     },
+     "earth": {
+      "az": 329.5318,
+      "el": -0.5635
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 193.857717,
+      "el": -2.991981
+     },
+     "earth": {
+      "az": 329.531434,
+      "el": -0.56396
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0005,
+      "el": -0.0009
+     },
+     "earth": {
+      "az": 0.0004,
+      "el": 0.0005
+     }
+    }
+   },
+   {
+    "site": "shackleton-ridge",
+    "time_utc": "2027-01-29T19:38",
+    "lat": -89.684,
+    "lon_east": 196.739,
+    "shown": {
+     "sun": {
+      "az": 75.9839,
+      "el": 0.3543
+     },
+     "earth": {
+      "az": 169.9726,
+      "el": -7.3591
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 75.986148,
+      "el": 0.35218
+     },
+     "earth": {
+      "az": 169.974375,
+      "el": -7.357459
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0022,
+      "el": 0.0021
+     },
+     "earth": {
+      "az": -0.0017,
+      "el": -0.0016
+     }
+    }
+   },
+   {
+    "site": "shackleton-ridge",
+    "time_utc": "2027-04-26T21:27",
+    "lat": -89.684,
+    "lon_east": 196.739,
+    "shown": {
+     "sun": {
+      "az": 95.3604,
+      "el": -1.5767
+     },
+     "earth": {
+      "az": 164.1163,
+      "el": -4.019
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 95.359503,
+      "el": -1.577401
+     },
+     "earth": {
+      "az": 164.114881,
+      "el": -4.018377
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": 0.0009,
+      "el": 0.0008
+     },
+     "earth": {
+      "az": 0.0014,
+      "el": -0.0006
+     }
+    }
+   },
+   {
+    "site": "shackleton-ridge",
+    "time_utc": "2027-09-16T01:21",
+    "lat": -89.684,
+    "lon_east": 196.739,
+    "shown": {
+     "sun": {
+      "az": 158.6305,
+      "el": 0.7817
+     },
+     "earth": {
+      "az": 159.6437,
+      "el": 4.072
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 158.631464,
+      "el": 0.78306
+     },
+     "earth": {
+      "az": 159.644431,
+      "el": 4.073799
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0009,
+      "el": -0.0014
+     },
+     "earth": {
+      "az": -0.0007,
+      "el": -0.0017
+     }
+    }
+   },
+   {
+    "site": "shackleton-ridge",
+    "time_utc": "2027-10-02T04:26",
+    "lat": -89.684,
+    "lon_east": 196.739,
+    "shown": {
+     "sun": {
+      "az": 321.841,
+      "el": 1.5826
+     },
+     "earth": {
+      "az": 169.3311,
+      "el": -7.1823
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 321.841673,
+      "el": 1.582848
+     },
+     "earth": {
+      "az": 169.331266,
+      "el": -7.181994
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0007,
+      "el": -0.0003
+     },
+     "earth": {
+      "az": -0.0001,
+      "el": -0.0003
+     }
+    }
+   },
+   {
+    "site": "shackleton-ridge",
+    "time_utc": "2027-10-25T20:42",
+    "lat": -89.684,
+    "lon_east": 196.739,
+    "shown": {
+     "sun": {
+      "az": 33.4817,
+      "el": 1.7724
+     },
+     "earth": {
+      "az": 164.6425,
+      "el": -4.4362
+     }
+    },
+    "horizons": {
+     "sun": {
+      "az": 33.48293,
+      "el": 1.772806
+     },
+     "earth": {
+      "az": 164.642529,
+      "el": -4.436219
+     }
+    },
+    "diff": {
+     "sun": {
+      "az": -0.0012,
+      "el": -0.0004
+     },
+     "earth": {
+      "az": -0.0,
+      "el": 0.0
+     }
+    }
+   },
+   {
     "site": "pt-0N-0E",
     "time_utc": "2026-11-19T10:55",
     "lat": 0,
@@ -4641,10 +6041,10 @@
     }
    }
   ],
-  "generated_at": "2026-11-14T09:02:47Z"
+  "generated_at": "2026-11-15T11:26:17Z"
  },
  "pgda": {
-  "generated_at": "2026-11-14T08:28:34Z",
+  "generated_at": "2026-11-15T11:35:06Z",
   "script": "scripts/pgda.py",
   "tool_period": {
    "start": "2026-11-01T00:00Z",
@@ -4660,11 +6060,11 @@
   "map_scale_m": 120,
   "sun": {
    "max_abs": 0.18,
-   "mean_abs": 0.067
+   "mean_abs": 0.058
   },
   "earth": {
-   "max_abs": 0.01,
-   "mean_abs": 0.004
+   "max_abs": 0.04,
+   "mean_abs": 0.013
   },
   "sites": [
    {
@@ -4728,6 +6128,126 @@
     "hours": 8761
    },
    {
+    "site": "im-1-landed",
+    "lat": -80.13,
+    "lon_east": 1.44,
+    "pixel": {
+     "row": 1312,
+     "col": 3874
+    },
+    "tool": {
+     "sun": 0.393,
+     "earth": 1
+    },
+    "pgda": {
+     "sun": {
+      "value": 0.356,
+      "window_min": 0.342,
+      "window_max": 0.403
+     },
+     "earth": {
+      "value": 1.0,
+      "window_min": 1.0,
+      "window_max": 1.0
+     }
+    },
+    "diff": {
+     "sun": 0.037,
+     "earth": 0.0
+    },
+    "hours": 8761
+   },
+   {
+    "site": "malapert-massif",
+    "lat": -86.0,
+    "lon_east": 0.0,
+    "pixel": {
+     "row": 2800,
+     "col": 3812
+    },
+    "tool": {
+     "sun": 0.431,
+     "earth": 0.389
+    },
+    "pgda": {
+     "sun": {
+      "value": 0.429,
+      "window_min": 0.355,
+      "window_max": 0.603
+     },
+     "earth": {
+      "value": 0.412,
+      "window_min": 0.212,
+      "window_max": 0.644
+     }
+    },
+    "diff": {
+     "sun": 0.002,
+     "earth": -0.023
+    },
+    "hours": 8761
+   },
+   {
+    "site": "nobile-rim-1",
+    "lat": -85.363,
+    "lon_east": 32.315156,
+    "pixel": {
+     "row": 2821,
+     "col": 4438
+    },
+    "tool": {
+     "sun": 0.422,
+     "earth": 0.637
+    },
+    "pgda": {
+     "sun": {
+      "value": 0.418,
+      "window_min": 0.404,
+      "window_max": 0.438
+     },
+     "earth": {
+      "value": 0.677,
+      "window_min": 0.593,
+      "window_max": 0.765
+     }
+    },
+    "diff": {
+     "sun": 0.004,
+     "earth": -0.04
+    },
+    "hours": 8761
+   },
+   {
+    "site": "shackleton-ridge",
+    "lat": -89.684,
+    "lon_east": 196.739,
+    "pixel": {
+     "row": 3888,
+     "col": 3789
+    },
+    "tool": {
+     "sun": 0.817,
+     "earth": 0.503
+    },
+    "pgda": {
+     "sun": {
+      "value": 0.659,
+      "window_min": 0.512,
+      "window_max": 0.896
+     },
+     "earth": {
+      "value": 0.519,
+      "window_min": 0.0,
+      "window_max": 0.538
+     }
+    },
+    "diff": {
+     "sun": 0.158,
+     "earth": -0.016
+    },
+    "hours": 8761
+   },
+   {
     "site": "pgda-222.69E-89.45S",
     "lat": -89.45,
     "lon_east": 222.69,
@@ -4758,6 +6278,381 @@
     "hours": 8761
    }
   ]
+ },
+ "pgda_period": {
+  "generated_at": "2026-11-15T11:39:16Z",
+  "script": "scripts/pgda_period.py",
+  "period": {
+   "start": "2009-07-13T00:00Z",
+   "stop": "2028-02-17T15:00Z",
+   "years": 18.6,
+   "hours": 163048,
+   "step_minutes": 60
+  },
+  "period_note": "The PGDA label gives the length of its simulation (18.6 years, hourly) but not its dates; this check starts at the first date in that label.",
+  "angles": "Astronomy Engine in the page's code (src/moonsky.js), not JPL Horizons",
+  "rule": "share of hourly steps with any part of the disc above the skyline (the PGDA rule)",
+  "disc_radius_deg": {
+   "sun": 0.267,
+   "earth": 0.95
+  },
+  "sun": {
+   "max_abs": 0.176,
+   "mean_abs": 0.059
+  },
+  "earth": {
+   "max_abs": 0.031,
+   "mean_abs": 0.01
+  },
+  "landing_sites": {
+   "ids": [
+    "im-1",
+    "im-2"
+   ],
+   "max_abs": 0.001,
+   "sun": {
+    "min_abs": 0.001,
+    "max_abs": 0.001
+   },
+   "earth": {
+    "min_abs": 0.0,
+    "max_abs": 0.001
+   }
+  },
+  "other_sites": {
+   "ids": [
+    "im-1-landed",
+    "malapert-massif",
+    "nobile-rim-1",
+    "shackleton-ridge"
+   ],
+   "max_abs": 0.156,
+   "sun": {
+    "min_abs": 0.014,
+    "max_abs": 0.156
+   },
+   "earth": {
+    "min_abs": 0.0,
+    "max_abs": 0.021
+   }
+  },
+  "sites": [
+   {
+    "site": "im-1",
+    "lat": -80.2,
+    "lon_east": 1.0,
+    "tool": {
+     "sun": 0.466,
+     "earth": 1
+    },
+    "pgda": {
+     "sun": 0.467,
+     "earth": 1.0
+    },
+    "diff": {
+     "sun": -0.001,
+     "earth": 0.0
+    },
+    "one_year": {
+     "sun": {
+      "min": 0.45,
+      "max": 0.481
+     },
+     "earth": {
+      "min": 1,
+      "max": 1
+     }
+    },
+    "calendar_years": 18
+   },
+   {
+    "site": "im-2",
+    "lat": -84.7906,
+    "lon_east": 29.1957,
+    "tool": {
+     "sun": 0.469,
+     "earth": 0.932
+    },
+    "pgda": {
+     "sun": 0.468,
+     "earth": 0.931
+    },
+    "diff": {
+     "sun": 0.001,
+     "earth": 0.001
+    },
+    "one_year": {
+     "sun": {
+      "min": 0.455,
+      "max": 0.487
+     },
+     "earth": {
+      "min": 0.894,
+      "max": 0.957
+     }
+    },
+    "calendar_years": 18
+   },
+   {
+    "site": "im-1-landed",
+    "lat": -80.13,
+    "lon_east": 1.44,
+    "tool": {
+     "sun": 0.402,
+     "earth": 1
+    },
+    "pgda": {
+     "sun": 0.356,
+     "earth": 1.0
+    },
+    "diff": {
+     "sun": 0.046,
+     "earth": 0.0
+    },
+    "one_year": {
+     "sun": {
+      "min": 0.388,
+      "max": 0.418
+     },
+     "earth": {
+      "min": 1,
+      "max": 1
+     }
+    },
+    "calendar_years": 18
+   },
+   {
+    "site": "malapert-massif",
+    "lat": -86.0,
+    "lon_east": 0.0,
+    "tool": {
+     "sun": 0.415,
+     "earth": 0.405
+    },
+    "pgda": {
+     "sun": 0.429,
+     "earth": 0.412
+    },
+    "diff": {
+     "sun": -0.014,
+     "earth": -0.007
+    },
+    "one_year": {
+     "sun": {
+      "min": 0.397,
+      "max": 0.431
+     },
+     "earth": {
+      "min": 0.369,
+      "max": 0.448
+     }
+    },
+    "calendar_years": 18
+   },
+   {
+    "site": "nobile-rim-1",
+    "lat": -85.363,
+    "lon_east": 32.315156,
+    "tool": {
+     "sun": 0.435,
+     "earth": 0.656
+    },
+    "pgda": {
+     "sun": 0.418,
+     "earth": 0.677
+    },
+    "diff": {
+     "sun": 0.017,
+     "earth": -0.021
+    },
+    "one_year": {
+     "sun": {
+      "min": 0.419,
+      "max": 0.45
+     },
+     "earth": {
+      "min": 0.621,
+      "max": 0.697
+     }
+    },
+    "calendar_years": 18
+   },
+   {
+    "site": "shackleton-ridge",
+    "lat": -89.684,
+    "lon_east": 196.739,
+    "tool": {
+     "sun": 0.815,
+     "earth": 0.531
+    },
+    "pgda": {
+     "sun": 0.659,
+     "earth": 0.519
+    },
+    "diff": {
+     "sun": 0.156,
+     "earth": 0.012
+    },
+    "one_year": {
+     "sun": {
+      "min": 0.79,
+      "max": 0.82
+     },
+     "earth": {
+      "min": 0.499,
+      "max": 0.584
+     }
+    },
+    "calendar_years": 18
+   },
+   {
+    "site": "pgda-222.69E-89.45S",
+    "lat": -89.45,
+    "lon_east": 222.69,
+    "tool": {
+     "sun": 0.853,
+     "earth": 0.554
+    },
+    "pgda": {
+     "sun": 0.677,
+     "earth": 0.523
+    },
+    "diff": {
+     "sun": 0.176,
+     "earth": 0.031
+    },
+    "one_year": {
+     "sun": {
+      "min": 0.823,
+      "max": 0.858
+     },
+     "earth": {
+      "min": 0.514,
+      "max": 0.598
+     }
+    },
+    "calendar_years": 18
+   }
+  ],
+  "ridge": {
+   "site": "pgda-222.69E-89.45S",
+   "lat": -89.45,
+   "lon_east": 222.69,
+   "pgda": {
+    "sun": {
+     "value": 0.677,
+     "window_min": 0.51,
+     "window_max": 0.847
+    },
+    "earth": {
+     "value": 0.523,
+     "window_min": 0.443,
+     "window_max": 0.582
+    }
+   },
+   "azimuths": 720,
+   "near_km": 1,
+   "observer": [
+    {
+     "height_m": 0,
+     "near": 720,
+     "sun": 0.572,
+     "earth": 0.448
+    },
+    {
+     "height_m": 2,
+     "near": 473,
+     "sun": 0.853,
+     "earth": 0.554
+    }
+   ],
+   "block": {
+    "offset_m": 120,
+    "observer_height_m": 2,
+    "sun": {
+     "min": 0.587,
+     "max": 0.865
+    },
+    "earth": {
+     "min": 0.478,
+     "max": 0.582
+    },
+    "points": [
+     {
+      "dx_m": -120,
+      "dy_m": -120,
+      "lat": -89.453943,
+      "lon_east": 222.27476,
+      "sun": 0.587,
+      "earth": 0.512
+     },
+     {
+      "dx_m": 0,
+      "dy_m": -120,
+      "lat": -89.453957,
+      "lon_east": 222.69,
+      "sun": 0.865,
+      "earth": 0.581
+     },
+     {
+      "dx_m": 120,
+      "dy_m": -120,
+      "lat": -89.453943,
+      "lon_east": 223.10524,
+      "sun": 0.727,
+      "earth": 0.582
+     },
+     {
+      "dx_m": -120,
+      "dy_m": 0,
+      "lat": -89.449986,
+      "lon_east": 222.277748,
+      "sun": 0.626,
+      "earth": 0.478
+     },
+     {
+      "dx_m": 0,
+      "dy_m": 0,
+      "lat": -89.45,
+      "lon_east": 222.69,
+      "sun": 0.853,
+      "earth": 0.554
+     },
+     {
+      "dx_m": 120,
+      "dy_m": 0,
+      "lat": -89.449986,
+      "lon_east": 223.102252,
+      "sun": 0.653,
+      "earth": 0.582
+     },
+     {
+      "dx_m": -120,
+      "dy_m": 120,
+      "lat": -89.446029,
+      "lon_east": 222.280692,
+      "sun": 0.712,
+      "earth": 0.504
+     },
+     {
+      "dx_m": 0,
+      "dy_m": 120,
+      "lat": -89.446043,
+      "lon_east": 222.69,
+      "sun": 0.825,
+      "earth": 0.575
+     },
+     {
+      "dx_m": 120,
+      "dy_m": 120,
+      "lat": -89.446029,
+      "lon_east": 223.099308,
+      "sun": 0.707,
+      "earth": 0.582
+     }
+    ]
+   }
+  }
  },
  "pgda_sample": {
   "generated_at": "2026-11-15T04:14:37Z",
@@ -7708,243 +9603,5 @@
     }
    }
   ]
- },
- "pgda_period": {
-  "generated_at": "2026-11-15T10:30:12Z",
-  "script": "scripts/pgda_period.py",
-  "period": {
-   "start": "2009-07-13T00:00Z",
-   "stop": "2028-02-17T15:00Z",
-   "years": 18.6,
-   "hours": 163048,
-   "step_minutes": 60
-  },
-  "period_note": "The PGDA label gives the length of its simulation (18.6 years, hourly) but not its dates; this check starts at the first date in that label.",
-  "angles": "Astronomy Engine in the page's code (src/moonsky.js), not JPL Horizons",
-  "rule": "share of hourly steps with any part of the disc above the skyline (the PGDA rule)",
-  "disc_radius_deg": {
-   "sun": 0.267,
-   "earth": 0.95
-  },
-  "sun": {
-   "max_abs": 0.176,
-   "mean_abs": 0.059
-  },
-  "earth": {
-   "max_abs": 0.031,
-   "mean_abs": 0.011
-  },
-  "landing_sites": {
-   "ids": [
-    "im-1",
-    "im-2"
-   ],
-   "max_abs": 0.001
-  },
-  "sites": [
-   {
-    "site": "im-1",
-    "lat": -80.2,
-    "lon_east": 1.0,
-    "tool": {
-     "sun": 0.466,
-     "earth": 1
-    },
-    "pgda": {
-     "sun": 0.467,
-     "earth": 1.0
-    },
-    "diff": {
-     "sun": -0.001,
-     "earth": 0.0
-    },
-    "one_year": {
-     "sun": {
-      "min": 0.45,
-      "max": 0.481
-     },
-     "earth": {
-      "min": 1,
-      "max": 1
-     }
-    },
-    "calendar_years": 18
-   },
-   {
-    "site": "im-2",
-    "lat": -84.7906,
-    "lon_east": 29.1957,
-    "tool": {
-     "sun": 0.469,
-     "earth": 0.932
-    },
-    "pgda": {
-     "sun": 0.468,
-     "earth": 0.931
-    },
-    "diff": {
-     "sun": 0.001,
-     "earth": 0.001
-    },
-    "one_year": {
-     "sun": {
-      "min": 0.455,
-      "max": 0.487
-     },
-     "earth": {
-      "min": 0.894,
-      "max": 0.957
-     }
-    },
-    "calendar_years": 18
-   },
-   {
-    "site": "pgda-222.69E-89.45S",
-    "lat": -89.45,
-    "lon_east": 222.69,
-    "tool": {
-     "sun": 0.853,
-     "earth": 0.554
-    },
-    "pgda": {
-     "sun": 0.677,
-     "earth": 0.523
-    },
-    "diff": {
-     "sun": 0.176,
-     "earth": 0.031
-    },
-    "one_year": {
-     "sun": {
-      "min": 0.823,
-      "max": 0.858
-     },
-     "earth": {
-      "min": 0.514,
-      "max": 0.598
-     }
-    },
-    "calendar_years": 18
-   }
-  ],
-  "ridge": {
-   "site": "pgda-222.69E-89.45S",
-   "lat": -89.45,
-   "lon_east": 222.69,
-   "pgda": {
-    "sun": {
-     "value": 0.677,
-     "window_min": 0.51,
-     "window_max": 0.847
-    },
-    "earth": {
-     "value": 0.523,
-     "window_min": 0.443,
-     "window_max": 0.582
-    }
-   },
-   "azimuths": 720,
-   "near_km": 1,
-   "observer": [
-    {
-     "height_m": 0,
-     "near": 720,
-     "sun": 0.572,
-     "earth": 0.448
-    },
-    {
-     "height_m": 2,
-     "near": 473,
-     "sun": 0.853,
-     "earth": 0.554
-    }
-   ],
-   "block": {
-    "offset_m": 120,
-    "observer_height_m": 2,
-    "sun": {
-     "min": 0.587,
-     "max": 0.865
-    },
-    "earth": {
-     "min": 0.478,
-     "max": 0.582
-    },
-    "points": [
-     {
-      "dx_m": -120,
-      "dy_m": -120,
-      "lat": -89.453943,
-      "lon_east": 222.27476,
-      "sun": 0.587,
-      "earth": 0.512
-     },
-     {
-      "dx_m": 0,
-      "dy_m": -120,
-      "lat": -89.453957,
-      "lon_east": 222.69,
-      "sun": 0.865,
-      "earth": 0.581
-     },
-     {
-      "dx_m": 120,
-      "dy_m": -120,
-      "lat": -89.453943,
-      "lon_east": 223.10524,
-      "sun": 0.727,
-      "earth": 0.582
-     },
-     {
-      "dx_m": -120,
-      "dy_m": 0,
-      "lat": -89.449986,
-      "lon_east": 222.277748,
-      "sun": 0.626,
-      "earth": 0.478
-     },
-     {
-      "dx_m": 0,
-      "dy_m": 0,
-      "lat": -89.45,
-      "lon_east": 222.69,
-      "sun": 0.853,
-      "earth": 0.554
-     },
-     {
-      "dx_m": 120,
-      "dy_m": 0,
-      "lat": -89.449986,
-      "lon_east": 223.102252,
-      "sun": 0.653,
-      "earth": 0.582
-     },
-     {
-      "dx_m": -120,
-      "dy_m": 120,
-      "lat": -89.446029,
-      "lon_east": 222.280692,
-      "sun": 0.712,
-      "earth": 0.504
-     },
-     {
-      "dx_m": 0,
-      "dy_m": 120,
-      "lat": -89.446043,
-      "lon_east": 222.69,
-      "sun": 0.825,
-      "earth": 0.575
-     },
-     {
-      "dx_m": 120,
-      "dy_m": 120,
-      "lat": -89.446029,
-      "lon_east": 223.099308,
-      "sun": 0.707,
-      "earth": 0.582
-     }
-    ]
-   }
-  }
  }
 }

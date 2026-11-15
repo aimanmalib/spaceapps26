@@ -29,10 +29,11 @@ Open this case: <https://aimanmalib.github.io/spaceapps26/?s=im-2,2026-11-14T00:
 
 ## Validation in short
 
-- Sun and Earth angles against JPL Horizons at 50 random site-and-time pairs: largest difference 0.0439°, same two answers at
-  50 of 50 pairs (details under Validation below).
+- Sun and Earth angles against JPL Horizons at 70 random site-and-time pairs: largest difference 0.0439°, same two answers at
+  70 of 70 pairs (details under Validation below).
 - Terrain horizon against the NASA GSFC PGDA visibility maps, over the same 18.6 years: at the IM-1 and IM-2 sites the Sun and
-  Earth differ by 0.1 percentage points or less. At a ridge check point near the pole the Sun differs by 17.6 points; there the
+  Earth differ by 0.1 percentage points or less; at the other 4 listed terrain sites the Sun differs by 1.4 to
+  15.6 points. At a ridge check point near the pole the Sun differs by 17.6 points; there the
   tool's own value runs from 57.2 % (observer on the ground) to 85.3 % (2 m up), and NASA's 67.7 % lies between (below).
 
 ## Run it locally
@@ -60,9 +61,9 @@ Built:
 - Pick a landing site and a UTC date and time (2026-11-01 to 2027-11-01); see the Sun and Earth relative to the horizon, whether solar power generation and
   direct-to-Earth communication are possible, and the elevation of each.
 - Horizon first: every card opens with one short verdict (for example "Link to Earth, no sunlight") and a 360° strip of the
-  horizon with the Sun and Earth on it; at IM-1 and IM-2 the ground in the strip is the LRO LOLA skyline. The strip's vertical
+  horizon with the Sun and Earth on it; at the six south polar sites the ground in the strip is the LRO LOLA skyline. The strip's vertical
   scale (±5°, ±10°, ±20°, ±45° or ±90°, written in its corner) is the smallest that holds that card's Sun and Earth.
-- Terrain range at IM-1 and IM-2: under the two answers, each card says whether an answer changes somewhere inside the terrain
+- Terrain range at the six south polar sites: under the two answers, each card says whether an answer changes somewhere inside the terrain
   range (the skylines of the nine points 80 m apart around the site, one LOLA pixel, with the observer at 0 m and at 2 m) and
   gives the one-year shares across it; the horizon strip draws the range as a band around the skyline. Measured, IM-2: the Sun's
   centre is above the skyline 43.8 % of the year's hours at the site and 40.0 % to 44.0 % across the range; Earth 80.1 % and
@@ -70,8 +71,18 @@ Built:
   (`data/band/`, `scripts/band.py`).
 - Time remaining before sunset or Earthset (or until sunrise or Earthrise), the duration of sunlight and the Earth visibility window
   around the chosen time.
-- Ten known landing sites (all six Apollo landings, CLPS IM-1 and IM-2, Chandrayaan-3, Chang'e 4), each coordinate copied from a
-  cited NASA page (NSSDCA or LROC).
+- Fourteen listed sites: ten known landing sites (all six Apollo landings, CLPS IM-1 and IM-2, Chandrayaan-3, Chang'e 4), the place
+  where IM-1 Odysseus came to rest (80.13°S, 1.44°E, next to its nominal landing area), and three future south polar targets. Each
+  coordinate is copied from a cited NASA page (NSSDCA, LROC or the NASA Technical Reports Server).
+- Future south polar targets (challenge text: "future CLPS mission targets", "alternative sites in the same region"): three places
+  NASA names for later landings, each with its own LOLA skyline, map, 1 km shifts and terrain range. Malapert Massif and Nobile
+  Rim 1 are two of the nine candidate landing regions NASA listed in October 2024; the Shackleton connecting ridge is where NASA
+  says Blue Origin's Blue Moon Mark 1, a CLPS flight, will attempt a landing. Each coordinate is one point that the cited LROC or
+  NASA page gives inside the area (Malapert Massif in whole degrees), not a chosen landing point. Measured over the year: at the
+  Shackleton ridge point the Sun is at least partly in view 81.7 % of the hours; at the Malapert Massif point Earth's centre is
+  above the skyline 34.3 % of the hours, 100.0 % one kilometre north and 0.0 % one kilometre south. Compare them
+  with IM-2 at one time:
+  <https://aimanmalib.github.io/spaceapps26/?s=im-2,2026-11-14T00:00&s=malapert-massif,2026-11-14T00:00&s=nobile-rim-1,2026-11-14T00:00&s=shackleton-ridge,2026-11-14T00:00>
 - Up to four scenarios at once, as cards and in one side-by-side table.
 - Sequential comparison: buttons on every card step to the previous or next listed site (date kept) or move the time 1 day
   earlier or later (site kept). "If the date moves" lists the same two answers, with their margins from the horizon used, for the
@@ -98,14 +109,14 @@ Built:
 - A timeline of one lunar day (29.5 Earth days) on every card: Sun and Earth elevation over time, bars for when each is in view,
   a slider to move through it and a Play button (hidden when the device asks for reduced motion). A switch shows the whole one-year
   table instead (hourly steps, 1 Nov 2026 to 1 Nov 2027), with the share of hours each one is at least partly above the horizon used;
-  for IM-1 and IM-2 these are the same "this tool" numbers as in the NASA PGDA check below.
+  for the sites with a terrain skyline these are the same "this tool" numbers as in the NASA PGDA check below.
 - Own coordinates: type any latitude and longitude on the Moon. Sun and Earth positions for these are computed in browser,
   validated against JPL Horizons (Astronomy Engine; differences below). They use the ideal sphere horizon only: local terrain is not
   computed for own coordinates, even inside the LRO LOLA grids.
-- Local terrain horizon from LRO LOLA for the south polar sites inside the elevation grids used here (75°S to the pole: IM-1, IM-2);
+- Local terrain horizon from LRO LOLA for the south polar sites inside the elevation grids used here (75°S to the pole: IM-1 at two points, IM-2 and the three future targets);
   every other site uses the ideal sphere horizon and says so.
 - Small shifts in location or date: each card can list the same two answers for the chosen time moved 6 hours and 1 day either way,
-  and, at the terrain sites (IM-1, IM-2), for points 1 km north, east, south and west, each with its own LOLA terrain horizon.
+  and, at the six terrain sites, for points 1 km north, east, south and west, each with its own LOLA terrain horizon.
   Measured example, IM-2 at 2026-11-14 00:00 UTC: Earth is 1.3° above the terrain horizon at the site, but 1.5° below it 1 km east
   and 2.6° below it 1 km south. On the ideal sphere, 1 km tilts the horizon by only 0.033°. The 80 m terrain grid does not
   resolve small craters such as the one where the IM-2 lander stopped. Over the whole year (8761 hourly steps, 2026-11-01 to
@@ -122,7 +133,7 @@ Built:
   with day length, radius and pressure quoted from the NASA NSSDCA Moon and Earth fact sheets. It also gives how far Earth moves in
   the site's sky over the whole table. Measured, 2026-11-01 to 2027-11-01: at IM-2 Earth stays within a 16.15° range of azimuth and
   between −2.30° and +10.79° elevation; at Apollo 11 within 37.72° of azimuth and between +57.96° and +73.68°.
-- A 2D map and a 3D surface of LRO LOLA heights, 80 × 80 km around each terrain site (IM-1, IM-2), with the site and the Sun and
+- A 2D map and a 3D surface of LRO LOLA heights, 80 × 80 km around each of the six terrain sites, with the site and the Sun and
   Earth directions at the chosen time. The 3D surface can be turned to look in any direction; its heights are stretched 2 times.
 - Map layers (challenge text: "how to represent steep slopes and deep craters that create extreme shadow conditions"): buttons on
   the 2D map switch between Heights, Slope (degrees, computed in the page from the same LOLA heights, cells 0.5 km apart) and
@@ -141,16 +152,19 @@ sources page lists every frozen data file with the request it came from.
 Limitations:
 
 - Dates (d): the Sun and Earth tables cover 2026-11-01 00:00 to 2027-11-01 00:00 UTC only, one row per hour, interpolated in between.
-- Terrain horizon (j): only at IM-1 and IM-2, the listed sites inside the LOLA south polar grids used here (75°S to the pole).
+- Terrain horizon (j): only at the six listed sites inside the LOLA south polar grids used here (75°S to the pole): IM-1 at two
+  points, IM-2 and the three future targets.
   Every other listed site uses the ideal sphere horizon.
 - Own coordinates (b): ideal sphere horizon only. Local terrain is not computed for own coordinates, even inside the LOLA grids.
-- 2D map (h), 3D surface (i) and the 1 km location shifts (l): only at IM-1 and IM-2. Other sites show the date shifts only.
+- 2D map (h), 3D surface (i) and the 1 km location shifts (l): only at those six sites. Other sites show the date shifts only.
+- Future targets: each is one point inside a candidate or target area several kilometres across, as given by the cited page, not
+  a chosen landing point; the answers there change within a kilometre (the cards show the 1 km shifts and the terrain range).
 - 3D surface (i): the Sun and Earth lines are drawn on top of the ground; terrain does not hide them, and no shadows are drawn.
 - Map layers (h): this tool does not compute shadows on the map. The average sunlight layer is NASA's long-term average over
   18.6 years, not the one-year period of the tables; slopes shorter than 0.5 km are smoothed out.
 - Terrain values on ridges: at a ridge the share of time with the Sun in view depends on the observer's height and changes within
-  about 100 m (Validation, below). The tool places the observer 2 m above the ground everywhere. The terrain range on the IM-1
-  and IM-2 cards (nine points 80 m apart, observer at 0 m and at 2 m) is a sensitivity range for the 80 m LOLA grid, not an error
+  about 100 m (Validation, below). The tool places the observer 2 m above the ground everywhere. The terrain range on the
+  terrain cards (nine points 80 m apart, observer at 0 m and at 2 m) is a sensitivity range for the 80 m LOLA grid, not an error
   bar on the real ground.
 - Yes/no means the centre of the Sun or Earth disc is above the horizon; each answer also says when only part of the disc is above
   it (radius from mean distances). The independent terrain check (Validation, below) counts any part of the disc.
@@ -166,7 +180,7 @@ The Overview page (`overview.html`) counts every listed site over the whole data
 Compare. Counted by `scripts/overview.mjs` into `data/overview.json`; the tests check it against the tables, the caption and `data/validation.json`.
 Read off the table (the page writes the same three lines from the file):
 
-- Most hours with the Sun in view: Chang'e 4 (CNSA), lunar far side, 51.2 %.
+- Most hours with the Sun in view: Shackleton connecting ridge (Blue Moon Mark 1 target ridge), 81.7 %.
 - Most hours with both the Sun and Earth in view: Apollo 12 (Ocean of Storms), 49.6 %.
 - Longest unbroken stretch with both in view: IM-2 Athena (Mons Mouton area), 15.8 days (2026-11-15 to 2026-11-30).
 
@@ -182,6 +196,10 @@ Read off the table (the page writes the same three lines from the file):
 | IM-2 Athena (Mons Mouton area) | 45.7 | 93.2 | 42.7 | 15.8 days (2026-11-15 to 2026-11-30) | LOLA terrain |
 | Chandrayaan-3 Vikram (ISRO) | 49.0 | 100.0 | 49.0 | 15.6 days (2026-11-13 to 2026-11-29) | ideal sphere |
 | Chang'e 4 (CNSA), lunar far side | 51.2 | 0.0 | 0.0 | none | ideal sphere |
+| IM-1 Odysseus, where it came to rest | 39.3 | 100.0 | 39.3 | 13.0 days (2026-11-18 to 2026-12-01) | LOLA terrain |
+| Malapert Massif (NASA Artemis candidate region) | 43.1 | 38.9 | 13.7 | 6.0 days (2027-10-16 to 2027-10-22) | LOLA terrain |
+| Nobile Rim 1 (NASA Artemis candidate region) | 42.2 | 63.7 | 27.2 | 13.9 days (2026-11-15 to 2026-11-29) | LOLA terrain |
+| Shackleton connecting ridge (Blue Moon Mark 1 target ridge) | 81.7 | 50.3 | 44.5 | 14.2 days (2027-09-12 to 2027-09-26) | LOLA terrain |
 
 Sites with a terrain skyline and sites on the ideal sphere use different horizons, so their numbers are not like for like. Geometry only.
 
@@ -192,50 +210,55 @@ Sun and Earth positions come from the JPL Horizons System; terrain comes from LR
 
 ## Validation
 
-Do the angles the tool shows match JPL Horizons? `scripts/validate.py` draws 50 site-and-time pairs at random (fixed seed,
+Do the angles the tool shows match JPL Horizons? `scripts/validate.py` draws 70 site-and-time pairs at random (fixed seed,
 never on a table hour) and compares the angles shown by the page's own code with Horizons asked directly for the same site and minute.
 Result (`data/validation.json`, also on the site's Validation page):
 
 | Angle | Largest difference | Average difference |
 |---|---|---|
-| Sun azimuth | 0.0439° | 0.0027° |
+| Sun azimuth | 0.0439° | 0.0025° |
 | Sun elevation | 0.0077° | 0.0021° |
-| Earth azimuth | 0.0047° | 0.0019° |
-| Earth elevation | 0.0042° | 0.0022° |
+| Earth azimuth | 0.0047° | 0.0018° |
+| Earth elevation | 0.0043° | 0.0020° |
 
-Largest difference over all angles: 0.0439°. Same solar power answer: 50 of 50;
-same Earth communication answer: 50 of 50. The largest difference is the Sun azimuth at Apollo 14 (2027-08-03 22:41 UT) with the Sun 86.3° below the horizon,
+Largest difference over all angles: 0.0439°. Same solar power answer: 70 of 70;
+same Earth communication answer: 70 of 70. The largest difference is the Sun azimuth at Apollo 14 (2027-08-03 22:41 UT) with the Sun 86.3° below the horizon,
 where the azimuth changes fastest between two table hours.
 
 Own coordinates are computed in browser, validated against JPL Horizons: `scripts/validate.py --engine` runs the page's engine
-(Astronomy Engine, same hourly grid and interpolation) at the 50 pairs above and at 30 new pairs on 6 unnamed check points
-(near side, far side, both poles), 80 pairs in all:
+(Astronomy Engine, same hourly grid and interpolation) at the 70 pairs above and at 30 new pairs on 6 unnamed check points
+(near side, far side, both poles), 100 pairs in all:
 
 | Angle | Largest difference | Average difference |
 |---|---|---|
-| Sun azimuth | 0.0207° | 0.0020° |
+| Sun azimuth | 0.0207° | 0.0017° |
 | Sun elevation | 0.0070° | 0.0012° |
-| Earth azimuth | 0.0446° | 0.0031° |
+| Earth azimuth | 0.0446° | 0.0027° |
 | Earth elevation | 0.0028° | 0.0010° |
 
-Largest difference over all angles (engine): 0.0446°. Same solar power answer: 80 of 80; same Earth communication answer: 80 of 80.
+Largest difference over all angles (engine): 0.0446°. Same solar power answer: 100 of 100; same Earth communication answer: 100 of 100.
 The largest difference is the Earth azimuth on the far side (0°N 180°E, 2027-09-26 08:16 UT) with the Earth 88.4° below the
 horizon, where azimuth is nearly undefined.
 
 Is the terrain horizon right? `scripts/pgda.py` compares it with an independent NASA product, the average Sun and Earth visibility
-maps of the lunar south pole (E. Mazarico, NASA GSFC PGDA, LOLA grid 120 m per pixel), at 3 points. A map value is the share
+maps of the lunar south pole (E. Mazarico, NASA GSFC PGDA, LOLA grid 120 m per pixel), at 7 points. A map value is the share
 of hourly steps over 18.6 years when any part of the disc was visible; the tool's value in this first table is the share of hours
 in its own one-year table (2026-11-01 to 2027-11-01) when any part of the disc is above its terrain skyline. The second table
 repeats the check over the same 18.6 years.
 
 | Point | Sun visible, this tool | Sun visible, PGDA | Earth visible, this tool | Earth visible, PGDA |
 |---|---|---|---|---|
-| IM-1 | 45.6 % | 46.7 % | 100.0 % | 100.0 % |
+| IM-1, nominal landing area | 45.6 % | 46.7 % | 100.0 % | 100.0 % |
 | IM-2 | 45.7 % | 46.8 % | 93.2 % | 93.1 % |
+| IM-1, where it came to rest | 39.3 % | 35.6 % | 100.0 % | 100.0 % |
+| Malapert Massif | 43.1 % | 42.9 % | 38.9 % | 41.2 % |
+| Nobile Rim 1 | 42.2 % | 41.8 % | 63.7 % | 67.7 % |
+| Shackleton connecting ridge | 81.7 % | 65.9 % | 50.3 % | 51.9 % |
 | Check point -89.45°, 222.69°E (not a landing site) | 85.7 % | 67.7 % | 53.3 % | 52.3 % |
 
-Largest difference: Sun 18.0 percentage points, Earth 1.0 percentage points. At the two landing sites the Sun differs by
-1.1 points and Earth by 0.1 or less. The 18.0 points are at the check point 0.55° from the pole, on a ridge where the PGDA Sun value
+Largest difference: Sun 18.0 percentage points, Earth 4.0 percentage points. At IM-1 (nominal landing area) and IM-2 the Sun
+differs by 1.1 points and Earth by 0.1 or less; at the other 4 listed terrain sites the Sun differs by 0.2 to 15.8 points and
+Earth by up to 4.0. The 18.0 points are at the check point 0.55° from the pole, on a ridge where the PGDA Sun value
 itself ranges from 51.0 % to 84.7 % within the 3 × 3 pixels around it. It is reported as measured.
 
 Over the same 18.6 years (`scripts/pgda_period.py`: the same skylines over 163048 hourly steps from 2009-07-13, with Sun and Earth
@@ -243,11 +266,17 @@ angles from the in-browser engine; the PGDA label gives the length of its simula
 
 | Point | Sun visible, this tool, 18.6 years | Sun visible, PGDA | Earth visible, this tool, 18.6 years | Earth visible, PGDA | Sun, lowest to highest calendar year |
 |---|---|---|---|---|---|
-| IM-1 | 46.6 % | 46.7 % | 100.0 % | 100.0 % | 45.0 % to 48.1 % |
+| IM-1, nominal landing area | 46.6 % | 46.7 % | 100.0 % | 100.0 % | 45.0 % to 48.1 % |
 | IM-2 | 46.9 % | 46.8 % | 93.2 % | 93.1 % | 45.5 % to 48.7 % |
+| IM-1, where it came to rest | 40.2 % | 35.6 % | 100.0 % | 100.0 % | 38.8 % to 41.8 % |
+| Malapert Massif | 41.5 % | 42.9 % | 40.5 % | 41.2 % | 39.7 % to 43.1 % |
+| Nobile Rim 1 | 43.5 % | 41.8 % | 65.6 % | 67.7 % | 41.9 % to 45.0 % |
+| Shackleton connecting ridge | 81.5 % | 65.9 % | 53.1 % | 51.9 % | 79.0 % to 82.0 % |
 | Check point -89.45°, 222.69°E (not a landing site) | 85.3 % | 67.7 % | 55.4 % | 52.3 % | 82.3 % to 85.8 % |
 
-At the two landing sites the largest difference is 0.1 percentage points. At the check point the Sun still differs by 17.6 points
+At IM-1 (nominal landing area) and IM-2 the largest difference is 0.1 percentage points. At the other 4 listed terrain sites the
+Sun differs by 1.4 to 15.6 points and Earth by 0.0 to 2.1: the largest is the Shackleton ridge point, a ridge like the
+check point. At the check point the Sun still differs by 17.6 points
 and Earth by 3.1, and each of the 18 full calendar years gives 82.3 % to 85.8 % for the Sun, so the length of the period does not
 explain the difference. What moves the value there is detail smaller than one map pixel: with the observer on the ground (0 m) the
 tool gives 57.2 % for the Sun, and at 2 m (the height the tool uses everywhere) 85.3 %; the PGDA value of 67.7 % lies between the
@@ -290,7 +319,8 @@ SI was used in this project: Claude Code (Anthropic).
   first screen, a one-year overview of every listed site, Indonesian and Malay interface options), also all chosen by me. On the
   evening of 15 November: to aim for a Global Award and to adopt changes from an SI red-team review of the entry (so far the PGDA
   comparison over the same 18.6 years, with the ridge-point test; a 360° horizon strip with a one-line verdict at the top of
-  every card; and the terrain range on the IM-1 and IM-2 cards).
+  every card; the terrain range on the terrain cards; and four more south polar sites, three of them future targets that SI
+  picked from NASA and LROC pages that state a coordinate).
 - **Done by SI, on my instructions:** a feasibility comparison of the challenges, translation of the challenge text into Malay for
   me, build order, interface design, all code, data scripts and tests, slide layout, suggested project names, the red-team review of
   the entry with its measurements and the changes adopted from it, the optional Indonesian and

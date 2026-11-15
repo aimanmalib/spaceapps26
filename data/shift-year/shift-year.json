@@ -15,6 +15,73 @@
  "angles": "site: JPL Horizons table; nearby points: Astronomy Engine in the browser code (src/moonsky.js); site_angles_effect_max = largest change of any share if the site Horizons angles were used at the nearby points instead",
  "sites": [
   {
+   "site": "im-1-landed",
+   "hours": 8761,
+   "centre": {
+    "sun": 0.386,
+    "earth": 1
+   },
+   "disc": {
+    "sun": 0.393,
+    "earth": 1
+   },
+   "points": [
+    {
+     "dir": "n",
+     "lat": -80.097022,
+     "lon_east": 1.44,
+     "centre": {
+      "sun": 0.408,
+      "earth": 1
+     },
+     "disc": {
+      "sun": 0.416,
+      "earth": 1
+     }
+    },
+    {
+     "dir": "e",
+     "lat": -80.129945,
+     "lon_east": 1.632387,
+     "centre": {
+      "sun": 0.454,
+      "earth": 1
+     },
+     "disc": {
+      "sun": 0.461,
+      "earth": 1
+     }
+    },
+    {
+     "dir": "s",
+     "lat": -80.162978,
+     "lon_east": 1.44,
+     "centre": {
+      "sun": 0.4,
+      "earth": 1
+     },
+     "disc": {
+      "sun": 0.408,
+      "earth": 1
+     }
+    },
+    {
+     "dir": "w",
+     "lat": -80.129945,
+     "lon_east": 1.247613,
+     "centre": {
+      "sun": 0.314,
+      "earth": 0.971
+     },
+     "disc": {
+      "sun": 0.32,
+      "earth": 1
+     }
+    }
+   ],
+   "site_angles_effect_max": 0.001
+  },
+  {
    "site": "im-1",
    "hours": 8761,
    "centre": {
@@ -147,6 +214,207 @@
     }
    ],
    "site_angles_effect_max": 0.005
+  },
+  {
+   "site": "malapert-massif",
+   "hours": 8761,
+   "centre": {
+    "sun": 0.38,
+    "earth": 0.343
+   },
+   "disc": {
+    "sun": 0.431,
+    "earth": 0.389
+   },
+   "points": [
+    {
+     "dir": "n",
+     "lat": -85.967022,
+     "lon_east": 0,
+     "centre": {
+      "sun": 0.414,
+      "earth": 1
+     },
+     "disc": {
+      "sun": 0.42,
+      "earth": 1
+     }
+    },
+    {
+     "dir": "e",
+     "lat": -85.999864,
+     "lon_east": 0.472747,
+     "centre": {
+      "sun": 0.492,
+      "earth": 0.471
+     },
+     "disc": {
+      "sun": 0.551,
+      "earth": 0.515
+     }
+    },
+    {
+     "dir": "s",
+     "lat": -86.032978,
+     "lon_east": 0,
+     "centre": {
+      "sun": 0.256,
+      "earth": 0
+     },
+     "disc": {
+      "sun": 0.282,
+      "earth": 0
+     }
+    },
+    {
+     "dir": "w",
+     "lat": -85.999864,
+     "lon_east": 359.527253,
+     "centre": {
+      "sun": 0.378,
+      "earth": 0.448
+     },
+     "disc": {
+      "sun": 0.43,
+      "earth": 0.493
+     }
+    }
+   ],
+   "site_angles_effect_max": 0.002
+  },
+  {
+   "site": "nobile-rim-1",
+   "hours": 8761,
+   "centre": {
+    "sun": 0.406,
+    "earth": 0.585
+   },
+   "disc": {
+    "sun": 0.422,
+    "earth": 0.637
+   },
+   "points": [
+    {
+     "dir": "n",
+     "lat": -85.330022,
+     "lon_east": 32.315156,
+     "centre": {
+      "sun": 0.106,
+      "earth": 0
+     },
+     "disc": {
+      "sun": 0.128,
+      "earth": 0.147
+     }
+    },
+    {
+     "dir": "e",
+     "lat": -85.362883,
+     "lon_east": 32.723076,
+     "centre": {
+      "sun": 0.295,
+      "earth": 0.461
+     },
+     "disc": {
+      "sun": 0.318,
+      "earth": 0.509
+     }
+    },
+    {
+     "dir": "s",
+     "lat": -85.395978,
+     "lon_east": 32.315156,
+     "centre": {
+      "sun": 0.448,
+      "earth": 0.707
+     },
+     "disc": {
+      "sun": 0.468,
+      "earth": 0.777
+     }
+    },
+    {
+     "dir": "w",
+     "lat": -85.362883,
+     "lon_east": 31.907236,
+     "centre": {
+      "sun": 0.387,
+      "earth": 0.797
+     },
+     "disc": {
+      "sun": 0.403,
+      "earth": 0.912
+     }
+    }
+   ],
+   "site_angles_effect_max": 0.007
+  },
+  {
+   "site": "shackleton-ridge",
+   "hours": 8761,
+   "centre": {
+    "sun": 0.782,
+    "earth": 0.456
+   },
+   "disc": {
+    "sun": 0.817,
+    "earth": 0.503
+   },
+   "points": [
+    {
+     "dir": "n",
+     "lat": -89.651022,
+     "lon_east": 196.739,
+     "centre": {
+      "sun": 0.262,
+      "earth": 0
+     },
+     "disc": {
+      "sun": 0.28,
+      "earth": 0
+     }
+    },
+    {
+     "dir": "e",
+     "lat": -89.682284,
+     "lon_east": 202.696874,
+     "centre": {
+      "sun": 0.294,
+      "earth": 0.466
+     },
+     "disc": {
+      "sun": 0.322,
+      "earth": 0.505
+     }
+    },
+    {
+     "dir": "s",
+     "lat": -89.716978,
+     "lon_east": 196.739,
+     "centre": {
+      "sun": 0.392,
+      "earth": 0.304
+     },
+     "disc": {
+      "sun": 0.422,
+      "earth": 0.37
+     }
+    },
+    {
+     "dir": "w",
+     "lat": -89.682284,
+     "lon_east": 190.781126,
+     "centre": {
+      "sun": 0.301,
+      "earth": 0.359
+     },
+     "disc": {
+      "sun": 0.332,
+      "earth": 0.418
+     }
+    }
+   ],
+   "site_angles_effect_max": 0.139
   }
  ]
 }

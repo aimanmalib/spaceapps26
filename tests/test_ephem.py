@@ -33,7 +33,34 @@ class Sites(unittest.TestCase):
                 self.assertTrue(0 <= s["lon_east"] < 360)
                 self.assertTrue(s["source"]["url"].startswith("https://"))
                 self.assertTrue(s["source"]["text"].strip())
-                self.assertIn(s["group"], ("apollo", "clps", "other_nation", "south_pole"))
+                self.assertIn(s["group"], ("apollo", "clps", "other_nation", "south_pole", "future"))
+
+    def test_future_targets_are_south_polar_points_quoted_from_nasa_or_lroc(self):
+        # ADR 0042: group "future" = candidate or target areas for later landings; one sourced point each, with a LOLA skyline.
+        future = [s for s in self.sites if s["group"] == "future"]
+        self.assertGreaterEqual(len(future), 3)
+        for s in future:
+            with self.subTest(site=s["id"]):
+                self.assertLessEqual(s["lat"], -80)
+                self.assertRegex(s["source"]["url"], r"^https://(lroc\.im-ldi\.com|ntrs\.nasa\.gov)/")
+                lat = f"{abs(s['lat']):g}"  # the latitude as printed on the cited page, for example 86, 85.363 or 89.684
+                self.assertIn(lat, s["source"]["text"].replace("85.3630", "85.363"))
+                self.assertTrue((ROOT / "data/horizon" / f"{s['id']}.json").exists())
+        landed = next(s for s in self.sites if s["id"] == "im-1-landed")
+        self.assertEqual((landed["lat"], landed["lon_east"]), (-80.13, 1.44))
+        self.assertIn("80.13°S, 1.44°E", landed["source"]["text"])
+
+    def test_readme_numbers_for_the_future_targets_come_from_the_data(self):
+        ov = {s["site"]: s for s in load("data/overview.json")["sites"]}
+        sy = {s["site"]: s for s in load("data/shift-year/shift-year.json")["sites"]}
+        mm = sy["malapert-massif"]
+        pt = {p["dir"]: p for p in mm["points"]}
+        flat = " ".join((ROOT / "README.md").read_text(encoding="utf-8").split())
+        self.assertIn(f"Shackleton ridge point the Sun is at least partly in view {ov['shackleton-ridge']['sun'] * 100:.1f} % of the hours", flat)
+        self.assertIn(f"above the skyline {mm['centre']['earth'] * 100:.1f} % of the hours, {pt['n']['centre']['earth'] * 100:.1f} % one kilometre north and "
+                      f"{pt['s']['centre']['earth'] * 100:.1f} % one kilometre south", flat)
+        self.assertIn(f"Fourteen listed sites", flat)
+        self.assertEqual(len(self.sites), 14)
 
     def test_initial_set_covers_apollo_and_south_pole(self):
         self.assertGreaterEqual(sum(s["group"] == "apollo" for s in self.sites), 1)

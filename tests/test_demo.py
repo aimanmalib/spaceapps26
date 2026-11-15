@@ -63,7 +63,7 @@ class Deck(unittest.TestCase):
         earth_pp = max(abs(s["diff"]["earth"]) for s in landing) * 100
         self.assertIn(f"same {pp['period']['years']} years</td><td>Sun within <span class=\"num\">{sun_pp:.1f}</span> percentage points, "
                       f"Earth within <span class=\"num\">{earth_pp:.1f}</span>", self.html)
-        ridge = [s for s in pp["sites"] if s["site"] not in ("im-1", "im-2")][0]
+        ridge = sites[pp["ridge"]["site"]]
         self.assertAlmostEqual(abs(ridge["diff"]["sun"]), pp["sun"]["max_abs"])
         low, high = sorted(pp["ridge"]["observer"], key=lambda o: o["height_m"])
         self.assertIn(f"Sun differs by <span class=\"num\">{abs(ridge['diff']['sun']) * 100:.1f}</span> points; the tool gives "

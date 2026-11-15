@@ -39,6 +39,9 @@ export function periodHtml(t, pp, siteName, page) {
     `<th scope="col">${e(t('val.period.col.sun_year'))}</th><th scope="col">${e(t('val.period.col.earth_year'))}</th>` +
     `</tr></thead><tbody>${pp.sites.map(row).join('')}</tbody></table></div>` +
     `<p>${e(fill(t('val.period.sites'), { pp: num(pp.landing_sites.max_abs) }))} ` +
+    (pp.other_sites
+      ? `${e(fill(t('val.period.others'), { n: pp.other_sites.ids.length, lo: num(pp.other_sites.sun.min_abs), hi: num(pp.other_sites.sun.max_abs), elo: num(pp.other_sites.earth.min_abs), ehi: num(pp.other_sites.earth.max_abs) }))} `
+      : '') +
     `${e(fill(t('val.period.ridge'), { pp: num(Math.abs(ridge.diff.sun)), ppe: num(Math.abs(ridge.diff.earth)), min: num(ridge.one_year.sun.min), max: num(ridge.one_year.sun.max), n: ridge.calendar_years }))}</p>` +
     `<p>${e(cause)}${between ? ` ${e(fill(t('val.period.between'), { ref: num(pp.ridge.pgda.sun.value) }))}` : ''}</p>` +
     `<p class="data-label">${e(fill(t('val.period.generated'), { at: pp.generated_at }))} ` +

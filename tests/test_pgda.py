@@ -86,7 +86,9 @@ class PgdaTest(unittest.TestCase):
         low, high = sorted(pp["ridge"]["observer"], key=lambda o: o["height_m"])
         b = pp["ridge"]["block"]
         for text in (
-            f"At the two landing sites the largest difference is {pp['landing_sites']['max_abs'] * 100:.1f} percentage points.",
+            f"At IM-1 (nominal landing area) and IM-2 the largest difference is {pp['landing_sites']['max_abs'] * 100:.1f} percentage points.",
+            f"At the other {len(pp['other_sites']['ids'])} listed terrain sites the Sun differs by {pp['other_sites']['sun']['min_abs'] * 100:.1f} to "
+            f"{pp['other_sites']['sun']['max_abs'] * 100:.1f} points and Earth by {pp['other_sites']['earth']['min_abs'] * 100:.1f} to {pp['other_sites']['earth']['max_abs'] * 100:.1f}",
             f"the Sun still differs by {abs(ridge['diff']['sun']) * 100:.1f} points and Earth by {abs(ridge['diff']['earth']) * 100:.1f}",
             f"each of the {ridge['calendar_years']} full calendar years gives {ridge['one_year']['sun']['min'] * 100:.1f} % to {ridge['one_year']['sun']['max'] * 100:.1f} %",
             f"with the observer on the ground ({low['height_m']} m) the tool gives {low['sun'] * 100:.1f} % for the Sun, and at {high['height_m']} m "

@@ -31,9 +31,17 @@ test('same-period block: same points and PGDA values as the one-year check, diff
     assert.ok(s.calendar_years >= 17, s.site);
   }
   for (const b of ['sun', 'earth']) assert.equal(pp[b].max_abs, Math.max(...pp.sites.map((s) => Math.abs(s.diff[b]))));
-  const listed = pp.sites.filter((s) => names.has(s.site));
+  const head = pp.sites.filter((s) => cfg.period.headline_sites.includes(s.site));
+  const others = pp.sites.filter((s) => names.has(s.site) && !cfg.period.headline_sites.includes(s.site));
   assert.deepEqual(pp.landing_sites.ids, ['im-1', 'im-2']);
-  assert.equal(pp.landing_sites.max_abs, Math.max(...listed.flatMap((s) => [Math.abs(s.diff.sun), Math.abs(s.diff.earth)])));
+  assert.equal(pp.landing_sites.max_abs, Math.max(...head.flatMap((s) => [Math.abs(s.diff.sun), Math.abs(s.diff.earth)])));
+  assert.deepEqual(pp.other_sites.ids, others.map((s) => s.site));
+  for (const b of ['sun', 'earth']) {
+    assert.equal(pp.other_sites[b].max_abs, Math.max(...others.map((s) => Math.abs(s.diff[b]))));
+    assert.equal(pp.other_sites[b].min_abs, Math.min(...others.map((s) => Math.abs(s.diff[b]))));
+  }
+  // The home line says the other terrain sites differ more than the two it names: true for the Sun at every one of them.
+  assert.ok(pp.other_sites.sun.min_abs > pp.landing_sites.max_abs);
 });
 
 test('ridge point: observer heights and the 3 x 3 block as configured; the usual height reproduces the published skyline', () => {
@@ -62,6 +70,7 @@ test('Validation page shows the same-period numbers; "between" is said only when
   }
   const { row, low, high, between } = ridgeFacts(pp);
   assert.ok(html.includes(`still differs by ${(Math.abs(row.diff.sun) * 100).toFixed(1)} percentage points`));
+  assert.ok(html.includes(`At the other ${pp.other_sites.ids.length} listed sites with a terrain skyline the Sun differs by ${(pp.other_sites.sun.min_abs * 100).toFixed(1)} to ${(pp.other_sites.sun.max_abs * 100).toFixed(1)} percentage points`));
   assert.ok(html.includes(`this tool gives ${(low.sun * 100).toFixed(1)} % for the Sun; at ${high.height_m} m`));
   assert.ok(html.includes(`${(pp.ridge.block.sun.min * 100).toFixed(1)} % to ${(pp.ridge.block.sun.max * 100).toFixed(1)} %`));
   assert.ok(html.includes(`in ${high.near} of ${pp.ridge.azimuths} directions`));
@@ -73,6 +82,6 @@ test('Validation page shows the same-period numbers; "between" is said only when
 test('home line: the same-period number at the landing sites, and it says a ridge test point differs more', () => {
   const text = trustText(t, data, 4);
   assert.ok(text.includes(`maps, same ${pp.period.years} years: within ${(pp.landing_sites.max_abs * 100).toFixed(1)} percentage points at IM-1 and IM-2`));
-  assert.ok(text.includes('a ridge test point differs more'));
+  assert.ok(text.includes('other terrain sites differ more'));
   assert.ok(!text.includes((data.pgda.sun.max_abs * 100).toFixed(1)) && !text.includes((pp.sun.max_abs * 100).toFixed(1)));
 });

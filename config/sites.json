@@ -1,5 +1,5 @@
 {
-  "_note": "Landing sites. lat = selenographic latitude (deg, north positive); lon_east = east longitude (deg). Every coordinate is copied from the cited page; 'source.text' is the text as printed there. Negative longitudes as printed in a source are stored as east longitude 0–360° (lon + 360).",
+  "_note": "Landing sites. lat = selenographic latitude (deg, north positive); lon_east = east longitude (deg). Every coordinate is copied from the cited page; 'source.text' is the text as printed there. Negative longitudes as printed in a source are stored as east longitude 0–360° (lon + 360). Group 'future' (added 15 Nov 2026, ADR 0042): south polar places named by NASA as candidate or target areas for later landings; each coordinate is a point the cited page gives inside that area, not a chosen landing point.",
   "sites": [
     {
       "id": "apollo-11",
@@ -119,6 +119,54 @@
         "url": "https://lroc.im-ldi.com/images/1100",
         "publisher": "LROC (NASA LRO camera team)",
         "text": "-5927 elevation, 45.4561°S latitude, 177.5885°E longitude"
+      }
+    },
+    {
+      "id": "im-1-landed",
+      "name": "IM-1 Odysseus, where it came to rest",
+      "group": "clps",
+      "lat": -80.13,
+      "lon_east": 1.44,
+      "source": {
+        "url": "https://lroc.im-ldi.com/images/1360",
+        "publisher": "LROC (NASA LRO camera team)",
+        "text": "Odysseus came to rest at 80.13°S, 1.44°E, 2579 m elevation"
+      }
+    },
+    {
+      "id": "malapert-massif",
+      "name": "Malapert Massif (NASA Artemis candidate region)",
+      "group": "future",
+      "lat": -86.0,
+      "lon_east": 0.0,
+      "source": {
+        "url": "https://lroc.im-ldi.com/images/1294",
+        "publisher": "LROC (NASA LRO camera team)",
+        "text": "The relatively flat area (86°S, 0°E) above the \"5000\" in the image below is the heart of the Artemis 3 landing region"
+      }
+    },
+    {
+      "id": "nobile-rim-1",
+      "name": "Nobile Rim 1 (NASA Artemis candidate region)",
+      "group": "future",
+      "lat": -85.363,
+      "lon_east": 32.315156,
+      "source": {
+        "url": "https://ntrs.nasa.gov/citations/20250009664",
+        "publisher": "NASA Ames Research Center (NASA Technical Reports Server)",
+        "text": "Nobile Rim 1 / Lat: -85.3630° / Lon: 32.315156° (label in Figure 1, a point placed in the Nobile Rim 1 region)"
+      }
+    },
+    {
+      "id": "shackleton-ridge",
+      "name": "Shackleton connecting ridge (Blue Moon Mark 1 target ridge)",
+      "group": "future",
+      "lat": -89.684,
+      "lon_east": 196.739,
+      "source": {
+        "url": "https://lroc.im-ldi.com/images/1247",
+        "publisher": "LROC (NASA LRO camera team)",
+        "text": "The intersection of Shackleton - de Gerlache ridge and the rim of Shackleton crater is an area of high scientific interest (portion of NAC mosaic, 750 m wide, 89.684°S, 196.739°E)"
       }
     }
   ]

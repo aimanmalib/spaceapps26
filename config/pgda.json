@@ -39,6 +39,8 @@
     "_note": "Same-period check (scripts/pgda_period.py, 15 Nov 2026): the published skylines over 18.6 years of hourly steps, the length of the PGDA simulation, with Sun/Earth angles from the in-browser engine. The PGDA label does not give the dates of its simulation; start is the first date in that label (START_TIME). ridge: the check point where the one-year comparison differs most; its skyline is recomputed with the observer at each listed height and at the 3 x 3 block of points block_offset_m apart (one PGDA pixel); near_km counts the directions where the skyline is set by ground closer than that.",
     "start": "2009-07-13 00:00",
     "years": 18.6,
+    "_headline_note": "headline_sites: the two sites named in the one-line summary on the home page (the IM-1 nominal landing area and IM-2). Every other listed site with a terrain skyline is summarised separately (other_sites) and the page says that they differ more.",
+    "headline_sites": ["im-1", "im-2"],
     "ridge": {
       "point": "pgda-222.69E-89.45S",
       "observer_heights_m": [0, 2],

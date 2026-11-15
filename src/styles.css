@@ -61,8 +61,9 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .card { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem; }
 .card-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.5rem; }
 .card-title { margin: 0; font-size: 0.875rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
-.fields { display: grid; gap: 0.75rem; }
-.field { display: grid; gap: 0.25rem; min-width: 0; font-size: 0.875rem; color: var(--muted); }
+/* minmax(0, 1fr): a select with a long site name must not widen its grid track (a track counts as page overflow on phones). */
+.fields { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.75rem; }
+.field { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.25rem; min-width: 0; font-size: 0.875rem; color: var(--muted); }
 .field select, .field input {
   width: 100%; max-width: 100%; min-width: 0; font: inherit; font-size: 1rem; color: var(--text); background: var(--bg);
   border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.55rem 0.6rem; min-height: 2.75rem; color-scheme: dark;
@@ -134,6 +135,8 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .tech-table th, .tech-table td { text-align: left; padding: 0.2rem 1rem 0.2rem 0; }
 .tech-table thead th { font-weight: 600; color: var(--text); }
 .field select {
+  /* WebKit lays out the longest option at full width inside the select: clip it, or a long site name widens the page on phones. */
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   -webkit-appearance: none; appearance: none; padding-right: 2.2rem;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23a3abb5' stroke-width='2'/%3E%3C/svg%3E");
   background-repeat: no-repeat; background-position: right 0.75rem center;
@@ -431,7 +434,7 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .band.is-flip { border-left-color: var(--warn); }
 .band.is-flip .band-flag { color: var(--warn); }
 .answer.is-flip .answer-dot, .pano-dot.is-flip { outline: 2px solid var(--warn); outline-offset: 2px; }
-.pano-band { fill: var(--ground-line); fill-opacity: 0.4; stroke: none; }
+.pano-band { fill: var(--ground-line); fill-opacity: 0.28; stroke: none; }
 .answer-more { font-size: 0.875rem; color: var(--muted); }
 .answer-more summary { cursor: pointer; color: var(--muted); min-height: 1.5rem; display: flex; align-items: center; text-decoration: underline; text-underline-offset: 3px; }
 .answer-more summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

@@ -49,11 +49,12 @@ def summarize(rows, nd):
     return out
 
 
-def landing_sites(rows, listed, nd):
-    """Largest difference (either body) over the rows that are listed landing sites."""
-    ids = [r["site"] for r in rows if r["site"] in listed]
-    worst = max(abs(r["diff"][b]) for r in rows if r["site"] in listed for b in pgda.BODIES)
-    return {"ids": ids, "max_abs": round(worst, nd)}
+def site_group(rows, ids, nd):
+    """Largest and smallest difference per body (and the largest of either body) over the rows whose site is in ids."""
+    part = [r for r in rows if r["site"] in ids]
+    return {"ids": [r["site"] for r in part], "max_abs": round(max(abs(r["diff"][b]) for r in part for b in pgda.BODIES), nd),
+            **{b: {"min_abs": round(min(abs(r["diff"][b]) for r in part), nd), "max_abs": round(max(abs(r["diff"][b]) for r in part), nd)}
+               for b in pgda.BODIES}}
 
 
 def main():
@@ -64,6 +65,8 @@ def main():
     data = H.load(OUT)
     base = data["pgda"]["sites"]
     listed = {s["id"] for s in H.load("config/sites.json")["sites"]}
+    headline = set(per["headline_sites"])  # the two sites named in the one-line summary on the home page
+    others = listed - headline  # every other listed site with a terrain skyline
     step = hcfg["azimuth_step_deg"]
     jobs = []
     for s in base:
@@ -113,7 +116,8 @@ def main():
         "angles": "Astronomy Engine in the page's code (src/moonsky.js), not JPL Horizons",
         "rule": "share of hourly steps with any part of the disc above the skyline (the PGDA rule)",
         "disc_radius_deg": cfg["disc_radius_deg"],
-        **summarize(rows, nd), "landing_sites": landing_sites(rows, listed, nd), "sites": rows,
+        **summarize(rows, nd), "landing_sites": site_group(rows, headline, nd),
+        **({"other_sites": site_group(rows, others, nd)} if any(r["site"] in others for r in rows) else {}), "sites": rows,
         "ridge": {
             "site": ridge["site"], "lat": ridge["lat"], "lon_east": ridge["lon_east"], "pgda": ridge["pgda"],
             "azimuths": int(round(360.0 / step)), "near_km": ridge_cfg["near_km"], "observer": observer,
