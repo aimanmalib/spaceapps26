@@ -610,5 +610,15 @@
   "realism.eclipse.metrics": "Lunar eclipse in this period: Earth covers part of the Sun for {hours} h (up to {pct}, at {peak} UTC). Of these, {centre} h with the Sun's centre covered count as night, and the power estimate keeps only the uncovered part.",
   "realism.battery.heading": "Battery for the longest night",
   "realism.battery.note": "At an example load of {w} W through the longest night. Geometry estimate: no losses, heaters or reserve.",
-  "realism.battery.none": "None needed (no night)"
+  "realism.battery.none": "None needed (no night)",
+  "realism.dsn.lead": "Ground stations: a direct-to-Earth link also needs a Deep Space Network antenna that sees the Moon above {min}°. Moon elevation at this time:",
+  "realism.dsn.item": "{name} {el}",
+  "realism.dsn.ok": "{names} can take the link.",
+  "realism.dsn.ok_no_earth": "{names} sees the Moon, but Earth is below the site's horizon.",
+  "realism.dsn.wait": "No complex sees the Moon above the limit now; {name} will in {dur}.",
+  "realism.dsn.none": "No complex sees the Moon above the limit in the next {h} h.",
+  "realism.dsn.source": "Station coordinates: NASA/JPL DSN 810-005, module 301",
+  "realism.dsn.goldstone": "Goldstone (DSS 14)",
+  "realism.dsn.madrid": "Madrid (DSS 63)",
+  "realism.dsn.canberra": "Canberra (DSS 43)"
 }

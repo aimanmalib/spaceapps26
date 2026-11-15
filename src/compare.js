@@ -25,6 +25,7 @@ import { mountPresets, presetSearch } from './presets.js';
 import { sourceHtml } from './years.js';
 import { eclipseAround, withEclipses } from './eclipse.js';
 import { eclipseFacts } from './eclipse-ui.js';
+import { mountDsn } from './dsn-ui.js';
 import { CUSTOM_ID, customOptionHtml, customFieldsHtml, syncFields, readCustom, invalidText } from './custom.js';
 
 let uid = 0;
@@ -160,6 +161,8 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
       const box = r.c.el.querySelector('.card-result');
       box.innerHTML = r.sample ? resultHtml(t, { ...r, scale }, view) : `<p class="note note-warn">${e(r.msg)}</p>`;
       if (r.sample && years) box.querySelector('.horizon-kind')?.insertAdjacentHTML('afterend', sourceHtml(t, r.source, r.ms > years.range.frozenEndMs, years.checked));
+      // Ground stations (ADR 0109): which DSN complex sees the Moon, in the technical details only.
+      if (r.sample) mountDsn(box.querySelector('details.tech'), { t, ms: r.ms, earthUp: r.up.earth });
       // Earth view (P4v): right under the two answers, only where a LOLA terrain skyline exists.
       if (r.c.ev && r.sample && r.profile) {
         box.querySelector('.answers').after(r.c.evBox);

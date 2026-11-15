@@ -610,5 +610,15 @@
   "realism.eclipse.metrics": "Gerhana bulan dalam tempoh ini: Bumi menutup sebahagian Matahari selama {hours} j (sehingga {pct}, pada {peak} UTC). Daripadanya, {centre} j dengan pusat Matahari tertutup dikira sebagai malam, dan anggaran kuasa hanya mengambil bahagian yang tidak tertutup.",
   "realism.battery.heading": "Bateri untuk malam terpanjang",
   "realism.battery.note": "Pada beban contoh {w} W sepanjang malam terpanjang. Anggaran geometri: tanpa kehilangan, pemanas atau rizab.",
-  "realism.battery.none": "Tidak perlu (tiada malam)"
+  "realism.battery.none": "Tidak perlu (tiada malam)",
+  "realism.dsn.lead": "Stesen bumi: talian terus ke Bumi juga memerlukan antena Deep Space Network yang melihat Bulan melebihi {min}°. Ketinggian Bulan pada masa ini:",
+  "realism.dsn.item": "{name} {el}",
+  "realism.dsn.ok": "{names} boleh menerima talian.",
+  "realism.dsn.ok_no_earth": "{names} melihat Bulan, tetapi Bumi di bawah ufuk tapak.",
+  "realism.dsn.wait": "Tiada kompleks melihat Bulan melebihi had sekarang; {name} akan melihatnya dalam {dur}.",
+  "realism.dsn.none": "Tiada kompleks melihat Bulan melebihi had dalam {h} j akan datang.",
+  "realism.dsn.source": "Koordinat stesen: NASA/JPL DSN 810-005, modul 301",
+  "realism.dsn.goldstone": "Goldstone (DSS 14)",
+  "realism.dsn.madrid": "Madrid (DSS 63)",
+  "realism.dsn.canberra": "Canberra (DSS 43)"
 }
