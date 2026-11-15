@@ -28,13 +28,14 @@ const engine = async (site, span) =>
 const frozen = async (id) => json(`data/ephem/${id}.json`);
 const siteById = new Map(json('config/sites.json').sites.map((s) => [s.id, s]));
 
-test('config: dates run to the end of 2030 and the check covers 2028 to 2030 with at least 20 pairs', () => {
-  assert.equal(range.endMs, Date.UTC(2031, 0, 1));
+test('config: dates run to the end of 2040 and the check covers 2028 to 2040 with at least 20 pairs', () => {
+  assert.equal(range.endMs, Date.UTC(2041, 0, 1));
   assert.ok(range.frozenEndMs < Date.UTC(2028, 0, 1));
   assert.ok(cfg.check.pairs >= 20);
   assert.equal(cfg.check.from, '2028-01-01 00:00');
-  assert.equal(cfg.check.to, '2031-01-01 00:00');
-  assert.ok(cfg.check.max_diff_deg <= 0.05);
+  assert.equal(cfg.check.to, '2041-01-01 00:00');
+  assert.equal(cfg.check.to, cfg.stop, 'the check reaches the last accepted date');
+  assert.ok(cfg.check.max_sky_deg <= 0.05);
 });
 
 test('spanFor: frozen table inside its range, padded engine blocks after it, nothing outside the dates', () => {
@@ -71,17 +72,20 @@ test('sourceAt and the card label: Horizons inside the frozen range, engine afte
   assert.match(sourceHtml(t, 'engine', true, false), /Not validated against/);
 });
 
-test('checkPassed needs every difference within the limit and every answer the same', () => {
-  const ok = { max_abs_deg: 0.01, same_answer: { power: 24, comm: 24, of: 24 } };
-  assert.equal(checkPassed(ok, 0.05), true);
-  assert.equal(checkPassed({ ...ok, max_abs_deg: 0.06 }, 0.05), false);
+test('checkPassed needs both directions within the limit on the sky and every answer the same (ADR 0113)', () => {
+  const sky = (sun, earth) => ({ sun: { max_deg: sun }, earth: { max_deg: earth } });
+  const ok = { max_abs_deg: 0.2, sky_separation: sky(0.01, 0.01), same_answer: { power: 24, comm: 24, of: 24 } };
+  assert.equal(checkPassed(ok, 0.05), true, 'a large azimuth difference near the zenith does not decide');
+  assert.equal(checkPassed({ ...ok, sky_separation: sky(0.06, 0.01) }, 0.05), false);
+  assert.equal(checkPassed({ ...ok, sky_separation: sky(0.01, 0.06) }, 0.05), false);
+  assert.equal(checkPassed({ ...ok, sky_separation: undefined }, 0.05), false);
   assert.equal(checkPassed({ ...ok, same_answer: { power: 23, comm: 24, of: 24 } }, 0.05), false);
   assert.equal(checkPassed(null, 0.05), false);
 });
 
 test('the page label follows the recorded check (data/validation-years.json)', () => {
   const v = json('data/validation-years.json');
-  assert.equal(checkPassed(v.summary, cfg.check.max_diff_deg), v.passed);
+  assert.equal(checkPassed(v.summary, cfg.check.max_sky_deg), v.passed);
   assert.ok(v.pairs.length >= 20);
 });
 
@@ -142,6 +146,6 @@ test('own coordinates and nearby points get blocks past the frozen end too', asy
   const years = makeYears({ eph, cfg, frozen, engine: async (site, span) => (calls.push(span), span) });
   await years.table({ custom: true, lat: 1, lon_east: 2 }, parseUtc('2026-12-01 00:00'));
   assert.deepEqual(calls.pop(), { startMs: range.startMs, endMs: range.frozenEndMs });
-  await years.engineAt({ lat: 1, lon_east: 2 }, parseUtc('2030-12-31 23:00'));
+  await years.engineAt({ lat: 1, lon_east: 2 }, parseUtc('2040-12-31 23:00'));
   assert.equal(calls.pop().endMs, range.endMs);
 });

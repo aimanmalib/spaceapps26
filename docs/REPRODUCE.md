@@ -27,7 +27,7 @@ bash scripts/reproduce.sh          # or: bash scripts/reproduce.sh --list   (pri
 | Terrain range (nine points 80 m apart, observer 0 m and 2 m) | `scripts/band.py` | `data/band/` | LOLA DEMs, the Sun/Earth tables |
 | Whole-year shares there | `scripts/shift_year.mjs` | `data/shift-year/` | the files above |
 | Site-by-day calendar | `scripts/calendar.mjs` | `data/calendar.json` | the files above |
-| Engine vs JPL Horizons, 2028 to 2030 | `scripts/validate_years.py` | `data/validation-years.json` | JPL Horizons API |
+| Engine vs JPL Horizons, 2028 to 2040 | `scripts/validate_years.py` | `data/validation-years.json` | JPL Horizons API |
 | Angles vs JPL Horizons | `scripts/validate.py` | `data/validation.json` (`horizons`, `engine`) | JPL Horizons API |
 | Angles vs JPL Horizons at scale: every listed site, 2026 to 2030, 28 batched requests (run after the two lines above) | `scripts/validate.py --scale` | `data/validation-scale.json`, `data/horizons-cache.json`, `data/validation.json` (`scale`) | JPL Horizons API |
 | Terrain vs NASA PGDA, listed points | `scripts/pgda.py` | `data/validation.json` (`pgda`) | NASA GSFC PGDA product 69 |

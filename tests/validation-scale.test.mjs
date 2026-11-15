@@ -115,6 +115,6 @@ test('the Validation page and the first-screen line show the numbers from the fi
   assert.ok(html.includes(`${s.all_checks.same_answer.comm} of ${s.all_checks.same_answer.of}`));
   const line = trustText(t, v, nd);
   assert.ok(line.includes(`at ${s.all_checks.same_answer.of} random times`), line);
-  assert.ok(line.includes(`${s.all_checks.max_abs_deg.toFixed(nd)}°`), line);
+  assert.ok(line.includes(`directions on the sky, largest difference ${Math.max(s.all_checks.sky_separation.sun.max_deg, s.all_checks.sky_separation.earth.max_deg).toFixed(nd)}°`), line);
   assert.ok(line.includes(`solar power ${s.all_checks.same_answer.power} of ${s.all_checks.same_answer.of}, Earth ${s.all_checks.same_answer.comm} of ${s.all_checks.same_answer.of}`), line);
 });

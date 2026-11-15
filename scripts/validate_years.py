@@ -6,7 +6,7 @@ Draws config/years.json check.pairs (site, minute) pairs at random (fixed seed):
 and a minute in check.from..check.to, never on a table hour. "Shown" = the engine through scripts/engine_angles.mjs
 (same engine, grid, rounding and interpolation as the page past the frozen tables). "Horizons" = a fresh one-minute
 Horizons request for the same site and minute (same request as scripts/validate.py). Writes data/validation-years.json
-and its data/SOURCES.json entry. "passed" is true only when every difference is at most check.max_diff_deg and every
+and its data/SOURCES.json entry. "passed" is true only when every direction is within check.max_sky_deg on the sky and every
 yes/no answer is the same; the page then labels the engine "validated against JPL Horizons" for these dates.
 
 Usage: python3 scripts/validate_years.py   (Node 22 on PATH; about two minutes, two Horizons requests per pair)
@@ -40,9 +40,11 @@ def draw_pairs(sites, eph, check):
              "lat": by_id[sid]["lat"], "lon_east": by_id[sid]["lon_east"]} for m, sid in sorted(seen)]
 
 
-def passed(summary, max_diff):
-    same = summary["same_answer"]
-    return summary["max_abs_deg"] <= max_diff and same["power"] == same["of"] and same["comm"] == same["of"]
+def passed(summary, max_sky):
+    """The rule (ADR 0113): Sun and Earth directions within max_sky on the sky (great circle) and every yes/no answer the same."""
+    same, sky = summary["same_answer"], summary["sky_separation"]
+    return (sky["sun"]["max_deg"] <= max_sky and sky["earth"]["max_deg"] <= max_sky
+            and same["power"] == same["of"] and same["comm"] == same["of"])
 
 
 def main():
@@ -52,14 +54,24 @@ def main():
     sites = fh.load("config/sites.json")["sites"]
     nd = vcfg["decimals_report"]
     pairs = draw_pairs(sites, eph, check)
-    refs = v.fetch_refs(eph, vcfg, pairs, {s["id"]: s for s in sites})
+    old = fh.load(OUT) if (fh.ROOT / OUT).exists() else {}
+    if "--reuse" in sys.argv:  # same pairs, recorded Horizons answers, no request (KeyError if the pairs changed)
+        recorded = {(r["site"], r["time_utc"]): r["horizons"] for r in old["pairs"]}
+        refs = [recorded[(p["site"], p["time_utc"])] for p in pairs]
+    else:
+        refs = v.fetch_refs(eph, vcfg, pairs, {s["id"]: s for s in sites})
     rows = v.compare(pairs, v.shown_angles(pairs, "scripts/engine_angles.mjs"), refs, nd)
     summary = v.summarize(rows, nd, threshold)
+    summary["sky_separation"] = v.separation_summary(rows, nd)  # information only; "passed" keeps the rule of config/years.json
     now = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     result = {"generated_at": now, "script": SCRIPT, "seed": check["seed"], "from": check["from"], "to": check["to"],
-              "max_diff_deg": check["max_diff_deg"], "passed": passed(summary, check["max_diff_deg"]),
+              "max_sky_deg": check["max_sky_deg"], "passed": passed(summary, check["max_sky_deg"]),
+              "horizons_retrieved_at": old.get("horizons_retrieved_at", old.get("generated_at")) if "--reuse" in sys.argv else now,
               "summary": summary, "pairs": rows}
     (fh.ROOT / OUT).write_text(json.dumps(result, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    if "--reuse" in sys.argv:
+        print(f"max {summary['max_abs_deg']}°, on the sky {summary['sky_separation']}, same answers {summary['same_answer']}, passed {result['passed']} (recorded answers)")
+        return
     sources = fh.load("data/SOURCES.json")
     by_file = {e["file"]: e for e in sources["files"]}
     by_file["validation-years.json"] = {

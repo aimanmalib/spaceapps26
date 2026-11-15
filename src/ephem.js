@@ -31,14 +31,33 @@ function lerp(a, b, f) {
   return a + (b - a) * f;
 }
 
-// Sun and Earth azimuth/elevation at ms (linear between table rows); null outside the table.
+const RAD = Math.PI / 180;
+const unit = (az, el) => [Math.cos(el * RAD) * Math.sin(az * RAD), Math.cos(el * RAD) * Math.cos(az * RAD), Math.sin(el * RAD)];
+
+// Direction between two rows (ADR 0113): the unit vectors (east, north, up) of both rows joined by a straight line,
+// normalised and turned back into azimuth and elevation. Near the zenith or nadir the azimuth turns through many degrees in an
+// hour, so straight lines in azimuth and elevation put the body off its path (measured: 5.48° in azimuth, 0.056° on the sky,
+// with the Sun 0.56° from the zenith); joining the directions keeps it on the sky's arc. Rows themselves stay exact.
+export function lerpDirection(az0, el0, az1, el1, f) {
+  if (f <= 0) return { az: az0, el: el0 };
+  if (f >= 1) return { az: az1, el: el1 };
+  const a = unit(az0, el0);
+  const b = unit(az1, el1);
+  const [x, y, z] = a.map((v, k) => v + (b[k] - v) * f);
+  const h = Math.hypot(x, y);
+  if (!(Math.hypot(h, z) > 1e-12)) return { az: lerpAngle(az0, az1, f), el: lerp(el0, el1, f) };
+  const az = h > 1e-12 ? ((Math.atan2(x, y) / RAD) % 360 + 360) % 360 : lerpAngle(az0, az1, f);
+  return { az, el: Math.atan2(z, h) / RAD };
+}
+
+// Sun and Earth azimuth/elevation at ms (direction joined between table rows); null outside the table.
 export function sampleAt(table, ms) {
   const { startMs, endMs } = tableRange(table);
   if (!Number.isFinite(ms) || ms < startMs || ms > endMs) return null;
   const pos = (ms - startMs) / (table.step_minutes * MINUTE);
   const i = Math.min(Math.floor(pos), table.sun.el.length - 2);
   const f = pos - i;
-  const body = (b) => ({ az: lerpAngle(b.az[i], b.az[i + 1], f), el: lerp(b.el[i], b.el[i + 1], f) });
+  const body = (b) => lerpDirection(b.az[i], b.el[i], b.az[i + 1], b.el[i + 1], f);
   return { sun: body(table.sun), earth: body(table.earth) };
 }
 

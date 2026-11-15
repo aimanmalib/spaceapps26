@@ -10,7 +10,7 @@ Built during the event weekend (14–15 November 2026). Pages on the live site: 
 
 Built:
 
-- Pick a landing site and a UTC date and time (2026-11-01 to the end of 2030); see the Sun and Earth relative to the horizon, whether solar power generation and
+- Pick a landing site and a UTC date and time (2026-11-01 to the end of 2040); see the Sun and Earth relative to the horizon, whether solar power generation and
   direct-to-Earth communication are possible, and the elevation of each.
 - Horizon first: every card opens with one short verdict (for example "Link to Earth, no sunlight") and a 360° strip of the
   horizon with the Sun and Earth on it; at the ten south polar sites the ground in the strip is the LRO LOLA skyline. The strip's vertical
@@ -68,7 +68,7 @@ Built:
   ADR 0110).
 - Take the tour: five steps for a first visit (the decision and its badge, the horizon strip, the ready comparisons, the
   one-kilometre example, the Validation link). It opens only when its button is pressed (`config/tour.json`, ADR 0110).
-- Dates to the end of 2030: the frozen JPL Horizons tables cover 2026-11-01 to 2027-11-01; later dates are computed in the browser
+- Dates to the end of 2040: the frozen JPL Horizons tables cover 2026-11-01 to 2027-11-01; later dates are computed in the browser
   on the same hourly grid, and each card says which source its angles come from (checked against JPL Horizons, below).
 - Sequential comparison: buttons on every card step to the previous or next listed site (date kept) or move the time 1 day
   earlier or later (site kept). "If the date moves" lists the same two answers, with their margins from the horizon used, for the
@@ -146,7 +146,7 @@ sources page lists every frozen data file with the request it came from.
 
 Limitations:
 
-- Dates (d): 2026-11-01 to 2030-12-31 UTC. The frozen JPL Horizons tables cover 2026-11-01 00:00 to 2027-11-01 00:00, one row per
+- Dates (d): 2026-11-01 to 2040-12-31 UTC. The frozen JPL Horizons tables cover 2026-11-01 00:00 to 2027-11-01 00:00, one row per
   hour, interpolated in between; later dates use the in-browser engine on the same hourly grid. Every one-year number (Overview,
   calendar, year shares, the NASA PGDA checks) covers that first year only.
 - Mission check: geometry only. The W/m² estimate uses 1361 W/m² (NASA NSSDCA Moon Fact Sheet) with no panel efficiency, no
@@ -234,13 +234,14 @@ At scale (ADR 0108): `scripts/validate.py --scale` draws 720 random site-and-min
 fixed seed, never on a table hour) from 2026-11-01 to 2030-12-31: 178 on the dates of the frozen tables, which the page reads,
 and 542 on the later dates, which the browser computes. JPL Horizons is asked for the same minutes in 36 batched requests
 (`data/validation-scale.json`; summary in `data/validation.json`, block `scale`; raw answers in `data/horizons-cache.json`).
-Largest / average difference: Sun azimuth 0.0446° / 0.0020°, Sun elevation 0.0045° / 0.0014°, Earth azimuth 0.0150° / 0.0018°, Earth elevation 0.0047° / 0.0013°.
-Over all angles: largest difference 0.0446°; same solar power answer 720 of 720, same Earth answer 720 of 720.
-Frozen-table dates: largest 0.0054°; engine dates: largest 0.0446°. Measured on the sky (the angle between the
-two directions), the largest difference is 0.0061° for the Sun and 0.0063° for Earth: the 0.0446° is a Sun azimuth
-with the Sun 84.2° high, where azimuth turns fastest. Every Horizons check in this section together (the 90 pairs below,
-the 30 engine pairs at unnamed points, the 24 later-year pairs and these 720): 864 different site-and-minute pairs (3456 reference angles),
-same solar power answer 864 of 864, same Earth answer 864 of 864. This total is the number on the first screen.
+Largest / average difference: Sun azimuth 0.0152° / 0.0018°, Sun elevation 0.0047° / 0.0014°, Earth azimuth 0.0151° / 0.0018°, Earth elevation 0.0047° / 0.0013°.
+Over all angles: largest difference 0.0152°; same solar power answer 720 of 720, same Earth answer 720 of 720.
+Frozen-table dates: largest 0.0050°; engine dates: largest 0.0152°. Measured on the sky (the angle between the
+two directions), the largest difference is 0.0061° for the Sun and 0.0063° for Earth: the 0.0152° is a Sun azimuth
+with the Sun 79.9° high, where azimuth turns fastest. Every Horizons check in this section together (the 90 pairs below,
+the 30 engine pairs at unnamed points, the 60 later-year pairs and these 720): 900 different site-and-minute pairs (3600 reference angles),
+same solar power answer 900 of 900, same Earth answer 900 of 900. This total is the number on the first screen; its largest difference,
+0.1465°, is the Sun azimuth 0.56° from the zenith in the later-year check below. Measured as directions on the sky, the largest difference of all 900 pairs is 0.0063°; the first screen gives that number.
 
 Do the angles the tool shows match JPL Horizons? `scripts/validate.py` draws 90 site-and-time pairs at random (fixed seed,
 never on a table hour) and compares the angles shown by the page's own code with Horizons asked directly for the same site and minute.
@@ -248,12 +249,12 @@ Result (`data/validation.json`, also on the site's Validation page):
 
 | Angle | Largest difference | Average difference |
 |---|---|---|
-| Sun azimuth | 0.0439° | 0.0024° |
-| Sun elevation | 0.0077° | 0.0020° |
+| Sun azimuth | 0.0047° | 0.0018° |
+| Sun elevation | 0.0049° | 0.0020° |
 | Earth azimuth | 0.0047° | 0.0019° |
 | Earth elevation | 0.0043° | 0.0020° |
 
-Largest difference over all angles: 0.0439°. Same solar power answer: 90 of 90;
+Largest difference over all angles: 0.0049°. Same solar power answer: 90 of 90;
 same Earth communication answer: 90 of 90. The largest difference is the Sun azimuth at Apollo 14 (2027-08-03 22:41 UT) with the Sun 86.3° below the horizon,
 where the azimuth changes fastest between two table hours.
 
@@ -263,19 +264,25 @@ Own coordinates are computed in browser, validated against JPL Horizons: `script
 
 | Angle | Largest difference | Average difference |
 |---|---|---|
-| Sun azimuth | 0.0207° | 0.0016° |
-| Sun elevation | 0.0070° | 0.0012° |
-| Earth azimuth | 0.0446° | 0.0024° |
+| Sun azimuth | 0.0226° | 0.0015° |
+| Sun elevation | 0.0028° | 0.0011° |
+| Earth azimuth | 0.0285° | 0.0023° |
 | Earth elevation | 0.0028° | 0.0010° |
 
-Largest difference over all angles (engine): 0.0446°. Same solar power answer: 120 of 120; same Earth communication answer: 120 of 120.
+Largest difference over all angles (engine): 0.0285°. Same solar power answer: 120 of 120; same Earth communication answer: 120 of 120.
 The largest difference is the Earth azimuth on the far side (0°N 180°E, 2027-09-26 08:16 UT) with the Earth 88.4° below the
 horizon, where azimuth is nearly undefined.
 
-Dates after the frozen tables: `scripts/validate_years.py` compares the in-browser engine with JPL Horizons at 24 random
-site-and-minute pairs at the listed sites in 2028 to 2030 (fixed seed, never on a table hour; `data/validation-years.json`): largest
-difference 0.0045°, average 0.0013°, same solar power answer 24 of 24, same Earth communication answer
-24 of 24.
+Dates after the frozen tables: `scripts/validate_years.py` compares the in-browser engine with JPL Horizons at 60 random
+site-and-minute pairs at the listed sites in 2028 to 2040 (fixed seed, never on a table hour; `data/validation-years.json`): largest
+difference 0.1465°, average 0.0022°, same solar power answer 60 of 60, same Earth communication answer
+60 of 60. On the sky (great circle between the two directions) the largest difference is 0.0047° for the Sun and 0.0035° for Earth.
+The largest azimuth difference is at Apollo 11 on 2028-02-08 14:14 UT, with the Sun 0.56° from the zenith, where the azimuth turns
+about a hundred times faster than the direction: 0.0015° on the sky becomes 0.1465° in azimuth. Between hourly rows the page joins
+the directions (unit vectors), not the azimuth and elevation (ADR 0113); before that, the same pair was 5.4775° in azimuth and
+0.056° on the sky. The rule in `config/years.json` judges directions on the sky, not azimuth (the author's decision, ADR 0113):
+every Sun and Earth direction within 0.05° of Horizons on a great circle, and every yes/no answer the same. It is met, so the cards
+say that the engine is validated against JPL Horizons for the dates after the precomputed tables, to the end of 2040.
 
 Is the terrain horizon right? `scripts/pgda.py` compares it with an independent NASA product, the average Sun and Earth visibility
 maps of the lunar south pole (E. Mazarico, NASA GSFC PGDA, LOLA grid 120 m per pixel), at 11 points. A map value is the share
