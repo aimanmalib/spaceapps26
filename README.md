@@ -3,7 +3,7 @@
 <p align="center"><a href="https://github.com/aimanmalib/spaceapps26/actions/workflows/ci.yml"><img src="https://github.com/aimanmalib/spaceapps26/actions/workflows/ci.yml/badge.svg" alt="CI"></a> <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="License: Apache-2.0"></a></p>
 
 <p align="center"><b>Compare landing sites and dates on the Moon: sunlight for power and a direct line to Earth.</b> · <i>Banding tapak dan tarikh pendaratan di Bulan: cahaya Matahari untuk kuasa dan talian terus ke Bumi.</i><br>
-<a href="https://aimanmalib.github.io/spaceapps26/">try it</a> · <a href="https://aimanmalib.github.io/spaceapps26/?s=im-2,2026-11-14T00:00">the one-kilometre example</a> · <a href="https://aimanmalib.github.io/spaceapps26/demo/demo.pdf">slides, 7</a> · <a href="#validation-in-short">validation</a> · <a href="#run-it-locally">run it locally</a> · <a href="SI-DISCLOSURE.md">SI disclosure</a> · <a href="CHANGELOG.md">changelog</a></p>
+<a href="https://aimanmalib.github.io/spaceapps26/">try it</a> · <a href="https://aimanmalib.github.io/spaceapps26/?s=im-2,2026-11-14T00:00">the one-kilometre example</a> · <a href="https://aimanmalib.github.io/spaceapps26/demo/demo.pdf">slides, 7</a> · <a href="https://youtu.be/0vr8Z7KkWDs">demo video (30 s)</a> · <a href="#validation-in-short">validation</a> · <a href="#run-it-locally">run it locally</a> · <a href="SI-DISCLOSURE.md">SI disclosure</a> · <a href="CHANGELOG.md">changelog</a></p>
 
 **Try it:** <https://aimanmalib.github.io/spaceapps26/> (no sign-in; mirror: <https://spaceapps26.aimanmalib.com/>).
 Demo deck, 7 slides: <https://aimanmalib.github.io/spaceapps26/demo/demo.pdf> (the same file as `demo/demo.pdf` in this repository).
