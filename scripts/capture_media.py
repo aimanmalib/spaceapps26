@@ -2,6 +2,7 @@
 """Gallery and demo-deck media (PRD H4, §8): real screenshots of the deployed site, nothing drawn or generated.
 
     python3 scripts/capture_media.py [base_url]          # needs the Python `playwright` package + Chromium, and Pillow for the GIF
+    python3 scripts/capture_media.py --play [base_url]   # only the game shot (play.png)
     python3 scripts/capture_media.py --deck [base_url]   # only the demo-deck crops (config/media.json "deck_png", including
 the gallery's one-year timeline shot)
 
@@ -140,18 +141,40 @@ def capture_gif(browser, base):
     ctx.close()
 
 
+def capture_play(browser, base):
+    """Gallery shot of the game (play.html): the first round after Check, both questions answered "yes"."""
+    ctx = browser.new_context(viewport=viewport("play"), device_scale_factor=CFG["scale"], locale=CFG["locale"])
+    page = ctx.new_page()
+    page.set_default_timeout(TIMEOUT_MS)
+    page.goto(base.rstrip("/") + "/play.html", wait_until="networkidle")
+    page.locator(".game-form").wait_for()
+    for q in ("sun", "earth"):
+        page.locator(f".game-q input[name={q}][value=yes]").check()
+    page.locator(".game-check").click()
+    page.locator(".game-result:not([hidden]) .game-marks").wait_for()
+    page.evaluate("() => { document.activeElement?.blur(); window.scrollTo(0, 0); }")
+    page.wait_for_timeout(300)
+    shot(page.locator("main"), "play")
+    ctx.close()
+
+
 def main():
-    args = [a for a in sys.argv[1:] if a != "--deck"]
+    args = [a for a in sys.argv[1:] if a not in ("--deck", "--play")]
     deck_only = "--deck" in sys.argv[1:]
+    play_only = "--play" in sys.argv[1:]
     base = args[0] if args else CFG["base_url"]
     os.makedirs(OUT, exist_ok=True)
     with sync_playwright() as p:
         browser = p.chromium.launch()
         try:
-            if not deck_only:
-                capture_png(browser, base)
-                capture_gif(browser, base)
-            capture_deck(browser, base)
+            if play_only:
+                capture_play(browser, base)
+            else:
+                if not deck_only:
+                    capture_png(browser, base)
+                    capture_gif(browser, base)
+                    capture_play(browser, base)
+                capture_deck(browser, base)
         finally:
             browser.close()
     big = [f for f in os.listdir(OUT) if os.path.getsize(os.path.join(OUT, f)) > CFG["max_bytes"]]

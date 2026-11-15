@@ -1,0 +1,11 @@
+{
+  "_note": "Educational game (challenge text: \"an educational game\"; option A chosen by the author, 15 Nov): each round shows one listed site and one UTC time inside the frozen tables; the player answers the two questions of the tool (Sun above the horizon used = solar power; Earth above it = direct-to-Earth link). Answers are NOT stored here: src/game.js computes them with the same tables, terrain skylines and judgement as the Compare page (config/view.json horizon_threshold_deg). Rounds mix near-side sites far from the horizon with south polar sites a few degrees from it and the far side. Score = correct answers out of 2 × rounds; nothing is kept after the page closes.",
+  "rounds": [
+    { "site": "apollo-11", "time_utc": "2026-11-20T00:00" },
+    { "site": "change-4", "time_utc": "2026-11-14T00:00" },
+    { "site": "im-2", "time_utc": "2026-11-14T00:00" },
+    { "site": "chandrayaan-3", "time_utc": "2026-11-14T00:00" },
+    { "site": "im-2", "time_utc": "2027-05-18T00:00" },
+    { "site": "im-2", "time_utc": "2026-12-05T12:00" }
+  ]
+}

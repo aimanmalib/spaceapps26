@@ -1,5 +1,5 @@
 {
-  "_note": "Gallery and demo-deck captures (PRD H4, §8): real screenshots of the deployed site, made by scripts/capture_media.py. Five PNG + one GIF, each at most max_bytes (Space Apps project page limit 10 MB).",
+  "_note": "Gallery and demo-deck captures (PRD H4, §8): real screenshots of the deployed site, made by scripts/capture_media.py. Six PNG + one GIF, each at most max_bytes (Space Apps project page limit 10 MB).",
   "base_url": "https://spaceapps26.aimanmalib.com/",
   "viewport": {
     "width": 1280,
@@ -15,6 +15,10 @@
     "validation": {
       "width": 800,
       "height": 900
+    },
+    "play": {
+      "width": 900,
+      "height": 1000
     }
   },
   "locale": "en-GB",
@@ -24,7 +28,8 @@
     "small-shifts",
     "map-2d",
     "surface-3d",
-    "validation"
+    "validation",
+    "play"
   ],
   "gif": {
     "name": "timeline",

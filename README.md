@@ -52,6 +52,11 @@ Built:
   `?s=custom,<lat>,<lon east>,<UTC time>`); opening it restores the cards, and values that cannot be read are skipped with a
   visible notice. "Set all to now (UTC)" moves every card to the current hour while it is inside the data (otherwise the button is
   off and says why). Above the side-by-side table, one plain sentence per scenario repeats the card's two answers.
+- Play (educational game, challenge text: "an educational game"): `play.html`, six rounds from `config/game.json`. Each round
+  shows one listed site and one UTC time; the player answers the two questions (Sun above the horizon used, Earth above it) and
+  presses Check. The answers are not stored in the config: they are computed with the same tables, terrain skylines and judgement
+  as the Compare page, with one sentence per answer giving the elevation, the horizon in that direction and the margin, the
+  horizon picture and a link that opens the round in the tool. Score out of 12; no timer, account, storage or sound.
 - A timeline of one lunar day (29.5 Earth days) on every card: Sun and Earth elevation over time, bars for when each is in view,
   a slider to move through it and a Play button (hidden when the device asks for reduced motion). A switch shows the whole one-year
   table instead (hourly steps, 1 Nov 2026 to 1 Nov 2027), with the share of hours each one is at least partly above the horizon used;

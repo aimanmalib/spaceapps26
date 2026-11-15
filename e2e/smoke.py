@@ -6,7 +6,7 @@
 Profiles: Chromium desktop 1280 px, Chromium 320 px, WebKit iPhone 13.
 On each: the compare tool renders answers, the site select and the time input
 update them, the step buttons and "If the date moves" table (sequential comparison) work, own coordinates (item b) give answers, the 2D map (item h) and 3D surface (item i) draw, "add" makes one more card, technical details open, the validation
-page shows its numbers, About lists items a–l and limitations, Data sources lists the frozen files;
+page shows its numbers, the Play page plays one round, About lists items a–l and limitations, Data sources lists the frozen files;
 the first answers of the first card fit the first screen (P4f), zero console errors, zero requests to other hosts,
 no horizontal overflow. Prints one line per profile; exit 1 on any failure.
 Screenshots go to $AUTOPILOT_BUKTI_DIR (or $SMOKE_SHOTS) when set.
@@ -290,6 +290,33 @@ def share(page, check, base):
           "unreadable link: default scenarios + visible notice (share)")
 
 
+def play_game(page, check, base, shots, name):
+    """Educational game (play.html): one round played with the keyboard-reachable radios; Check shows two marks, a
+    computed reason, the horizon picture and a link that opens the same scenario in the tool; Next moves on."""
+    page.goto(base.rstrip("/") + "/play.html", wait_until="networkidle")
+    page.locator(".game-form").wait_for()
+    check(page.locator(".game-q").count() == 2, "play: two yes/no questions")
+    page.locator(".game-check").click()
+    check(page.locator(".game-missing").is_visible(), "play: Check without answers asks for both")
+    for q in ("sun", "earth"):
+        page.locator(f".game-q input[name={q}][value=yes]").check()
+    page.locator(".game-check").click()
+    page.locator(".game-result:not([hidden]) .game-marks").wait_for()
+    marks = page.locator(".game-mark").all_inner_texts()
+    check(len(marks) == 2 and all("°" in m and "azimuth" in m for m in marks), f"play: two marks with a computed reason: {marks[:1]}")
+    check(page.locator(".game-result .sky-svg").count() == 1, "play: horizon picture after Check")
+    href = page.locator(".game-open").get_attribute("href")
+    check(href.startswith("./?s="), f"play: link opens the scenario in the tool ({href})")
+    check(no_overflow(page), "play page: no horizontal overflow")
+    if shots:
+        page.screenshot(path=os.path.join(shots, f"smoke-{name}-play.png"), full_page=True)
+    page.locator(".game-next").click()
+    page.wait_for_function("() => document.querySelector('.game-progress')?.innerText.startsWith('Round 2')")
+    page.goto(base.rstrip("/") + "/" + href.lstrip("./"), wait_until="networkidle")
+    page.locator(".card .answers").first.wait_for()
+    check(page.locator(".card").count() == 1, "play: scenario link opens one card in the tool")
+
+
 def run_profile(p, name, engine, ctx_opts, base, shots):
     browser = getattr(p, engine).launch()
     opts = p.devices[ctx_opts] if isinstance(ctx_opts, str) else ctx_opts
@@ -387,6 +414,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
             page.screenshot(path=os.path.join(shots, f"smoke-{name}-compare.png"), full_page=not tall)
 
         share(page, check, base)
+        play_game(page, check, base, shots, name)
         page.goto(base.rstrip("/") + "/validation.html", wait_until="networkidle")
         page.locator("#validation table").first.wait_for()
         text = page.locator("#validation").inner_text()

@@ -302,3 +302,28 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .win-dl dd { margin: 0; overflow-wrap: break-word; }
 .win-len { font-weight: 600; }
 .win-use { justify-self: start; }
+
+/* Educational game (play.html): one round at a time; tokens only, no motion. */
+.game { max-width: 46rem; }
+.game-progress { color: var(--muted); font-size: 0.875rem; margin: 0 0 0.25rem; }
+.game-site { margin: 0 0 0.25rem; }
+.game-site:focus, .game-score:focus, .game-marks:focus { outline: none; }
+.game-site:focus-visible, .game-score:focus-visible, .game-marks:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.game-form { display: grid; gap: 0.75rem; }
+.game-q { margin: 0; min-width: 0; border: 1px solid var(--line); border-radius: var(--radius); padding: 0.75rem 1rem 1rem; background: var(--surface); }
+.game-q legend { padding: 0 0.35rem; font-weight: 600; }
+.game-opts { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 0.25rem; }
+.game-opt { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; cursor: pointer; }
+.game-opt input { width: 1.25rem; height: 1.25rem; margin: 0; accent-color: var(--accent); }
+.game-opt input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.game-form .btn { justify-self: start; margin-top: 0; }
+.game-result { margin-top: 1.25rem; }
+.game-marks { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: 0.6rem; }
+.game-mark { border-left: 3px solid var(--line); padding: 0.25rem 0 0.25rem 0.75rem; overflow-wrap: anywhere; }
+.game-mark.is-right { border-left-color: var(--accent); }
+.game-mark.is-wrong { border-left-color: var(--warn); }
+.game-mark.is-wrong strong { color: var(--warn); }
+.game-mark.is-right strong { color: var(--accent); }
+.game-links { margin: 1rem 0 0; }
+.game-links a { color: var(--text); }
+.game-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

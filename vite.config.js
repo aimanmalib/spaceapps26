@@ -26,6 +26,7 @@ export default defineConfig({
         validation: `${root}validation.html`,
         sources: `${root}sources.html`,
         about: `${root}about.html`,
+        play: `${root}play.html`,
       },
     },
   },
