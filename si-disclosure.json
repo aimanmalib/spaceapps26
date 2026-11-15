@@ -31,7 +31,7 @@
     "further options from the challenge text (sequential comparison, an educational game, terrain for custom coordinates, slopes and shadow conditions on the map): chosen by the author, all four, on 15 November 2026 from NASA's own wording, listed by SI",
     "accepting the open-source participant terms",
     "submission",
-    "five further features (mission window finder, shareable links with a plain verdict and a Now button, a page for teachers, a guided tour): suggested by SI at the author's request on 15 November 2026; the author considered the list and chose all five"
+    "further features suggested by SI (mission window finder, shareable links with a plain verdict and a Now button, a page for teachers, a guided tour; then a real NASA photograph on the first screen, a one-year overview of every listed site, Indonesian and Malay interface options): suggested by SI at the author's request on 15 November 2026; the author considered each list and chose all of them"
   ],
   "si_generated_paths": [
     "src/",

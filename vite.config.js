@@ -25,10 +25,10 @@ const pageMeta = {
   transformIndexHtml: { order: 'post', handler: (html) => staticMeta(html, en) },
 };
 
-// Pages with their source under src/ (repo file scope): the game (P4j) and the page for teachers (P4o). Each is served
+// Pages with their source under src/ (repo file scope): the game (P4j), the page for teachers (P4o) and the overview (P4s). Each is served
 // and built as /<name>.html. Their plain links (nav) are already written for the site root; only the bundled asset paths
 // need one level less.
-const SRC_PAGES = ['play', 'teach'];
+const SRC_PAGES = ['play', 'teach', 'overview'];
 const srcPagesAtRoot = {
   name: 'src-pages-at-root',
   configureServer(server) {

@@ -20,7 +20,7 @@ test('static meta writes title, description, og: tags and a relative favicon lin
 
 test('every page names title and description keys that exist in i18n/en.json', () => {
   const en = JSON.parse(read('i18n/en.json'));
-  for (const p of ['index.html', 'about.html', 'validation.html', 'sources.html', 'src/play.html', 'src/teach.html']) {
+  for (const p of ['index.html', 'about.html', 'validation.html', 'sources.html', 'src/play.html', 'src/teach.html', 'src/overview.html']) {
     const out = staticMeta(read(p), en);
     assert.match(out, /<meta property="og:title" content="[^"]+"/, p);
     assert.match(out, /<meta property="og:description" content="[^"]+"/, p);

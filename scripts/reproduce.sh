@@ -14,6 +14,7 @@ STEPS=(
   "python3 scripts/map2d.py"            # 2D map tiles (data/map)
   "python3 scripts/shifts.py"           # skylines one kilometre away (data/shift)
   "node scripts/shift_year.mjs"         # whole-year shares at those points (data/shift-year)
+  "node scripts/overview.mjs"           # one-year overview of every listed site (data/overview.json)
   "python3 scripts/validate.py"         # tool vs JPL Horizons, listed sites and own coordinates (data/validation.json)
   "python3 scripts/pgda.py"             # terrain horizon vs NASA PGDA at the listed points
   "python3 scripts/pgda_sample.py"      # the same at random points (block pgda_sample)

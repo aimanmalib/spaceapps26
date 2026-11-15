@@ -1,0 +1,160 @@
+{
+ "generated_by": "scripts/overview.mjs (Claude Code, Anthropic); inputs config/sites.json, data/ephem, data/horizon",
+ "period": {
+  "start": "2026-11-01 00:00",
+  "stop": "2027-11-01 00:00",
+  "step_minutes": 60
+ },
+ "rule": "share of hourly rows with any part of the disc above the horizon used (as the one-year caption of the timeline and data/validation.json \"pgda\")",
+ "disc_radius_deg": {
+  "sun": 0.267,
+  "earth": 0.95
+ },
+ "longest_both": "longest run of consecutive hourly rows with both Sun and Earth counted; start/end = first and last row; *_open = the run touches the start or end of the table",
+ "sites": [
+  {
+   "site": "apollo-11",
+   "horizon": "sphere",
+   "hours": 8761,
+   "sun": 0.488,
+   "earth": 1,
+   "both": 0.488,
+   "longest_both": {
+    "start": "2026-11-15T02:00Z",
+    "end": "2026-11-29T22:00Z",
+    "hours": 357,
+    "start_open": false,
+    "end_open": false
+   }
+  },
+  {
+   "site": "apollo-12",
+   "horizon": "sphere",
+   "hours": 8761,
+   "sun": 0.496,
+   "earth": 1,
+   "both": 0.496,
+   "longest_both": {
+    "start": "2026-11-18T22:00Z",
+    "end": "2026-12-03T18:00Z",
+    "hours": 357,
+    "start_open": false,
+    "end_open": false
+   }
+  },
+  {
+   "site": "apollo-14",
+   "horizon": "sphere",
+   "hours": 8761,
+   "sun": 0.495,
+   "earth": 1,
+   "both": 0.495,
+   "longest_both": {
+    "start": "2026-11-18T10:00Z",
+    "end": "2026-12-03T07:00Z",
+    "hours": 358,
+    "start_open": false,
+    "end_open": false
+   }
+  },
+  {
+   "site": "apollo-15",
+   "horizon": "sphere",
+   "hours": 8761,
+   "sun": 0.49,
+   "earth": 1,
+   "both": 0.49,
+   "longest_both": {
+    "start": "2027-03-15T01:00Z",
+    "end": "2027-03-29T23:00Z",
+    "hours": 359,
+    "start_open": false,
+    "end_open": false
+   }
+  },
+  {
+   "site": "apollo-16",
+   "horizon": "sphere",
+   "hours": 8761,
+   "sun": 0.488,
+   "earth": 1,
+   "both": 0.488,
+   "longest_both": {
+    "start": "2026-11-15T17:00Z",
+    "end": "2026-11-30T14:00Z",
+    "hours": 358,
+    "start_open": false,
+    "end_open": false
+   }
+  },
+  {
+   "site": "apollo-17",
+   "horizon": "sphere",
+   "hours": 8761,
+   "sun": 0.487,
+   "earth": 1,
+   "both": 0.487,
+   "longest_both": {
+    "start": "2027-03-12T20:00Z",
+    "end": "2027-03-27T17:00Z",
+    "hours": 358,
+    "start_open": false,
+    "end_open": false
+   }
+  },
+  {
+   "site": "im-1",
+   "horizon": "terrain",
+   "hours": 8761,
+   "sun": 0.456,
+   "earth": 1,
+   "both": 0.456,
+   "longest_both": {
+    "start": "2026-11-17T07:00Z",
+    "end": "2026-12-02T08:00Z",
+    "hours": 362,
+    "start_open": false,
+    "end_open": false
+   }
+  },
+  {
+   "site": "im-2",
+   "horizon": "terrain",
+   "hours": 8761,
+   "sun": 0.457,
+   "earth": 0.932,
+   "both": 0.427,
+   "longest_both": {
+    "start": "2026-11-15T04:00Z",
+    "end": "2026-11-30T23:00Z",
+    "hours": 380,
+    "start_open": false,
+    "end_open": false
+   }
+  },
+  {
+   "site": "chandrayaan-3",
+   "horizon": "sphere",
+   "hours": 8761,
+   "sun": 0.49,
+   "earth": 1,
+   "both": 0.49,
+   "longest_both": {
+    "start": "2026-11-13T23:00Z",
+    "end": "2026-11-29T13:00Z",
+    "hours": 375,
+    "start_open": false,
+    "end_open": false
+   }
+  },
+  {
+   "site": "change-4",
+   "horizon": "sphere",
+   "hours": 8761,
+   "sun": 0.512,
+   "earth": 0,
+   "both": 0,
+   "longest_both": null
+  }
+ ]
+}

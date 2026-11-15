@@ -373,6 +373,27 @@ def teach_page(page, check, base, shots, name):
         check(page.locator(".card").count() == want, f"teach: {href} opens {want} card(s) in the tool")
 
 
+def overview_page(page, check, base, shots, name):
+    """P4s: one-year overview of every listed site; a column heading sorts the table and keeps focus (keyboard)."""
+    page.goto(base.rstrip("/") + "/overview.html", wait_until="networkidle")
+    page.locator("#overview tbody tr").first.wait_for()
+    rows = page.locator("#overview tbody tr").count()
+    check(rows >= 10, f"overview: one row per listed site ({rows})")
+    check(page.locator("#ov-findings li").count() == 3, "overview: three findings read off the table")
+    page.locator('.ov-sort[data-col="name"]').focus()
+    page.keyboard.press("Enter")
+    sorted_ok = page.evaluate("""() => {
+      const th = document.querySelector('.ov-sort[data-col="name"]').closest('th');
+      const names = [...document.querySelectorAll('#overview tbody th')].map((x) => x.textContent);
+      return th.getAttribute('aria-sort') === 'ascending' && document.activeElement?.dataset.col === 'name'
+        && names.join('|') === [...names].sort((a, b) => a.localeCompare(b)).join('|');
+    }""")
+    check(sorted_ok, "overview: Enter on a heading sorts by it, aria-sort set, focus kept")
+    check(no_overflow(page), "overview page: no horizontal overflow")
+    if shots:
+        page.screenshot(path=os.path.join(shots, f"smoke-{name}-overview.png"), full_page=True)
+
+
 def summary(page, check):
     """P4v: verdicts, the validation line and the main buttons come before the cards in the page; on wide windows the
     verdicts are also drawn above the cards (narrow screens draw them under the cards)."""
@@ -514,6 +535,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         share(page, check, base)
         play_game(page, check, base, shots, name)
         teach_page(page, check, base, shots, name)
+        overview_page(page, check, base, shots, name)
         page.goto(base.rstrip("/") + "/validation.html", wait_until="networkidle")
         page.locator("#validation table").first.wait_for()
         text = page.locator("#validation").inner_text()

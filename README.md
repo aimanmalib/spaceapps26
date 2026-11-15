@@ -111,6 +111,32 @@ Limitations:
   output, antennas, relay satellites and link budgets are not modelled.
 - The interface is in English only.
 
+## One year at every listed site
+
+The Overview page (`overview.html`) counts every listed site over the whole data table (2026-11-01 00:00 to 2027-11-01 00:00 UTC,
+8761 hourly steps). An hour counts when any part of the disc is above the horizon used, the rule of the one-year caption on
+Compare. Counted by `scripts/overview.mjs` into `data/overview.json`; the tests check it against the tables, the caption and `data/validation.json`.
+Read off the table (the page writes the same three lines from the file):
+
+- Most hours with the Sun in view: Chang'e 4 (CNSA), lunar far side, 51.2 %.
+- Most hours with both the Sun and Earth in view: Apollo 12 (Ocean of Storms), 49.6 %.
+- Longest unbroken stretch with both in view: IM-2 Athena (Mons Mouton area), 15.8 days (2026-11-15 to 2026-11-30).
+
+| Site | Sun in view, % of hours | Earth in view, % | Both, % | Longest unbroken stretch with both | Horizon used |
+|---|---|---|---|---|---|
+| Apollo 11 (Tranquility Base) | 48.8 | 100.0 | 48.8 | 14.9 days (2026-11-15 to 2026-11-29) | ideal sphere |
+| Apollo 12 (Ocean of Storms) | 49.6 | 100.0 | 49.6 | 14.9 days (2026-11-18 to 2026-12-03) | ideal sphere |
+| Apollo 14 (Fra Mauro) | 49.5 | 100.0 | 49.5 | 14.9 days (2026-11-18 to 2026-12-03) | ideal sphere |
+| Apollo 15 (Hadley-Apennine) | 49.0 | 100.0 | 49.0 | 15.0 days (2027-03-15 to 2027-03-29) | ideal sphere |
+| Apollo 16 (Descartes Highlands) | 48.8 | 100.0 | 48.8 | 14.9 days (2026-11-15 to 2026-11-30) | ideal sphere |
+| Apollo 17 (Taurus-Littrow) | 48.7 | 100.0 | 48.7 | 14.9 days (2027-03-12 to 2027-03-27) | ideal sphere |
+| IM-1 Odysseus, nominal landing area (near Malapert A) | 45.6 | 100.0 | 45.6 | 15.1 days (2026-11-17 to 2026-12-02) | LOLA terrain |
+| IM-2 Athena (Mons Mouton area) | 45.7 | 93.2 | 42.7 | 15.8 days (2026-11-15 to 2026-11-30) | LOLA terrain |
+| Chandrayaan-3 Vikram (ISRO) | 49.0 | 100.0 | 49.0 | 15.6 days (2026-11-13 to 2026-11-29) | ideal sphere |
+| Chang'e 4 (CNSA), lunar far side | 51.2 | 0.0 | 0.0 | none | ideal sphere |
+
+Sites with a terrain skyline and sites on the ideal sphere use different horizons, so their numbers are not like for like. Geometry only.
+
 ## Data
 
 Sun and Earth positions come from the JPL Horizons System; terrain comes from LRO LOLA topography. All data is fetched by scripts in

@@ -158,8 +158,19 @@ def capture_play(browser, base):
     ctx.close()
 
 
+def capture_overview(browser, base):
+    """Gallery shot of the one-year overview (overview.html, P4s): findings and the table of every listed site."""
+    ctx = browser.new_context(viewport=viewport("overview"), device_scale_factor=CFG["scale"], locale=CFG["locale"])
+    page = ctx.new_page()
+    page.set_default_timeout(TIMEOUT_MS)
+    page.goto(base.rstrip("/") + "/overview.html", wait_until="networkidle")
+    page.locator("#overview tbody tr").first.wait_for()
+    shot(page.locator("main"), "overview")
+    ctx.close()
+
+
 def main():
-    args = [a for a in sys.argv[1:] if a not in ("--deck", "--play")]
+    args = [a for a in sys.argv[1:] if a not in ("--deck", "--play", "--overview")]
     deck_only = "--deck" in sys.argv[1:]
     play_only = "--play" in sys.argv[1:]
     base = args[0] if args else CFG["base_url"]
@@ -167,13 +178,16 @@ def main():
     with sync_playwright() as p:
         browser = p.chromium.launch()
         try:
-            if play_only:
+            if "--overview" in sys.argv[1:]:
+                capture_overview(browser, base)
+            elif play_only:
                 capture_play(browser, base)
             else:
                 if not deck_only:
                     capture_png(browser, base)
                     capture_gif(browser, base)
                     capture_play(browser, base)
+                    capture_overview(browser, base)
                 capture_deck(browser, base)
         finally:
             browser.close()

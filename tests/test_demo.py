@@ -105,7 +105,7 @@ class Deck(unittest.TestCase):
 class Gallery(unittest.TestCase):
     def test_png_and_gif_present_and_small_enough(self):
         names = [f"{n}.png" for n in CFG["png"]] + [f"{CFG['gif']['name']}.gif"]
-        self.assertEqual(len(names), 7)  # six PNG (play.png added with the game, P4j) + one GIF
+        self.assertEqual(len(names), 8)  # seven PNG (play.png with the game, P4j; overview.png, P4s) + one GIF
         names = names[:-1] + [f"{d['name']}.png" for d in CFG["deck_png"]["shots"]] + names[-1:]
         for name in names:
             path = ROOT / "docs" / "media" / name
