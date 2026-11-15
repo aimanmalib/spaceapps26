@@ -7,13 +7,17 @@ Profiles: Chromium desktop 1280 px, Chromium laptop 1366 x 768, Chromium 320 px,
 On each: the compare tool renders answers, the site select and the time input
 update them, the one-kilometre example button scrolls to the Earth view, the step buttons and "If the date moves" table (sequential comparison) work, own coordinates (item b) give answers, the 2D map (item h) and 3D surface (item i) draw, "add" makes one more card, technical details open, the validation
 page shows its numbers, the Play page plays one round, About lists items a–l and limitations, Data sources lists the frozen files;
+"Download CSV" saves a file built in the browser on every card and under the side-by-side table, the guided tour
+opens only on request and closes with Esc (ADR 0110),
 the first answers of the first card fit the first screen (P4f), zero console errors, zero requests to other hosts,
 every page in Indonesian and Malay (?lang=, P4t) with the translation note and no raw keys,
 no horizontal overflow. Prints one line per profile; exit 1 on any failure.
 Screenshots go to $AUTOPILOT_BUKTI_DIR (or $SMOKE_SHOTS) when set.
 """
+import csv
 from datetime import datetime, timezone
 import os
+import re
 import sys
 from urllib.parse import urlsplit
 
@@ -85,6 +89,52 @@ def open_box(box):
 
 def answers(page, n):
     return page.locator(".card").nth(n).locator(".card-result").inner_text()
+
+
+def csv_rows(download):
+    """Rows of a downloaded CSV (header first); the file starts with a UTF-8 byte order mark."""
+    with open(download.path(), encoding="utf-8-sig", newline="") as fh:
+        return list(csv.reader(fh))
+
+
+def csv_download(page, check):
+    """Download CSV (ADR 0110): a Blob file per card and one for the side-by-side table, named after site + date."""
+    n = page.locator(".card").count()
+    check(page.locator(".card .card-csv button:not([disabled])").count() == n, "Download CSV on every card (ADR 0110)")
+    first = page.locator(".card").first
+    site = first.locator(".fields select").input_value()
+    day = first.locator(".fields input[type=datetime-local]").input_value()[:10]
+    with page.expect_download() as info:
+        first.locator(".card-csv button").click()
+    name = info.value.suggested_filename
+    check(name.endswith(".csv") and f"_{site}_{day}_" in name, f"CSV file name has the site and date: {name}")
+    rows = csv_rows(info.value)
+    said = re.search(r"\((\d+) ", first.locator(".csv-status").inner_text())
+    check(rows and rows[0][:3] == ["scenario", "site", "time_utc"] and len(rows) > 24
+          and all(len(r) == len(rows[0]) for r in rows), f"CSV: header + hourly rows ({len(rows)} lines)")
+    check(said and int(said.group(1)) == len(rows) - 1, "CSV: the status line says how many rows were saved")
+    check(all(r[6] in ("yes", "no") and r[10] in ("yes", "no") for r in rows[1:]), "CSV: power / Earth columns are yes or no")
+    with page.expect_download() as info:
+        page.locator(".glance-csv button").click()
+    every = csv_rows(info.value)
+    check(sorted({r[0] for r in every[1:]}) == [str(i + 1) for i in range(n)], f"side-by-side CSV: one block per card ({n})")
+
+
+def tour(page, check):
+    """Guided tour (ADR 0110): never opens by itself; the button opens a dialog with focus inside; Esc closes it."""
+    dlg = page.locator("dialog.tour")
+    check(not dlg.evaluate("d => d.open"), "tour: not open on load")
+    page.locator(".tour-start").click()
+    dlg.wait_for(state="visible")
+    check(dlg.evaluate("d => d.contains(document.activeElement)") and page.locator(".tour-on").count() >= 1,
+          "tour: focus inside the dialog, the step outlined on the page")
+    first = dlg.locator(".tour-count").inner_text()
+    dlg.locator(".tour-next").click()
+    check(dlg.locator(".tour-count").inner_text() != first, "tour: Next moves to the next step")
+    page.keyboard.press("Escape")
+    page.wait_for_function("() => !document.querySelector('dialog.tour').open")
+    check(page.evaluate("() => document.activeElement?.classList.contains('tour-start')") and page.locator(".tour-on").count() == 0,
+          "tour: Esc closes it, the outline goes, focus back on the button")
 
 
 def own_coordinates(page, check):
@@ -666,6 +716,8 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         moon_earth(page, check, shots, name)
         map_2d(page, check, shots, name)
         surface_3d(page, check, shots, name)
+        csv_download(page, check)
+        tour(page, check)
         own_coordinates(page, check)
         page.locator(".card details.tech summary").first.click()
         check(page.locator(".card details.tech").first.evaluate("d => d.open"), "technical details open")

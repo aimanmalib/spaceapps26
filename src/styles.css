@@ -114,6 +114,25 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .btn-quiet { background: none; border: 0; color: var(--muted); padding: 0.25rem 0.5rem; text-decoration: underline; text-underline-offset: 3px;
   text-decoration-color: color-mix(in srgb, var(--muted) 50%, transparent); }
 .btn-quiet:hover { color: var(--text); }
+/* Download CSV (ADR 0110): a quiet line at the foot of every card and under the side-by-side table. */
+.csv-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.15rem 0.75rem; margin: 0.75rem 0 0; font-size: var(--fs-sm); }
+.csv-line .btn-quiet { padding-left: 0; font-size: var(--fs-md); }
+.csv-line .btn-quiet:disabled { cursor: default; text-decoration: none; }
+.csv-line .csv-status:empty { display: none; }
+/* Guided tour (ADR 0110): a native modal dialog pinned to the bottom corner; the page stays visible behind it (no
+   backdrop dimming, no filter or backdrop-filter, no animation: WebKit). The step's part of the page gets an outline. */
+.tour { position: fixed; inset: auto 1rem 1rem auto; margin: 0; width: min(24rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem);
+  overflow: auto; padding: 1rem 1.25rem; background: var(--surface); color: var(--text); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: 0 0.75rem 2rem rgb(0 0 0 / 0.5); }
+.tour::backdrop { background: transparent; }
+.tour-count { margin: 0 0 0.25rem; color: var(--muted); font-size: var(--fs-sm); }
+.tour-title { margin: 0 2.5rem 0.4rem 0; font-size: var(--fs-lead); }
+.tour-text { margin: 0; font-size: var(--fs-md); line-height: 1.5; }
+.tour-nav { display: flex; justify-content: flex-end; align-items: center; gap: 0.5rem; margin-top: 0.75rem; }
+.tour-nav .btn { margin-top: 0; }
+.tour-close { position: absolute; top: 0.5rem; right: 0.5rem; }
+.tour-on { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 0.5rem; }
+@media (max-width: 30rem) { .tour { inset: auto 0.75rem 0.75rem; width: auto; max-width: none; } }
 .field select:focus-visible, .field input:focus-visible, .btn:focus-visible, .btn-quiet:focus-visible,
 .tech summary:focus-visible, .tech a:focus-visible, .mm-box summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .card-result { margin-top: 0.75rem; }

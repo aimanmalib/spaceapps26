@@ -1,0 +1,14 @@
+{
+  "_note": "Download CSV (ADR 0110): every card (and the side-by-side table) can save the hourly table behind its answers for the card's mission period (the Mission check length, config/metrics.json default_period_days, starting at the card time). Built in the browser from the tables already loaded (Blob); no server, no request to another host. Column names are the file's schema (src/csv.js CSV_COLUMNS); the values below are what the cells say.",
+  "days_without_mission_check": 7,
+  "decimals": 2,
+  "file_prefix": "still-in-view",
+  "_note_name": "File name = <file_prefix>_<site id>_<YYYY-MM-DD of the card time>_<days>d.csv; several cards are joined with _vs_. Longer names are cut at max_name_chars (before .csv).",
+  "max_name_chars": 150,
+  "yes": "yes",
+  "no": "no",
+  "source": { "horizons": "jpl_horizons", "engine": "astronomy_engine" },
+  "horizon": { "terrain": "lola_skyline", "sphere": "ideal_sphere" },
+  "_note_bom": "A UTF-8 byte order mark at the start, so spreadsheet programs read the file as UTF-8 (site names, the degree sign).",
+  "bom": true
+}
