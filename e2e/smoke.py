@@ -5,7 +5,7 @@
 
 Profiles: Chromium desktop 1280 px, Chromium laptop 1366 x 768, Chromium 320 px, WebKit iPhone 13.
 On each: the compare tool renders answers, the site select and the time input
-update them, the step buttons and "If the date moves" table (sequential comparison) work, own coordinates (item b) give answers, the 2D map (item h) and 3D surface (item i) draw, "add" makes one more card, technical details open, the validation
+update them, the one-kilometre example button scrolls to the Earth view, the step buttons and "If the date moves" table (sequential comparison) work, own coordinates (item b) give answers, the 2D map (item h) and 3D surface (item i) draw, "add" makes one more card, technical details open, the validation
 page shows its numbers, the Play page plays one round, About lists items a–l and limitations, Data sources lists the frozen files;
 the first answers of the first card fit the first screen (P4f), zero console errors, zero requests to other hosts,
 no horizontal overflow. Prints one line per profile; exit 1 on any failure.
@@ -33,10 +33,14 @@ TERRAIN_SITES = {"im-1", "im-2"}
 # iPhone 13 (664 px tall) the first answer of the first card starts inside it. Positions are page coordinates at scroll 0.
 # P4v: on a 1366 x 768 laptop both answers of the first card end inside it and the Earth view's plot starts at least
 # 20 px above its bottom edge.
+# P4p (ADR 0033): the one-kilometre example button takes one more row of buttons; five buttons do not fit two rows on a
+# 390 px phone, so the iPhone 13 limit for the first answer is 720 px (one button row below the 664 px fold), and the
+# button itself must end inside the first screen on every profile (it scrolls to the answers and the Earth view).
+EXAMPLE_IN_FIRST_SCREEN = {"chromium-1280": 800, "chromium-1366": 768, "chromium-320": 640, "webkit-iphone13": 664}
 FIRST_SCREEN = {
     "chromium-1280": [(".answer-comm .answer-deg", "bottom", 900)],
     "chromium-1366": [(".answer-power", "bottom", 768), (".answer-comm", "bottom", 768), (".ev-plot", "top", 748)],
-    "webkit-iphone13": [(".answer-power", "top", 664)],
+    "webkit-iphone13": [(".answer-power", "top", 720)],
 }
 
 
@@ -295,6 +299,27 @@ def windows(page, check):
     page.wait_for_function("t => document.querySelector('.card input[type=datetime-local]').value === t", arg=time0)
 
 
+def example_button(page, check, base, shots, name):
+    """P4p: "Show me the one-kilometre example" replaces the default cards with IM-2 at 2026-11-14 00:00, puts that
+    link in the address, announces it and scrolls to the card's Earth view (top inside the window, focus on its title)."""
+    page.goto(base, wait_until="networkidle")
+    page.locator(".card .answers").first.wait_for()
+    btn = page.locator(".tool-actions .example")
+    check(btn.is_visible() and btn.inner_text() == "Show me the one-kilometre example", "example button above the cards (P4p)")
+    btn.click()
+    page.wait_for_function("() => document.querySelectorAll('.card').length === 1 && document.querySelector('.example-status').innerText !== ''")
+    ev = page.locator(".card .card-result .ev")
+    ev.wait_for(state="visible")
+    check(page.locator(".card select[id$='-site']").first.input_value() == "im-2"
+          and page.locator(".card input[type=datetime-local]").first.input_value() == "2026-11-14T00:00", "example: IM-2 at 2026-11-14 00:00 (P4p)")
+    check(page.evaluate("location.search") == ONE_KM_QUERY, "example: address is the one-kilometre link (P4p)")
+    page.wait_for_function("() => { const t = document.querySelector('.card .ev').getBoundingClientRect().top; return t >= -1 && t < innerHeight / 2; }")
+    check(page.evaluate("document.activeElement?.classList.contains('ev-title')"), "example: focus on the Earth view title (P4p)")
+    check(no_overflow(page), "example: no horizontal overflow (P4p)")
+    if shots:
+        page.screenshot(path=os.path.join(shots, f"example-{name}.png"))
+
+
 def share(page, check, base):
     """Shareable link + verdict + Now: the "one kilometre" link opens IM-2 at 2026-11-14 00:00; Copy link gives the same
     scenario back; Now sets every card to the current hour (inside the data) or is disabled with a reason; a link that
@@ -470,6 +495,10 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         for sel, edge, limit in FIRST_SCREEN.get(name, []):
             pos = first.locator(sel).evaluate("(e, k) => e.getBoundingClientRect()[k] + window.scrollY", edge)
             check(pos <= limit, f"first screen: {sel} {edge} {pos:.0f} px <= {limit} px")
+        limit = EXAMPLE_IN_FIRST_SCREEN.get(name)
+        if limit:
+            pos = page.locator(".tool-actions .example").evaluate("e => e.getBoundingClientRect().bottom + window.scrollY")
+            check(pos <= limit, f"first screen: example button bottom {pos:.0f} px <= {limit} px (P4p)")
         summary(page, check)
         masthead_photo(page, check)
         wide = page.evaluate("() => window.innerWidth >= 1024")
@@ -532,6 +561,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
             tall = page.evaluate("document.documentElement.scrollHeight * devicePixelRatio") > 30000  # WebKit limit 32767 device px
             page.screenshot(path=os.path.join(shots, f"smoke-{name}-compare.png"), full_page=not tall)
 
+        example_button(page, check, base, shots, name)
         share(page, check, base)
         play_game(page, check, base, shots, name)
         teach_page(page, check, base, shots, name)

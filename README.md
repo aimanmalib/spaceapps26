@@ -1,7 +1,8 @@
 # Still in View
 
 **Try it:** <https://spaceapps26.aimanmalib.com/> (no sign-in). Demo deck (7 slides): [`demo/demo.pdf`](demo/demo.pdf).
-The "one kilometre" case (IM-2, 2026-11-14 00:00 UTC): <https://spaceapps26.aimanmalib.com/?s=im-2,2026-11-14T00:00>.
+The "one kilometre" case (IM-2, 2026-11-14 00:00 UTC): <https://spaceapps26.aimanmalib.com/?s=im-2,2026-11-14T00:00>, or the
+button "Show me the one-kilometre example" above the cards, which opens the same case and scrolls to its view toward Earth.
 
 Challenge: Lunar Landing Site Navigator (NASA Space Apps Challenge 2026).
 
@@ -14,6 +15,8 @@ Three steps for a first look:
 2. On the IM-2 card, read "Small shifts in location or date": Earth is 1.3° above the terrain horizon at the site, and below it
    1 km east and 1 km south. (The 80 m terrain grid does not resolve small craters such as the one where the IM-2 lander stopped.)
 3. Open the Validation page: the differences from JPL Horizons and from the NASA GSFC PGDA illumination maps.
+
+![The button "Show me the one-kilometre example" pressed, then the view toward Earth at IM-2 from the site and from the points 1 km north, east, south and west (real screen capture)](docs/media/one-km-example.gif)
 
 Entry for the **NASA Space Apps Challenge 2026** (Jakarta, virtual), challenge
 **Lunar Landing Site Navigator**:
@@ -205,7 +208,7 @@ in `data/` can be rebuilt from the NASA sources with one command: [`docs/REPRODU
 - `bash scripts/gerbang-ujian.sh` — build, JavaScript and Python unit tests.
 - `python3 scripts/capture_media.py` then `python3 scripts/render_demo.py` — the screenshots in `docs/media/` and the demo deck
   `demo/demo.pdf` (Playwright; Pillow for the GIF).
-- `python3 e2e/smoke.py <site URL>` — browser smoke test of a deployed copy (Chromium desktop 1280 px,
+- `python3 e2e/smoke.py <site URL>` — browser smoke test of a deployed copy (Chromium desktop 1280 px, laptop 1366 × 768,
   Chromium 320 px, WebKit iPhone 13): the comparison and validation pages work, no console errors,
   no requests to other hosts, no horizontal overflow. Needs the Python `playwright` package and its browsers.
 - `python3 e2e/subpath.py` — the same smoke test on `dist/` served under `/spaceapps26/`, as GitHub Pages serves it.

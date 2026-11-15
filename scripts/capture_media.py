@@ -3,11 +3,13 @@
 
     python3 scripts/capture_media.py [base_url]          # needs the Python `playwright` package + Chromium, and Pillow for the GIF
     python3 scripts/capture_media.py --play [base_url]   # only the game shot (play.png)
+    python3 scripts/capture_media.py --example [base_url]   # only the one-kilometre example GIF (P4p)
     python3 scripts/capture_media.py --deck [base_url]   # only the demo-deck crops (config/media.json "deck_png", including
 the gallery's one-year timeline shot)
 
 Writes docs/media/<name>.png for every name in config/media.json "png", and docs/media/<gif name>.gif: the timeline
-slider of the first card stepped across one lunar day. Settings (URL, viewport, frames) live in config/media.json.
+slider of the first card stepped across one lunar day, and docs/media/<example_gif name>.gif: the one-kilometre example
+button pressed, then each point button of the Earth view. Settings (URL, viewport, frames) live in config/media.json.
 """
 import io
 import json
@@ -141,6 +143,40 @@ def capture_gif(browser, base):
     ctx.close()
 
 
+def capture_example_gif(browser, base):
+    """P4p: first screen → after "Show me the one-kilometre example" → the Earth view from each nearby point (landscape)."""
+    from PIL import Image
+
+    g = CFG["example_gif"]
+    ctx = browser.new_context(viewport=g["viewport"], device_scale_factor=g["scale"], locale=CFG["locale"])
+    page = ctx.new_page()
+    page.set_default_timeout(TIMEOUT_MS)
+    open_compare(page, base)
+    grab = lambda: Image.open(io.BytesIO(page.screenshot())).convert("RGB")
+    frames, durations = [grab()], [g["first_ms"]]
+    page.locator(".tool-actions .example").click()
+    page.locator(".card .card-result .ev").wait_for(state="visible")
+    page.wait_for_function("() => document.querySelector('.card .ev-sentence')?.innerText.startsWith('At the site')", timeout=TIMEOUT_MS)
+    page.wait_for_timeout(1200)  # smooth scroll ends
+    page.evaluate("() => document.activeElement?.blur()")
+    frames.append(grab())
+    durations.append(g["after_ms"])
+    for point in g["points"]:
+        page.locator(f".card .ev-btn[data-point={point}]").click()
+        page.wait_for_function("p => { const s = document.querySelector('.card .ev-sentence')?.innerText ?? ''; return s && !s.startsWith('Computing') "
+                               "&& document.querySelector(`.card .ev-btn[data-point=${p}]`).getAttribute('aria-pressed') === 'true'; }",
+                               arg=point, timeout=TIMEOUT_MS)
+        page.wait_for_timeout(300)
+        page.evaluate("() => document.activeElement?.blur()")
+        frames.append(grab())
+        durations.append(g["hold_ms"])
+    pal = [f.quantize(colors=128, method=Image.Quantize.MEDIANCUT) for f in frames]
+    path = os.path.join(OUT, f"{g['name']}.gif")
+    pal[0].save(path, save_all=True, append_images=pal[1:], duration=durations, loop=0, optimize=True)
+    print(f"{g['name']}.gif {os.path.getsize(path)} bytes, {len(pal)} frames")
+    ctx.close()
+
+
 def capture_play(browser, base):
     """Gallery shot of the game (play.html): the first round after Check, both questions answered "yes"."""
     ctx = browser.new_context(viewport=viewport("play"), device_scale_factor=CFG["scale"], locale=CFG["locale"])
@@ -170,7 +206,7 @@ def capture_overview(browser, base):
 
 
 def main():
-    args = [a for a in sys.argv[1:] if a not in ("--deck", "--play", "--overview")]
+    args = [a for a in sys.argv[1:] if a not in ("--deck", "--play", "--overview", "--example")]
     deck_only = "--deck" in sys.argv[1:]
     play_only = "--play" in sys.argv[1:]
     base = args[0] if args else CFG["base_url"]
@@ -178,7 +214,9 @@ def main():
     with sync_playwright() as p:
         browser = p.chromium.launch()
         try:
-            if "--overview" in sys.argv[1:]:
+            if "--example" in sys.argv[1:]:
+                capture_example_gif(browser, base)
+            elif "--overview" in sys.argv[1:]:
                 capture_overview(browser, base)
             elif play_only:
                 capture_play(browser, base)
@@ -186,6 +224,7 @@ def main():
                 if not deck_only:
                     capture_png(browser, base)
                     capture_gif(browser, base)
+                    capture_example_gif(browser, base)
                     capture_play(browser, base)
                     capture_overview(browser, base)
                 capture_deck(browser, base)

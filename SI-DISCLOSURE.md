@@ -16,7 +16,7 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
 | Team name (the author's own name) | Author |
 | Project name: suggested by SI, chosen by the author | Author (choice); SI (suggestions) |
 | Further options from the challenge text (sequential comparison, an educational game, terrain for custom coordinates, slopes and shadow conditions on the map) | Author, who chose all four on 15 November 2026 from NASA's own wording, listed by SI |
-| Further features suggested by SI (mission window finder, shareable links with a plain verdict and a Now button, a page for teachers, a guided tour; then a real NASA photograph on the first screen, a one-year overview of every listed site, Indonesian and Malay interface options) | Suggested by SI at the author's request on 15 November 2026; the author considered each list and chose all of them |
+| Further features suggested by SI (mission window finder, shareable links with a plain verdict and a Now button, a page for teachers, a guided tour built as one button that opens the one-kilometre example; then a real NASA photograph on the first screen, a one-year overview of every listed site, Indonesian and Malay interface options) | Suggested by SI at the author's request on 15 November 2026; the author considered each list and chose all of them |
 | Accepting the open-source participant terms | Author |
 | The list of options itself | Drawn by SI from two parts of NASA's challenge text ("Your solution may include" and "Potential Considerations") and translated into Malay by SI |
 | Build order (technical dependency and the emphasis in NASA's text), interface design, all code and data scripts, tests, slide layout | SI, on the author's instructions |
@@ -36,7 +36,7 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
    names but the tool did not yet have (sequential comparison, an educational game, terrain for custom coordinates, slopes and
    shadow conditions on the map); the author chose all four.
 6. 15 November, morning: the author asked SI to suggest features; SI suggested five (mission window finder, shareable links with
-   a plain verdict and a Now button, a page for teachers, a guided tour); the author considered the list and chose all five. SI then
+   a plain verdict and a Now button, a page for teachers, a guided tour built as one button that opens the one-kilometre example); the author considered the list and chose all five. SI then
    suggested three more (a real NASA photograph on the first screen, a one-year overview of every listed site, Indonesian and Malay
    interface options); the author chose all three.
 

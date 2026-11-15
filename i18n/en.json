@@ -13,6 +13,8 @@
   "tool.heading": "Compare landing sites and dates",
   "tool.intro": "Pick a landing site and a date and time (UTC). Each scenario shows where the Sun and Earth are relative to the horizon. Sun above the horizon: solar power generation is possible. Earth above the horizon: direct-to-Earth communication is possible.",
   "tool.add": "Add a scenario",
+  "tool.example": "Show me the one-kilometre example",
+  "tool.example_done": "Showing {site} at {time} UTC. Under the two answers, the Earth view; its buttons move the point {km} km north, east, south or west.",
   "tool.add_full": "Up to {max} scenarios",
   "tool.data_label": "Sun and Earth positions: precomputed from JPL Horizons (NASA JPL). Horizon: local terrain from LRO LOLA where the south polar elevation grids used here cover the site; elsewhere an ideal sphere horizon. Each scenario says which one it uses. Own coordinates: computed in browser, validated against JPL Horizons.",
   "scenario.label": "Scenario {n}",

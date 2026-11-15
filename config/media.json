@@ -39,6 +39,16 @@
     "frame_ms": 220,
     "scale": 1
   },
+  "_example_gif_note": "Landscape GIF of the one-kilometre example (P4p): the first screen, then the page after 'Show me the one-kilometre example', then the Earth view at each point button in turn. Viewport screenshots (CSS px x scale); hold_ms per frame, first/after = the first two frames.",
+  "example_gif": {
+    "name": "one-km-example",
+    "viewport": { "width": 1280, "height": 720 },
+    "scale": 1,
+    "first_ms": 1800,
+    "after_ms": 2200,
+    "hold_ms": 1500,
+    "points": ["n", "e", "s", "w", "site"]
+  },
   "deck": {
     "source": "demo/slides.html",
     "pdf": "demo/demo.pdf",

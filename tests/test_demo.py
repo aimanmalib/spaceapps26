@@ -104,8 +104,10 @@ class Deck(unittest.TestCase):
 
 class Gallery(unittest.TestCase):
     def test_png_and_gif_present_and_small_enough(self):
-        names = [f"{n}.png" for n in CFG["png"]] + [f"{CFG['gif']['name']}.gif"]
-        self.assertEqual(len(names), 8)  # seven PNG (play.png with the game, P4j; overview.png, P4s) + one GIF
+        names = [f"{n}.png" for n in CFG["png"]] + [f"{CFG['example_gif']['name']}.gif", f"{CFG['gif']['name']}.gif"]
+        self.assertEqual(len(names), 9)  # seven PNG (play.png, P4j; overview.png, P4s) + two GIF (one-km example, P4p)
+        ex = CFG["example_gif"]["viewport"]
+        self.assertGreater(ex["width"], ex["height"])  # landscape
         names = names[:-1] + [f"{d['name']}.png" for d in CFG["deck_png"]["shots"]] + names[-1:]
         for name in names:
             path = ROOT / "docs" / "media" / name
@@ -113,6 +115,7 @@ class Gallery(unittest.TestCase):
             self.assertLessEqual(path.stat().st_size, CFG["max_bytes"], name)
         self.assertEqual((ROOT / "docs" / "media" / names[0]).read_bytes()[:8], b"\x89PNG\r\n\x1a\n")
         self.assertEqual((ROOT / "docs" / "media" / names[-1]).read_bytes()[:6], b"GIF89a")
+        self.assertEqual((ROOT / "docs" / "media" / f"{CFG['example_gif']['name']}.gif").read_bytes()[:6], b"GIF89a")
 
 
 if __name__ == "__main__":

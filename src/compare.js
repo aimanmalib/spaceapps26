@@ -18,7 +18,7 @@ import { mountSurface } from './surface3d-ui.js';
 import { mountSteps, mountSequence } from './sequence-ui.js';
 import { mountWindows } from './mission-ui.js';
 import { mountShare } from './share-ui.js';
-import { verdictText } from './share.js';
+import { verdictText, encodeScenarios } from './share.js';
 import { CUSTOM_ID, customOptionHtml, customFieldsHtml, syncFields, readCustom, invalidText } from './custom.js';
 
 let uid = 0;
@@ -223,6 +223,35 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
     cards[cards.length - 1].el.querySelector('select').focus();
   });
 
+  // "Show me the one-kilometre example" (P4p): view.example replaces the cards, then the page scrolls to its Earth view.
+  function mountExample() {
+    const btn = root.querySelector('.example');
+    const status = root.querySelector('.example-status');
+    const sc = view.example;
+    if (!btn || !sc || !siteById.has(sc.site)) return;
+    btn.textContent = t('tool.example');
+    btn.hidden = false;
+    btn.addEventListener('click', async () => {
+      for (const c of cards.splice(0)) {
+        c.tl?.destroy();
+        c.el.remove();
+      }
+      addCard({ ...sc });
+      renumber();
+      if (share) history.replaceState(null, '', encodeScenarios([sc], share.cfg));
+      await update();
+      const c = cards[0];
+      const target = c.evBox && !c.evBox.hidden && c.evBox.isConnected ? c.evBox : c.el;
+      const heading = target.querySelector('.ev-title, .card-title');
+      const km = earthview?.dirs?.location_offset_km ?? '';
+      status.textContent = fill(t('tool.example_done'), { site: siteById.get(sc.site).name, time: sc.time_utc.replace('T', ' '), km });
+      const still = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      heading?.setAttribute('tabindex', '-1');
+      heading?.focus({ preventScroll: true });
+      target.scrollIntoView({ block: 'start', behavior: still ? 'auto' : 'smooth' });
+    });
+  }
+
   // A shared link (src/share.js) replaces the default scenarios; the defaults stay when it has none that can be read.
   const start = share?.scenarios?.length ? share.scenarios : view.default_scenarios.filter((s) => siteById.has(s.site)).slice(0, view.max_scenarios);
   for (const sc of start) addCard(sc);
@@ -237,5 +266,6 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
     };
     mountShare(shareBox, { t, cfg: share.cfg, range: share.range, rejected: share.rejected, state, setTimes, uid: `share${++uid}` });
   }
+  mountExample();
   return update();
 }

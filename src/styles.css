@@ -134,8 +134,8 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 /* Side-by-side table */
 .tool-actions { display: flex; flex-wrap: wrap; align-items: flex-start; column-gap: 0.75rem; }
 .share { display: contents; }
-.share-now-why, .share-status { flex: 1 0 100%; font-size: 0.875rem; margin-top: 0.5rem; }
-.share-status:empty { display: none; }
+.share-now-why, .share-status, .example-status { flex: 1 0 100%; font-size: 0.875rem; margin-top: 0.5rem; }
+.share-status:empty, .example-status:empty { display: none; }
 .share-field { flex: 1 0 100%; margin: 0.75rem 0 0; display: grid; gap: 0.25rem; font-size: 0.875rem; color: var(--muted); }
 .share-field[hidden] { display: none; }
 .share-url { font: inherit; min-width: 0; width: 100%; min-height: 2.75rem; padding: 0.45rem 0.6rem; color: var(--text);
