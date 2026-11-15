@@ -273,6 +273,12 @@ def surface_3d(page, check, shots, name):
     # ADR 0103: "From the lander" swaps the orbit view for a view from the site; "Orbit view" brings the surface back.
     box.locator(".lander-open").click()
     page.wait_for_function("() => document.querySelector('.card .lander-canvas')?.width > 0")
+    try:  # the first frame is drawn after the canvas gets its size: wait for that frame, then judge it (a slow host raced here)
+        page.wait_for_function("() => { const c = document.querySelector('.card .lander-canvas'); if (!c || !c.width) return false;"
+                               " const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0;"
+                               " for (let i = 3; i < d.length; i += 4) n += d[i] > 0; return n / (d.length / 4) > 0.3; }", timeout=15000)
+    except Exception:
+        pass
     check(box.locator(".lander-canvas").evaluate(stats)[0] > 0.3 and box.evaluate("e => e.scrollWidth <= e.clientWidth"), "lander view: drawn, fits the card (ADR 0103)")
     box.locator(".lander-exit").click()
     page.wait_for_function("() => document.querySelector('.card .surf-canvas')?.width > 0 && !document.querySelector('.card .lander-canvas')")
