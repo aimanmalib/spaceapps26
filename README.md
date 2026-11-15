@@ -18,8 +18,11 @@ Launch slipped, or the site changed? Still in View shows at once whether a landi
 2. **One kilometre can decide.** Over one year at the IM-2 site Earth's centre is above the skyline 80.1 % of the hours; one
    kilometre east, 64.4 %; one kilometre south, 56.6 % ([the one-kilometre finding](#the-one-kilometre-finding)).
 
-For planners: a GO / RISKY / NO-GO line for each scenario, a calendar of every site by day, ready comparisons such as "Launch
-slipped two weeks", eighteen sites with seven future south polar targets, and dates to the end of 2030.
+For planners: a GO / RISKY / NO-GO line for each scenario, with the longest night and an example battery size for it; a calendar
+of every site by day; ready comparisons such as "Launch slipped two weeks"; eighteen sites with seven future south polar targets
+(six of NASA's nine Artemis III candidate regions); a terrain skyline for your own coordinates south of 75°S; lunar eclipses, when
+Earth hides the Sun from a lit site (matched to NASA's eclipse list); and dates to the end of 2030. Checked against JPL Horizons at
+864 random site-and-minute pairs: every yes/no answer the same.
 
 ![A card where the answer is a close call: IM-2 on 2026-11-06 20:00 UTC, Earth 0.6° above the LOLA skyline, marked "the Earth link answer changes inside the terrain range" (real screen capture)](docs/media/deck-closecall.png)
 

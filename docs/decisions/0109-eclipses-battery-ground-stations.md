@@ -55,7 +55,7 @@ geodetic coordinates, airless) within 0.001° (Goldstone 40.023°, Madrid −16.
 
 ## Not modelled
 
-Earth's distance changing (its disc is 0.90° to 1.03° across, so contacts can move by minutes), the ring of sunlight bent
+Earth's distance changing (its disc radius is 0.90° to 1.03°, so contacts can move by minutes), the ring of sunlight bent
 through Earth's atmosphere, eclipses shorter than one hourly row in the timeline/Mission check (the card uses its own
 minute), antenna masks and schedules of the DSN, battery losses.
 

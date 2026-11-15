@@ -48,13 +48,24 @@ class Deck(unittest.TestCase):
 
     def test_numbers_match_validation_file(self):
         v = json.loads((ROOT / "data" / "validation.json").read_text(encoding="utf-8"))
-        for key, label in (("horizons", "random pairs"), ("engine", "pairs")):
-            part = v[key]
-            same = part["same_answer"]
-            self.assertEqual(same["power"], same["of"])
-            self.assertEqual(same["comm"], same["of"])
-            self.assertIn(f"{part['max_abs_deg']:.4f}°</span> largest difference, same answers {same['of']} of {same['of']}", self.html)
-            self.assertIn(f"{same['of']} {label}", self.html)
+        # Horizons row: every Horizons check together (ADR 0108), data/validation.json "scale" "all_checks".
+        allc = v["scale"]["all_checks"]
+        same = allc["same_answer"]
+        self.assertEqual(same["power"], same["of"])
+        self.assertEqual(same["comm"], same["of"])
+        self.assertEqual(allc["pairs"], same["of"])
+        self.assertIn(f"Horizons, {allc['pairs']} random pairs, 2026 to 2030</td><td><span class=\"num\">{allc['max_abs_deg']:.4f}°</span> largest difference, "
+                      f"same answers {same['of']} of {same['of']}", self.html)
+        # Eclipse row (ADR 0109) and own-point terrain row (ADR 0106): each from its own data file.
+        ecl = json.loads((ROOT / "data" / "eclipses.json").read_text(encoding="utf-8"))
+        self.assertEqual(ecl["summary"]["unmatched"], 0)
+        self.assertIn(f"<span class=\"num\">{ecl['summary']['found']}</span> eclipse stretches at 18 sites, each within {ecl['match_hours']} hours of a listed eclipse",
+                      self.html)
+        gate = json.loads((ROOT / "data" / "terrain" / "gate.json").read_text(encoding="utf-8"))
+        ok = [s["both_same_pct"] for s in gate["sites"] if s["pass"]]
+        bad = [s["both_same_pct"] for s in gate["sites"] if not s["pass"]]
+        self.assertEqual(len(bad), 1)
+        self.assertIn(f"both answers agree in <span class=\"num\">{min(ok):.1f} %</span> to {max(ok):.1f} % of hours at {len(ok)} sites, {bad[0]:.1f} % at one", self.html)
         # PGDA rows: the same-period block (scripts/pgda_period.py), 18.6 years on both sides.
         pp = v["pgda_period"]
         sites = {s["site"]: s for s in pp["sites"]}
