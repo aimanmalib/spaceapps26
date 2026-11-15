@@ -80,17 +80,17 @@ flowchart LR
   end
   subgraph S["scripts/, build time"]
     F["fetch_horizons.py"]
-    Z["horizon.py, shifts.py, band.py"]
+    Z["horizon.py, shifts.py, band.py, terrain_coarse.py"]
     V["validate.py, validate_years.py"]
     G["pgda.py, pgda_period.py, pgda_sample.py"]
   end
   subgraph D["data/, frozen, listed in SOURCES.json"]
     E["ephem/: hourly Sun and Earth tables"]
-    K["horizon/, shift/, band/: terrain skylines"]
+    K["horizon/, shift/, band/: terrain skylines, terrain/: LOLA grids for own points"]
     R["validation files, horizons-cache.json"]
   end
   subgraph B["Browser"]
-    W["src/ephem.js reads the tables; src/moonsky.js computes later dates and own coordinates"]
+    W["src/ephem.js reads the tables, src/moonsky.js computes later dates and own coordinates"]
     U["Cards, calendar, Validation page"]
   end
   H --> F --> E
@@ -468,12 +468,12 @@ in `data/` can be rebuilt from the NASA sources with one command: [`docs/REPRODU
 
 | Page | Performance | Accessibility | Best practices | SEO |
 |---|---|---|---|---|
-| Compare | 66, 57 | 100, 100 | 100, 100 | 100, 100 |
-| Overview | 71, 55 | 96, 96 | 100, 100 | 100, 100 |
+| Compare | 54, 60 | 100, 100 | 100, 100 | 100, 100 |
+| Overview | 98, 96 | 96, 96 | 100, 100 | 100, 100 |
 
-  In every run about 25 Performance points are lost to layout shift of the main content after load (CLS 1.16 on Compare,
-  0.93 on Overview); the rest is blocking time, which changes with the server's load. Accessibility on Overview: the calendar
-  cells are smaller than the touch-target size Lighthouse asks for.
+  On Compare about 25 Performance points are lost to layout shift of the comparison section after load (CLS 1.07);
+  the rest is blocking time, which changes with the server's load. Accessibility on Overview: the calendar cells are smaller
+  than the touch-target size Lighthouse asks for.
 
 ## AI disclosure (Super Intelligence / SI use)
 
