@@ -597,5 +597,11 @@
   "years.ev_caption": "Ke arah {body} (azimut {az}°), {time} UTC. Lebar {w}°, digambar sesuai skala (derajat mendatar dan tegak sama); sudut dari mesin di peramban, setelah akhir tabel NASA yang dibekukan: piringan {body} berdiameter {diam}°; garis langit dari LRO LOLA (grid {grid} m, langkah {step}°); garis putus-putus = Bulan mulus (0°).",
   "val.years.heading": "Tanggal setelah tabel beku: mesin terhadap JPL Horizons",
   "val.years.intro": "Tanggal setelah akhir tabel JPL Horizons yang dibekukan memakai mesin di browser, juga di lokasi terdaftar. Mesin itu dibandingkan dengan JPL Horizons, yang ditanya langsung, pada {n} pasangan lokasi-dan-menit acak pada {from} sampai {to} (benih tetap, tidak pernah tepat pada jam tabel): selisih terbesar {max}°, rata-rata {mean}°, jawaban tenaga surya sama {power} dari {of}, jawaban Bumi sama {comm} dari {of}. Kartu hanya menyebut \"divalidasi\" selama selisih terbesar tetap di bawah {limit}°.",
-  "val.years.generated": "Diukur {at} oleh scripts/validate_years.py (benih acak {seed}). Berkas sumber: data/validation-years.json."
+  "val.years.generated": "Diukur {at} oleh scripts/validate_years.py (benih acak {seed}). Berkas sumber: data/validation-years.json.",
+  "csv.button": "Unduh CSV",
+  "csv.aria": "Unduh CSV untuk skenario {n}",
+  "csv.note": "Per jam, {days} hari dari waktu kartu (panjang Cek misi), UTC",
+  "csv.all_button": "Unduh CSV (semua skenario)",
+  "csv.all_note": "Satu berkas: tabel per jam setiap kartu, satu blok baris per skenario",
+  "csv.done": "Tersimpan: {name} ({rows} baris)."
 }

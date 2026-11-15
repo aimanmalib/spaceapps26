@@ -24,6 +24,7 @@ import { verdictText, encodeScenarios } from './share.js';
 import { mountPresets, presetSearch } from './presets.js';
 import { sourceHtml } from './years.js';
 import { CUSTOM_ID, customOptionHtml, customFieldsHtml, syncFields, readCustom, invalidText } from './custom.js';
+import { mountCardCsv, mountTableCsv } from './csv-ui.js';
 
 let uid = 0;
 
@@ -70,13 +71,18 @@ function cardDom(t, sites, sc, custom) {
 // earthview = {cfg: config/earthview.json, dirs: config/shifts.json, places, engine} (P4v; terrain sites only).
 // metrics = config/metrics.json: mission check badge in the card head + numbers under the answers (ADR 0101).
 // years = src/years.js makeYears() + {checked} (ADR 0104): tables for dates past the frozen Horizons range.
-export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null, earthview = null, presets = null, metrics = null, years = null }) {
+// csv = config/csv.json (ADR 0110): "Download CSV" at the foot of every card and under the side-by-side table.
+export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null, earthview = null, presets = null, metrics = null, years = null, csv = null }) {
   const list = root.querySelector('.cards');
   const add = root.querySelector('.add');
   const glance = root.querySelector('.glance-body');
   const verdicts = root.querySelector('.verdicts');
   const siteById = new Map(sites.map((s) => [s.id, s]));
   const cards = [];
+  // Download CSV (ADR 0110): the card's hourly rows for its mission length (the Mission check select, else the defaults).
+  const daysOf = (c) => Number(c.mmBox?.querySelector('.mm-days')?.value) || metrics?.default_period_days || csv?.days_without_mission_check;
+  const csvOf = (c, i) => c.csvData && { ...c.csvData, n: i + 1, days: daysOf(c) };
+  const tableCsv = csv && glance ? mountTableCsv(glance.parentElement, { t, cfg: csv, threshold: view.horizon_threshold_deg, getAll: () => cards.map(csvOf).filter(Boolean) }) : null;
   // Kept here, not looked up each time: on phones the button lives inside the first card, so it is parked back in
   // .tool-actions before any card is removed (otherwise it leaves the page with that card).
   const exBtn = root.querySelector('.example');
@@ -177,7 +183,11 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
         if (r.sample) b?.draw({ site: r.site, profile: r.profile, sample: r.sample, up: r.up });
         else b?.hide();
       }
+      const src = (ms) => (years ? years.sourceAt(r.site, ms) : r.site.custom ? 'engine' : 'horizons');
+      r.c.csvData = r.sample ? { site: r.site, ms: r.ms, table: r.table, profile: r.profile, sourceAt: src } : null;
+      r.c.csv?.state(!!r.sample);
     }
+    tableCsv?.state(cards.some((c) => c.csvData));
     placeExample();
     if (glance) glance.innerHTML = glanceHtml(t, rows);
     // Plain verdict per scenario (SI suggestion chosen by the author), from the same two answers as the card.
@@ -231,6 +241,11 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
     const wide = view.first_card?.map_open_min_width_px;
     if (first && wide && window.matchMedia(`(min-width: ${wide}px)`).matches) openBlock(c.el, '.map2d');
     if (features.i_surface_3d && surface) c.surf = mountSurface(c.el.querySelector('.card-surface'), { t, ...surface, uid: `surf${++uid}` });
+    if (csv) {
+      c.csv = mountCardCsv(c.el, { t, cfg: csv, threshold: view.horizon_threshold_deg, get: () => csvOf(c, cards.indexOf(c)), days: () => daysOf(c), n: () => cards.indexOf(c) + 1 });
+      // A new mission length changes the file's period, not the card (src/metrics-ui.js stops that event at the select).
+      c.mmBox?.querySelector('.mm-days')?.addEventListener('change', () => c.csv.state(!!c.csvData));
+    }
     c.el.querySelector('.card-remove').addEventListener('click', () => {
       parkExample();
       c.tl?.destroy();

@@ -597,5 +597,11 @@
   "years.ev_caption": "Ke arah {body} (azimut {az}°), {time} UTC. Lebar {w}°, dilukis mengikut skala (darjah yang sama melintang dan menegak); sudut daripada enjin dalam pelayar, selepas hujung jadual NASA yang dibekukan: cakera {body} berukuran {diam}° rentas; garis langit daripada LRO LOLA (grid {grid} m, langkah {step}°); garis putus-putus = Bulan licin (0°).",
   "val.years.heading": "Tarikh selepas jadual beku: enjin berbanding JPL Horizons",
   "val.years.intro": "Tarikh selepas tamat jadual JPL Horizons yang dibekukan memakai enjin dalam pelayar, juga di tapak tersenarai. Enjin itu dibandingkan dengan JPL Horizons, yang ditanya terus, pada {n} pasangan tapak-dan-minit rawak pada {from} hingga {to} (benih tetap, tidak pernah tepat pada jam jadual): perbezaan terbesar {max}°, purata {mean}°, jawapan kuasa solar sama {power} daripada {of}, jawapan Bumi sama {comm} daripada {of}. Kad hanya menyebut \"disahkan\" selagi perbezaan terbesar kekal di bawah {limit}°.",
-  "val.years.generated": "Diukur {at} oleh scripts/validate_years.py (benih rawak {seed}). Fail sumber: data/validation-years.json."
+  "val.years.generated": "Diukur {at} oleh scripts/validate_years.py (benih rawak {seed}). Fail sumber: data/validation-years.json.",
+  "csv.button": "Muat turun CSV",
+  "csv.aria": "Muat turun CSV untuk senario {n}",
+  "csv.note": "Setiap jam, {days} hari dari masa kad (panjang Semakan misi), UTC",
+  "csv.all_button": "Muat turun CSV (semua senario)",
+  "csv.all_note": "Satu fail: jadual setiap jam bagi setiap kad, satu blok baris bagi setiap senario",
+  "csv.done": "Disimpan: {name} ({rows} baris)."
 }

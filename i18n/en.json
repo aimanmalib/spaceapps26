@@ -597,5 +597,11 @@
   "years.ev_caption": "Toward {body} (azimuth {az}°), {time} UTC. {w}° wide, drawn to scale (same degrees across and up); angles from the in-browser engine, past the end of the frozen NASA tables: the {body} disc is {diam}° across; skyline from LRO LOLA ({grid} m grid, {step}° steps); dashed line = smooth Moon (0°).",
   "val.years.heading": "Dates after the frozen tables: the engine against JPL Horizons",
   "val.years.intro": "Dates after the end of the frozen JPL Horizons tables use the in-browser engine at the listed sites too. It was compared with JPL Horizons, asked directly, at {n} random site-and-minute pairs in {from} to {to} (fixed seed, never on a table hour): largest difference {max}°, average {mean}°, same solar power answer {power} of {of}, same Earth answer {comm} of {of}. The cards say \"validated\" only while the largest difference stays below {limit}°.",
-  "val.years.generated": "Measured {at} by scripts/validate_years.py (random seed {seed}). Source file: data/validation-years.json."
+  "val.years.generated": "Measured {at} by scripts/validate_years.py (random seed {seed}). Source file: data/validation-years.json.",
+  "csv.button": "Download CSV",
+  "csv.aria": "Download CSV for scenario {n}",
+  "csv.note": "Hourly, {days} days from the card time (the Mission check length), UTC",
+  "csv.all_button": "Download CSV (all scenarios)",
+  "csv.all_note": "One file: every card's hourly table, one block of rows per scenario",
+  "csv.done": "Saved {name} ({rows} rows)."
 }
