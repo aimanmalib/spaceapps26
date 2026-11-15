@@ -1,5 +1,5 @@
 {
-  "_note": "Landing sites. lat = selenographic latitude (deg, north positive); lon_east = east longitude (deg). Every coordinate is copied from the cited page; 'source.text' is the text as printed there. Negative longitudes as printed in a source are stored as east longitude 0–360° (lon + 360). Group 'future' (added 15 Nov 2026, ADR 0042): south polar places named by NASA as candidate or target areas for later landings; each coordinate is a point the cited page gives inside that area, not a chosen landing point.",
+  "_note": "Landing sites. lat = selenographic latitude (deg, north positive); lon_east = east longitude (deg). Every coordinate is copied from the cited page; 'source.text' is the text as printed there. Negative longitudes as printed in a source are stored as east longitude 0–360° (lon + 360). Group 'future' (added 15 Nov 2026, ADR 0042): south polar places named by NASA as candidate or target areas for later landings; each coordinate is a point the cited page gives inside that area, not a chosen landing point. Added 15 Nov 2026 (ADR 0105): four more regions from NASA's October 2024 list of nine Artemis III candidate landing regions; each region is about 15 km across and the listed point is one representative point a cited NASA, LROC, LPSC or journal source gives inside it.",
   "sites": [
     {
       "id": "apollo-11",
@@ -167,6 +167,54 @@
         "url": "https://lroc.im-ldi.com/images/1247",
         "publisher": "LROC (NASA LRO camera team)",
         "text": "The intersection of Shackleton - de Gerlache ridge and the rim of Shackleton crater is an area of high scientific interest (portion of NAC mosaic, 750 m wide, 89.684°S, 196.739°E)"
+      }
+    },
+    {
+      "id": "haworth",
+      "name": "Haworth (Artemis III candidate region, representative point)",
+      "group": "future",
+      "lat": -86.7,
+      "lon_east": 336.3,
+      "source": {
+        "url": "https://data.lroc.im-ldi.com/lroc/view_rdr/NAC_ROI_HAWORTH_LO1",
+        "publisher": "LROC (NASA LRO camera team), NAC ROI mosaic of an Artemis III candidate landing site",
+        "text": "This preliminary mosaic of an Artemis III candidate landing site [...] Site Name Haworth Center Lat -86.7 Center Lon 336.3 (centre of the mosaic, longitude 360 positive east)"
+      }
+    },
+    {
+      "id": "mons-mouton-plateau",
+      "name": "Mons Mouton Plateau (Artemis III candidate region, representative point)",
+      "group": "future",
+      "lat": -84.528,
+      "lon_east": 30.719,
+      "source": {
+        "url": "https://www.hou.usra.edu/meetings/lpsc2025/pdf/2742.pdf",
+        "publisher": "Mahanti et al., 56th Lunar and Planetary Science Conference (2025), abstract 2742",
+        "text": "we look closer at the PSRs within the Mons Mouton Plateau candidate region [...] An example landing site (84.528°S, 30.719°E)"
+      }
+    },
+    {
+      "id": "nobile-rim-2",
+      "name": "Nobile Rim 2 (Artemis III candidate region, representative point)",
+      "group": "future",
+      "lat": -84.20156,
+      "lon_east": 60.69989,
+      "source": {
+        "url": "https://arxiv.org/abs/2406.19863",
+        "publisher": "Peña-Asensio, Neira-Acosta, Sánchez-Lozano, Evaluating potential landing sites for the Artemis III mission using a multi-criteria decision making approach (Acta Astronautica)",
+        "text": "Site DM2 (Nobile Rim 2), particularly the point at latitude 84°12’5.61” S (-84.20156°) and longitude 60°41’59.61” E (60.69989°)"
+      }
+    },
+    {
+      "id": "de-gerlache-rim-2",
+      "name": "de Gerlache Rim 2 (Artemis III candidate region, representative point)",
+      "group": "future",
+      "lat": -88.515661,
+      "lon_east": 298.832681,
+      "source": {
+        "url": "https://arxiv.org/abs/2406.19863",
+        "publisher": "Peña-Asensio, Neira-Acosta, Sánchez-Lozano, Evaluating potential landing sites for the Artemis III mission using a multi-criteria decision making approach (Acta Astronautica)",
+        "text": "Table 3, point 726, region SL2 (Table 1: official name de Gerlache Rim 2): 88°30’56.38”S 61°10’2.35”O (O = oeste, west: 61.167319°W = 298.832681°E; latitude 88.515661°S)"
       }
     }
   ]

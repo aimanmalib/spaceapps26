@@ -15,6 +15,140 @@
  "angles": "site: JPL Horizons table; nearby points: Astronomy Engine in the browser code (src/moonsky.js); site_angles_effect_max = largest change of any share if the site Horizons angles were used at the nearby points instead",
  "sites": [
   {
+   "site": "de-gerlache-rim-2",
+   "hours": 8761,
+   "centre": {
+    "sun": 0.172,
+    "earth": 0.493
+   },
+   "disc": {
+    "sun": 0.191,
+    "earth": 0.542
+   },
+   "points": [
+    {
+     "dir": "n",
+     "lat": -88.482683,
+     "lon_east": 298.832681,
+     "centre": {
+      "sun": 0.239,
+      "earth": 0.505
+     },
+     "disc": {
+      "sun": 0.262,
+      "earth": 0.55
+     }
+    },
+    {
+     "dir": "e",
+     "lat": -88.515295,
+     "lon_east": 300.105567,
+     "centre": {
+      "sun": 0.057,
+      "earth": 0.344
+     },
+     "disc": {
+      "sun": 0.062,
+      "earth": 0.394
+     }
+    },
+    {
+     "dir": "s",
+     "lat": -88.548639,
+     "lon_east": 298.832681,
+     "centre": {
+      "sun": 0.13,
+      "earth": 0.482
+     },
+     "disc": {
+      "sun": 0.152,
+      "earth": 0.527
+     }
+    },
+    {
+     "dir": "w",
+     "lat": -88.515295,
+     "lon_east": 297.559795,
+     "centre": {
+      "sun": 0.207,
+      "earth": 0.505
+     },
+     "disc": {
+      "sun": 0.229,
+      "earth": 0.551
+     }
+    }
+   ],
+   "site_angles_effect_max": 0.004
+  },
+  {
+   "site": "haworth",
+   "hours": 8761,
+   "centre": {
+    "sun": 0.325,
+    "earth": 0.218
+   },
+   "disc": {
+    "sun": 0.332,
+    "earth": 0.279
+   },
+   "points": [
+    {
+     "dir": "n",
+     "lat": -86.667022,
+     "lon_east": 336.3,
+     "centre": {
+      "sun": 0.32,
+      "earth": 0.083
+     },
+     "disc": {
+      "sun": 0.328,
+      "earth": 0.184
+     }
+    },
+    {
+     "dir": "e",
+     "lat": -86.699835,
+     "lon_east": 336.872872,
+     "centre": {
+      "sun": 0.319,
+      "earth": 0.28
+     },
+     "disc": {
+      "sun": 0.327,
+      "earth": 0.328
+     }
+    },
+    {
+     "dir": "s",
+     "lat": -86.732978,
+     "lon_east": 336.3,
+     "centre": {
+      "sun": 0.326,
+      "earth": 0.296
+     },
+     "disc": {
+      "sun": 0.333,
+      "earth": 0.349
+     }
+    },
+    {
+     "dir": "w",
+     "lat": -86.699835,
+     "lon_east": 335.727128,
+     "centre": {
+      "sun": 0.316,
+      "earth": 0.119
+     },
+     "disc": {
+      "sun": 0.324,
+      "earth": 0.202
+     }
+    }
+   ],
+   "site_angles_effect_max": 0.006
+  },
+  {
    "site": "im-1-landed",
    "hours": 8761,
    "centre": {
@@ -283,6 +417,73 @@
    "site_angles_effect_max": 0.002
   },
   {
+   "site": "mons-mouton-plateau",
+   "hours": 8761,
+   "centre": {
+    "sun": 0.246,
+    "earth": 0.547
+   },
+   "disc": {
+    "sun": 0.276,
+    "earth": 0.597
+   },
+   "points": [
+    {
+     "dir": "n",
+     "lat": -84.495022,
+     "lon_east": 30.719,
+     "centre": {
+      "sun": 0,
+      "earth": 0.359
+     },
+     "disc": {
+      "sun": 0,
+      "earth": 0.407
+     }
+    },
+    {
+     "dir": "e",
+     "lat": -84.527901,
+     "lon_east": 31.064824,
+     "centre": {
+      "sun": 0.097,
+      "earth": 0.475
+     },
+     "disc": {
+      "sun": 0.116,
+      "earth": 0.518
+     }
+    },
+    {
+     "dir": "s",
+     "lat": -84.560978,
+     "lon_east": 30.719,
+     "centre": {
+      "sun": 0.034,
+      "earth": 0.339
+     },
+     "disc": {
+      "sun": 0.044,
+      "earth": 0.386
+     }
+    },
+    {
+     "dir": "w",
+     "lat": -84.527901,
+     "lon_east": 30.373176,
+     "centre": {
+      "sun": 0.158,
+      "earth": 0.395
+     },
+     "disc": {
+      "sun": 0.192,
+      "earth": 0.444
+     }
+    }
+   ],
+   "site_angles_effect_max": 0.002
+  },
+  {
    "site": "nobile-rim-1",
    "hours": 8761,
    "centre": {
@@ -348,6 +549,73 @@
     }
    ],
    "site_angles_effect_max": 0.007
+  },
+  {
+   "site": "nobile-rim-2",
+   "hours": 8761,
+   "centre": {
+    "sun": 0.324,
+    "earth": 0.244
+   },
+   "disc": {
+    "sun": 0.339,
+    "earth": 0.299
+   },
+   "points": [
+    {
+     "dir": "n",
+     "lat": -84.168582,
+     "lon_east": 60.69989,
+     "centre": {
+      "sun": 0.386,
+      "earth": 0
+     },
+     "disc": {
+      "sun": 0.395,
+      "earth": 0
+     }
+    },
+    {
+     "dir": "e",
+     "lat": -84.201467,
+     "lon_east": 61.026306,
+     "centre": {
+      "sun": 0.423,
+      "earth": 0.343
+     },
+     "disc": {
+      "sun": 0.433,
+      "earth": 0.397
+     }
+    },
+    {
+     "dir": "s",
+     "lat": -84.234538,
+     "lon_east": 60.69989,
+     "centre": {
+      "sun": 0.001,
+      "earth": 0.301
+     },
+     "disc": {
+      "sun": 0.004,
+      "earth": 0.344
+     }
+    },
+    {
+     "dir": "w",
+     "lat": -84.201467,
+     "lon_east": 60.373474,
+     "centre": {
+      "sun": 0.064,
+      "earth": 0
+     },
+     "disc": {
+      "sun": 0.076,
+      "earth": 0.045
+     }
+    }
+   ],
+   "site_angles_effect_max": 0.004
   },
   {
    "site": "shackleton-ridge",
