@@ -28,22 +28,12 @@ test('every page names title and description keys that exist in i18n/en.json', (
   }
 });
 
-test('robots.txt allows crawling and the favicon is a plain SVG with no external reference', () => {
+test('robots.txt allows crawling, the favicon is a plain SVG with no external reference, and the share image is tagged', () => {
   assert.match(read('public/robots.txt'), /^User-agent: \*\nAllow: \/\n$/);
   const svg = read('public/favicon.svg');
   assert.match(svg, /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg"/);
   assert.doesNotMatch(svg.replace('http://www.w3.org/2000/svg', ''), /https?:|href=|<image/);
-});
-
-test('deploy/pages.sh prepares the gh-pages branch only: no Pages switch, no visibility change, hook git env cleared', () => {
-  const sh = read('deploy/pages.sh').split('\n').filter((l) => !l.startsWith('#')).join('\n');
-  assert.match(sh, /BRANCH=gh-pages/);
-  assert.match(sh, /unset GIT_DIR GIT_INDEX_FILE GIT_WORK_TREE/);
-  assert.match(sh, /\.nojekyll/);
-  assert.doesNotMatch(sh, /gh (repo edit|api)|visibility|repos\/[^ ]*\/pages/);
-});
-
-test('the share image is a file in public/, named with an absolute address, and stays under 300 KB for chat previews', () => {
+  // The share image (config/app.json share_image): a file in public/, named with an absolute address, under 300 KB for chat previews.
   const share = JSON.parse(read('config/app.json')).share_image;
   const en = JSON.parse(read('i18n/en.json'));
   const out = staticMeta(PAGE, { ...en, 'k.t': 'A', 'k.d': 'D' }, share);
@@ -55,4 +45,12 @@ test('the share image is a file in public/, named with an absolute address, and 
   assert.ok(png.length < 300 * 1024, `og.png is ${png.length} bytes`);
   assert.equal(png.readUInt32BE(16), share.width);
   assert.equal(png.readUInt32BE(20), share.height);
+});
+
+test('deploy/pages.sh prepares the gh-pages branch only: no Pages switch, no visibility change, hook git env cleared', () => {
+  const sh = read('deploy/pages.sh').split('\n').filter((l) => !l.startsWith('#')).join('\n');
+  assert.match(sh, /BRANCH=gh-pages/);
+  assert.match(sh, /unset GIT_DIR GIT_INDEX_FILE GIT_WORK_TREE/);
+  assert.match(sh, /\.nojekyll/);
+  assert.doesNotMatch(sh, /gh (repo edit|api)|visibility|repos\/[^ ]*\/pages/);
 });
