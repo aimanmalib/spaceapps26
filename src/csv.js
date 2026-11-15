@@ -9,16 +9,18 @@ import { periodRows } from './metrics.js';
 const MINUTE = 60_000;
 
 // The file's schema. *_horizon_deg = elevation of the horizon used at that body's azimuth (LOLA skyline, or 0 on the
-// ideal sphere); power / earth_link = that body's centre is above it; angle_source = where the az/el come from.
+// ideal sphere); power / earth_link = that body's centre is above it (and, for power, the Sun's centre is not behind Earth:
+// sun_behind_earth, the answers' rule since ADR 0109); angle_source = where the az/el come from.
 export const CSV_COLUMNS = [
   'scenario', 'site', 'time_utc',
   'sun_azimuth_deg', 'sun_elevation_deg', 'sun_horizon_deg', 'power',
   'earth_azimuth_deg', 'earth_elevation_deg', 'earth_horizon_deg', 'earth_link',
-  'horizon', 'angle_source',
+  'horizon', 'angle_source', 'sun_behind_earth',
 ];
 
-// One period of the table: profile = terrain skyline or null (ideal sphere); sourceAt(ms) → 'horizons' | 'engine'.
-export function hourlyRows({ table, profile, fromMs, days, threshold = 0, sourceAt = () => 'horizons' }) {
+// One period of the table: profile = terrain skyline or null (ideal sphere); sourceAt(ms) → 'horizons' | 'engine';
+// eclipse = rel.eclipse from src/eclipse.js withEclipses (row k: centre[k] = the Sun's centre behind Earth), or null.
+export function hourlyRows({ table, profile, fromMs, days, threshold = 0, sourceAt = () => 'horizons', eclipse = null }) {
   const { k0, k1 } = periodRows(table, fromMs, days);
   const start = parseUtc(table.start);
   const step = table.step_minutes * MINUTE;
@@ -31,7 +33,9 @@ export function hourlyRows({ table, profile, fromMs, days, threshold = 0, source
       const horizon = profile ? horizonAt(profile, az) : 0;
       return { az, el, horizon, up: isAbove(el - horizon, threshold) };
     };
-    rows.push({ ms, sun: body('sun'), earth: body('earth'), source: sourceAt(ms) });
+    const sun = body('sun');
+    const behind = !!eclipse?.centre[k];
+    rows.push({ ms, sun: { ...sun, up: sun.up && !behind, behind }, earth: body('earth'), source: sourceAt(ms) });
   }
   return rows;
 }
@@ -57,7 +61,7 @@ export function csvText(scenarios, cfg) {
         s.n, s.site.name, formatUtc(r.ms) + 'Z',
         num(r.sun.az), num(r.sun.el), num(r.sun.horizon), yn(r.sun.up),
         num(r.earth.az), num(r.earth.el), num(r.earth.horizon), yn(r.earth.up),
-        horizon, cfg.source[r.source] ?? r.source,
+        horizon, cfg.source[r.source] ?? r.source, yn(r.sun.behind),
       ].map(csvField).join(','));
     }
   }

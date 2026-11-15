@@ -19,11 +19,11 @@ export function downloadText(name, text, type = 'text/csv;charset=utf-8') {
   setTimeout(() => URL.revokeObjectURL(url), REVOKE_AFTER_MS);
 }
 
-// list = [{n, site, ms, days, table, profile, sourceAt}] → {name, text, rows}.
+// list = [{n, site, ms, days, table, profile, sourceAt, eclipse}] → {name, text, rows}.
 export function buildCsv(list, cfg, threshold) {
   const scenarios = list.map((s) => ({
     n: s.n, site: s.site, terrain: !!s.profile,
-    rows: hourlyRows({ table: s.table, profile: s.profile, fromMs: s.ms, days: s.days, threshold, sourceAt: s.sourceAt }),
+    rows: hourlyRows({ table: s.table, profile: s.profile, fromMs: s.ms, days: s.days, threshold, sourceAt: s.sourceAt, eclipse: s.eclipse }),
   }));
   return { name: csvName(list, cfg), text: csvText(scenarios, cfg), rows: scenarios.reduce((a, s) => a + s.rows.length, 0) };
 }

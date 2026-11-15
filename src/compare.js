@@ -200,7 +200,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
         else b?.hide();
       }
       const src = (ms) => (years ? years.sourceAt(r.site, ms) : r.site.custom ? 'engine' : 'horizons');
-      r.c.csvData = r.sample ? { site: r.site, ms: r.ms, table: r.table, profile: r.profile, sourceAt: src } : null;
+      r.c.csvData = r.sample ? { site: r.site, ms: r.ms, table: r.table, profile: r.profile, sourceAt: src, eclipse: r.rel?.eclipse ?? null } : null;
       r.c.csv?.state(!!r.sample);
     }
     tableCsv?.state(cards.some((c) => c.csvData));

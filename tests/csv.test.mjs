@@ -44,12 +44,16 @@ test('hourlyRows: the horizon used at each azimuth, and the yes/no from the cent
   assert.deepEqual(rows.map((r) => r.earth.up).lastIndexOf(true), 3);
 });
 
-test('hourlyRows: the yes/no columns count the same hours as the Mission check', () => {
+test('hourlyRows: the yes/no columns count the same hours as the Mission check (eclipse hours included)', () => {
   const tb = table();
   const profile = { azimuth_step_deg: 90, elev: [1, 3, 2, 0] };
   const fromMs = parseUtc('2026-11-01T03:00');
-  const rows = hourlyRows({ table: tb, profile, fromMs, days: 1.5 });
-  const m = missionMetrics(tb, relativeTable(tb, profile), fromMs, 1.5, { threshold: 0, solar: 1361, sunRadius: 0.267 });
+  // The Sun's centre behind Earth on rows 20..23 (ADR 0109): no sunlight there, in the file as on the card.
+  const eclipse = { centre: tb.sun.el.map((_, k) => k >= 20 && k <= 23), share: tb.sun.el.map((_, k) => (k >= 20 && k <= 23 ? 1 : 0)) };
+  const rows = hourlyRows({ table: tb, profile, fromMs, days: 1.5, eclipse });
+  assert.equal(rows.filter((r) => r.sun.behind).length, 4);
+  assert.ok(rows.filter((r) => r.sun.behind).every((r) => !r.sun.up));
+  const m = missionMetrics(tb, { ...relativeTable(tb, profile), eclipse }, fromMs, 1.5, { threshold: 0, solar: 1361, sunRadius: 0.267 });
   assert.equal(rows.length, m.rows);
   assert.ok(Math.abs((rows.filter((r) => r.sun.up).length / rows.length) * 100 - m.sunPct) < 1e-9);
   assert.ok(Math.abs((rows.filter((r) => r.earth.up).length / rows.length) * 100 - m.earthPct) < 1e-9);
@@ -70,8 +74,8 @@ test('csvText: header, one line per hour, CRLF, configured words and decimals', 
   assert.equal(lines.at(-1), '', 'ends with a line break');
   assert.equal(lines[0], CSV_COLUMNS.join(','));
   assert.equal(lines.length - 2, 12);
-  assert.equal(lines[1], `2,"Apollo 15 (Hadley, Apennines)",2026-11-01T00:00Z,350,-6,0,${cfg.no},180,5,0,${cfg.yes},${cfg.horizon.sphere},${cfg.source.horizons}`);
-  assert.ok(lines[12].endsWith(`,${cfg.source.engine}`));
+  assert.equal(lines[1], `2,"Apollo 15 (Hadley, Apennines)",2026-11-01T00:00Z,350,-6,0,${cfg.no},180,5,0,${cfg.yes},${cfg.horizon.sphere},${cfg.source.horizons},${cfg.no}`);
+  assert.ok(lines[12].endsWith(`,${cfg.source.engine},${cfg.no}`));
   assert.ok(!text.includes('\n\n'));
 });
 

@@ -21,9 +21,12 @@ parts that matter: the decision, the horizon strip, the ready-made comparisons, 
   by default). Rows = the same hourly rows as the Mission check (`periodRows`), so the yes/no columns count exactly the hours
   behind the GO / RISKY / NO-GO badge (unit test). The note next to the button names the length and follows the select.
 - Columns (the file's schema, `CSV_COLUMNS`): `scenario, site, time_utc, sun_azimuth_deg, sun_elevation_deg,
-  sun_horizon_deg, power, earth_azimuth_deg, earth_elevation_deg, earth_horizon_deg, earth_link, horizon, angle_source`.
+  sun_horizon_deg, power, earth_azimuth_deg, earth_elevation_deg, earth_horizon_deg, earth_link, horizon, angle_source,
+  sun_behind_earth`.
   `*_horizon_deg` = the horizon used at that body's azimuth (LOLA skyline elevation, or 0 on the ideal sphere); `power` /
-  `earth_link` = that body's centre is above it (`view.horizon_threshold_deg`, the same rule as the answers); `horizon` =
+  `earth_link` = that body's centre is above it (`view.horizon_threshold_deg`, the same rule as the answers), and for `power`
+  the Sun's centre is not behind Earth (`sun_behind_earth`, lunar eclipses, ADR 0109: the cards and the Mission check count
+  those hours as no sunlight, so the file does too; the column is last so the others keep their place); `horizon` =
   `lola_skyline` / `ideal_sphere`; `angle_source` = `jpl_horizons` / `astronomy_engine`, hour by hour (a period that crosses
   the end of the frozen tables changes source on the row where it happens). Own coordinates get their own terrain skyline
   when ADR 0106 provides one.
