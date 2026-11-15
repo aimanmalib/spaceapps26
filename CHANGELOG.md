@@ -37,7 +37,7 @@ The project has no numbered releases: the site is one continuous build, and each
   Lighthouse scores from `scripts/lighthouse.sh`.
 
 ### Changed
-- Dates to the end of 2050 (first 2040, then a second block of JPL Horizons checks for 2041 to 2050). The page now interpolates directions as vectors, and the checks against JPL Horizons judge the
+- Dates to the end of 2070 (first 2040, then blocks of JPL Horizons checks for 2041 to 2050, 2051 to 2060 and 2061 to 2070). The page now interpolates directions as vectors, and the checks against JPL Horizons judge the
   direction on the sky (0.05° limit) while still reporting azimuth, which is undefined near the zenith (ADR 0113).
 - Visual pass: a self-hosted typeface (IBM Plex Sans, SIL OFL 1.1), one type scale, the mission check badge and the verdict first
   in every card, page links on one row on phones (ADR 0107).

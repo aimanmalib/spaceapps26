@@ -28,15 +28,18 @@ const engine = async (site, span) =>
 const frozen = async (id) => json(`data/ephem/${id}.json`);
 const siteById = new Map(json('config/sites.json').sites.map((s) => [s.id, s]));
 
-test('config: dates run to the end of 2050 and the check covers 2028 to 2050 with at least 20 pairs', () => {
-  assert.equal(range.endMs, Date.UTC(2051, 0, 1));
+test('config: dates run to the end of 2070 and the check covers 2028 to 2070 with at least 20 pairs', () => {
+  assert.equal(range.endMs, Date.UTC(2071, 0, 1));
   assert.ok(range.frozenEndMs < Date.UTC(2028, 0, 1));
   assert.ok(cfg.check.pairs >= 20);
   assert.equal(cfg.check.from, '2028-01-01 00:00');
   assert.equal(cfg.check.to, '2041-01-01 00:00');
   const lastTo = [cfg.check.to, ...(cfg.check.extra ?? []).map((b) => b.to)].sort().at(-1);
   assert.equal(lastTo, cfg.stop, 'the check reaches the last accepted date');
-  assert.ok((cfg.check.extra ?? []).some((b) => b.from === '2041-01-01 00:00' && b.pairs >= 20), '2041 to 2050 has its own block of at least 20 pairs');
+  for (const from of ['2041-01-01 00:00', '2051-01-01 00:00', '2061-01-01 00:00']) {
+    assert.ok((cfg.check.extra ?? []).some((b) => b.from === from && b.pairs >= 20), `${from.slice(0, 4)} decade has its own block of at least 20 pairs`);
+  }
+  assert.equal(new Set([cfg.check.seed, ...(cfg.check.extra ?? []).map((b) => b.seed)]).size, 1 + (cfg.check.extra ?? []).length, 'each block has its own seed');
   assert.ok(cfg.check.max_sky_deg <= 0.05);
 });
 
@@ -148,6 +151,6 @@ test('own coordinates and nearby points get blocks past the frozen end too', asy
   const years = makeYears({ eph, cfg, frozen, engine: async (site, span) => (calls.push(span), span) });
   await years.table({ custom: true, lat: 1, lon_east: 2 }, parseUtc('2026-12-01 00:00'));
   assert.deepEqual(calls.pop(), { startMs: range.startMs, endMs: range.frozenEndMs });
-  await years.engineAt({ lat: 1, lon_east: 2 }, parseUtc('2050-12-31 23:00'));
+  await years.engineAt({ lat: 1, lon_east: 2 }, parseUtc('2070-12-31 23:00'));
   assert.equal(calls.pop().endMs, range.endMs);
 });

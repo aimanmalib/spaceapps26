@@ -521,7 +521,7 @@
       "file": "horizons-cache.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
       "note": "Raw JPL Horizons answers of the check at scale, keyed by request (the full request URL is kept with each answer); a second run reads them instead of asking again.",
-      "retrieved_at": "2026-11-15T16:10:56Z",
+      "retrieved_at": "2026-11-15T16:23:57Z",
       "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
       "script": "scripts/validate.py --scale",
       "generated_by": "Claude Code (Anthropic) wrote this script; reference numbers come from JPL Horizons"
@@ -921,7 +921,7 @@
       "file": "validation-scale.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
       "note": "Check at scale (ADR 0108): config/validation.json scale pairs at every listed site, frozen-table and engine dates; Horizons asked in batches of minutes (TLIST, calendar UT), one request per site and body.",
-      "retrieved_at": "2026-11-15T16:10:56Z",
+      "retrieved_at": "2026-11-15T16:23:57Z",
       "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
       "script": "scripts/validate.py --scale",
       "generated_by": "Claude Code (Anthropic) wrote this script; reference numbers come from JPL Horizons"
@@ -930,7 +930,7 @@
       "file": "validation-years.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
       "note": "Engine (src/moonsky.js) against JPL Horizons on random listed-site pairs after the frozen tables (config/years.json check); one Horizons request per pair and body, 1-minute span.",
-      "retrieved_at": "2026-11-15T16:10:19Z",
+      "retrieved_at": "2026-11-15T16:23:56Z",
       "license": "Credit: JPL Horizons System, Solar System Dynamics Group, NASA/JPL-Caltech (public API, no login)",
       "script": "scripts/validate_years.py",
       "generated_by": "Claude Code (Anthropic) wrote this script; reference numbers come from JPL Horizons"
