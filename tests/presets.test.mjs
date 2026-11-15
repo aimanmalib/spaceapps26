@@ -9,6 +9,7 @@ import { presetSearch, presetProblems } from '../src/presets.js';
 import { decodeScenarios } from '../src/share.js';
 import { parseUtc, sampleAt } from '../src/ephem.js';
 import { judge } from '../src/shifts.js';
+import { eclipseOf } from '../src/eclipse.js';
 
 const root = new URL('../', import.meta.url);
 const json = (p) => JSON.parse(readFileSync(new URL(p, root), 'utf8'));
@@ -19,7 +20,7 @@ const siteIds = new Set(json('config/sites.json').sites.map((s) => s.id));
 const limits = { siteIds, startMs: parseUtc(eph.start.replace(' ', 'T')), endMs: parseUtc(eph.stop.replace(' ', 'T')), max: view.max_scenarios };
 
 test('the four comparisons, in order, with no problems (the one-kilometre case stays the example button)', () => {
-  assert.deepEqual(presets.map((p) => p.id), ['slip', 'im1', 'apollo_pole', 'ridge_seasons']);
+  assert.deepEqual(presets.map((p) => p.id), ['slip', 'im1', 'apollo_pole', 'ridge_seasons', 'eclipse']);
   assert.deepEqual(presetProblems(presets, limits), []);
 });
 
@@ -58,12 +59,15 @@ test('no preset repeats the one-kilometre example button', () => {
   for (const p of presets) assert.notDeepEqual(p.scenarios, [view.example], p.id);
 });
 
-// Same rule as a card: centre of the disc against the LOLA skyline where one exists, else the ideal sphere.
+// Same rule as a card: centre of the disc against the LOLA skyline where one exists, else the ideal sphere; and the
+// Sun's centre not behind Earth (lunar eclipse seen from the site, ADR 0109).
 const answer = ({ site, time_utc }) => {
   const table = json(`data/ephem/${site}.json`);
   const hp = `data/horizon/${site}.json`;
-  const j = judge(sampleAt(table, parseUtc(time_utc)), existsSync(new URL(hp, root)) ? json(hp) : null, view.horizon_threshold_deg);
-  return (j.sun.up ? 'S' : 's') + (j.earth.up ? 'E' : 'e');
+  const sample = sampleAt(table, parseUtc(time_utc));
+  const j = judge(sample, existsSync(new URL(hp, root)) ? json(hp) : null, view.horizon_threshold_deg);
+  const behind = eclipseOf(sample, view.timeline.year.disc_radius_deg).centre;
+  return (j.sun.up && !behind ? 'S' : 's') + (j.earth.up ? 'E' : 'e');
 };
 
 test('each preset shows the answers written in its note; the cards of a pair differ in at least one answer', () => {

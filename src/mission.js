@@ -9,8 +9,9 @@ const MINUTE = 60_000;
 const HOUR = 3_600_000;
 
 // Row k: both bodies above the threshold (centre of the disc, same rule as the card answers).
+// A Sun whose centre is behind Earth (lunar eclipse seen from the site, ADR 0109; rel.eclipse) gives no sunlight.
 export function bothUp(rel, th = 0) {
-  return rel.sun.el.map((v, k) => isAbove(v, th) && isAbove(rel.earth.el[k], th));
+  return rel.sun.el.map((v, k) => isAbove(v, th) && !rel.eclipse?.centre[k] && isAbove(rel.earth.el[k], th));
 }
 
 // Runs of consecutive "both up" rows: [{i0, i1}] (inclusive row indices).

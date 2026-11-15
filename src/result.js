@@ -41,6 +41,7 @@ function status(t, kind, f, m, sky, disc, flip = false) {
     `<span class="answer-num"><span class="answer-deg">${e(m.num)}</span>` +
     `<span class="answer-unit">${e(m.text)}</span></span>` +
     (disc ? `<span class="answer-disc is-${disc.state}">${e(disc.text)}</span>` : '') +
+    (f.eclipseText ? `<span class="answer-eclipse">${e(f.eclipseText)}</span>` : '') +
     `<span class="answer-when">${e(f.timing)}</span>` +
     more(t, sky, f) +
     `</span></li>`
@@ -97,7 +98,8 @@ export function resultHtml(t, r, view) {
   // Three-state disc label (P4u): whole disc / partly hidden / hidden, against the horizon used.
   const discAt = (b) =>
     r.disc ? { state: r.disc[b], text: fill(t(`disc.${b}.${r.disc[b]}`), { line: t(r.profile ? 'disc.line_terrain' : 'disc.line_sphere') }) } : null;
-  const answer = (kind, b, body) => status(t, kind, r.facts[b], marginLabel(t, r.facts[b], body, !!r.profile, d), skyAt(b, kind), discAt(b), !!r.range?.judge[b].flip);
+  // A Sun behind Earth (lunar eclipse seen from the site, ADR 0109): the large number is the share of the Sun hidden.
+  const answer = (kind, b, body) => status(t, kind, r.facts[b], r.facts[b].eclipseNum ?? marginLabel(t, r.facts[b], body, !!r.profile, d), skyAt(b, kind), discAt(b), !!r.range?.judge[b].flip);
   const row = (name, p) => `<tr><th scope="row">${e(t(name))}</th><td>${deg(p.az, d)}°</td><td>${deg(p.el, d)}°</td></tr>`;
   const ticks = ['0', '90', '180', '270', '360']
     .map((a) => `<span class="sky-az" style="left:${(+a / 360) * 100}%">${e(t(`sky.az.${a}`))}</span>`)

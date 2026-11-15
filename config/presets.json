@@ -32,6 +32,14 @@
         { "site": "shackleton-ridge", "time_utc": "2026-11-10T00:00" },
         { "site": "shackleton-ridge", "time_utc": "2027-05-20T00:00" }
       ]
+    },
+    {
+      "id": "eclipse",
+      "_answers": "SE → sE: a lunar eclipse at the south pole (ADR 0109); the Sun stays about 6.3° above the IM-2 skyline, but at 07:00 Earth covers 54 % of it, centre included (NASA GSFC: penumbral lunar eclipse, greatest 07:15 TD on 17 Aug 2027)",
+      "scenarios": [
+        { "site": "im-2", "time_utc": "2027-08-17T05:00" },
+        { "site": "im-2", "time_utc": "2027-08-17T07:00" }
+      ]
     }
   ]
 }
