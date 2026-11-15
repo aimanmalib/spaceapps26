@@ -7,9 +7,10 @@ Replaces the decision of ADR 0037 ("not shipped"); its measurements stand and ar
 
 The challenge asks that a planner can "evaluate alternative sites in the same region" and type their own coordinates, and to
 consider "the Moon's actual topography". Until now own coordinates used the ideal-sphere horizon everywhere (ADR 0037): the
-only coarse grid that passed the 97 % gate (400 m / 960 m) was almost four times ADR 0037's 1.5 MB size limit. The author
-asked on 15 November 2026 (evening) to ship that setting for own points inside the LOLA south-polar grids, loaded only when
-needed, with the gate measured again at every listed polar site that has an 80 m skyline and any failure named on the card.
+only coarse grid that passed the 97 % gate (400 m / 960 m) was almost four times ADR 0037's 1.5 MB size limit. The entry's
+work plan of 15 November 2026 (evening) asked to ship that setting for own points inside the LOLA south-polar grids, loaded
+only when needed, with the gate measured again at every listed polar site that has an 80 m skyline and any failure named on
+the card.
 
 ## Decision
 
@@ -61,8 +62,8 @@ lies between 75° S and 80° S, so the 960 m copy is not checked against an 80 m
 
 ## Changed from the request
 
-- The grids are in `data/terrain/`, not `public/`: `data/` is the folder that `data/SOURCES.json`, the provenance test and the
-  Data sources page cover, and the build already publishes it. A file in `public/` would have had no working link there.
+- The grids are in `data/terrain/`, not `public/`: `data/SOURCES.json`, its provenance test and the Data sources page are
+  built around `data/` (every `file` path is relative to it), and the build already publishes that folder.
 - The 80 m pole crop was not in the request; it was added after the measurement above, because the two measured points in
   the Shackleton region, where many own points will be typed, had a different answer in 46 % and 18 % of the hours on the
   400 m copy.
@@ -74,7 +75,8 @@ lies between 75° S and 80° S, so the 960 m copy is not checked against an 80 m
 - The first download is 6.9 MB. `deploy/nginx.conf` compresses `application/json` but not `application/octet-stream`, so the
   `.bin` files go uncompressed (adding the type there would save about 0.8 MB); with `Cache-Control: no-cache` the browser
   revalidates them per visit (304) instead of downloading again.
-- README Limitations still says own coordinates use the ideal sphere only; it is updated with the merge on `main`.
+- README Limitations still says own coordinates use the ideal sphere only; it is outside this branch and is to be updated on
+  `main`. The About page limitation is updated.
 
 ## Way back
 
