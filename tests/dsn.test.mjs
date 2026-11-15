@@ -44,6 +44,14 @@ test('Moon elevation: within ±90°, rises and sets over a day; one complex sees
   assert.ok(r.find((x) => x.id === 'goldstone').up && !r.find((x) => x.id === 'madrid').up);
 });
 
+test('Moon elevation from each antenna matches JPL Horizons (read 15 Nov 2026, airless, 2027-08-17 07:00 UTC) within 0.01°', () => {
+  // https://ssd.jpl.nasa.gov/api/horizons.api COMMAND='301' CENTER='coord@399' COORD_TYPE='GEODETIC' SITE_COORD=<config/dsn.json
+  // lon_east, lat, height km> QUANTITIES='4' ANG_FORMAT='DEG': apparent elevation of the Moon.
+  const horizons = { goldstone: 40.023166, madrid: -16.69735, canberra: -6.670572 };
+  const ms = Date.parse('2027-08-17T07:00Z');
+  for (const s of cfg.stations) assert.ok(Math.abs(moonElevation(s, ms) - horizons[s.id]) < 0.01, s.id);
+});
+
 test('card line names the complexes and what they mean for the link, in every language', () => {
   for (const code of ['en', 'id', 'ms']) {
     const t = makeT(json(`i18n/${code}.json`));

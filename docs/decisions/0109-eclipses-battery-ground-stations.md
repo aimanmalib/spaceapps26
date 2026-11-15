@@ -50,6 +50,8 @@ greatest eclipse (largest gap 1.4 h, mean 0.5 h; rows are hourly); every partial
 the three totals cover the whole Sun at all 18 sites, penumbral ones never do; 2027-07-18 (penumbral magnitude 0.0014) is
 seen at no site. Result `data/eclipses.json`; `tests/eclipse.test.mjs` fails if this changes or the site list grows without
 a rerun. One complex sees the Moon above 10° in 97.9 % of the hours of November 2026 (`tests/dsn.test.mjs` asks ≥ 90 %).
+The Moon's elevation from the three antennas at 2027-08-17 07:00 UTC agrees with JPL Horizons (observer at the same
+geodetic coordinates, airless) within 0.001° (Goldstone 40.023°, Madrid −16.697°, Canberra −6.671°; unit test).
 
 ## Not modelled
 
