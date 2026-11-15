@@ -7,8 +7,8 @@ const BODIES = ['sun', 'earth'];
 const pp = (v) => (v * 100).toFixed(1);
 
 // One square scatter chart: x = PGDA value, y = this tool, both 0–100 %, with the y = x line. Pure SVG, no script.
-export function scatterSvg(points, body, label, size = 240, pad = 34) {
-  const span = size - pad - 8;
+export function scatterSvg(points, body, label, size = 240, pad = 34, end = 16) {
+  const span = size - pad - end; // room left/below for tick labels, right/top so the last label is not cut
   const x = (v) => pad + v * span;
   const y = (v) => size - pad - v * span;
   const ticks = [0, 0.5, 1]

@@ -22,6 +22,6 @@ test('table shows median, 90th percentile, largest difference and the inside-ran
 });
 
 test('scatter places a dot at (PGDA, tool) on a 0-100 % square', () => {
-  const svg = scatterSvg([{ tool: { sun: 1 }, pgda: { sun: { value: 0 } } }], 'sun', 'x', 240, 34);
-  assert.match(svg, /cx="34.0" cy="8.0"/);
+  const svg = scatterSvg([{ tool: { sun: 1 }, pgda: { sun: { value: 0 } } }], 'sun', 'x', 240, 34, 16);
+  assert.match(svg, /cx="34.0" cy="16.0"/);
 });
