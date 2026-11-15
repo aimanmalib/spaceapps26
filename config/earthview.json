@@ -1,0 +1,9 @@
+{
+  "_note": "Earth view (P4v, presentation of items j and l): on cards with a LOLA terrain skyline, a sky window centred on the azimuth of the chosen body, width_deg across, drawn with the same pixels per degree on both axes. The disc diameter is twice config/view.json timeline.year.disc_radius_deg. Elevation range: the body and the skyline inside the window, plus pad_deg, at least min_height_deg tall. Buttons switch the skyline to the nearby points of data/shift/ (directions = config/shifts.json); the body switch shows the Sun instead of Earth.",
+  "width_deg": 26,
+  "min_height_deg": 8,
+  "pad_deg": 1.5,
+  "grid_step_deg": 5,
+  "bodies": ["earth", "sun"],
+  "first_card_only": false
+}

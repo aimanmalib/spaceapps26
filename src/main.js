@@ -5,6 +5,7 @@ import features from '../config/features.json';
 import customCfg from '../config/custom.json';
 import eph from '../config/ephemeris.json';
 import shiftsCfg from '../config/shifts.json';
+import evCfg from '../config/earthview.json';
 import meCfg from '../config/moon-earth.json';
 import mapCfg from '../config/map2d.json';
 import surfCfg from '../config/surface3d.json';
@@ -45,4 +46,6 @@ const surface = items.i_surface_3d ? { cfg: surfCfg, light: mapCfg, maps } : nul
 // Shareable link: scenarios from the address (src/share.js); "Now" works inside the frozen tables' date range.
 const shared = decodeScenarios(location.search, { cfg: view.share, siteIds: new Set(sitesConfig.sites.map((s) => s.id)), max: view.max_scenarios, custom: custom?.cfg });
 const share = { cfg: view.share, range: { startMs: parseUtc(eph.start), endMs: parseUtc(eph.stop) }, ...shared };
-if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, features: items, custom, shifts, me: items.k_moon_vs_earth ? meCfg : null, map, surface, share });
+// Earth view (P4v): to-scale window toward Earth/Sun on terrain cards; nearby points reuse item l's data and engine.
+const earthview = items.j_terrain_horizon && engine ? { cfg: evCfg, dirs: shiftsCfg, places, engine } : null;
+if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, features: items, custom, shifts, me: items.k_moon_vs_earth ? meCfg : null, map, surface, share, earthview });

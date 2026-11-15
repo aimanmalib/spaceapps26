@@ -365,3 +365,21 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
   .teach a { color: #000; }
 }
 .teach-facts a { color: var(--text); }
+/* Earth view (P4v): to-scale sky window under the answers; strokes stay 1–2 px although the viewBox is in degrees. */
+.ev { margin-top: 0.75rem; padding-top: 0.6rem; border-top: 1px solid var(--line); }
+.ev-title { margin: 0 0 0.4rem; font-size: 0.95rem; font-weight: 600; }
+.ev-plot { line-height: 0; border: 1px solid var(--line); border-radius: 0.5rem; overflow: hidden; background: var(--sky); }
+.ev-svg { display: block; width: 100%; height: auto; }
+.ev-svg * { vector-effect: non-scaling-stroke; }
+.ev-grid { stroke: var(--line); stroke-width: 1; }
+.ev-ridge { fill: none; stroke: var(--ground-line); stroke-width: 1.5; stroke-linejoin: round; }
+.ev-sphere { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 5 4; }
+.ev-earth { fill: var(--earth); }
+.ev-sun { fill: var(--sun); }
+.ev-sentence { margin: 0.5rem 0 0; }
+.ev-btns { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+.ev-btn { font: inherit; font-size: 0.875rem; cursor: pointer; min-height: 2.75rem; padding: 0.35rem 0.7rem; border-radius: 0.5rem;
+  background: transparent; color: var(--muted); border: 1px solid var(--line); }
+.ev-btn[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); font-weight: 600; }
+.ev-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ev-caption { margin: 0.5rem 0 0; font-size: 0.8125rem; color: var(--muted); }

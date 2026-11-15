@@ -108,6 +108,29 @@ def one_year(page, check):
     check(tl.locator("input[type=range]").evaluate("r => +r.max / 1440 < 31"), "timeline back to one lunar day (d)")
 
 
+def earth_view(page, check, shots, name):
+    """P4v: to-scale window toward Earth under the first card's answers (IM-2); 5 point buttons + Sun/Earth switch."""
+    card = page.locator(".card").first
+    card.locator("select[id$='-site']").select_option("im-2")
+    ev = card.locator(".card-result .ev")
+    ev.wait_for(state="visible")
+    check(card.locator(".card-result .answers + .ev").count() == 1, "earth view: right under the two answers (P4v)")
+    check(ev.locator(".ev-btn[data-point]").count() == 5, "earth view: at the site + 4 nearby-point buttons (P4v)")
+    box = ev.locator(".ev-svg").evaluate("s => { const b = s.getBoundingClientRect(); const v = s.viewBox.baseVal; return [b.width / v.width, b.height / v.height]; }")
+    check(abs(box[0] - box[1]) < 0.02 * box[0], f"earth view: same pixels per degree across and up (P4v), got {box}")
+    ev.locator(".ev-btn[data-point=e]").click()
+    page.wait_for_function("() => document.querySelector('.card .ev-sentence')?.innerText.startsWith('1 km east:')", timeout=30000)
+    check(ev.locator(".ev-btn[data-point=e]").get_attribute("aria-pressed") == "true", "earth view: 1 km east button pressed (P4v)")
+    if shots:
+        ev.screenshot(path=os.path.join(shots, f"earthview-{name}.png"))
+    ev.locator(".ev-btn[data-body=sun]").click()
+    page.wait_for_function("() => document.querySelector('.card .ev-title')?.innerText.includes('Sun')")
+    check(ev.locator(".ev-sun").count() == 1, "earth view: switch to the Sun (P4v)")
+    ev.locator(".ev-btn[data-point=site]").click()
+    ev.locator(".ev-btn[data-body=earth]").click()
+    check(ev.evaluate("e => e.scrollWidth <= e.clientWidth"), "earth view: fits the card (P4v)")
+
+
 def small_shifts(page, check):
     """Item l: open the small-shifts block on a terrain site; time rows at once, nearby-point rows from the browser engine."""
     card = page.locator(".card").first
@@ -444,6 +467,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         page.wait_for_function("() => [...document.querySelectorAll('.tl-play')].every(b => b.hidden)")
         page.emulate_media(reduced_motion="no-preference")
         one_year(page, check)
+        earth_view(page, check, shots, name)
         small_shifts(page, check)
         sequence(page, check)
         windows(page, check)

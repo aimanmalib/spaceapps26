@@ -11,6 +11,7 @@ import { judge } from './shifts.js';
 import { discState, discRadii } from './disc.js';
 import { mountTimeline } from './timeline-ui.js';
 import { mountShifts } from './shifts-ui.js';
+import { mountEarthView } from './earthview-ui.js';
 import { mountMoonEarth } from './moonearth-ui.js';
 import { mountMap } from './map2d-ui.js';
 import { mountSurface } from './surface3d-ui.js';
@@ -62,7 +63,8 @@ function cardDom(t, sites, sc, custom) {
 // shifts = item l settings for src/shifts-ui.js when item l is on; me = config/moon-earth.json when item k is on;
 // map = {cfg: config/map2d.json, maps: siteId → () => Promise<data/map file>} when item h is on;
 // surface = {cfg: config/surface3d.json, light: config/map2d.json, maps} when item i is on.
-export function mountCompare(root, { t, sites, view, horizons = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null }) {
+// earthview = {cfg: config/earthview.json, dirs: config/shifts.json, places, engine} (P4v; terrain sites only).
+export function mountCompare(root, { t, sites, view, horizons = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null, earthview = null }) {
   const list = root.querySelector('.cards');
   const add = root.querySelector('.add');
   const glance = root.querySelector('.glance-body');
@@ -131,6 +133,11 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
     for (const r of rows) {
       const box = r.c.el.querySelector('.card-result');
       box.innerHTML = r.sample ? resultHtml(t, { ...r, scale }, view) : `<p class="note note-warn">${e(r.msg)}</p>`;
+      // Earth view (P4v): right under the two answers, only where a LOLA terrain skyline exists.
+      if (r.c.ev && r.sample && r.profile) {
+        box.querySelector('.answers').after(r.c.evBox);
+        r.c.ev.draw({ site: r.site, profile: r.profile, sample: r.sample, ms: r.ms });
+      } else r.c.ev?.hide();
       if (r.sample) r.c.tl?.draw(r.rel, r.ms);
       else r.c.tl?.hide();
       if (r.sample) r.c.sh?.draw({ site: r.site, table: r.table, profile: r.profile, sample: r.sample, ms: r.ms });
@@ -173,6 +180,10 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
       c.tl = mountTimeline(c.el.querySelector('.card-timeline'), { t, view, onTime, uid: `tl${++uid}` });
     }
     const first = cards.length === 0;
+    if (earthview) {
+      c.evBox = document.createElement('section');
+      c.ev = mountEarthView(c.evBox, { t, view, ev: earthview, uid: `ev${++uid}` });
+    }
     if (features.l_small_shifts && shifts) c.sh = mountShifts(c.el.querySelector('.card-shifts'), { t, view, shifts });
     if (first && view.first_card?.shifts_open) openBlock(c.el, '.shifts');
     // Sequential comparison (challenge text): step buttons + "If the date moves", open on the first card only.

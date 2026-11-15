@@ -77,6 +77,9 @@ Built:
   resolve small craters such as the one where the IM-2 lander stopped. Over the whole year (8761 hourly steps, 2026-11-01 to
   2027-11-01), Earth's centre is above the skyline 80.1 % of the hours at the IM-2 site, 64.4 % 1 km east and 56.6 % 1 km south
   (Sun: 43.8 %, 35.1 %, 45.7 %); at IM-1, 100.0 % at the site and 83.2 % 1 km east (`data/shift-year/`, `scripts/shift_year.mjs`).
+- Earth view, drawn to scale: right under the two answers at the terrain sites, a window of sky 26° wide toward Earth (or the
+  Sun), with the same degrees across and up, the Earth disc 1.9° across, the LRO LOLA skyline and the smooth-Moon line (0°), and
+  buttons for the site and the points 1 km north, east, south and west (same data as the small-shifts table).
 - Whole disc or part of it: each Sun and Earth answer also says whether the whole disc, part of it, or none of it is above the
   horizon used (angular radius seen from the Moon: Sun 0.267°, Earth 0.95°, mean distances). The yes/no answer itself uses the
   centre of the disc, the same rule as in the validation below.
