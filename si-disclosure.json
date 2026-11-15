@@ -7,7 +7,9 @@
     {
       "name": "Claude Code",
       "vendor": "Anthropic",
-      "models": ["Claude (Anthropic)"],
+      "models": [
+        "Claude (Anthropic)"
+      ],
       "used_for": [
         "feasibility comparison of the challenges",
         "translation of the challenge text into Malay",
@@ -49,9 +51,22 @@
     "deploy/",
     "index.html",
     "docs/decisions/",
-    "demo/slides.html"
+    "demo/slides.html",
+    "about.html",
+    "sources.html",
+    "validation.html",
+    "vite.config.js",
+    "e2e/",
+    "public/favicon.svg",
+    ".github/"
   ],
-  "si_translated_text": ["README.md", "docs/DETAILS.md", "SI-DISCLOSURE.md", "REFERENCES.md", "demo/"],
+  "si_translated_text": [
+    "README.md",
+    "docs/DETAILS.md",
+    "SI-DISCLOSURE.md",
+    "REFERENCES.md",
+    "demo/"
+  ],
   "si_generated_media": [],
   "file_header": "SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md",
   "html_meta": "si-disclosure"

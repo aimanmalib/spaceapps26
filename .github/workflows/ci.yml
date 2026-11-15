@@ -1,3 +1,4 @@
+# SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
 name: ci
 on:
   push:
