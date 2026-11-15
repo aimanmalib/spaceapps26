@@ -3,6 +3,7 @@
 import array
 import io
 import json
+import math
 import pathlib
 import sys
 import unittest
@@ -71,6 +72,47 @@ class PgdaTest(unittest.TestCase):
         for r in d["sites"]:
             self.assertIn(f" | {r['tool']['sun'] * 100:.1f} % | {r['pgda']['sun']['value'] * 100:.1f} % | "
                           f"{r['tool']['earth'] * 100:.1f} % | {r['pgda']['earth']['value'] * 100:.1f} % |", readme)
+
+    def test_readme_quotes_the_same_period_block(self):
+        pp = json.loads((ROOT / "data/validation.json").read_text(encoding="utf-8"))["pgda_period"]
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        flat = " ".join(readme.split())
+        self.assertIn(f"over {pp['period']['hours']} hourly steps from {pp['period']['start'][:10]}", flat)
+        for r in pp["sites"]:
+            y = r["one_year"]["sun"]
+            self.assertIn(f" | {r['tool']['sun'] * 100:.1f} % | {r['pgda']['sun'] * 100:.1f} % | {r['tool']['earth'] * 100:.1f} % | "
+                          f"{r['pgda']['earth'] * 100:.1f} % | {y['min'] * 100:.1f} % to {y['max'] * 100:.1f} % |", readme)
+        ridge = next(r for r in pp["sites"] if r["site"] == pp["ridge"]["site"])
+        low, high = sorted(pp["ridge"]["observer"], key=lambda o: o["height_m"])
+        b = pp["ridge"]["block"]
+        for text in (
+            f"At the two landing sites the largest difference is {pp['landing_sites']['max_abs'] * 100:.1f} percentage points.",
+            f"the Sun still differs by {abs(ridge['diff']['sun']) * 100:.1f} points and Earth by {abs(ridge['diff']['earth']) * 100:.1f}",
+            f"each of the {ridge['calendar_years']} full calendar years gives {ridge['one_year']['sun']['min'] * 100:.1f} % to {ridge['one_year']['sun']['max'] * 100:.1f} %",
+            f"with the observer on the ground ({low['height_m']} m) the tool gives {low['sun'] * 100:.1f} % for the Sun, and at {high['height_m']} m "
+            f"(the height the tool uses everywhere) {high['sun'] * 100:.1f} %",
+            f"the PGDA value of {pp['ridge']['pgda']['sun']['value'] * 100:.1f} % lies between the two",
+            f"At the nine points {b['offset_m']} m apart around it (one PGDA pixel) the tool gives {b['sun']['min'] * 100:.1f} % to {b['sun']['max'] * 100:.1f} %",
+            f"closer than {pp['ridge']['near_km']} km in {high['near']} of {pp['ridge']['azimuths']} directions",
+            # "Validation in short" (top of the README) repeats four of these numbers.
+            f"the Sun differs by {abs(ridge['diff']['sun']) * 100:.1f} points; there the tool's own value runs from {low['sun'] * 100:.1f} % "
+            f"(observer on the ground) to {high['sun'] * 100:.1f} % ({high['height_m']} m up), and NASA's {pp['ridge']['pgda']['sun']['value'] * 100:.1f} % lies between",
+        ):
+            self.assertIn(text, flat)
+        self.assertTrue(low["sun"] < pp["ridge"]["pgda"]["sun"]["value"] < high["sun"])
+        self.assertNotIn("periods differ", readme)
+
+    def test_block_points_are_a_3_by_3_block_one_offset_apart(self):
+        import pgda_period
+        pts = pgda_period.block_points(-89.45, 222.69, 120, 1737400)
+        self.assertEqual(len(pts), 9)
+        self.assertEqual([(p[0], p[1]) for p in pts][4], (0, 0))
+        self.assertEqual((pts[4][2], pts[4][3]), (-89.45, 222.69))
+        ux, uy, uz = pgda.H.unit(-89.45, 222.69)
+        for dx, dy, la, lo in pts:
+            x, y, z = pgda.H.unit(la, lo)
+            dist = 1737400 * math.acos(min(1.0, ux * x + uy * y + uz * z))
+            self.assertAlmostEqual(dist, math.hypot(dx, dy), delta=0.01)
 
 
 if __name__ == "__main__":

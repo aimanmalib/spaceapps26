@@ -98,7 +98,7 @@ test('P4v validation line: every number read from data/validation.json', async (
   assert.ok(text.includes(`${h.max_abs_deg.toFixed(4)}°`));
   assert.ok(text.includes(`at ${h.same_answer.of} random times`));
   assert.ok(text.includes(`answer ${h.same_answer.power} of ${h.same_answer.of}`));
-  assert.ok(text.includes(`${(v.pgda.sun.max_abs * 100).toFixed(1)} percentage points`));
+  assert.ok(text.includes(`${(v.pgda_period.landing_sites.max_abs * 100).toFixed(1)} percentage points`));
   assert.ok(!/[{}]/.test(text));
 });
 

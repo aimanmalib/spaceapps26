@@ -7708,5 +7708,243 @@
     }
    }
   ]
+ },
+ "pgda_period": {
+  "generated_at": "2026-11-15T10:30:12Z",
+  "script": "scripts/pgda_period.py",
+  "period": {
+   "start": "2009-07-13T00:00Z",
+   "stop": "2028-02-17T15:00Z",
+   "years": 18.6,
+   "hours": 163048,
+   "step_minutes": 60
+  },
+  "period_note": "The PGDA label gives the length of its simulation (18.6 years, hourly) but not its dates; this check starts at the first date in that label.",
+  "angles": "Astronomy Engine in the page's code (src/moonsky.js), not JPL Horizons",
+  "rule": "share of hourly steps with any part of the disc above the skyline (the PGDA rule)",
+  "disc_radius_deg": {
+   "sun": 0.267,
+   "earth": 0.95
+  },
+  "sun": {
+   "max_abs": 0.176,
+   "mean_abs": 0.059
+  },
+  "earth": {
+   "max_abs": 0.031,
+   "mean_abs": 0.011
+  },
+  "landing_sites": {
+   "ids": [
+    "im-1",
+    "im-2"
+   ],
+   "max_abs": 0.001
+  },
+  "sites": [
+   {
+    "site": "im-1",
+    "lat": -80.2,
+    "lon_east": 1.0,
+    "tool": {
+     "sun": 0.466,
+     "earth": 1
+    },
+    "pgda": {
+     "sun": 0.467,
+     "earth": 1.0
+    },
+    "diff": {
+     "sun": -0.001,
+     "earth": 0.0
+    },
+    "one_year": {
+     "sun": {
+      "min": 0.45,
+      "max": 0.481
+     },
+     "earth": {
+      "min": 1,
+      "max": 1
+     }
+    },
+    "calendar_years": 18
+   },
+   {
+    "site": "im-2",
+    "lat": -84.7906,
+    "lon_east": 29.1957,
+    "tool": {
+     "sun": 0.469,
+     "earth": 0.932
+    },
+    "pgda": {
+     "sun": 0.468,
+     "earth": 0.931
+    },
+    "diff": {
+     "sun": 0.001,
+     "earth": 0.001
+    },
+    "one_year": {
+     "sun": {
+      "min": 0.455,
+      "max": 0.487
+     },
+     "earth": {
+      "min": 0.894,
+      "max": 0.957
+     }
+    },
+    "calendar_years": 18
+   },
+   {
+    "site": "pgda-222.69E-89.45S",
+    "lat": -89.45,
+    "lon_east": 222.69,
+    "tool": {
+     "sun": 0.853,
+     "earth": 0.554
+    },
+    "pgda": {
+     "sun": 0.677,
+     "earth": 0.523
+    },
+    "diff": {
+     "sun": 0.176,
+     "earth": 0.031
+    },
+    "one_year": {
+     "sun": {
+      "min": 0.823,
+      "max": 0.858
+     },
+     "earth": {
+      "min": 0.514,
+      "max": 0.598
+     }
+    },
+    "calendar_years": 18
+   }
+  ],
+  "ridge": {
+   "site": "pgda-222.69E-89.45S",
+   "lat": -89.45,
+   "lon_east": 222.69,
+   "pgda": {
+    "sun": {
+     "value": 0.677,
+     "window_min": 0.51,
+     "window_max": 0.847
+    },
+    "earth": {
+     "value": 0.523,
+     "window_min": 0.443,
+     "window_max": 0.582
+    }
+   },
+   "azimuths": 720,
+   "near_km": 1,
+   "observer": [
+    {
+     "height_m": 0,
+     "near": 720,
+     "sun": 0.572,
+     "earth": 0.448
+    },
+    {
+     "height_m": 2,
+     "near": 473,
+     "sun": 0.853,
+     "earth": 0.554
+    }
+   ],
+   "block": {
+    "offset_m": 120,
+    "observer_height_m": 2,
+    "sun": {
+     "min": 0.587,
+     "max": 0.865
+    },
+    "earth": {
+     "min": 0.478,
+     "max": 0.582
+    },
+    "points": [
+     {
+      "dx_m": -120,
+      "dy_m": -120,
+      "lat": -89.453943,
+      "lon_east": 222.27476,
+      "sun": 0.587,
+      "earth": 0.512
+     },
+     {
+      "dx_m": 0,
+      "dy_m": -120,
+      "lat": -89.453957,
+      "lon_east": 222.69,
+      "sun": 0.865,
+      "earth": 0.581
+     },
+     {
+      "dx_m": 120,
+      "dy_m": -120,
+      "lat": -89.453943,
+      "lon_east": 223.10524,
+      "sun": 0.727,
+      "earth": 0.582
+     },
+     {
+      "dx_m": -120,
+      "dy_m": 0,
+      "lat": -89.449986,
+      "lon_east": 222.277748,
+      "sun": 0.626,
+      "earth": 0.478
+     },
+     {
+      "dx_m": 0,
+      "dy_m": 0,
+      "lat": -89.45,
+      "lon_east": 222.69,
+      "sun": 0.853,
+      "earth": 0.554
+     },
+     {
+      "dx_m": 120,
+      "dy_m": 0,
+      "lat": -89.449986,
+      "lon_east": 223.102252,
+      "sun": 0.653,
+      "earth": 0.582
+     },
+     {
+      "dx_m": -120,
+      "dy_m": 120,
+      "lat": -89.446029,
+      "lon_east": 222.280692,
+      "sun": 0.712,
+      "earth": 0.504
+     },
+     {
+      "dx_m": 0,
+      "dy_m": 120,
+      "lat": -89.446043,
+      "lon_east": 222.69,
+      "sun": 0.825,
+      "earth": 0.575
+     },
+     {
+      "dx_m": 120,
+      "dy_m": 120,
+      "lat": -89.446029,
+      "lon_east": 223.099308,
+      "sun": 0.707,
+      "earth": 0.582
+     }
+    ]
+   }
+  }
  }
 }

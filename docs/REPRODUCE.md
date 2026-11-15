@@ -25,6 +25,7 @@ bash scripts/reproduce.sh          # or: bash scripts/reproduce.sh --list   (pri
 | Whole-year shares there | `scripts/shift_year.mjs` | `data/shift-year/` | the files above |
 | Angles vs JPL Horizons | `scripts/validate.py` | `data/validation.json` (`horizons`, `engine`) | JPL Horizons API |
 | Terrain vs NASA PGDA, listed points | `scripts/pgda.py` | `data/validation.json` (`pgda`) | NASA GSFC PGDA product 69 |
+| Terrain vs NASA PGDA over the same 18.6 years, ridge-point sensitivity | `scripts/pgda_period.py` | `data/validation.json` (`pgda_period`) | the `pgda` block, LOLA DEMs |
 | Terrain vs NASA PGDA, random points | `scripts/pgda_sample.py` | `data/validation.json` (`pgda_sample`) | NASA GSFC PGDA product 69 |
 | Build and unit tests | `scripts/gerbang-ujian.sh` | | |
 

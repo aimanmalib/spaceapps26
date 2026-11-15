@@ -250,6 +250,13 @@
         "license": "Average solar illumination and Earth visibility maps, LOLA Science Team / E. Mazarico, NASA GSFC PGDA (Mazarico et al. 2011, Icarus 211, 1066-1081); LOLA PDS extras (public, no login)",
         "script": "scripts/pgda.py",
         "generated_by": "Claude Code (Anthropic) wrote this script; reference values come from NASA GSFC PGDA / LOLA"
+      },
+      "pgda_period": {
+        "note": "No download: PGDA values from the pgda block; skylines from data/horizon/ and, for the ridge point, LOLA ray casting (DEM files as for data/horizon/); Sun/Earth angles from Astronomy Engine.",
+        "label": "http://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_75S_120M_201608.LBL",
+        "computed_at": "2026-11-15T10:30:12Z",
+        "script": "scripts/pgda_period.py",
+        "generated_by": "Claude Code (Anthropic) wrote this script; reference values come from NASA GSFC PGDA / LOLA"
       }
     },
     {

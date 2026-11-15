@@ -1,6 +1,7 @@
 // SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
 // One line under the verdicts (P4v first screen): the measured validation numbers, read from data/validation.json
-// (H9a Horizons block, H9b PGDA block) with a link to the Validation page. Nothing is recomputed here.
+// (H9a Horizons block; PGDA over the same 18.6 years at the landing sites, block pgda_period) with a link to the
+// Validation page, where the ridge check point is reported in full. Nothing is recomputed here.
 import { fill, escapeHtml as e } from './i18n.js';
 
 // v = data/validation.json; d = decimals for the angle (config/validation.json "decimals_report").
@@ -11,7 +12,8 @@ export function trustText(t, v, d) {
     max: Number(h.max_abs_deg).toFixed(d),
     power: h.same_answer.power,
     comm: h.same_answer.comm,
-    pp: (v.pgda.sun.max_abs * 100).toFixed(1),
+    years: v.pgda_period.period.years,
+    pp: (v.pgda_period.landing_sites.max_abs * 100).toFixed(1),
   });
 }
 

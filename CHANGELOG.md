@@ -4,6 +4,16 @@ All notable changes to this project are listed here. The format follows [Keep a 
 The project has no numbered releases: the site is one continuous build, and each page names the commit it was built from
 (`version.json`).
 
+## 2026-11-15, evening: changes adopted from an SI red-team review
+
+### Changed
+- Validation: the NASA PGDA terrain check is repeated over the same 18.6 years as the NASA maps. At IM-1 and IM-2 the Sun and
+  Earth then differ by 0.1 percentage points or less. At the ridge check point the Sun still differs by 17.6 points, so the
+  earlier explanation ("the periods differ") is withdrawn; a sensitivity test shows the tool's value there runs from 57.2 %
+  (observer on the ground) to 85.3 % (2 m up), with NASA's 67.7 % between.
+- The validation line on the home page gives the same-period number at the two landing sites and says a ridge test point
+  differs more.
+
 ## 2026-11-15, the submitted build
 
 ### Added

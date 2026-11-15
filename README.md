@@ -31,8 +31,9 @@ Open this case: <https://aimanmalib.github.io/spaceapps26/?s=im-2,2026-11-14T00:
 
 - Sun and Earth angles against JPL Horizons at 50 random site-and-time pairs: largest difference 0.0439°, same two answers at
   50 of 50 pairs (details under Validation below).
-- Terrain horizon against the NASA GSFC PGDA visibility maps: at the IM-1 and IM-2 sites the Sun differs by 1.1 percentage points
-  and Earth by 0.1 or less; at a ridge check point near the pole the Sun differs by 18.0 points (reported as measured, below).
+- Terrain horizon against the NASA GSFC PGDA visibility maps, over the same 18.6 years: at the IM-1 and IM-2 sites the Sun and
+  Earth differ by 0.1 percentage points or less. At a ridge check point near the pole the Sun differs by 17.6 points; there the
+  tool's own value runs from 57.2 % (observer on the ground) to 85.3 % (2 m up), and NASA's 67.7 % lies between (below).
 
 ## Run it locally
 
@@ -138,6 +139,8 @@ Limitations:
 - 3D surface (i): the Sun and Earth lines are drawn on top of the ground; terrain does not hide them, and no shadows are drawn.
 - Map layers (h): this tool does not compute shadows on the map. The average sunlight layer is NASA's long-term average over
   18.6 years, not the one-year period of the tables; slopes shorter than 0.5 km are smoothed out.
+- Terrain values on ridges: at a ridge the share of time with the Sun in view depends on the observer's height and changes within
+  about 100 m (Validation, below). The tool places the observer 2 m above the ground everywhere.
 - Yes/no means the centre of the Sun or Earth disc is above the horizon; each answer also says when only part of the disc is above
   it (radius from mean distances). The independent terrain check (Validation, below) counts any part of the disc.
 - Power and communication answers are geometry only: whether the Sun or Earth is above the horizon. Solar panel orientation, power
@@ -210,8 +213,9 @@ horizon, where azimuth is nearly undefined.
 
 Is the terrain horizon right? `scripts/pgda.py` compares it with an independent NASA product, the average Sun and Earth visibility
 maps of the lunar south pole (E. Mazarico, NASA GSFC PGDA, LOLA grid 120 m per pixel), at 3 points. A map value is the share
-of hourly steps over 18.6 years when any part of the disc was visible; the tool's value is the share of hours in its own one-year
-table (2026-11-01 to 2027-11-01) when any part of the disc is above its terrain skyline. The periods differ.
+of hourly steps over 18.6 years when any part of the disc was visible; the tool's value in this first table is the share of hours
+in its own one-year table (2026-11-01 to 2027-11-01) when any part of the disc is above its terrain skyline. The second table
+repeats the check over the same 18.6 years.
 
 | Point | Sun visible, this tool | Sun visible, PGDA | Earth visible, this tool | Earth visible, PGDA |
 |---|---|---|---|---|
@@ -223,6 +227,22 @@ Largest difference: Sun 18.0 percentage points, Earth 1.0 percentage points. At 
 1.1 points and Earth by 0.1 or less. The 18.0 points are at the check point 0.55° from the pole, on a ridge where the PGDA Sun value
 itself ranges from 51.0 % to 84.7 % within the 3 × 3 pixels around it. It is reported as measured.
 
+Over the same 18.6 years (`scripts/pgda_period.py`: the same skylines over 163048 hourly steps from 2009-07-13, with Sun and Earth
+angles from the in-browser engine; the PGDA label gives the length of its simulation but not its dates):
+
+| Point | Sun visible, this tool, 18.6 years | Sun visible, PGDA | Earth visible, this tool, 18.6 years | Earth visible, PGDA | Sun, lowest to highest calendar year |
+|---|---|---|---|---|---|
+| IM-1 | 46.6 % | 46.7 % | 100.0 % | 100.0 % | 45.0 % to 48.1 % |
+| IM-2 | 46.9 % | 46.8 % | 93.2 % | 93.1 % | 45.5 % to 48.7 % |
+| Check point -89.45°, 222.69°E (not a landing site) | 85.3 % | 67.7 % | 55.4 % | 52.3 % | 82.3 % to 85.8 % |
+
+At the two landing sites the largest difference is 0.1 percentage points. At the check point the Sun still differs by 17.6 points
+and Earth by 3.1, and each of the 18 full calendar years gives 82.3 % to 85.8 % for the Sun, so the length of the period does not
+explain the difference. What moves the value there is detail smaller than one map pixel: with the observer on the ground (0 m) the
+tool gives 57.2 % for the Sun, and at 2 m (the height the tool uses everywhere) 85.3 %; the PGDA value of 67.7 % lies between the
+two. At the nine points 120 m apart around it (one PGDA pixel) the tool gives 58.7 % to 86.5 %. At 2 m the skyline there is set by
+ground closer than 1 km in 473 of 720 directions.
+
 The same check at 100 random points spread evenly over the area south of 80° S (fixed seed, `scripts/pgda_sample.py`; each point
 has its own LOLA skyline, and its Sun and Earth angles come from the in-browser engine), against the PGDA pixel nearest each point:
 
@@ -231,7 +251,8 @@ has its own LOLA skyline, and its Sun and Earth angles come from the in-browser 
 | Sun visible | 0.9 | 2.4 | 10.7 | 61 of 100 |
 | Earth visible | 1.1 | 5.6 | 21.8 | 64 of 100 |
 
-Differences are in percentage points and are reported as measured; the periods differ (one year against 18.6 years). Every file
+Differences are in percentage points and are reported as measured. This sample uses the one-year table and has not been repeated
+over 18.6 years. Every file
 in `data/` can be rebuilt from the NASA sources with one command: [`docs/REPRODUCE.md`](docs/REPRODUCE.md).
 
 ## Tests
@@ -255,9 +276,12 @@ SI was used in this project: Claude Code (Anthropic).
   slopes and shadow conditions on the map), all chosen from a list SI made of that text; and, also on 15 November, five further
   features that SI suggested at my request (mission window finder, shareable links with a plain verdict and a Now button, a page
   for teachers, a guided tour), all chosen by me from that list, then three more that SI suggested (a real NASA photograph on the
-  first screen, a one-year overview of every listed site, Indonesian and Malay interface options), also all chosen by me.
+  first screen, a one-year overview of every listed site, Indonesian and Malay interface options), also all chosen by me. On the
+  evening of 15 November: to aim for a Global Award and to adopt changes from an SI red-team review of the entry (so far the PGDA
+  comparison over the same 18.6 years, with the ridge-point test).
 - **Done by SI, on my instructions:** a feasibility comparison of the challenges, translation of the challenge text into Malay for
-  me, build order, interface design, all code, data scripts and tests, slide layout, suggested project names, the optional Indonesian and
+  me, build order, interface design, all code, data scripts and tests, slide layout, suggested project names, the red-team review of
+  the entry with its measurements and the changes adopted from it, the optional Indonesian and
   Malay interface translations (not reviewed by a native speaker), and the English text, drafted from my choices and the measured
   results and reviewed by me.
 - **Not used:** no SI-generated images, video or audio. Every image is a real screenshot of the tool, except one credited NASA

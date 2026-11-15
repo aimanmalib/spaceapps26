@@ -17,6 +17,7 @@ STEPS=(
   "node scripts/overview.mjs"           # one-year overview of every listed site (data/overview.json)
   "python3 scripts/validate.py"         # tool vs JPL Horizons, listed sites and own coordinates (data/validation.json)
   "python3 scripts/pgda.py"             # terrain horizon vs NASA PGDA at the listed points
+  "python3 scripts/pgda_period.py"      # the same over 18.6 years + ridge-point sensitivity (block pgda_period)
   "python3 scripts/pgda_sample.py"      # the same at random points (block pgda_sample)
   "bash scripts/gerbang-ujian.sh"       # build + unit tests
 )

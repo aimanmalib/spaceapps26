@@ -55,16 +55,20 @@ class Deck(unittest.TestCase):
             self.assertEqual(same["comm"], same["of"])
             self.assertIn(f"{part['max_abs_deg']:.4f}°</span> largest difference, same answers {same['of']} of {same['of']}", self.html)
             self.assertIn(f"{same['of']} {label}", self.html)
-        sites = {s["site"]: s for s in v["pgda"]["sites"]}
+        # PGDA rows: the same-period block (scripts/pgda_period.py), 18.6 years on both sides.
+        pp = v["pgda_period"]
+        sites = {s["site"]: s for s in pp["sites"]}
         landing = [sites["im-1"], sites["im-2"]]
         sun_pp = max(abs(s["diff"]["sun"]) for s in landing) * 100
         earth_pp = max(abs(s["diff"]["earth"]) for s in landing) * 100
-        self.assertIn(f"Sun within <span class=\"num\">{sun_pp:.1f}</span> percentage points, Earth within <span class=\"num\">{earth_pp:.1f}</span>", self.html)
-        ridge = [s for s in v["pgda"]["sites"] if s["site"] not in ("im-1", "im-2")][0]
-        self.assertAlmostEqual(abs(ridge["diff"]["sun"]), v["pgda"]["sun"]["max_abs"])
-        win = ridge["pgda"]["sun"]
-        self.assertIn(f"Sun differs by <span class=\"num\">{abs(ridge['diff']['sun']) * 100:.1f}</span> points; the map itself spans "
-                      f"{win['window_min'] * 100:.1f} % to {win['window_max'] * 100:.1f} %", self.html)
+        self.assertIn(f"same {pp['period']['years']} years</td><td>Sun within <span class=\"num\">{sun_pp:.1f}</span> percentage points, "
+                      f"Earth within <span class=\"num\">{earth_pp:.1f}</span>", self.html)
+        ridge = [s for s in pp["sites"] if s["site"] not in ("im-1", "im-2")][0]
+        self.assertAlmostEqual(abs(ridge["diff"]["sun"]), pp["sun"]["max_abs"])
+        low, high = sorted(pp["ridge"]["observer"], key=lambda o: o["height_m"])
+        self.assertIn(f"Sun differs by <span class=\"num\">{abs(ridge['diff']['sun']) * 100:.1f}</span> points; the tool gives "
+                      f"{low['sun'] * 100:.1f} % with the observer on the ground, {high['sun'] * 100:.1f} % at {high['height_m']} m; "
+                      f"NASA {pp['ridge']['pgda']['sun']['value'] * 100:.1f} %", self.html)
 
     def test_shift_and_range_numbers_match_readme(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
