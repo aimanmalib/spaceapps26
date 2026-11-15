@@ -475,6 +475,18 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; the heights come from LRO LOLA (NASA PDS)"
     },
     {
+      "file": "calendar.json",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api",
+        "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ldem_80s_80m.img"
+      ],
+      "retrieved_at": "2026-11-15T12:30:00Z",
+      "license": "Derived from data/ephem (JPL Horizons System, NASA/JPL-Caltech) and data/horizon (LRO LOLA, NASA PDS Geosciences Node); no new download",
+      "script": "scripts/calendar.mjs",
+      "generated_by": "Claude Code (Anthropic) wrote this script; it only counts hours per UTC day in the frozen tables and skylines already in data/"
+    },
+    {
       "file": "overview.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
       "urls": [
