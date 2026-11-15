@@ -1,35 +1,51 @@
 # Still in View
 
-**Try it:** <https://spaceapps26.aimanmalib.com/> (no sign-in). Demo deck (7 slides): [`demo/demo.pdf`](demo/demo.pdf).
-The "one kilometre" case (IM-2, 2026-11-14 00:00 UTC): <https://spaceapps26.aimanmalib.com/?s=im-2,2026-11-14T00:00>, or the
-button "Show me the one-kilometre example" (above the cards; on a phone, under the first card's two answers), which opens the same case and scrolls to its view toward Earth.
+**Try it:** <https://aimanmalib.github.io/spaceapps26/> (no sign-in; mirror: <https://spaceapps26.aimanmalib.com/>).
+Demo deck, 7 slides: [`demo/demo.pdf`](demo/demo.pdf).
 
-Challenge: Lunar Landing Site Navigator (NASA Space Apps Challenge 2026).
+Pick a landing site on the Moon and a UTC date and time. The page shows the Sun and Earth relative to the horizon there and answers
+two questions: is solar power generation possible (Sun above the horizon), and is direct-to-Earth communication possible (Earth
+above the horizon). At the south polar sites the horizon is the terrain skyline from NASA LRO LOLA heights.
 
-![One scenario card at IM-2 while the timeline slider moves through one lunar day (real screen capture)](docs/media/timeline.gif)
+Challenge: Lunar Landing Site Navigator, NASA Space Apps Challenge 2026 (Jakarta, virtual).
+<https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/> Team: Aiman Malib.
 
-Three steps for a first look:
+![The view toward Earth at IM-2, 2026-11-14 00:00 UTC, drawn to scale: Earth 1.3° above the LOLA skyline (real screen capture)](docs/media/deck-cards.png)
 
-1. Open the site. Two scenarios are already on screen, IM-2 at 2026-11-14 00:00 UTC and IM-2 two days later, each with two
-   answers: solar power possible or not, direct-to-Earth communication possible or not (the Sun answer differs between them).
-2. On the IM-2 card, read "Small shifts in location or date": Earth is 1.3° above the terrain horizon at the site, and below it
-   1 km east and 1 km south. (The 80 m terrain grid does not resolve small craters such as the one where the IM-2 lander stopped.)
-3. Open the Validation page: the differences from JPL Horizons and from the NASA GSFC PGDA illumination maps.
+## The one-kilometre finding
+
+At the IM-2 site on 2026-11-14 00:00 UTC, Earth is 1.3° above the terrain horizon, but 1.5° below it 1 km east and 2.6° below it
+1 km south. Over the whole year of data (8761 hourly steps), Earth's centre is above the skyline 80.1 % of the hours at the site,
+64.4 % 1 km east and 56.6 % 1 km south. On a smooth Moon, 1 km would tilt the horizon by only 0.033°.
+Open this case: <https://aimanmalib.github.io/spaceapps26/?s=im-2,2026-11-14T00:00> (mirror:
+<https://spaceapps26.aimanmalib.com/?s=im-2,2026-11-14T00:00>), or press "Show me the one-kilometre example" on the home page.
 
 ![The button "Show me the one-kilometre example" pressed, then the view toward Earth at IM-2 from the site and from the points 1 km north, east, south and west (real screen capture)](docs/media/one-km-example.gif)
 
-Entry for the **NASA Space Apps Challenge 2026** (Jakarta, virtual), challenge
-**Lunar Landing Site Navigator**:
-<https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/>
+## Validation in short
 
-Team: Aiman Malib.
+- Sun and Earth angles against JPL Horizons at 50 random site-and-time pairs: largest difference 0.0439°, same two answers at
+  50 of 50 pairs (details under Validation below).
+- Terrain horizon against the NASA GSFC PGDA visibility maps: at the IM-1 and IM-2 sites the Sun differs by 1.1 percentage points
+  and Earth by 0.1 or less; at a ridge check point near the pole the Sun differs by 18.0 points (reported as measured, below).
+
+## Run it locally
+
+```
+npm ci
+npm run dev      # local copy at the address Vite prints
+npm test         # JavaScript and Python unit tests
+```
 
 > "Your challenge is to create an intuitive tool or application that lets mission planners, educators, and the public compare landing
 > sites and dates quickly, visualizing Sun and Earth positions relative to the horizon to assess power generation potential and
 > direct-to-Earth communication windows."
-> — challenge text, NASA Space Apps Challenge 2026
+> (challenge text, NASA Space Apps Challenge 2026)
 
-## Status
+AI disclosure: this project was built with SI (Claude Code, Anthropic); who decided what is listed under
+[AI disclosure](#ai-disclosure-super-intelligence--si-use) below and in [`SI-DISCLOSURE.md`](SI-DISCLOSURE.md).
+
+## Features
 
 Built during the event weekend (14–15 November 2026). Pages on the live site: Compare, Validation, Data sources, About.
 
@@ -205,13 +221,13 @@ in `data/` can be rebuilt from the NASA sources with one command: [`docs/REPRODU
 
 ## Tests
 
-- `bash scripts/gerbang-ujian.sh` — build, JavaScript and Python unit tests.
-- `python3 scripts/capture_media.py` then `python3 scripts/render_demo.py` — the screenshots in `docs/media/` and the demo deck
+- `bash scripts/gerbang-ujian.sh`: build, JavaScript and Python unit tests.
+- `python3 scripts/capture_media.py` then `python3 scripts/render_demo.py`: the screenshots in `docs/media/` and the demo deck
   `demo/demo.pdf` (Playwright; Pillow for the GIF).
-- `python3 e2e/smoke.py <site URL>` — browser smoke test of a deployed copy (Chromium desktop 1280 px, laptop 1366 × 768,
+- `python3 e2e/smoke.py <site URL>`: browser smoke test of a deployed copy (Chromium desktop 1280 px, laptop 1366 × 768,
   Chromium 320 px, WebKit iPhone 13): the comparison and validation pages work, no console errors,
   no requests to other hosts, no horizontal overflow. Needs the Python `playwright` package and its browsers.
-- `python3 e2e/subpath.py` — the same smoke test on `dist/` served under `/spaceapps26/`, as GitHub Pages serves it.
+- `python3 e2e/subpath.py`: the same smoke test on `dist/` served under `/spaceapps26/`, as GitHub Pages serves it.
   `bash deploy/pages.sh` pushes that build to branch `gh-pages` (Pages itself is switched on in the repository settings).
 
 ## AI disclosure (Super Intelligence / SI use)
