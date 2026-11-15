@@ -2,7 +2,7 @@
 
 **Try it:** <https://spaceapps26.aimanmalib.com/> (no sign-in). Demo deck (7 slides): [`demo/demo.pdf`](demo/demo.pdf).
 The "one kilometre" case (IM-2, 2026-11-14 00:00 UTC): <https://spaceapps26.aimanmalib.com/?s=im-2,2026-11-14T00:00>, or the
-button "Show me the one-kilometre example" above the cards, which opens the same case and scrolls to its view toward Earth.
+button "Show me the one-kilometre example" (above the cards; on a phone, under the first card's two answers), which opens the same case and scrolls to its view toward Earth.
 
 Challenge: Lunar Landing Site Navigator (NASA Space Apps Challenge 2026).
 

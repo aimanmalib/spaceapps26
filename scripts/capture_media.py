@@ -154,7 +154,7 @@ def capture_example_gif(browser, base):
     open_compare(page, base)
     grab = lambda: Image.open(io.BytesIO(page.screenshot())).convert("RGB")
     frames, durations = [grab()], [g["first_ms"]]
-    page.locator(".tool-actions .example").click()
+    page.locator("button.example").click()
     page.locator(".card .card-result .ev").wait_for(state="visible")
     page.wait_for_function("() => document.querySelector('.card .ev-sentence')?.innerText.startsWith('At the site')", timeout=TIMEOUT_MS)
     page.wait_for_timeout(1200)  # smooth scroll ends

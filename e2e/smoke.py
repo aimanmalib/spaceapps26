@@ -33,14 +33,15 @@ TERRAIN_SITES = {"im-1", "im-2"}
 # iPhone 13 (664 px tall) the first answer of the first card starts inside it. Positions are page coordinates at scroll 0.
 # P4v: on a 1366 x 768 laptop both answers of the first card end inside it and the Earth view's plot starts at least
 # 20 px above its bottom edge.
-# P4p (ADR 0033): the one-kilometre example button takes one more row of buttons; five buttons do not fit two rows on a
-# 390 px phone, so the iPhone 13 limit for the first answer is 720 px (one button row below the 664 px fold), and the
-# button itself must end inside the first screen on every profile (it scrolls to the answers and the Earth view).
-EXAMPLE_IN_FIRST_SCREEN = {"chromium-1280": 800, "chromium-1366": 768, "chromium-320": 640, "webkit-iphone13": 664}
+# P4p (ADR 0033): the one-kilometre example button ends inside the first screen above the cards on the two desktop
+# profiles; on phones (config/view.json example_below_answers_max_width_px) it sits right under the first card's two
+# answers, so the iPhone 13 first answer still starts inside the 664 px first screen.
+EXAMPLE_IN_FIRST_SCREEN = {"chromium-1280": 800, "chromium-1366": 768}
+EXAMPLE_BELOW_ANSWERS = {"chromium-320", "webkit-iphone13"}
 FIRST_SCREEN = {
     "chromium-1280": [(".answer-comm .answer-deg", "bottom", 900)],
     "chromium-1366": [(".answer-power", "bottom", 768), (".answer-comm", "bottom", 768), (".ev-plot", "top", 748)],
-    "webkit-iphone13": [(".answer-power", "top", 720)],
+    "webkit-iphone13": [(".answer-power", "top", 664)],
 }
 
 
@@ -304,8 +305,8 @@ def example_button(page, check, base, shots, name):
     link in the address, announces it and scrolls to the card's Earth view (top inside the window, focus on its title)."""
     page.goto(base, wait_until="networkidle")
     page.locator(".card .answers").first.wait_for()
-    btn = page.locator(".tool-actions .example")
-    check(btn.is_visible() and btn.inner_text() == "Show me the one-kilometre example", "example button above the cards (P4p)")
+    btn = page.locator("button.example")
+    check(btn.is_visible() and btn.inner_text() == "Show me the one-kilometre example", "example button shown (P4p)")
     btn.click()
     page.wait_for_function("() => document.querySelectorAll('.card').length === 1 && document.querySelector('.example-status').innerText !== ''")
     ev = page.locator(".card .card-result .ev")
@@ -499,6 +500,9 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
         if limit:
             pos = page.locator(".tool-actions .example").evaluate("e => e.getBoundingClientRect().bottom + window.scrollY")
             check(pos <= limit, f"first screen: example button bottom {pos:.0f} px <= {limit} px (P4p)")
+        if name in EXAMPLE_BELOW_ANSWERS:
+            under = page.evaluate("() => document.querySelector('.card .answers')?.nextElementSibling?.matches('button.example') ?? false")
+            check(under, "phone: example button right under the first card's answers (P4p)")
         summary(page, check)
         masthead_photo(page, check)
         wide = page.evaluate("() => window.innerWidth >= 1024")

@@ -17,9 +17,13 @@ plus a landscape GIF; no multi-step tour. That is what was built.
   `prefers-reduced-motion`). If the Earth view is absent, it scrolls to the card. The button stays hidden when `example` is missing.
 - Gallery GIF `docs/media/one-km-example.gif` (1280 × 720, real capture, `scripts/capture_media.py --example`, settings in
   `config/media.json` `example_gif`): first screen, the page after the button, then the Earth view from each nearby point.
-- First screen trade-off: on a 390 px phone the five buttons of that row need three rows, not two. The iPhone 13 smoke limit for the
-  top of the first answer moves from 664 px to 720 px (one button row below the fold), and a new smoke check requires the example
-  button itself to end inside the first screen on all four profiles. The 1280 and 1366 limits are unchanged and still pass.
+- First screen on phones: on a 390 px phone the five buttons of that row need three rows, which pushed the first answer of the
+  first card to about 700 px, below the 664 px iPhone 13 first screen. That limit is the owner's (P4f) and stays at 664 px.
+  So on windows at most `example_below_answers_max_width_px` (config/view.json, 480) wide the button moves right under the first
+  card's two answers (above the Earth view it scrolls to), re-placed after every redraw and when the window crosses the width;
+  wider windows keep it first in the row above the cards. Smoke: the button ends inside the first screen on the 1280 and 1366
+  profiles, sits right under the first card's answers on the 320 and iPhone 13 profiles, and the iPhone 13 first answer starts
+  at or above 664 px. (A first version raised the iPhone limit to 720 px; the review rejected that, 15 November 2026.)
 - No new data, numbers or claims; the status line only names the case and the point buttons.
 
 ## Rollback

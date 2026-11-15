@@ -71,6 +71,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
   const verdicts = root.querySelector('.verdicts');
   const siteById = new Map(sites.map((s) => [s.id, s]));
   const cards = [];
+  const exampleNarrow = view.example_below_answers_max_width_px && window.matchMedia?.(`(max-width: ${view.example_below_answers_max_width_px}px)`);
   let ticket = 0;
 
   function renumber() {
@@ -153,6 +154,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
         else b?.hide();
       }
     }
+    placeExample();
     if (glance) glance.innerHTML = glanceHtml(t, rows);
     // Plain verdict per scenario (SI suggestion chosen by the author), from the same two answers as the card.
     if (verdicts) {
@@ -252,6 +254,17 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
     });
   }
 
+  // Narrow windows (config example_below_answers_max_width_px): the example button sits right under the first card's two
+  // answers, so the first answer still starts inside a phone's first screen (ADR 0033); wider windows keep it above the cards.
+  function placeExample() {
+    const btn = root.querySelector('.example');
+    const actions = root.querySelector('.tool-actions');
+    if (!btn || btn.hidden) return;
+    const answers = exampleNarrow?.matches && cards[0]?.el.querySelector('.card-result .answers');
+    if (answers) answers.after(btn);
+    else if (btn.parentElement !== actions) actions?.prepend(btn);
+  }
+
   // A shared link (src/share.js) replaces the default scenarios; the defaults stay when it has none that can be read.
   const start = share?.scenarios?.length ? share.scenarios : view.default_scenarios.filter((s) => siteById.has(s.site)).slice(0, view.max_scenarios);
   for (const sc of start) addCard(sc);
@@ -267,5 +280,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
     mountShare(shareBox, { t, cfg: share.cfg, range: share.range, rejected: share.rejected, state, setTimes, uid: `share${++uid}` });
   }
   mountExample();
+  placeExample();
+  exampleNarrow?.addEventListener?.('change', placeExample);
   return update();
 }

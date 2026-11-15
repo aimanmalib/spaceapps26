@@ -57,6 +57,8 @@
   "_note_share": "Shareable link (SI suggestion chosen by the author, 15 Nov): \"Copy link\" puts the cards in the address as repeated param values, fields joined by separator (site id, then UTC time; own coordinates: \"custom\", latitude, east longitude, time). Opening such a link restores the cards; values that cannot be read are skipped with a visible notice (no readable value = default scenarios). \"Now\" sets every card to the current UTC time rounded down to now_step_minutes, only inside the data range (config/ephemeris.json start/stop).",
   "_note_example": "One button above the cards (P4p, guided tour reduced to one button by the independent review, 15 Nov): replaces the cards with this one scenario (the one-kilometre case of the README, deck and teachers' page) and scrolls to its Earth view. Same scenario as config/teach.json step km.",
   "example": { "site": "im-2", "time_utc": "2026-11-14T00:00" },
+  "_note_example_narrow": "On windows at most example_below_answers_max_width_px wide the button sits right under the first card's two answers instead of above the cards: five buttons need three rows on a phone, and the first answer must start inside the iPhone 13 first screen (ADR 0033).",
+  "example_below_answers_max_width_px": 480,
   "share": {
     "param": "s",
     "separator": ",",
