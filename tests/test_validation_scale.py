@@ -108,7 +108,7 @@ class Recorded(unittest.TestCase):
             self.assertIn(f"{word}: largest {s['by_source'][src]['max_abs_deg']:.4f}°", readme)
         self.assertIn(f"{s['by_source']['table']['same_answer']['of']} on the dates of the frozen tables, which the page reads, and "
                       f"{s['by_source']['engine']['same_answer']['of']} on the later dates", readme)
-        self.assertIn(f"(the {a['parts']['table_70']} pairs below, the {a['parts']['engine_points']} engine pairs at unnamed points, the "
+        self.assertIn(f"(the {a['parts']['table']} pairs below, the {a['parts']['engine_points']} engine pairs at unnamed points, the "
                       f"{a['parts']['later_years']} later-year pairs and these {a['parts']['scale']})", readme)
         self.assertIn(f"{s['same_answer']['of']} random site-and-minute pairs ({s['pairs_per_site']} at each of the {s['sites']} listed sites", readme)
         self.assertIn(f"same solar power answer {s['same_answer']['power']} of {s['same_answer']['of']}, same Earth answer "

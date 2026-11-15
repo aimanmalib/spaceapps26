@@ -7,10 +7,10 @@ The project has no numbered releases: the site is one continuous build, and each
 ## 2026-11-15, night: validation at scale (ADR 0108)
 
 ### Added
-- Validation at scale: `python3 scripts/validate.py --scale` checks 560 random minutes, 40 at each of the 14 listed sites
-  from 2026-11-01 to 2030-12-31 (frozen tables and in-browser engine), against JPL Horizons asked in 28 batched, cached,
-  rate-limited requests: largest difference 0.0446° (0.0061° on the sky), same answers 560 of 560. Every Horizons check
-  together: 684 pairs, same answers 684 of 684. Shown first on the Validation page; the first-screen line now quotes the total.
+- Validation at scale: `python3 scripts/validate.py --scale` checks 720 random minutes, 40 at each of the 18 listed sites
+  from 2026-11-01 to 2030-12-31 (frozen tables and in-browser engine), against JPL Horizons asked in 36 batched, cached,
+  rate-limited requests: largest difference 0.0446° (0.0061° on the sky), same answers 720 of 720. Every Horizons check
+  together: 864 pairs, same answers 864 of 864. Shown first on the Validation page; the first-screen line now quotes the total.
 - README: "What a scientist can check" (claim, data file, one line to repeat it), a flow diagram, "What we do not claim", and
   Lighthouse scores from `scripts/lighthouse.sh`.
 

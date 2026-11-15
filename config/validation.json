@@ -2,7 +2,7 @@
   "_note": "H9(a) check: Sun/Earth angles the site shows (frozen hourly table + the same interpolation code as the page, src/ephem.js) against JPL Horizons asked directly for the same site and minute. Times are drawn at random (fixed seed) inside the table range and never on a table row.",
   "seed": 20261114,
   "pairs_per_site": 5,
-  "max_pairs_total": 80,
+  "max_pairs_total": 100,
   "horizons_step": "1 m",
   "decimals_report": 4,
   "pause_seconds": 2,

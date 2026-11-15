@@ -199,7 +199,7 @@ def all_checks(v, years, scale_rows, listed, nd, threshold):
     """Every Horizons check together, each (point, minute) once: H9(a) table pairs, engine at unnamed points (the
     listed-site engine rows reuse the H9(a) pairs), later years, and the check at scale."""
     parts = {
-        "table_70": v["horizons"]["pairs"],
+        "table": v["horizons"]["pairs"],
         "engine_points": [r for r in v["engine"]["pairs"] if r["site"] not in listed],
         "later_years": years["pairs"],
         "scale": scale_rows,

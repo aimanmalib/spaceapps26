@@ -85,7 +85,7 @@ test('summary in data/validation.json follows from the pairs; answers that diffe
 test('all_checks = every Horizons check of the project together, each site-and-minute pair once', () => {
   const listed = new Set(sites.map((x) => x.id));
   const parts = {
-    table_70: v.horizons.pairs,
+    table: v.horizons.pairs,
     engine_points: v.engine.pairs.filter((p) => !listed.has(p.site)),
     later_years: load('data/validation-years.json').pairs,
     scale: pairs,

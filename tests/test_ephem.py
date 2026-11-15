@@ -42,13 +42,27 @@ class Sites(unittest.TestCase):
         for s in future:
             with self.subTest(site=s["id"]):
                 self.assertLessEqual(s["lat"], -80)
-                self.assertRegex(s["source"]["url"], r"^https://(lroc\.im-ldi\.com|ntrs\.nasa\.gov)/")
-                lat = f"{abs(s['lat']):g}"  # the latitude as printed on the cited page, for example 86, 85.363 or 89.684
+                # ADR 0105: also an LROC data product, an LPSC abstract and a journal paper (its arXiv copy).
+                self.assertRegex(s["source"]["url"], r"^https://(lroc\.im-ldi\.com|data\.lroc\.im-ldi\.com|ntrs\.nasa\.gov|www\.hou\.usra\.edu|arxiv\.org)/")
+                lat = f"{abs(s['lat']):.10g}"  # the latitude as printed on the cited page, for example 86, 85.363 or 89.684
                 self.assertIn(lat, s["source"]["text"].replace("85.3630", "85.363"))
                 self.assertTrue((ROOT / "data/horizon" / f"{s['id']}.json").exists())
         landed = next(s for s in self.sites if s["id"] == "im-1-landed")
         self.assertEqual((landed["lat"], landed["lon_east"]), (-80.13, 1.44))
         self.assertIn("80.13°S, 1.44°E", landed["source"]["text"])
+
+    def test_artemis_regions_quoted_in_degrees_minutes_seconds_convert_to_the_stored_point(self):
+        # ADR 0105: the paper prints de Gerlache Rim 2 as 88°30'56.38"S 61°10'2.35"O (O = oeste, west) and Nobile Rim 2 as
+        # 84°12'5.61"S 60°41'59.61"E; the stored decimal degrees must be those numbers, west stored as 360 - lon.
+        dms = lambda d, m, s: d + m / 60 + s / 3600
+        by = {s["id"]: s for s in self.sites}
+        self.assertAlmostEqual(by["de-gerlache-rim-2"]["lat"], -dms(88, 30, 56.38), places=6)
+        self.assertAlmostEqual(by["de-gerlache-rim-2"]["lon_east"], 360 - dms(61, 10, 2.35), places=6)
+        self.assertIn("88°30’56.38”S 61°10’2.35”O", by["de-gerlache-rim-2"]["source"]["text"])
+        self.assertAlmostEqual(by["nobile-rim-2"]["lat"], -dms(84, 12, 5.61), places=5)
+        self.assertAlmostEqual(by["nobile-rim-2"]["lon_east"], dms(60, 41, 59.61), places=5)
+        for i in ("haworth", "mons-mouton-plateau", "nobile-rim-2", "de-gerlache-rim-2"):
+            self.assertIn("(Artemis III candidate region, representative point)", by[i]["name"])
 
     def test_readme_numbers_for_the_future_targets_come_from_the_data(self):
         ov = {s["site"]: s for s in load("data/overview.json")["sites"]}
@@ -59,8 +73,8 @@ class Sites(unittest.TestCase):
         self.assertIn(f"Shackleton ridge point the Sun is at least partly in view {ov['shackleton-ridge']['sun'] * 100:.1f} % of the hours", flat)
         self.assertIn(f"above the skyline {mm['centre']['earth'] * 100:.1f} % of the hours, {pt['n']['centre']['earth'] * 100:.1f} % one kilometre north and "
                       f"{pt['s']['centre']['earth'] * 100:.1f} % one kilometre south", flat)
-        self.assertIn(f"Fourteen listed sites", flat)
-        self.assertEqual(len(self.sites), 14)
+        self.assertIn("Eighteen listed sites", flat)
+        self.assertEqual(len(self.sites), 18)
 
     def test_initial_set_covers_apollo_and_south_pole(self):
         self.assertGreaterEqual(sum(s["group"] == "apollo" for s in self.sites), 1)

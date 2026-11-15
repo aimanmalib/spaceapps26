@@ -215,6 +215,66 @@
     "start_open": false,
     "end_open": false
    }
+  },
+  {
+   "site": "haworth",
+   "horizon": "terrain",
+   "hours": 8761,
+   "sun": 0.332,
+   "earth": 0.279,
+   "both": 0.089,
+   "longest_both": {
+    "start": "2027-07-23T03:00Z",
+    "end": "2027-07-31T03:00Z",
+    "hours": 193,
+    "start_open": false,
+    "end_open": false
+   }
+  },
+  {
+   "site": "mons-mouton-plateau",
+   "horizon": "terrain",
+   "hours": 8761,
+   "sun": 0.276,
+   "earth": 0.597,
+   "both": 0.21,
+   "longest_both": {
+    "start": "2026-11-15T21:00Z",
+    "end": "2026-11-30T08:00Z",
+    "hours": 348,
+    "start_open": false,
+    "end_open": false
+   }
+  },
+  {
+   "site": "nobile-rim-2",
+   "horizon": "terrain",
+   "hours": 8761,
+   "sun": 0.339,
+   "earth": 0.299,
+   "both": 0.096,
+   "longest_both": {
+    "start": "2027-02-09T14:00Z",
+    "end": "2027-02-18T00:00Z",
+    "hours": 203,
+    "start_open": false,
+    "end_open": false
+   }
+  },
+  {
+   "site": "de-gerlache-rim-2",
+   "horizon": "terrain",
+   "hours": 8761,
+   "sun": 0.191,
+   "earth": 0.542,
+   "both": 0.137,
+   "longest_both": {
+    "start": "2026-12-15T12:00Z",
+    "end": "2026-12-24T20:00Z",
+    "hours": 225,
+    "start_open": false,
+    "end_open": false
+   }
   }
  ]
 }
