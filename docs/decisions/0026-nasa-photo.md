@@ -7,12 +7,13 @@ suggested by SI).
 
 - Photograph: Apollo 8, AS08-14-2383 (24 December 1968), Earth over the horizon of the Moon. Source page
   <https://images.nasa.gov/details/as08-14-2383>; file `as08-14-2383~medium.jpg` (1280 × 1280, 67 KB), stored **unchanged** as
-  `data/media/as08-14-2383.jpg`, with an entry in `data/SOURCES.json` (so the Data sources page lists it). No re-encoding, so no
+  `public/media/as08-14-2383.jpg` (served as `/media/as08-14-2383.jpg`). It is not in `data/`: that folder holds the frozen
+  data and the gate keeps media files under `docs/media/`, `public/` or `demo/`; `data/` is unchanged by this decision. No re-encoding, so no
   image library is needed; the crop is CSS `object-fit: cover` only.
 - Terms checked on NASA's images and media guidelines page (<https://www.nasa.gov/nasa-brand-center/images-and-media/>): NASA
   content "generally are not subject to copyright in the United States"; "NASA should be acknowledged as the source of the
   material". The photo has no person, logo, insignia or flag. The NASA insignia stays unused.
-- Credit in: footer of the home page, caption on the About page, caption on slide 1, Data sources page (`data/SOURCES.json`),
+- Credit in: footer of the home page, caption on the About page, caption on slide 1, a "Photograph" section on the Data sources page,
   `REFERENCES.md`, form field 7 (NASA Data) in the submission kit.
 - Placement: home page masthead, at the right of the title, out of flow (absolute, no extra height, no layout shift). On phones
   (≤ 30rem) it is hidden, so the first answers keep their place (first-screen limits in `e2e/smoke.py`: 838 ≤ 900 at 1280 × 900,

@@ -85,8 +85,8 @@ class Deck(unittest.TestCase):
         srcs = re.findall(r'<img src="([^"]+)"', self.html)
         self.assertTrue(srcs)
         photos = re.findall(r'<figure class="photo"><img src="([^"]+)"', self.html)
-        # P4r: one real NASA photograph on slide 1 (data/media, credited in data/SOURCES.json); every other image is a screenshot.
-        self.assertEqual(photos, ["../data/media/as08-14-2383.jpg"])
+        # P4r: one real NASA photograph on slide 1 (public/media, credited on the Data sources page); every other image is a screenshot.
+        self.assertEqual(photos, ["../public/media/as08-14-2383.jpg"])
         for src in srcs:
             path = (ROOT / DECK["source"]).parent / src
             self.assertTrue(path.is_file(), src)
