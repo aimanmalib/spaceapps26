@@ -208,7 +208,7 @@
   "custom.legend": "Koordinat sendiri",
   "custom.lat": "Latitud (°U)",
   "custom.lon": "Longitud (°T)",
-  "custom.hint": "Darjah perpuluhan: latitud {latMin} hingga {latMax} (selatan ialah negatif); longitud barat boleh ditaip sebagai nombor negatif. Dikira dalam pelayar, disahkan dengan JPL Horizons; rupa bumi setempat dari grid LOLA kasar di selatan {terrainLat}° S, ufuk sfera ideal di tempat lain.",
+  "custom.hint": "Darjah perpuluhan: latitud {latMin} hingga {latMax} (selatan ialah negatif); longitud barat boleh ditaip sebagai nombor negatif. Dikira dalam pelayar, disahkan dengan JPL Horizons; rupa bumi setempat dari grid LOLA di selatan {terrainLat}° S, ufuk sfera ideal di tempat lain.",
   "custom.name": "Titik sendiri ({lat}°, {lon}° T)",
   "custom.invalid.lat": "Latitud mesti nombor dari {min}° hingga {max}°.",
   "custom.invalid.lon": "Longitud mesti nombor dari {min}° hingga {max}° (timur positif).",

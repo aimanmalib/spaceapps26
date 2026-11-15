@@ -208,7 +208,7 @@
   "custom.legend": "Koordinat sendiri",
   "custom.lat": "Lintang (°LU)",
   "custom.lon": "Bujur (°BT)",
-  "custom.hint": "Derajat desimal: lintang {latMin} sampai {latMax} (selatan bernilai negatif); bujur barat boleh diketik sebagai angka negatif. Dihitung di peramban, divalidasi terhadap JPL Horizons; medan lokal dari grid LOLA kasar di selatan {terrainLat}° LS, ufuk bola ideal di tempat lain.",
+  "custom.hint": "Derajat desimal: lintang {latMin} sampai {latMax} (selatan bernilai negatif); bujur barat boleh diketik sebagai angka negatif. Dihitung di peramban, divalidasi terhadap JPL Horizons; medan lokal dari grid LOLA di selatan {terrainLat}° LS, ufuk bola ideal di tempat lain.",
   "custom.name": "Titik sendiri ({lat}°, {lon}° BT)",
   "custom.invalid.lat": "Lintang harus berupa angka dari {min}° sampai {max}°.",
   "custom.invalid.lon": "Bujur harus berupa angka dari {min}° sampai {max}° (timur positif).",

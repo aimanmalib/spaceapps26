@@ -208,7 +208,7 @@
   "custom.legend": "Own coordinates",
   "custom.lat": "Latitude (°N)",
   "custom.lon": "Longitude (°E)",
-  "custom.hint": "Decimal degrees: latitude {latMin} to {latMax} (south is negative); west longitudes may be typed as negative numbers. Computed in browser, validated against JPL Horizons; local terrain from a coarse LOLA grid south of {terrainLat}° S, ideal sphere horizon elsewhere.",
+  "custom.hint": "Decimal degrees: latitude {latMin} to {latMax} (south is negative); west longitudes may be typed as negative numbers. Computed in browser, validated against JPL Horizons; local terrain from the LOLA grids south of {terrainLat}° S, ideal sphere horizon elsewhere.",
   "custom.name": "Own point ({lat}°, {lon}° E)",
   "custom.invalid.lat": "Latitude must be a number from {min}° to {max}°.",
   "custom.invalid.lon": "Longitude must be a number from {min}° to {max}° (east positive).",
