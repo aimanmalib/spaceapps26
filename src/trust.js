@@ -11,6 +11,7 @@ export function trustText(t, v, d) {
   return fill(t('tool.trust'), {
     of: h.same_answer.of,
     max: Number(h.max_abs_deg).toFixed(d),
+    sky: (h.sky_separation ? Math.max(h.sky_separation.sun.max_deg, h.sky_separation.earth.max_deg) : Number(h.max_abs_deg)).toFixed(d),
     power: h.same_answer.power,
     comm: h.same_answer.comm,
     years: v.pgda_period.period.years,

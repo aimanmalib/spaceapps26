@@ -208,7 +208,7 @@ def all_checks(v, years, scale_rows, listed, nd, threshold):
         "scale": scale_rows,
     }
     rows = [r for part in parts.values() for r in part]
-    return dict(summarize(rows, nd, threshold), pairs=len(rows), angles=4 * len(rows),
+    return dict(summarize(rows, nd, threshold), sky_separation=separation_summary(rows, nd), pairs=len(rows), angles=4 * len(rows),
                 parts={k: len(p) for k, p in parts.items()}, different=len(differing([dict(r, source="") for r in rows], threshold)))
 
 

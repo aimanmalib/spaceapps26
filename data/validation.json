@@ -12081,7 +12081,7 @@
   ]
  },
  "scale": {
-  "generated_at": "2026-11-15T15:41:50Z",
+  "generated_at": "2026-11-15T15:51:55Z",
   "script": "scripts/validate.py --scale",
   "seed": 20261117,
   "from": "2026-11-01 00:00",
@@ -12211,6 +12211,16 @@
     "power": 900,
     "comm": 900,
     "of": 900
+   },
+   "sky_separation": {
+    "sun": {
+     "max_deg": 0.0062,
+     "mean_deg": 0.0023
+    },
+    "earth": {
+     "max_deg": 0.0063,
+     "mean_deg": 0.002
+    }
    },
    "pairs": 900,
    "angles": 3600,

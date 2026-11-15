@@ -1,11 +1,12 @@
 {
- "generated_at": "2026-11-15T15:36:37Z",
+ "generated_at": "2026-11-15T15:51:55Z",
  "script": "scripts/validate_years.py",
  "seed": 20261116,
  "from": "2028-01-01 00:00",
  "to": "2041-01-01 00:00",
- "max_diff_deg": 0.05,
- "passed": false,
+ "max_sky_deg": 0.05,
+ "passed": true,
+ "horizons_retrieved_at": "2026-11-15T15:36:37Z",
  "summary": {
   "max_abs_deg": 0.1465,
   "mean_abs_deg": 0.0022,

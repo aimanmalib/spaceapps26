@@ -6,12 +6,12 @@
   "pad_days": 45,
   "_note_cache": "Merged tables kept in memory per page (listed sites past the frozen range); older ones are rebuilt when chosen again.",
   "cache_tables": 8,
-  "_note_check": "Engine against JPL Horizons over the later years (scripts/validate_years.py, result data/validation-years.json): pairs random site-and-minute pairs (fixed seed) from the listed sites, from..to, never on a table hour. The engine label on the cards says \"validated against JPL Horizons\" only when every difference is at most max_diff_deg and every yes/no answer is the same; otherwise it says the later years are not validated.",
+  "_note_check": "Engine against JPL Horizons over the later years (scripts/validate_years.py, result data/validation-years.json): pairs random site-and-minute pairs (fixed seed) from the listed sites, from..to, never on a table hour. The engine label on the cards says \"validated against JPL Horizons\" only when, at every pair, the direction shown is within max_sky_deg of the Horizons direction on the sky (great circle, Sun and Earth) and every yes/no answer is the same; otherwise it says the later years are not validated. Azimuth and elevation differences are still reported; azimuth is not used for the rule because it is undefined at the zenith (ADR 0113).",
   "check": {
     "seed": 20261116,
     "pairs": 60,
     "from": "2028-01-01 00:00",
     "to": "2041-01-01 00:00",
-    "max_diff_deg": 0.05
+    "max_sky_deg": 0.05
   }
 }

@@ -241,7 +241,7 @@ two directions), the largest difference is 0.0061° for the Sun and 0.0063° for
 with the Sun 79.9° high, where azimuth turns fastest. Every Horizons check in this section together (the 90 pairs below,
 the 30 engine pairs at unnamed points, the 60 later-year pairs and these 720): 900 different site-and-minute pairs (3600 reference angles),
 same solar power answer 900 of 900, same Earth answer 900 of 900. This total is the number on the first screen; its largest difference,
-0.1465°, is the Sun azimuth 0.56° from the zenith in the later-year check below.
+0.1465°, is the Sun azimuth 0.56° from the zenith in the later-year check below. Measured as directions on the sky, the largest difference of all 900 pairs is 0.0063°; the first screen gives that number.
 
 Do the angles the tool shows match JPL Horizons? `scripts/validate.py` draws 90 site-and-time pairs at random (fixed seed,
 never on a table hour) and compares the angles shown by the page's own code with Horizons asked directly for the same site and minute.
@@ -280,8 +280,9 @@ difference 0.1465°, average 0.0022°, same solar power answer 60 of 60, same Ea
 The largest azimuth difference is at Apollo 11 on 2028-02-08 14:14 UT, with the Sun 0.56° from the zenith, where the azimuth turns
 about a hundred times faster than the direction: 0.0015° on the sky becomes 0.1465° in azimuth. Between hourly rows the page joins
 the directions (unit vectors), not the azimuth and elevation (ADR 0113); before that, the same pair was 5.4775° in azimuth and
-0.056° on the sky. Because the rule in `config/years.json` (every azimuth and elevation difference at most 0.05°) is not met at that
-one pair, the cards say that the dates after the precomputed tables are not validated.
+0.056° on the sky. The rule in `config/years.json` judges directions on the sky, not azimuth (the author's decision, ADR 0113):
+every Sun and Earth direction within 0.05° of Horizons on a great circle, and every yes/no answer the same. It is met, so the cards
+say that the engine is validated against JPL Horizons for the dates after the precomputed tables, to the end of 2040.
 
 Is the terrain horizon right? `scripts/pgda.py` compares it with an independent NASA product, the average Sun and Earth visibility
 maps of the lunar south pole (E. Mazarico, NASA GSFC PGDA, LOLA grid 120 m per pixel), at 11 points. A map value is the share

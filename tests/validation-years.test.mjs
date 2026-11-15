@@ -19,10 +19,12 @@ test('later years: the page gives the pairs, the largest difference and the same
   assert.ok(html.includes(`largest difference ${s.max_abs_deg.toFixed(d)}°`));
   // For information (ADR 0113): the great-circle angle between the two directions, from the file.
   assert.ok(s.sky_separation, 'the file carries the angle on the sky');
-  assert.ok(html.includes(`at most ${s.sky_separation.sun.max_deg.toFixed(d)}° for the Sun and ${s.sky_separation.earth.max_deg.toFixed(d)}° for Earth`));
+  assert.ok(html.includes(`largest difference ${s.sky_separation.sun.max_deg.toFixed(d)}° for the Sun and ${s.sky_separation.earth.max_deg.toFixed(d)}° for Earth`));
+  assert.ok(html.includes('Azimuth is undefined near the zenith'));
   assert.ok(html.includes(`same solar power answer ${s.same_answer.power} of ${s.same_answer.of}`));
   for (const q of Object.values(s.by_quantity)) assert.ok(html.includes(`<td>${q.max_abs_deg.toFixed(d)}°</td><td>${q.mean_abs_deg.toFixed(d)}°</td>`));
   assert.ok(!/[{}]/.test(html));
-  // "validated" on the cards is tied to this result (config/years.json check.max_diff_deg).
-  assert.equal(y.passed, s.max_abs_deg <= y.max_diff_deg && s.same_answer.power === s.same_answer.of && s.same_answer.comm === s.same_answer.of);
+  // "validated" on the cards is tied to this result (config/years.json check.max_sky_deg: directions on the sky, ADR 0113).
+  assert.equal(y.passed, s.sky_separation.sun.max_deg <= y.max_sky_deg && s.sky_separation.earth.max_deg <= y.max_sky_deg
+    && s.same_answer.power === s.same_answer.of && s.same_answer.comm === s.same_answer.of);
 });
