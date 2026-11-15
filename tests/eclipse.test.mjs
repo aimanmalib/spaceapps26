@@ -43,13 +43,15 @@ test('covered share: none outside the sum of radii, all inside the difference, h
   assert.deepEqual(eclipseOf({ sun: { az: 0, el: 5 }, earth: { az: 0, el: 9 } }, radii).state, 'none');
 });
 
-test('every eclipse the tables show (2026-11 to 2030-12, 14 sites) is on the NASA GSFC list, every partial/total one is seen everywhere', () => {
+test('every eclipse the tables show (2026-11 to 2030-12, every listed site) is on the NASA GSFC list, every partial/total one is seen everywhere', () => {
+  const sites = json('config/sites.json').sites;
+  assert.ok(result.per_eclipse.every((p) => p.of === sites.length), 'data/eclipses.json is older than config/sites.json: run node scripts/eclipses.mjs');
   assert.ok(cfg.source_urls.every((u) => u.startsWith('https://eclipse.gsfc.nasa.gov/')));
   assert.equal(result.summary.pass, true);
   assert.equal(result.summary.unmatched, 0);
   assert.equal(result.summary.missed_umbral, 0);
   assert.ok(result.found.every((f) => cfg.nasa.some((x) => x.date === f.nasa)));
-  for (const x of cfg.nasa.filter((y) => y.umbral_mag > 0)) assert.equal(result.per_eclipse.find((p) => p.date === x.date).sites_seen, 14, x.date);
+  for (const x of cfg.nasa.filter((y) => y.umbral_mag > 0)) assert.equal(result.per_eclipse.find((p) => p.date === x.date).sites_seen, sites.length, x.date);
   // The totals hide the whole Sun somewhere; penumbral ones never do (part of the Moon is never in the full shadow).
   for (const p of result.per_eclipse) {
     if (p.type === 'total') assert.equal(p.max_share, 1, p.date);

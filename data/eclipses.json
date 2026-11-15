@@ -11,7 +11,7 @@
  },
  "match_hours": 4,
  "summary": {
-  "found": 113,
+  "found": 142,
   "unmatched": 0,
   "missed_umbral": 0,
   "nasa": 10,
@@ -23,7 +23,7 @@
    "type": "penumbral",
    "umbral_mag": -0.0569,
    "sites_seen": 6,
-   "of": 14,
+   "of": 18,
    "max_share": 0.472,
    "sun_up_sites": [
     "apollo-11",
@@ -39,7 +39,7 @@
    "type": "penumbral",
    "umbral_mag": -1.068,
    "sites_seen": 0,
-   "of": 14,
+   "of": 18,
    "max_share": 0,
    "sun_up_sites": []
   },
@@ -47,8 +47,8 @@
    "date": "2027-08-17",
    "type": "penumbral",
    "umbral_mag": -0.5254,
-   "sites_seen": 12,
-   "of": 14,
+   "sites_seen": 16,
+   "of": 18,
    "max_share": 0.554,
    "sun_up_sites": [
     "apollo-11",
@@ -61,15 +61,19 @@
     "im-1-landed",
     "malapert-massif",
     "nobile-rim-1",
-    "shackleton-ridge"
+    "shackleton-ridge",
+    "haworth",
+    "mons-mouton-plateau",
+    "nobile-rim-2",
+    "de-gerlache-rim-2"
    ]
   },
   {
    "date": "2028-01-12",
    "type": "partial",
    "umbral_mag": 0.0662,
-   "sites_seen": 14,
-   "of": 14,
+   "sites_seen": 18,
+   "of": 18,
    "max_share": 0.965,
    "sun_up_sites": [
     "apollo-11",
@@ -84,15 +88,19 @@
     "im-1-landed",
     "malapert-massif",
     "nobile-rim-1",
-    "shackleton-ridge"
+    "shackleton-ridge",
+    "haworth",
+    "mons-mouton-plateau",
+    "nobile-rim-2",
+    "de-gerlache-rim-2"
    ]
   },
   {
    "date": "2028-07-06",
    "type": "partial",
    "umbral_mag": 0.3892,
-   "sites_seen": 14,
-   "of": 14,
+   "sites_seen": 18,
+   "of": 18,
    "max_share": 1,
    "sun_up_sites": [
     "apollo-11",
@@ -106,15 +114,19 @@
     "chandrayaan-3",
     "im-1-landed",
     "malapert-massif",
-    "nobile-rim-1"
+    "nobile-rim-1",
+    "haworth",
+    "mons-mouton-plateau",
+    "nobile-rim-2",
+    "de-gerlache-rim-2"
    ]
   },
   {
    "date": "2028-12-31",
    "type": "total",
    "umbral_mag": 1.2463,
-   "sites_seen": 14,
-   "of": 14,
+   "sites_seen": 18,
+   "of": 18,
    "max_share": 1,
    "sun_up_sites": [
     "apollo-11",
@@ -128,15 +140,19 @@
     "chandrayaan-3",
     "im-1-landed",
     "malapert-massif",
-    "nobile-rim-1"
+    "nobile-rim-1",
+    "haworth",
+    "mons-mouton-plateau",
+    "nobile-rim-2",
+    "de-gerlache-rim-2"
    ]
   },
   {
    "date": "2029-06-26",
    "type": "total",
    "umbral_mag": 1.8436,
-   "sites_seen": 14,
-   "of": 14,
+   "sites_seen": 18,
+   "of": 18,
    "max_share": 1,
    "sun_up_sites": [
     "apollo-11",
@@ -150,15 +166,19 @@
     "chandrayaan-3",
     "im-1-landed",
     "malapert-massif",
-    "nobile-rim-1"
+    "nobile-rim-1",
+    "haworth",
+    "mons-mouton-plateau",
+    "nobile-rim-2",
+    "de-gerlache-rim-2"
    ]
   },
   {
    "date": "2029-12-20",
    "type": "total",
    "umbral_mag": 1.1174,
-   "sites_seen": 14,
-   "of": 14,
+   "sites_seen": 18,
+   "of": 18,
    "max_share": 1,
    "sun_up_sites": [
     "apollo-11",
@@ -172,15 +192,19 @@
     "chandrayaan-3",
     "im-1-landed",
     "malapert-massif",
-    "nobile-rim-1"
+    "nobile-rim-1",
+    "haworth",
+    "mons-mouton-plateau",
+    "nobile-rim-2",
+    "de-gerlache-rim-2"
    ]
   },
   {
    "date": "2030-06-15",
    "type": "partial",
    "umbral_mag": 0.5025,
-   "sites_seen": 14,
-   "of": 14,
+   "sites_seen": 18,
+   "of": 18,
    "max_share": 1,
    "sun_up_sites": [
     "apollo-11",
@@ -194,15 +218,19 @@
     "chandrayaan-3",
     "im-1-landed",
     "malapert-massif",
-    "nobile-rim-1"
+    "nobile-rim-1",
+    "haworth",
+    "mons-mouton-plateau",
+    "nobile-rim-2",
+    "de-gerlache-rim-2"
    ]
   },
   {
    "date": "2030-12-09",
    "type": "penumbral",
    "umbral_mag": -0.1628,
-   "sites_seen": 11,
-   "of": 14,
+   "sites_seen": 12,
+   "of": 18,
    "max_share": 0.613,
    "sun_up_sites": [
     "apollo-11",
@@ -213,7 +241,8 @@
     "apollo-17",
     "im-1",
     "chandrayaan-3",
-    "im-1-landed"
+    "im-1-landed",
+    "haworth"
    ]
   }
  ],
@@ -1687,6 +1716,383 @@
    "sun_el_at_peak": -0.62,
    "earth_el_at_peak": -1.79,
    "nasa": "2030-12-09"
+  },
+  {
+   "site": "haworth",
+   "source": "horizons",
+   "peak_utc": "2027-08-17 07:00",
+   "from_utc": "2027-08-17 06:00",
+   "to_utc": "2027-08-17 09:00",
+   "rows": 4,
+   "max_share": 0.549,
+   "centre_rows": 1,
+   "sun_el_at_peak": 3.41,
+   "earth_el_at_peak": 4.3,
+   "nasa": "2027-08-17"
+  },
+  {
+   "site": "haworth",
+   "source": "engine",
+   "peak_utc": "2028-01-12 04:00",
+   "from_utc": "2028-01-12 03:00",
+   "to_utc": "2028-01-12 05:00",
+   "rows": 3,
+   "max_share": 0.965,
+   "centre_rows": 2,
+   "sun_el_at_peak": 3.4,
+   "earth_el_at_peak": 4.12,
+   "nasa": "2028-01-12"
+  },
+  {
+   "site": "haworth",
+   "source": "engine",
+   "peak_utc": "2028-07-06 18:00",
+   "from_utc": "2028-07-06 17:00",
+   "to_utc": "2028-07-06 19:00",
+   "rows": 3,
+   "max_share": 0.368,
+   "centre_rows": 0,
+   "sun_el_at_peak": 2.7,
+   "earth_el_at_peak": 1.71,
+   "nasa": "2028-07-06"
+  },
+  {
+   "site": "haworth",
+   "source": "engine",
+   "peak_utc": "2028-12-31 16:00",
+   "from_utc": "2028-12-31 15:00",
+   "to_utc": "2028-12-31 19:00",
+   "rows": 5,
+   "max_share": 1,
+   "centre_rows": 4,
+   "sun_el_at_peak": 3.25,
+   "earth_el_at_peak": 3.36,
+   "nasa": "2028-12-31"
+  },
+  {
+   "site": "haworth",
+   "source": "engine",
+   "peak_utc": "2029-06-26 03:00",
+   "from_utc": "2029-06-26 02:00",
+   "to_utc": "2029-06-26 05:00",
+   "rows": 4,
+   "max_share": 1,
+   "centre_rows": 4,
+   "sun_el_at_peak": 2.93,
+   "earth_el_at_peak": 2.66,
+   "nasa": "2029-06-26"
+  },
+  {
+   "site": "haworth",
+   "source": "engine",
+   "peak_utc": "2029-12-20 22:00",
+   "from_utc": "2029-12-20 21:00",
+   "to_utc": "2029-12-21 00:00",
+   "rows": 4,
+   "max_share": 1,
+   "centre_rows": 3,
+   "sun_el_at_peak": 3.01,
+   "earth_el_at_peak": 2.47,
+   "nasa": "2029-12-20"
+  },
+  {
+   "site": "haworth",
+   "source": "engine",
+   "peak_utc": "2030-06-15 18:00",
+   "from_utc": "2030-06-15 17:00",
+   "to_utc": "2030-06-15 20:00",
+   "rows": 4,
+   "max_share": 1,
+   "centre_rows": 2,
+   "sun_el_at_peak": 3.21,
+   "earth_el_at_peak": 3.67,
+   "nasa": "2030-06-15"
+  },
+  {
+   "site": "haworth",
+   "source": "engine",
+   "peak_utc": "2030-12-09 22:00",
+   "from_utc": "2030-12-09 22:00",
+   "to_utc": "2030-12-09 22:00",
+   "rows": 1,
+   "max_share": 0.002,
+   "centre_rows": 0,
+   "sun_el_at_peak": 2.69,
+   "earth_el_at_peak": 1.53,
+   "nasa": "2030-12-09"
+  },
+  {
+   "site": "mons-mouton-plateau",
+   "source": "horizons",
+   "peak_utc": "2027-08-17 07:00",
+   "from_utc": "2027-08-17 06:00",
+   "to_utc": "2027-08-17 09:00",
+   "rows": 4,
+   "max_share": 0.542,
+   "centre_rows": 1,
+   "sun_el_at_peak": 5,
+   "earth_el_at_peak": 5.87,
+   "nasa": "2027-08-17"
+  },
+  {
+   "site": "mons-mouton-plateau",
+   "source": "engine",
+   "peak_utc": "2028-01-12 04:00",
+   "from_utc": "2028-01-12 03:00",
+   "to_utc": "2028-01-12 05:00",
+   "rows": 3,
+   "max_share": 0.946,
+   "centre_rows": 2,
+   "sun_el_at_peak": 4.9,
+   "earth_el_at_peak": 5.63,
+   "nasa": "2028-01-12"
+  },
+  {
+   "site": "mons-mouton-plateau",
+   "source": "engine",
+   "peak_utc": "2028-07-06 18:00",
+   "from_utc": "2028-07-06 17:00",
+   "to_utc": "2028-07-06 19:00",
+   "rows": 3,
+   "max_share": 0.352,
+   "centre_rows": 0,
+   "sun_el_at_peak": 4.71,
+   "earth_el_at_peak": 3.71,
+   "nasa": "2028-07-06"
+  },
+  {
+   "site": "mons-mouton-plateau",
+   "source": "engine",
+   "peak_utc": "2028-12-31 16:00",
+   "from_utc": "2028-12-31 15:00",
+   "to_utc": "2028-12-31 19:00",
+   "rows": 5,
+   "max_share": 1,
+   "centre_rows": 3,
+   "sun_el_at_peak": 4.61,
+   "earth_el_at_peak": 4.69,
+   "nasa": "2028-12-31"
+  },
+  {
+   "site": "mons-mouton-plateau",
+   "source": "engine",
+   "peak_utc": "2029-06-26 03:00",
+   "from_utc": "2029-06-26 02:00",
+   "to_utc": "2029-06-26 05:00",
+   "rows": 4,
+   "max_share": 1,
+   "centre_rows": 4,
+   "sun_el_at_peak": 4.95,
+   "earth_el_at_peak": 4.66,
+   "nasa": "2029-06-26"
+  },
+  {
+   "site": "mons-mouton-plateau",
+   "source": "engine",
+   "peak_utc": "2029-12-20 22:00",
+   "from_utc": "2029-12-20 21:00",
+   "to_utc": "2029-12-21 00:00",
+   "rows": 4,
+   "max_share": 1,
+   "centre_rows": 3,
+   "sun_el_at_peak": 4.45,
+   "earth_el_at_peak": 3.88,
+   "nasa": "2029-12-20"
+  },
+  {
+   "site": "mons-mouton-plateau",
+   "source": "engine",
+   "peak_utc": "2030-06-15 18:00",
+   "from_utc": "2030-06-15 17:00",
+   "to_utc": "2030-06-15 20:00",
+   "rows": 4,
+   "max_share": 1,
+   "centre_rows": 3,
+   "sun_el_at_peak": 5.04,
+   "earth_el_at_peak": 5.46,
+   "nasa": "2030-06-15"
+  },
+  {
+   "site": "nobile-rim-2",
+   "source": "horizons",
+   "peak_utc": "2027-08-17 07:00",
+   "from_utc": "2027-08-17 06:00",
+   "to_utc": "2027-08-17 09:00",
+   "rows": 4,
+   "max_share": 0.531,
+   "centre_rows": 1,
+   "sun_el_at_peak": 3.08,
+   "earth_el_at_peak": 3.94,
+   "nasa": "2027-08-17"
+  },
+  {
+   "site": "nobile-rim-2",
+   "source": "engine",
+   "peak_utc": "2028-01-12 04:00",
+   "from_utc": "2028-01-12 03:00",
+   "to_utc": "2028-01-12 05:00",
+   "rows": 3,
+   "max_share": 0.957,
+   "centre_rows": 2,
+   "sun_el_at_peak": 2.94,
+   "earth_el_at_peak": 3.66,
+   "nasa": "2028-01-12"
+  },
+  {
+   "site": "nobile-rim-2",
+   "source": "engine",
+   "peak_utc": "2028-07-06 18:00",
+   "from_utc": "2028-07-06 17:00",
+   "to_utc": "2028-07-06 19:00",
+   "rows": 3,
+   "max_share": 0.354,
+   "centre_rows": 0,
+   "sun_el_at_peak": 3.03,
+   "earth_el_at_peak": 2.03,
+   "nasa": "2028-07-06"
+  },
+  {
+   "site": "nobile-rim-2",
+   "source": "engine",
+   "peak_utc": "2028-12-31 16:00",
+   "from_utc": "2028-12-31 15:00",
+   "to_utc": "2028-12-31 19:00",
+   "rows": 5,
+   "max_share": 1,
+   "centre_rows": 3,
+   "sun_el_at_peak": 2.57,
+   "earth_el_at_peak": 2.64,
+   "nasa": "2028-12-31"
+  },
+  {
+   "site": "nobile-rim-2",
+   "source": "engine",
+   "peak_utc": "2029-06-26 03:00",
+   "from_utc": "2029-06-26 02:00",
+   "to_utc": "2029-06-26 05:00",
+   "rows": 4,
+   "max_share": 1,
+   "centre_rows": 4,
+   "sun_el_at_peak": 3.28,
+   "earth_el_at_peak": 2.98,
+   "nasa": "2029-06-26"
+  },
+  {
+   "site": "nobile-rim-2",
+   "source": "engine",
+   "peak_utc": "2029-12-20 22:00",
+   "from_utc": "2029-12-20 21:00",
+   "to_utc": "2029-12-21 00:00",
+   "rows": 4,
+   "max_share": 1,
+   "centre_rows": 3,
+   "sun_el_at_peak": 2.45,
+   "earth_el_at_peak": 1.87,
+   "nasa": "2029-12-20"
+  },
+  {
+   "site": "nobile-rim-2",
+   "source": "engine",
+   "peak_utc": "2030-06-15 18:00",
+   "from_utc": "2030-06-15 17:00",
+   "to_utc": "2030-06-15 20:00",
+   "rows": 4,
+   "max_share": 1,
+   "centre_rows": 3,
+   "sun_el_at_peak": 3.25,
+   "earth_el_at_peak": 3.65,
+   "nasa": "2030-06-15"
+  },
+  {
+   "site": "de-gerlache-rim-2",
+   "source": "horizons",
+   "peak_utc": "2027-08-17 07:00",
+   "from_utc": "2027-08-17 06:00",
+   "to_utc": "2027-08-17 09:00",
+   "rows": 4,
+   "max_share": 0.549,
+   "centre_rows": 1,
+   "sun_el_at_peak": 1.1,
+   "earth_el_at_peak": 1.99,
+   "nasa": "2027-08-17"
+  },
+  {
+   "site": "de-gerlache-rim-2",
+   "source": "engine",
+   "peak_utc": "2028-01-12 04:00",
+   "from_utc": "2028-01-12 03:00",
+   "to_utc": "2028-01-12 05:00",
+   "rows": 3,
+   "max_share": 0.95,
+   "centre_rows": 2,
+   "sun_el_at_peak": 1.09,
+   "earth_el_at_peak": 1.82,
+   "nasa": "2028-01-12"
+  },
+  {
+   "site": "de-gerlache-rim-2",
+   "source": "engine",
+   "peak_utc": "2028-07-06 18:00",
+   "from_utc": "2028-07-06 17:00",
+   "to_utc": "2028-07-06 19:00",
+   "rows": 3,
+   "max_share": 0.347,
+   "centre_rows": 0,
+   "sun_el_at_peak": 0.41,
+   "earth_el_at_peak": -0.59,
+   "nasa": "2028-07-06"
+  },
+  {
+   "site": "de-gerlache-rim-2",
+   "source": "engine",
+   "peak_utc": "2028-12-31 16:00",
+   "from_utc": "2028-12-31 15:00",
+   "to_utc": "2028-12-31 19:00",
+   "rows": 5,
+   "max_share": 1,
+   "centre_rows": 4,
+   "sun_el_at_peak": 0.95,
+   "earth_el_at_peak": 1.06,
+   "nasa": "2028-12-31"
+  },
+  {
+   "site": "de-gerlache-rim-2",
+   "source": "engine",
+   "peak_utc": "2029-06-26 03:00",
+   "from_utc": "2029-06-26 02:00",
+   "to_utc": "2029-06-26 05:00",
+   "rows": 4,
+   "max_share": 1,
+   "centre_rows": 4,
+   "sun_el_at_peak": 0.63,
+   "earth_el_at_peak": 0.36,
+   "nasa": "2029-06-26"
+  },
+  {
+   "site": "de-gerlache-rim-2",
+   "source": "engine",
+   "peak_utc": "2029-12-20 22:00",
+   "from_utc": "2029-12-20 21:00",
+   "to_utc": "2029-12-21 00:00",
+   "rows": 4,
+   "max_share": 1,
+   "centre_rows": 3,
+   "sun_el_at_peak": 0.71,
+   "earth_el_at_peak": 0.16,
+   "nasa": "2029-12-20"
+  },
+  {
+   "site": "de-gerlache-rim-2",
+   "source": "engine",
+   "peak_utc": "2030-06-15 18:00",
+   "from_utc": "2030-06-15 17:00",
+   "to_utc": "2030-06-15 20:00",
+   "rows": 4,
+   "max_share": 1,
+   "centre_rows": 2,
+   "sun_el_at_peak": 0.91,
+   "earth_el_at_peak": 1.36,
+   "nasa": "2030-06-15"
   }
  ]
 }
