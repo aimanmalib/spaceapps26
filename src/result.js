@@ -89,7 +89,7 @@ export function resultHtml(t, r, view) {
   // Horizons elevation + terrain skyline elevation at the body's azimuth (item j); none for the ideal sphere.
   const skyAt = (b, kind) =>
     r.profile
-      ? fill(t('answer.el_line'), { label: t(`${kind}.el_label`), el: r.facts[b].elText, sky: signedDeg(horizonAt(r.profile, r.sample[b].az), d) })
+      ? fill(t(r.source === 'engine' ? 'years.el_line' : 'answer.el_line'), { label: t(`${kind}.el_label`), el: r.facts[b].elText, sky: signedDeg(horizonAt(r.profile, r.sample[b].az), d) })
       : null;
   // Three-state disc label (P4u): whole disc / partly hidden / hidden, against the horizon used.
   const discAt = (b) =>
@@ -118,7 +118,7 @@ export function resultHtml(t, r, view) {
     `<table class="tech-table"><thead><tr><th scope="col">${e(t('details.body'))}</th><th scope="col">${e(t('details.az'))}</th>` +
     `<th scope="col">${e(t('details.el'))}</th></tr></thead><tbody>${row('sky.sun', sun)}${row('sky.earth', earth)}</tbody></table>` +
     `<p>${e(fill(t('details.coords'), { lat: r.site.lat, lon: r.site.lon_east }))} ${source(t, r.site)}</p>` +
-    `<p>${e(t(r.site.custom ? 'details.data_custom' : 'details.data'))}</p>` +
+    `<p>${e(t(r.site.custom ? 'details.data_custom' : r.source === 'engine' ? 'years.details_data' : 'details.data'))}</p>` +
     `<p>${e(fill(t(horizonKey(r)), { ...r.own, threshold: view.horizon_threshold_deg, h: r.profile?.observer_height_m, r: r.site.radius_km }))}</p>` +
     `<p>${e(fill(t('details.scale'), { scale: r.scale }))}</p><p>${e(t('details.windows'))}</p></details>`
   );

@@ -21,6 +21,14 @@ The project has no numbered releases: the site is one continuous build, and each
 - Phones: a long site name in the site list no longer widens the page (seen in WebKit with the IM-1 name).
 
 ### Added
+- Try a comparison: ready-made comparisons above the cards ("Launch slipped two weeks" and three more), and an opening sentence
+  about rescheduling.
+- Mission check on every card: a GO / RISKY / NO-GO line for a stay of 7, 14 or 29.5 days, the longest night, the longest gap
+  without Earth and a panel geometry estimate in W/m².
+- Day by day at every site: a calendar of every listed site by UTC day on the Overview page.
+- From the lander: a view from the lander's position inside the 3D block.
+- Dates to the end of 2030: the in-browser engine after the frozen tables, checked against JPL Horizons at 24 random pairs in
+  2028 to 2030 (largest difference 0.0045°, same answers 24 of 24).
 - Four more south polar sites, each with its own LOLA skyline, map, 1 km shifts and terrain range: three future targets (Malapert
   Massif and Nobile Rim 1, two of NASA's Artemis candidate landing regions, and the Shackleton connecting ridge, the target ridge
   of Blue Moon Mark 1) and the place where IM-1 Odysseus came to rest. Each coordinate is copied from a cited LROC or NASA page.
