@@ -487,6 +487,15 @@
       "generated_by": "Claude Code (Anthropic) wrote this script; it only counts hours per UTC day in the frozen tables and skylines already in data/"
     },
     {
+      "file": "eclipses.json",
+      "url": "https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html",
+      "urls": ["https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html", "https://eclipse.gsfc.nasa.gov/LEcat5/LE2001-2100.html", "https://ssd.jpl.nasa.gov/api/horizons.api"],
+      "retrieved_at": "2026-11-15T13:45:00Z",
+      "license": "Lunar eclipse list: NASA GSFC, Fred Espenak (eclipse predictions courtesy of Fred Espenak, NASA/Goddard Space Flight Center; public). Sun/Earth angles: data/ephem (JPL Horizons System, NASA/JPL-Caltech) and Astronomy Engine (MIT) after it; no new download",
+      "script": "scripts/eclipses.mjs",
+      "generated_by": "Claude Code (Anthropic) wrote this script; it finds hours with part of the Sun behind Earth in the tables and matches them with the NASA GSFC list copied into config/eclipses.json"
+    },
+    {
       "file": "overview.json",
       "url": "https://ssd.jpl.nasa.gov/api/horizons.api",
       "urls": [
