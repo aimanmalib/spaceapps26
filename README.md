@@ -40,12 +40,90 @@ Open this case: <https://aimanmalib.github.io/spaceapps26/?s=im-2,2026-11-14T00:
 
 ## Validation in short
 
-- Sun and Earth angles against JPL Horizons at 70 random site-and-time pairs: largest difference 0.0439°, same two answers at
-  70 of 70 pairs (details under Validation below).
+- Sun and Earth angles against JPL Horizons at 560 random site-and-minute pairs (40 at each of the 14 listed sites,
+  2026-11-01 to 2030-12-31, frozen tables and in-browser engine): largest difference 0.0446°, same solar power answer
+  560 of 560, same Earth answer 560 of 560. With the earlier checks: 684 different site-and-minute pairs (2736 reference angles),
+  every yes/no answer the same, 684 of 684 (details under [Validation](#validation) below).
 - Terrain horizon against the NASA GSFC PGDA visibility maps, over the same 18.6 years: at the IM-1 and IM-2 sites the Sun and
   Earth differ by 0.1 percentage points or less; at the other 4 listed terrain sites the Sun differs by 1.4 to
   15.6 points. At a ridge check point near the pole the Sun differs by 17.6 points; there the
   tool's own value runs from 57.2 % (observer on the ground) to 85.3 % (2 m up), and NASA's 67.7 % lies between (below).
+
+## What a scientist can check
+
+The numbers on the site are read from files in `data/`, and `npm test` checks the validation results quoted on the pages and in
+this README against those files. To repeat a claim, run its line; `git diff data/` then shows what changed (retrieval dates
+always change). No account, key or login is needed.
+
+| Claim | Data file | Repeat it |
+|---|---|---|
+| Sun and Earth angles match JPL Horizons at every listed site, 2026 to 2030 | `data/validation-scale.json`; raw answers `data/horizons-cache.json` | `rm data/horizons-cache.json && python3 scripts/validate.py --scale` |
+| The page's hourly interpolation of the frozen tables | `data/validation.json` (`horizons`) | `python3 scripts/validate.py` |
+| Own coordinates: the in-browser engine at unnamed points | `data/validation.json` (`engine`) | `python3 scripts/validate.py --engine` |
+| Dates after the frozen tables, 2028 to 2030 | `data/validation-years.json` | `python3 scripts/validate_years.py` |
+| Terrain skyline against NASA PGDA maps, same 18.6 years | `data/validation.json` (`pgda_period`) | `python3 scripts/horizon.py --download && python3 scripts/pgda_period.py` |
+| Terrain skyline against NASA PGDA at random points | `data/validation.json` (`pgda_sample`) | `python3 scripts/horizon.py --download && python3 scripts/pgda_sample.py` |
+| The one-kilometre finding | `data/shift-year/shift-year.json` | `python3 scripts/horizon.py --download && python3 scripts/shifts.py && node scripts/shift_year.mjs` |
+| The frozen Sun and Earth tables | `data/ephem/<site>.json` | `python3 scripts/fetch_horizons.py im-2` |
+| All of the above, from the public NASA sources | all of `data/` | `bash scripts/reproduce.sh` ([steps](docs/REPRODUCE.md)) |
+
+The Horizons check at scale asks for many minutes in one request (Horizons `TLIST`), one request per site and body, at most one
+request per second, retried after errors; the raw answers stay in `data/horizons-cache.json`, so a second run sends no request.
+The LOLA download (`--download`, about 145 MB) goes to a cache folder outside the repository.
+
+```mermaid
+flowchart LR
+  subgraph NASA["Public NASA sources, no login"]
+    H["JPL Horizons API"]
+    L["LRO LOLA polar DEMs, NASA PDS"]
+    P["NASA GSFC PGDA visibility maps"]
+  end
+  subgraph S["scripts/, build time"]
+    F["fetch_horizons.py"]
+    Z["horizon.py, shifts.py, band.py"]
+    V["validate.py, validate_years.py"]
+    G["pgda.py, pgda_period.py, pgda_sample.py"]
+  end
+  subgraph D["data/, frozen, listed in SOURCES.json"]
+    E["ephem/: hourly Sun and Earth tables"]
+    K["horizon/, shift/, band/: terrain skylines"]
+    R["validation files, horizons-cache.json"]
+  end
+  subgraph B["Browser"]
+    W["src/ephem.js reads the tables; src/moonsky.js computes later dates and own coordinates"]
+    U["Cards, calendar, Validation page"]
+  end
+  H --> F --> E
+  L --> Z --> K
+  H --> V
+  W -.->|same code, run by the scripts| V
+  V --> R
+  P --> G --> R
+  L --> G
+  K --> G
+  E --> W
+  K --> W
+  W --> U
+  R --> U
+  R --> T["npm test: every number on the pages and in this README equals its file"]
+```
+
+## What we do not claim
+
+Taken from the [limitations](#what-it-does-and-limitations) below; nothing here is new.
+
+- Geometry only. A yes means the centre of the Sun or Earth disc is above the horizon used. Solar panel orientation, power
+  output, antennas, relay satellites and link budgets are not modelled; the GO / RISKY / NO-GO limits and the W/m² estimate
+  (1361 W/m², no panel efficiency, temperature or Sun-distance correction) are settings, not the requirements of any mission.
+- Terrain on an 80 m grid, at six south polar sites only. Every other listed site and own coordinates use the ideal sphere
+  horizon. The terrain range (nine points 80 m apart, observer at 0 m and 2 m) is a sensitivity range for that grid, not an
+  error bar on the real ground; on ridges the answer changes within about 100 m.
+- One year for the year numbers. Overview, calendar, year shares and the NASA PGDA checks cover 2026-11-01 to 2027-11-01;
+  later dates come from the in-browser engine (checked against JPL Horizons, above), not from frozen tables.
+- Future targets are points, not landing sites: each is one point inside a candidate or target area several kilometres across.
+- The 3D surface does not hide the Sun and Earth lines behind terrain and draws no shadows; the lander view's 0.5 km ground can
+  differ from the 80 m skyline that the answers use.
+- Indonesian and Malay are SI translations, not reviewed by a native speaker.
 
 ## Run it locally
 
@@ -243,6 +321,25 @@ Sun and Earth positions come from the JPL Horizons System; terrain comes from LR
 
 ## Validation
 
+At scale (ADR 0108): `scripts/validate.py --scale` draws 560 random site-and-minute pairs (40 at each of the 14 listed sites,
+fixed seed, never on a table hour) from 2026-11-01 to 2030-12-31: 134 on the dates of the frozen tables, which the page reads,
+and 426 on the later dates, which the browser computes. JPL Horizons is asked for the same minutes in 28 batched requests
+(`data/validation-scale.json`; summary in `data/validation.json`, block `scale`; raw answers in `data/horizons-cache.json`):
+
+| Angle | Largest difference | Average difference |
+|---|---|---|
+| Sun azimuth | 0.0446° | 0.0021° |
+| Sun elevation | 0.0045° | 0.0014° |
+| Earth azimuth | 0.0150° | 0.0020° |
+| Earth elevation | 0.0047° | 0.0013° |
+
+Over all angles: largest difference 0.0446°; same solar power answer 560 of 560, same Earth answer 560 of 560.
+Frozen-table dates: largest 0.0054°; engine dates: largest 0.0446°. Measured on the sky (the angle between the
+two directions), the largest difference is 0.0061° for the Sun and 0.0063° for Earth: the 0.0446° is a Sun azimuth
+with the Sun 84.2° high, where azimuth turns fastest. Every Horizons check in this section together (the 70 pairs below,
+the 30 engine pairs at unnamed points, the 24 later-year pairs and these 560): 684 different site-and-minute pairs (2736 reference angles),
+same solar power answer 684 of 684, same Earth answer 684 of 684. This total is the number on the first screen.
+
 Do the angles the tool shows match JPL Horizons? `scripts/validate.py` draws 70 site-and-time pairs at random (fixed seed,
 never on a table hour) and compares the angles shown by the page's own code with Horizons asked directly for the same site and minute.
 Result (`data/validation.json`, also on the site's Validation page):
@@ -343,6 +440,17 @@ in `data/` can be rebuilt from the NASA sources with one command: [`docs/REPRODU
   no requests to other hosts, no horizontal overflow. Needs the Python `playwright` package and its browsers.
 - `python3 e2e/subpath.py`: the same smoke test on `dist/` served under `/spaceapps26/`, as GitHub Pages serves it.
   `bash deploy/pages.sh` pushes that build to branch `gh-pages` (Pages itself is switched on in the repository settings).
+- `bash scripts/lighthouse.sh`: Lighthouse 12 scores of Compare and Overview on a local production build (default mobile
+  settings, simulated throttling). Measured on 15 November 2026, two runs on a busy shared server (Lighthouse 12.8.2):
+
+| Page | Performance | Accessibility | Best practices | SEO |
+|---|---|---|---|---|
+| Compare | 66, 57 | 100, 100 | 100, 100 | 100, 100 |
+| Overview | 71, 55 | 96, 96 | 100, 100 | 100, 100 |
+
+  In every run about 25 Performance points are lost to layout shift of the main content after load (CLS 1.16 on Compare,
+  0.93 on Overview); the rest is blocking time, which changes with the server's load. Accessibility on Overview: the calendar
+  cells are smaller than the touch-target size Lighthouse asks for.
 
 ## AI disclosure (Super Intelligence / SI use)
 
