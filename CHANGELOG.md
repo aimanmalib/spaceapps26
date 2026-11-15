@@ -26,6 +26,8 @@ The project has no numbered releases: the site is one continuous build, and each
 - Lunar eclipses at the site (no sunlight while the Sun's centre is behind Earth), matched to NASA GSFC's eclipse list to 2030
   (142 stretches at eighteen sites, none unmatched); an example battery size for the longest night; the Deep Space Network
   complex that sees the Moon, in the card details (ADR 0109).
+- First-load motion: the first card's horizon strip plays one lunar day once when the page opens, then rests on the chosen time
+  (ADR 0112).
 - Validation at scale: `python3 scripts/validate.py --scale` checks 720 random minutes, 40 at each of the 18 listed sites
   from 2026-11-01 to 2030-12-31 (frozen tables and in-browser engine), against JPL Horizons asked in 36 batched, cached,
   rate-limited requests: largest difference 0.0446° (0.0061° on the sky), same answers 720 of 720. Every Horizons check

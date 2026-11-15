@@ -59,6 +59,9 @@ Built:
   DSS 14, Madrid DSS 63, Canberra DSS 43; coordinates from the NASA/JPL DSN handbook 810-005, module 301) against an example limit
   of 10°, and when none sees the Moon, the first that will within 24 hours. At the time tested the three elevations agree with JPL
   Horizons within 0.001° (`config/dsn.json`, `tests/dsn.test.mjs`, ADR 0109).
+- First-load motion: when Compare first opens, the first card's horizon strip plays one lunar day of that card's own table in
+  5 seconds (the Sun along the skyline, Earth's small wobble) and stops on the chosen time. It plays once; only the two markers
+  move; with reduced motion set in the browser it does not play (`config/view.json` `first_load_motion`, ADR 0112).
 - Download CSV: at the foot of every card, and under the side-by-side table for all scenarios, the hourly rows behind the mission
   check as one file (UTC time, Sun and Earth azimuth and elevation, the horizon used at that azimuth, both answers, the source of
   the angles, and whether the Sun is behind Earth). The file is made in the browser; nothing is sent anywhere (`config/csv.json`,
