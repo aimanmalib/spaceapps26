@@ -52,9 +52,23 @@ The site's Data sources page shows the same per-file list.
 - NASA Ames Research Center, P. Agrawal et al. (2025), "Terrain Obstruction and Visibility Analysis of Artemis Landing Regions Using
   Celestial Mapping System", NASA Technical Reports Server 20250009664 — <https://ntrs.nasa.gov/citations/20250009664>
   (Figure 1: a point placed in the Nobile Rim 1 region, Lat -85.3630°, Lon 32.315156°).
+- LROC NAC ROI controlled mosaic `NAC_ROI_HAWORTH_LO1` ("This preliminary mosaic of an Artemis III candidate landing site",
+  site name Haworth, centre -86.7°, 336.3°E) — <https://data.lroc.im-ldi.com/lroc/view_rdr/NAC_ROI_HAWORTH_LO1>; product reference:
+  Henriksen, M. R. et al. (2023), Optimized Illuminated Terrain Coverage of the Candidate Artemis III Landing Sites with LROC NAC
+  Controlled Mosaics, European Lunar Symposium.
+- Mahanti, P., Williams, J.-P., Robinson, M. S., Mazarico, E., Grieser, S. G., ShadowCam Team (2025), The permanently shadowed
+  regions at the Mons Mouton Artemis III candidate landing region, 56th Lunar and Planetary Science Conference, abstract 2742 —
+  <https://www.hou.usra.edu/meetings/lpsc2025/pdf/2742.pdf> ("An example landing site (84.528°S, 30.719°E)" in the Mons Mouton
+  Plateau candidate region).
+- Peña-Asensio, E., Neira-Acosta, Á.-S., Sánchez-Lozano, J. M., Evaluating potential landing sites for the Artemis III mission
+  using a multi-criteria decision making approach, Acta Astronautica (preprint arXiv:2406.19863) — <https://arxiv.org/abs/2406.19863>
+  (the best-ranked point in Site DM2, Nobile Rim 2, 84°12'5.61"S 60°41'59.61"E; Table 3 point 726 in region SL2, de Gerlache
+  Rim 2, 88°30'56.38"S 61°10'2.35"O, read as west; ADR 0105).
 - NASA news release, "NASA Provides Update on Artemis III Moon Landing Regions" (October 2024) —
   <https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/> (the nine candidate landing regions,
-  among them Malapert Massif and Nobile Rim 1).
+  among them Malapert Massif, Nobile Rim 1, Nobile Rim 2, Haworth, Mons Mouton Plateau and de Gerlache Rim 2). T. George et al.,
+  Artemis III site selection update: downselection from thirteen to nine candidate regions (LPSC 2026), NASA Technical Reports
+  Server 20250011660 — <https://ntrs.nasa.gov/citations/20250011660> (the same nine names; no coordinates).
 - NASA, "Moon Base Phases" — <https://www.nasa.gov/moonbase-phases/> ("Endurance will attempt a landing on the Shackleton Connecting
   Ridge": Blue Origin's Blue Moon Mark 1, a CLPS flight).
 
