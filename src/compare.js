@@ -4,6 +4,7 @@ import { fill, escapeHtml as e } from './i18n.js';
 import { loadTable } from './data.js';
 import { parseUtc, formatUtc, tableRange, sampleAt, sharedScale } from './ephem.js';
 import { resultHtml } from './result.js';
+import { playFirstDay } from './first-day.js';
 import { scenarioFacts } from './facts.js';
 import { glanceHtml } from './glance.js';
 import { relativeTable } from './terrain.js';
@@ -23,7 +24,11 @@ import { mountShare } from './share-ui.js';
 import { verdictText, encodeScenarios } from './share.js';
 import { mountPresets, presetSearch } from './presets.js';
 import { sourceHtml } from './years.js';
+import { eclipseAround, withEclipses } from './eclipse.js';
+import { eclipseFacts } from './eclipse-ui.js';
+import { mountDsn } from './dsn-ui.js';
 import { CUSTOM_ID, customOptionHtml, customFieldsHtml, syncFields, readCustom, invalidText } from './custom.js';
+import { mountCardCsv, mountTableCsv } from './csv-ui.js';
 
 let uid = 0;
 
@@ -70,7 +75,8 @@ function cardDom(t, sites, sc, custom) {
 // earthview = {cfg: config/earthview.json, dirs: config/shifts.json, places, engine} (P4v; terrain sites only).
 // metrics = config/metrics.json: mission check badge in the card head + numbers under the answers (ADR 0101).
 // years = src/years.js makeYears() + {checked} (ADR 0104): tables for dates past the frozen Horizons range.
-export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null, earthview = null, presets = null, metrics = null, years = null }) {
+// csv = config/csv.json (ADR 0110): "Download CSV" at the foot of every card and under the side-by-side table.
+export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, features = {}, custom = null, shifts = null, me = null, map = null, surface = null, share = null, earthview = null, presets = null, metrics = null, years = null, csv = null }) {
   const list = root.querySelector('.cards');
   const add = root.querySelector('.add');
   const glance = root.querySelector('.glance-body');
@@ -78,6 +84,10 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
   const siteById = new Map(sites.map((s) => [s.id, s]));
   const cards = [];
   const ownTerrain = custom?.terrain ?? null; // terrain horizon for own points (ADR 0106), or null
+  // Download CSV (ADR 0110): the card's hourly rows for its mission length (the Mission check select, else the defaults).
+  const daysOf = (c) => Number(c.mmBox?.querySelector('.mm-days')?.value) || metrics?.default_period_days || csv?.days_without_mission_check;
+  const csvOf = (c, i) => c.csvData && { ...c.csvData, n: i + 1, days: daysOf(c) };
+  const tableCsv = csv && glance ? mountTableCsv(glance.parentElement, { t, cfg: csv, threshold: view.horizon_threshold_deg, getAll: () => cards.map(csvOf).filter(Boolean) }) : null;
   // Kept here, not looked up each time: on phones the button lives inside the first card, so it is parked back in
   // .tool-actions before any card is removed (otherwise it leaves the page with that card).
   const exBtn = root.querySelector('.example');
@@ -87,6 +97,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
   };
   const exampleNarrow = view.example_below_answers_max_width_px && window.matchMedia?.(`(max-width: ${view.example_below_answers_max_width_px}px)`);
   let ticket = 0;
+  let drawnOnce = false; // first-load motion (ADR 0112) plays on the first draw only
 
   function renumber() {
     cards.forEach((c, i) => {
@@ -140,17 +151,22 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
     }
     // Same judgement as the small-shifts table (item l), so the card and that table show one set of numbers.
     const j = judge(sample, profile, view.horizon_threshold_deg);
-    const up = { sun: j.sun.up, earth: j.earth.up };
+    const radii = discRadii(view);
+    // Lunar eclipse seen from the site (ADR 0109): Earth in front of the Sun while some of the Sun is above the horizon
+    // used. Same centre rule as the horizon: the Sun's centre behind Earth = no sunlight.
+    const eclipse = j.sun.margin + radii.sun > view.horizon_threshold_deg ? eclipseAround(table, x.ms, radii) : null;
+    const up = { sun: j.sun.up && !eclipse?.now.centre, earth: j.earth.up };
     const margin = { sun: j.sun.margin, earth: j.earth.margin };
     // Three-state label (P4u): whole disc / part of it / none above the horizon used; yes/no stays the centre rule.
-    const radii = discRadii(view);
     const disc = { sun: discState(j.sun.margin, radii.sun), earth: discState(j.earth.margin, radii.earth) };
-    const rel = relativeTable(table, profile);
+    const rel = withEclipses(relativeTable(table, profile), table, radii);
     // Terrain range (ADR 0041): does an answer change between the lowest and highest skyline around the site?
     const range = band && profile ? { band, judge: bandJudge(sample, band, view.horizon_threshold_deg) } : null;
     // Where the angles come from (ADR 0104): the JPL Horizons table or the in-browser engine.
     const source = years ? years.sourceAt(x.site, x.ms) : x.site.custom ? 'engine' : 'horizons';
-    return { sample, up, disc, profile, rel, table, range, source, facts: scenarioFacts(t, rel, x.ms, { sample, up, margin }, view) };
+    const facts = scenarioFacts(t, rel, x.ms, { sample, up: { sun: j.sun.up, earth: j.earth.up }, margin }, view);
+    if (eclipse) facts.sun = eclipseFacts(t, facts.sun, eclipse, j.sun.up, x.ms, t(profile ? 'disc.line_terrain' : 'disc.line_sphere'));
+    return { sample, up, disc, profile, rel, table, range, source, eclipse, facts };
   }
 
   function draw(rows) {
@@ -159,6 +175,8 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
       const box = r.c.el.querySelector('.card-result');
       box.innerHTML = r.sample ? resultHtml(t, { ...r, scale }, view) : `<p class="note note-warn">${e(r.msg)}</p>`;
       if (r.sample && years) box.querySelector('.horizon-kind')?.insertAdjacentHTML('afterend', sourceHtml(t, r.source, r.ms > years.range.frozenEndMs, years.checked));
+      // Ground stations (ADR 0109): which DSN complex sees the Moon, in the technical details only.
+      if (r.sample) mountDsn(box.querySelector('details.tech'), { t, ms: r.ms, earthUp: r.up.earth });
       // Earth view (P4v): right under the two answers, only where a LOLA terrain skyline exists.
       if (r.c.ev && r.sample && r.profile && !r.site.custom) {
         box.querySelector('.answers').after(r.c.evBox);
@@ -183,7 +201,11 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
         if (r.sample) b?.draw({ site: r.site, profile: r.profile, sample: r.sample, up: r.up });
         else b?.hide();
       }
+      const src = (ms) => (years ? years.sourceAt(r.site, ms) : r.site.custom ? 'engine' : 'horizons');
+      r.c.csvData = r.sample ? { site: r.site, ms: r.ms, table: r.table, profile: r.profile, sourceAt: src, eclipse: r.rel?.eclipse ?? null } : null;
+      r.c.csv?.state(!!r.sample);
     }
+    tableCsv?.state(cards.some((c) => c.csvData));
     placeExample();
     if (glance) glance.innerHTML = glanceHtml(t, rows);
     // Plain verdict per scenario (SI suggestion chosen by the author), from the same two answers as the card.
@@ -191,6 +213,11 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
       verdicts.innerHTML = rows
         .map((r, i) => `<li><strong>${e(fill(t('scenario.label'), { n: i + 1 }))}:</strong> ${e(r.sample ? verdictText(t, r.site.name, r.up, r.disc) : t('verdict.no_answer'))}</li>`)
         .join('');
+    }
+    // First-load motion (ADR 0112): once per load, the first card's strip plays one lunar day and lands on the chosen time.
+    if (!drawnOnce) {
+      drawnOnce = true;
+      if (rows[0]?.sample) playFirstDay(rows[0].c.el.querySelector('.card-result .pano-plot'), rows[0], view);
     }
   }
 
@@ -237,6 +264,11 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
     const wide = view.first_card?.map_open_min_width_px;
     if (first && wide && window.matchMedia(`(min-width: ${wide}px)`).matches) openBlock(c.el, '.map2d');
     if (features.i_surface_3d && surface) c.surf = mountSurface(c.el.querySelector('.card-surface'), { t, ...surface, uid: `surf${++uid}` });
+    if (csv) {
+      c.csv = mountCardCsv(c.el, { t, cfg: csv, threshold: view.horizon_threshold_deg, get: () => csvOf(c, cards.indexOf(c)), days: () => daysOf(c), n: () => cards.indexOf(c) + 1 });
+      // A new mission length changes the file's period, not the card (src/metrics-ui.js stops that event at the select).
+      c.mmBox?.querySelector('.mm-days')?.addEventListener('change', () => c.csv.state(!!c.csvData));
+    }
     c.el.querySelector('.card-remove').addEventListener('click', () => {
       parkExample();
       c.tl?.destroy();

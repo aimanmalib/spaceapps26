@@ -21,6 +21,7 @@
         "comparison with other public entries to this challenge and, from it, features built by several SI sessions in parallel (15 November 2026)",
         "red-team review of the entry against the aim of a Global Award, its measurements, and the changes the author adopted from it (15 November 2026)",
         "Indonesian and Malay translations of the interface (optional; English is the default and the reference), not reviewed by a native speaker",
+        "further additions on the night of 15 November 2026, proposed and built by SI sessions in parallel after reading other public entries: more candidate regions, own-coordinate terrain, eclipses, a visual pass, validation at scale",
         "English text, drafted from the author's choices and the measured results, reviewed by the author"
       ]
     }
@@ -36,7 +37,8 @@
     "submission",
     "further features suggested by SI (mission window finder, shareable links with a plain verdict and a Now button, a page for teachers, a guided tour built as one button that opens the one-kilometre example; then a real NASA photograph on the first screen, a one-year overview of every listed site, Indonesian and Malay interface options): suggested by SI at the author's request on 15 November 2026; the author considered each list and chose all of them",
     "the aim of a Global Award, and which changes to adopt from an SI red-team review of the entry (15 November 2026): the NASA PGDA comparison over the same 18.6 years with a sensitivity test at the ridge check point; a 360-degree horizon strip and a one-line verdict at the top of every card; the terrain range on the terrain cards; four more south polar sites (three future targets picked by SI from NASA and LROC pages that state a coordinate, and the place where IM-1 came to rest)",
-    "features that other public entries to this challenge had (15 November 2026): ready-made comparisons with an opening sentence about rescheduling, a mission check with a GO / RISKY / NO-GO line, a calendar of every site by day, a view from the lander, dates to the end of 2030; asked for by the author, built by SI"
+    "features that other public entries to this challenge had (15 November 2026): ready-made comparisons with an opening sentence about rescheduling, a mission check with a GO / RISKY / NO-GO line, a calendar of every site by day, a view from the lander, dates to the end of 2030; asked for by the author, built by SI",
+    "the instruction to close the gaps to other public entries (night of 15 November 2026): SI chose and built four more Artemis III candidate regions, a terrain skyline for own coordinates south of 75 degrees south, lunar eclipses with an example battery size and ground stations, a visual pass with one header and footer, a JPL Horizons check at scale, a CSV download, a guided tour and a first-load motion on the horizon strip; the author approved the plan and had not reviewed the result line by line when the build was published"
   ],
   "si_generated_paths": [
     "src/",
@@ -49,7 +51,7 @@
     "docs/decisions/",
     "demo/slides.html"
   ],
-  "si_translated_text": ["README.md", "SI-DISCLOSURE.md", "REFERENCES.md", "demo/"],
+  "si_translated_text": ["README.md", "docs/DETAILS.md", "SI-DISCLOSURE.md", "REFERENCES.md", "demo/"],
   "si_generated_media": [],
   "file_header": "SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md",
   "html_meta": "si-disclosure"
