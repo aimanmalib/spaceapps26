@@ -259,11 +259,19 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
       status.textContent = fill(t('tool.example_done'), { site: siteById.get(sc.site).name, time: sc.time_utc.replace('T', ' '), km });
       heading?.setAttribute('tabindex', '-1');
       heading?.focus({ preventScroll: true });
-      // Jump, do not animate: the cards were just replaced, and on WebKit a smooth scroll started while the layout is
-      // still settling can end at the page bottom. The jump is repeated after two frames, when the new card has its height.
-      const jump = () => target.isConnected && target.scrollIntoView({ block: 'start', behavior: 'auto' });
+      // Jump, never animate (ADR 0033): on WebKit iPhone a smooth scroll started after the cards are replaced can end at the
+      // page bottom. Wait two frames for the new card's layout, jump, then check once more after late content (map, 3D).
+      const margin = view.example_scroll_margin_px ?? 0;
+      const jump = () => {
+        if (!target.isConnected) return;
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - margin, behavior: 'auto' });
+      };
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
       jump();
-      requestAnimationFrame(() => requestAnimationFrame(jump));
+      setTimeout(() => {
+        const top = target.getBoundingClientRect().top;
+        if (top < -1 || top > window.innerHeight / 2) jump();
+      }, view.example_scroll_recheck_ms ?? 400);
     });
   }
 

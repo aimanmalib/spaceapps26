@@ -59,6 +59,9 @@
   "example": { "site": "im-2", "time_utc": "2026-11-14T00:00" },
   "_note_example_narrow": "On windows at most example_below_answers_max_width_px wide the button sits right under the first card's two answers instead of above the cards: five buttons need three rows on a phone, and the first answer must start inside the iPhone 13 first screen (ADR 0033).",
   "example_below_answers_max_width_px": 480,
+  "_note_example_scroll": "After the example click the page jumps (never a smooth scroll: on WebKit iPhone it could end at the page bottom) so the Earth view top sits example_scroll_margin_px below the window top, and checks once more after example_scroll_recheck_ms.",
+  "example_scroll_margin_px": 8,
+  "example_scroll_recheck_ms": 400,
   "share": {
     "param": "s",
     "separator": ",",

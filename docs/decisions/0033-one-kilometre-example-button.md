@@ -13,8 +13,7 @@ plus a landscape GIF; no multi-step tour. That is what was built.
   and nearby points (so the Earth view exists).
 - The button sits first in the row above the cards (`index.html`, text `tool.example` in `i18n/en.json`). Pressing it replaces the
   cards with that one scenario, puts the matching shareable link in the address (`history.replaceState`, no reload), writes one line
-  in a `role="status"` paragraph, moves focus to the Earth view title and scrolls there (`behavior: auto` under
-  `prefers-reduced-motion`). If the Earth view is absent, it scrolls to the card. The button stays hidden when `example` is missing.
+  in a `role="status"` paragraph, moves focus to the Earth view title and jumps there. If the Earth view is absent, it scrolls to the card. The button stays hidden when `example` is missing.
 - Gallery GIF `docs/media/one-km-example.gif` (1280 × 720, real capture, `scripts/capture_media.py --example`, settings in
   `config/media.json` `example_gif`): first screen, the page after the button, then the Earth view from each nearby point.
 - First screen on phones: on a 390 px phone the five buttons of that row need three rows, which pushed the first answer of the
@@ -27,6 +26,10 @@ plus a landscape GIF; no multi-step tour. That is what was built.
   wider windows keep it first in the row above the cards. Smoke: the button ends inside the first screen on the 1280 and 1366
   profiles, sits right under the first card's answers on the 320 and iPhone 13 profiles, and the iPhone 13 first answer starts
   at or above 664 px. (A first version raised the iPhone limit to 720 px; the review rejected that, 15 November 2026.)
+- Instant scroll, never smooth, because of WebKit: on iPhone 13 a smooth `scrollIntoView` after the cards are replaced ended
+  at the page bottom when the tap came 2 s or more after load (review, 15 November). Now: two frames, then `window.scrollTo`
+  (`behavior: auto`) to the Earth view top minus `example_scroll_margin_px`, checked once more after `example_scroll_recheck_ms`
+  (config/view.json). Smoke waits 3 s before the tap and checks the final place twice, 1 s apart.
 - No new data, numbers or claims; the status line only names the case and the point buttons.
 
 ## Rollback

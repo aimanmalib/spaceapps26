@@ -309,6 +309,7 @@ def example_button(page, check, base, shots, name):
     page.goto(base, wait_until="networkidle")
     page.locator(".card .answers").first.wait_for()
     btn = page.locator("button.example")
+    page.wait_for_timeout(3000)  # a real user taps after the page has sat a while (WebKit smooth scroll bug, P4p)
     check(btn.is_visible() and btn.inner_text() == "Show me the one-kilometre example", "example button shown (P4p)")
     btn.click()
     page.wait_for_function("() => document.querySelectorAll('.card').length === 1 && document.querySelector('.example-status').innerText !== ''")
@@ -317,7 +318,13 @@ def example_button(page, check, base, shots, name):
     check(page.locator(".card select[id$='-site']").first.input_value() == "im-2"
           and page.locator(".card input[type=datetime-local]").first.input_value() == "2026-11-14T00:00", "example: IM-2 at 2026-11-14 00:00 (P4p)")
     check(page.evaluate("location.search") == ONE_KM_QUERY, "example: address is the one-kilometre link (P4p)")
-    page.wait_for_function("() => { const t = document.querySelector('.card .ev').getBoundingClientRect().top; return t >= -1 && t < innerHeight / 2; }")
+    # The FINAL place, not a moment during a scroll: measured twice 1 s apart, 2 s after the click.
+    page.wait_for_timeout(2000)
+    pos = "() => [document.querySelector('.card .ev').getBoundingClientRect().top, innerHeight, scrollY]"
+    t1, h, y1 = page.evaluate(pos)
+    page.wait_for_timeout(1000)
+    t2, _, y2 = page.evaluate(pos)
+    check(-1 <= t1 < h / 2 and -1 <= t2 < h / 2 and y1 == y2, f"example: Earth view top settled in the window (P4p; {t1:.0f}/{t2:.0f} px, scrollY {y1}/{y2})")
     check(page.evaluate("document.activeElement?.classList.contains('ev-title')"), "example: focus on the Earth view title (P4p)")
     check(no_overflow(page), "example: no horizontal overflow (P4p)")
     if shots:
