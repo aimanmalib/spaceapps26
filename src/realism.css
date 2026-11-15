@@ -16,3 +16,18 @@
 .mm-eclipse { margin: 0.4rem 0 0; }
 .mm-battery .mm-big { font-variant-numeric: tabular-nums; }
 .dsn-line { margin: 0.25rem 0 0; }
+/* Overview calendar: a lunar eclipse day (Earth covers part of a visible Sun) = small dark dot ringed in Sun colour. */
+.cal-cell.has-eclipse { position: relative; }
+.cal-cell.has-eclipse::after,
+.cal-ecl-swatch {
+  content: '';
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: 0 0 0 1.5px var(--sun);
+}
+.cal-cell.has-eclipse::after { position: absolute; top: 2px; left: 50%; transform: translateX(-50%); }
+.cal-ecl-swatch { flex: none; }
+.cal-ecl-line { margin: 0.35rem 0 0; color: var(--text); }

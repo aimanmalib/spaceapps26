@@ -114,3 +114,15 @@ test('realism texts exist in every language with the same placeholders', () => {
   const ph = (s) => [...s.matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort().join();
   for (const k of keys) for (const l of langs) assert.equal(ph(l[k] ?? ''), ph(langs[0][k]), k);
 });
+
+test('Overview calendar marks eclipse days from data/eclipses.json; none hides the whole Sun, so the day counts stay', () => {
+  const cal = result.calendar;
+  assert.deepEqual(cal['im-2']['2027-08-17'], { pct: 54, centre_hours: 1, hour: 7 });
+  assert.ok(Object.values(cal).every((days) => Object.values(days).every((d) => d.pct > 0 && d.pct < 100)));
+  const calendar = json('data/calendar.json');
+  const ids = new Set(calendar.sites.map((s) => s.site));
+  assert.ok(Object.keys(cal).every((id) => ids.has(id)));
+  for (const [id, days] of Object.entries(cal)) {
+    for (const date of Object.keys(days)) assert.ok(date >= calendar.first_day && Date.parse(`${date}T00:00Z`) < Date.parse(`${calendar.first_day}T00:00Z`) + calendar.days * 86_400_000 + 86_400_000, `${id} ${date}`);
+  }
+});

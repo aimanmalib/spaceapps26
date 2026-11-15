@@ -4,6 +4,9 @@
 import { fill, escapeHtml as e } from './i18n.js';
 import { months, gridHtml, dayParts, compareHref, cellText } from './calendar.js';
 
+// Lunar eclipse days (ADR 0109): data/eclipses.json "calendar", loaded after the grid; styles in src/realism.css.
+if (typeof document !== 'undefined') import('./realism.css');
+
 const KINDS = ['both', 'sun', 'earth', 'none'];
 
 export function mountCalendar(root, { t, data, cfg, share, name, lang }) {
@@ -15,6 +18,7 @@ export function mountCalendar(root, { t, data, cfg, share, name, lang }) {
   let selected = null; // highlighted cell (hover, focus or tap)
   let armed = null; // touch: the day tapped once, which a second tap opens
   let touch = false;
+  let eclipses = null; // site → {YYYY-MM-DD: {pct, centre_hours}} once data/eclipses.json is loaded
 
   const opts = list.map((m, i) => `<option value="${i}">${e(label(m))}</option>`).join('');
   const sorts = cfg.sort_options
@@ -44,7 +48,23 @@ export function mountCalendar(root, { t, data, cfg, share, name, lang }) {
     readout.innerHTML =
       `<p class="cal-what"><span>${e(a.dataset.date)} UTC</span> <strong>${e(name(s.site))}</strong></p>` +
       `<ul class="cal-chips" aria-label="${e(cellText(t, name(s.site), a.dataset.date, p))}">${chips}</ul>` +
-      `<a class="cal-open" href="${e(compareHref(s.site, a.dataset.date, s.pick[d], share))}">${e(t('calendar.open'))} →</a>`;
+      (a.dataset.eclipse ? `<p class="cal-ecl-line">${e(fill(t('realism.calendar.line'), { pct: a.dataset.eclipse }))}</p>` : '') +
+      `<a class="cal-open" href="${e(compareHref(s.site, a.dataset.date, a.dataset.eclipseHour ? +a.dataset.eclipseHour : s.pick[d], share))}">${e(t('calendar.open'))} →</a>`;
+  };
+  // Marks the cells of the month on show; the legend gets one more key the first time.
+  const markEclipses = () => {
+    if (!eclipses) return;
+    for (const a of scroll.querySelectorAll('.cal-cell')) {
+      const x = eclipses[a.dataset.site]?.[a.dataset.date];
+      if (!x) continue;
+      a.classList.add('has-eclipse');
+      a.dataset.eclipse = String(x.pct);
+      a.dataset.eclipseHour = String(x.hour);
+      a.href = compareHref(a.dataset.site, a.dataset.date, x.hour, share); // opens Compare at the eclipse
+      a.setAttribute('aria-label', `${a.getAttribute('aria-label')} ${fill(t('realism.calendar.line'), { pct: x.pct })}`);
+    }
+    const legendList = root.querySelector('.cal-legend');
+    if (!legendList.querySelector('.cal-ecl-key')) legendList.insertAdjacentHTML('beforeend', `<li class="cal-ecl-key"><span class="cal-ecl-swatch" aria-hidden="true"></span>${e(t('realism.calendar.key'))}</li>`);
   };
   const select_ = (a) => {
     selected?.classList.remove('is-selected');
@@ -59,6 +79,7 @@ export function mountCalendar(root, { t, data, cfg, share, name, lang }) {
     root.querySelector('[data-step="1"]').disabled = month === list.length - 1;
     scroll.setAttribute('aria-label', fill(t('calendar.caption'), { month: label(m) }));
     scroll.innerHTML = gridHtml(t, data, m, sortBy, name, share, label(m));
+    markEclipses();
     selected = null;
     armed = null;
     hint();
@@ -86,4 +107,10 @@ export function mountCalendar(root, { t, data, cfg, share, name, lang }) {
     if (a) { select_(a); show(a); }
   });
   draw();
+  import('../data/eclipses.json')
+    .then((m) => {
+      eclipses = m.default.calendar ?? null;
+      markEclipses();
+    })
+    .catch(() => {});
 }

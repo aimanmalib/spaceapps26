@@ -620,5 +620,7 @@
   "realism.dsn.source": "Koordinat stasiun: NASA/JPL DSN 810-005, modul 301",
   "realism.dsn.goldstone": "Goldstone (DSS 14)",
   "realism.dsn.madrid": "Madrid (DSS 63)",
-  "realism.dsn.canberra": "Canberra (DSS 43)"
+  "realism.dsn.canberra": "Canberra (DSS 43)",
+  "realism.calendar.key": "Gerhana bulan: Bumi menutupi sebagian Matahari",
+  "realism.calendar.line": "Gerhana bulan hari ini: Bumi menutupi hingga {pct} % Matahari. Sebagian tetap terlihat, jadi jumlah jam tidak berubah. Tautan membuka Bandingkan pada waktu gerhana."
 }

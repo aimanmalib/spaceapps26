@@ -620,5 +620,7 @@
   "realism.dsn.source": "Station coordinates: NASA/JPL DSN 810-005, module 301",
   "realism.dsn.goldstone": "Goldstone (DSS 14)",
   "realism.dsn.madrid": "Madrid (DSS 63)",
-  "realism.dsn.canberra": "Canberra (DSS 43)"
+  "realism.dsn.canberra": "Canberra (DSS 43)",
+  "realism.calendar.key": "Lunar eclipse: Earth covers part of the Sun",
+  "realism.calendar.line": "Lunar eclipse this day: Earth covers up to {pct} % of the Sun. Part of it stays visible, so the hour counts do not change. The link opens Compare at the eclipse."
 }

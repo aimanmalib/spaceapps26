@@ -7,6 +7,8 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { parseUtc, tableRange } from '../src/ephem.js';
 import { computeTable } from '../src/moonsky.js';
 import { eclipseRows, eclipseSpans } from '../src/eclipse.js';
+import { relativeTable } from '../src/terrain.js';
+import { existsSync } from 'node:fs';
 
 const root = new URL('..', import.meta.url);
 const read = (rel) => JSON.parse(readFileSync(new URL(rel, root), 'utf8'));
@@ -23,8 +25,27 @@ const nasa = cfg.nasa.map((x) => ({ ...x, ms: Date.parse(`${x.date}T${x.greatest
 const stop = parseUtc(yearsCfg.stop);
 
 const found = [];
+// Overview calendar (ADR 0102 rule: any part of the disc above the horizon used, frozen one-year tables): per site, the UTC
+// days with part of a visible Sun behind Earth → largest share covered that day and hours with its centre covered.
+const calendar = {};
 for (const s of sites) {
   const frozen = read(`data/ephem/${s.id}.json`);
+  {
+    const hp = `data/horizon/${s.id}.json`;
+    const rel = relativeTable(frozen, existsSync(new URL(hp, root)) ? read(hp) : null);
+    const er = eclipseRows(frozen, radii);
+    const t0 = tableRange(frozen).startMs;
+    const days = {};
+    for (let k = 0; k < er.share.length; k++) {
+      if (!(er.share[k] > 0) || !(rel.sun.el[k] + radii.sun > view.horizon_threshold_deg)) continue;
+      const day = new Date(t0 + k * frozen.step_minutes * 60_000).toISOString().slice(0, 10);
+      const d = (days[day] ??= { pct: 0, centre_hours: 0, hour: 0 });
+      const pct = Math.round(er.share[k] * 100);
+      if (pct > d.pct) Object.assign(d, { pct, hour: new Date(t0 + k * frozen.step_minutes * 60_000).getUTCHours() });
+      if (er.centre[k] && rel.sun.el[k] > view.horizon_threshold_deg) d.centre_hours += frozen.step_minutes / 60;
+    }
+    if (Object.keys(days).length) calendar[s.id] = days;
+  }
   const fr = tableRange(frozen);
   const step = frozen.step_minutes * 60_000;
   const eng = computeTable(s, { startMs: fr.endMs + step, endMs: stop, stepMinutes: eph.step_minutes, radiusKm: custom.moon_radius_km, decimals: eph.decimals });
@@ -57,6 +78,8 @@ const out = {
   match_hours: cfg.match_hours,
   summary: { found: found.length, unmatched: unmatched.length, missed_umbral: missed.length, nasa: nasa.length, pass: unmatched.length === 0 && missed.length === 0 },
   per_eclipse: perEclipse,
+  calendar_rule: 'frozen one-year tables (the Overview calendar): UTC days with part of the Sun behind Earth while some of the Sun is above the horizon used; pct = largest share covered, hour = UTC hour of that share (the cell opens Compare there), centre_hours = hours with its centre covered and above the horizon used',
+  calendar,
   missed_umbral: missed,
   found,
 };

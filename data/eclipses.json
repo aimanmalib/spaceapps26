@@ -246,6 +246,157 @@
    ]
   }
  ],
+ "calendar_rule": "frozen one-year tables (the Overview calendar): UTC days with part of the Sun behind Earth while some of the Sun is above the horizon used; pct = largest share covered, hour = UTC hour of that share (the cell opens Compare there), centre_hours = hours with its centre covered and above the horizon used",
+ "calendar": {
+  "apollo-11": {
+   "2027-02-20": {
+    "pct": 17,
+    "centre_hours": 0,
+    "hour": 23
+   },
+   "2027-02-21": {
+    "pct": 10,
+    "centre_hours": 0,
+    "hour": 0
+   },
+   "2027-08-17": {
+    "pct": 2,
+    "centre_hours": 0,
+    "hour": 7
+   }
+  },
+  "apollo-12": {
+   "2027-02-20": {
+    "pct": 23,
+    "centre_hours": 0,
+    "hour": 23
+   },
+   "2027-02-21": {
+    "pct": 1,
+    "centre_hours": 0,
+    "hour": 0
+   },
+   "2027-08-17": {
+    "pct": 9,
+    "centre_hours": 0,
+    "hour": 7
+   }
+  },
+  "apollo-14": {
+   "2027-02-20": {
+    "pct": 22,
+    "centre_hours": 0,
+    "hour": 23
+   },
+   "2027-02-21": {
+    "pct": 1,
+    "centre_hours": 0,
+    "hour": 0
+   },
+   "2027-08-17": {
+    "pct": 9,
+    "centre_hours": 0,
+    "hour": 7
+   }
+  },
+  "apollo-15": {
+   "2027-02-20": {
+    "pct": 47,
+    "centre_hours": 1,
+    "hour": 23
+   },
+   "2027-02-21": {
+    "pct": 29,
+    "centre_hours": 0,
+    "hour": 0
+   }
+  },
+  "apollo-16": {
+   "2027-02-20": {
+    "pct": 11,
+    "centre_hours": 0,
+    "hour": 23
+   },
+   "2027-02-21": {
+    "pct": 3,
+    "centre_hours": 0,
+    "hour": 0
+   },
+   "2027-08-17": {
+    "pct": 7,
+    "centre_hours": 0,
+    "hour": 7
+   }
+  },
+  "apollo-17": {
+   "2027-02-20": {
+    "pct": 33,
+    "centre_hours": 0,
+    "hour": 23
+   },
+   "2027-02-21": {
+    "pct": 30,
+    "centre_hours": 0,
+    "hour": 0
+   }
+  },
+  "im-1": {
+   "2027-08-17": {
+    "pct": 53,
+    "centre_hours": 1,
+    "hour": 7
+   }
+  },
+  "im-2": {
+   "2027-08-17": {
+    "pct": 54,
+    "centre_hours": 1,
+    "hour": 7
+   }
+  },
+  "chandrayaan-3": {
+   "2027-08-17": {
+    "pct": 47,
+    "centre_hours": 1,
+    "hour": 7
+   }
+  },
+  "im-1-landed": {
+   "2027-08-17": {
+    "pct": 55,
+    "centre_hours": 1,
+    "hour": 7
+   }
+  },
+  "nobile-rim-1": {
+   "2027-08-17": {
+    "pct": 54,
+    "centre_hours": 1,
+    "hour": 7
+   }
+  },
+  "shackleton-ridge": {
+   "2027-08-17": {
+    "pct": 55,
+    "centre_hours": 0,
+    "hour": 7
+   }
+  },
+  "mons-mouton-plateau": {
+   "2027-08-17": {
+    "pct": 54,
+    "centre_hours": 1,
+    "hour": 7
+   }
+  },
+  "de-gerlache-rim-2": {
+   "2027-08-17": {
+    "pct": 55,
+    "centre_hours": 1,
+    "hour": 7
+   }
+  }
+ },
  "missed_umbral": [],
  "found": [
   {
