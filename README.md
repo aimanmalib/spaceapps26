@@ -8,9 +8,20 @@
 **Try it:** <https://aimanmalib.github.io/spaceapps26/> (no sign-in; mirror: <https://spaceapps26.aimanmalib.com/>).
 Demo deck, 7 slides: <https://aimanmalib.github.io/spaceapps26/demo/demo.pdf> (the same file as `demo/demo.pdf` in this repository).
 
-Pick a landing site on the Moon and a UTC date and time. The page shows the Sun and Earth relative to the horizon there and answers
-two questions: is solar power generation possible (Sun above the horizon), and is direct-to-Earth communication possible (Earth
-above the horizon). At the south polar sites the horizon is the terrain skyline from NASA LRO LOLA heights.
+Launch slipped, or the site changed? Still in View shows at once whether a landing site on the Moon still has sunlight for power
+(Sun above the horizon) and a direct line to Earth (Earth above the horizon). Two things set it apart:
+
+1. **It says when an answer is not certain.** Near the south pole the horizon is terrain, known only as well as the grid it was
+   measured on. Each card marks an answer that would change within 80 m or with the lander's height, and the terrain skyline is
+   checked against NASA's own illumination maps: within 0.1 percentage points at IM-1 and IM-2 over the same 18.6 years, with
+   every place where it differs more shown and explained ([Validation](#validation)).
+2. **One kilometre can decide.** Over one year at the IM-2 site Earth's centre is above the skyline 80.1 % of the hours; one
+   kilometre east, 64.4 %; one kilometre south, 56.6 % ([the one-kilometre finding](#the-one-kilometre-finding)).
+
+For planners: a GO / RISKY / NO-GO line for each scenario, a calendar of every site by day, ready comparisons such as "Launch
+slipped two weeks", fourteen sites with three future south polar targets, and dates to the end of 2030.
+
+![A card where the answer is a close call: IM-2 on 2026-11-06 20:00 UTC, Earth 0.6° above the LOLA skyline, marked "the Earth link answer changes inside the terrain range" (real screen capture)](docs/media/deck-closecall.png)
 
 Challenge: Lunar Landing Site Navigator, NASA Space Apps Challenge 2026 (Jakarta, virtual).
 <https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/> Team: Aiman Malib.

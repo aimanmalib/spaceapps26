@@ -118,8 +118,17 @@ def capture_deck(browser, base):
         page.set_default_timeout(TIMEOUT_MS)
         page.set_viewport_size(item.get("viewport", d["viewport"]))
         page.goto(base.rstrip("/") + "/" + item["query"], wait_until="networkidle")
-        page.locator(".card .answers").first.wait_for()
-        page.wait_for_function("() => document.querySelectorAll('.card .answers').length === document.querySelectorAll('.card').length")
+        if item.get("wait"):  # another page than Compare (for example overview.html): wait for this selector instead
+            page.locator(item["wait"]).first.wait_for()
+        else:
+            page.locator(".card .answers").first.wait_for()
+            page.wait_for_function("() => document.querySelectorAll('.card .answers').length === document.querySelectorAll('.card').length")
+        for sel in item.get("clicks", []):  # for example: open a block, then press a button inside it
+            page.locator(sel).first.scroll_into_view_if_needed()
+            page.locator(sel).first.click()
+            page.wait_for_timeout(700)
+        if item.get("ready"):
+            page.wait_for_function(item["ready"], timeout=TIMEOUT_MS)
         page.wait_for_timeout(800)
         clip = union_clip(page, item["selectors"], item.get("pad", d["pad"]))
         path = os.path.join(OUT, f"{item['name']}.png")
