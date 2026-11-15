@@ -103,6 +103,13 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
   width: 100%; max-width: 100%; min-width: 0; font: inherit; font-size: 1rem; font-weight: 400; color: var(--text); background: var(--bg);
   border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.55rem 0.6rem; min-height: 2.75rem; color-scheme: dark;
 }
+/* iOS Safari draws date/time inputs as a native pill with its own intrinsic minimum width and ignores width:100%,
+   so on a real iPhone the "Date and time (UTC)" box ran past the card (emulators do not show it). Dropping the native
+   appearance and letting the value shrink keeps it inside the field; the picker still opens on tap. */
+.field input[type="datetime-local"], .field input[type="date"], .field input[type="time"] {
+  -webkit-appearance: none; appearance: none; display: block; box-sizing: border-box; text-align: left;
+}
+.field input[type="datetime-local"]::-webkit-date-and-time-value { text-align: left; min-width: 0; }
 .field select:hover, .field input:hover { border-color: #3a424c; }
 /* Buttons: one main action per row is filled Sun yellow (.btn-main); the rest are quiet outlines in the text colour. */
 .btn, .btn-quiet { font: inherit; cursor: pointer; border-radius: 0.5rem; min-height: 2.75rem; }
