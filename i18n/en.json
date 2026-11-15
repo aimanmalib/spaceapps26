@@ -1,6 +1,10 @@
 {
   "meta.title": "Still in View",
   "meta.description": "Compare lunar landing sites and dates: where the Sun and Earth are relative to the horizon.",
+  "intro.lede": "Will your landing site still have sunlight and a line to Earth?",
+  "intro.open": "Open the navigator",
+  "intro.tour": "Take the tour",
+  "intro.credit": "Earthrise from Apollo 8 (AS08-14-2383). Credit: NASA.",
   "app.name": "Still in View",
   "app.event": "NASA Space Apps Challenge 2026 entry · Challenge: Lunar Landing Site Navigator",
   "photo.alt": "Photograph: Earth rising over the lunar horizon, taken from Apollo 8 on 24 December 1968 (NASA, AS08-14-2383)",
