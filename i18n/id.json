@@ -1,6 +1,10 @@
 {
   "meta.title": "Still in View",
   "meta.description": "Bandingkan lokasi pendaratan dan tanggal di Bulan: posisi Matahari dan Bumi terhadap ufuk.",
+  "intro.lede": "Apakah lokasi pendaratan Anda masih mendapat sinar Matahari dan garis pandang ke Bumi?",
+  "intro.open": "Buka navigator",
+  "intro.tour": "Ikuti tur",
+  "intro.credit": "Earthrise dari Apollo 8 (AS08-14-2383). Kredit: NASA.",
   "app.name": "Still in View",
   "app.event": "Peserta NASA Space Apps Challenge 2026 · Tantangan: Lunar Landing Site Navigator",
   "photo.alt": "Foto: Bumi terbit di atas ufuk Bulan, diambil dari Apollo 8 pada 24 Desember 1968 (NASA, AS08-14-2383)",

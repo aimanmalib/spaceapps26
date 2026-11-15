@@ -68,7 +68,7 @@ SI tools used: **Claude Code (Anthropic)**, running Claude models.
    earlier test had dropped; lunar eclipses at the site, an example battery size for the longest night and the Deep Space Network
    complex in view; a visual pass (self-hosted typeface, one type scale, the decision first in every card); and a JPL Horizons
    check at scale with README sections for scientists; a CSV download of the hourly table and a five-step tour; one header and
-   footer on every page; and a first-load motion on the first card's horizon strip. Dates to 2040 were first left out, because the check against JPL Horizons failed on one azimuth near the zenith; the author then decided that the check should judge the direction on the sky, the interpolation was redone on vectors, every check was run again, and the branch was merged with the azimuth difference still reported.
+   footer on every page; a first-load motion on the first card's horizon strip; and an opening screen with the NASA Earthrise photograph. Dates to 2040 were first left out, because the check against JPL Horizons failed on one azimuth near the zenith; the author then decided that the check should judge the direction on the sky, the interpolation was redone on vectors, every check was run again, and the branch was merged with the azimuth difference still reported.
    One SI session merged the branches that passed the tests and moved the
    README's reference sections to `docs/DETAILS.md`. The ideas for these additions came from the challenge text and from the other
    entries; no code, text or image was copied. This night's code, numbers and text are SI's work on the author's instructions.

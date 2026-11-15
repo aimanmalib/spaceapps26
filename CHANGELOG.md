@@ -26,6 +26,7 @@ The project has no numbered releases: the site is one continuous build, and each
 - Lunar eclipses at the site (no sunlight while the Sun's centre is behind Earth), matched to NASA GSFC's eclipse list to 2030
   (142 stretches at eighteen sites, none unmatched); an example battery size for the longest night; the Deep Space Network
   complex that sees the Moon, in the card details (ADR 0109).
+- Opening screen on the first visit of a session: the Apollo 8 Earthrise photograph, the question and two buttons (ADR 0114).
 - First-load motion: the first card's horizon strip plays one lunar day once when the page opens, then rests on the chosen time
   (ADR 0112).
 - Validation at scale: `python3 scripts/validate.py --scale` checks 720 random minutes, 40 at each of the 18 listed sites
