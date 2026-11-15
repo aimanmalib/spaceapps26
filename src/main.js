@@ -13,6 +13,8 @@ import vcfg from '../config/validation.json';
 import metricsCfg from '../config/metrics.json';
 import yearsCfg from '../config/years.json';
 import csvCfg from '../config/csv.json';
+import tourCfg from '../config/tour.json';
+import { mountTour } from './tour.js';
 import yearsCheck from '../data/validation-years.json';
 import { initPage } from './page.js';
 import { mountCompare } from './compare.js';
@@ -79,6 +81,8 @@ const share = { cfg: view.share, range: years?.range ?? { startMs: parseUtc(eph.
 // Earth view (P4v): to-scale window toward Earth/Sun on terrain cards; nearby points reuse item l's data and engine.
 const earthview = items.j_terrain_horizon && engine ? { cfg: evCfg, dirs: shiftsCfg, places, engine: nearby } : null;
 if (root) mountCompare(root, { t, sites: sitesConfig.sites, view, horizons, bands, features: items, custom, shifts, me: items.k_moon_vs_earth ? meCfg : null, map, surface, share, earthview, presets: { box: document.querySelector('.presets'), list: presetsCfg.presets }, metrics: metricsCfg, years, csv: csvCfg });
+// Guided tour (ADR 0110): a button in the row of tool buttons; it never opens by itself.
+if (root) mountTour(root.querySelector('.tool-actions'), { t, cfg: tourCfg });
 // One line of measured validation numbers under the verdicts (P4v), loaded after the cards; left empty if it fails.
 const trust = root?.querySelector('.trust');
 if (trust) import('../data/validation.json').then(({ default: v }) => (trust.innerHTML = trustHtml(t, v, vcfg.decimals_report, './validation.html'))).catch(() => {});

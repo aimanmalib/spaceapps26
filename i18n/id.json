@@ -628,5 +628,22 @@
   "csv.note": "Per jam, {days} hari dari waktu kartu (panjang Cek misi), UTC",
   "csv.all_button": "Unduh CSV (semua skenario)",
   "csv.all_note": "Satu berkas: tabel per jam setiap kartu, satu blok baris per skenario",
-  "csv.done": "Tersimpan: {name} ({rows} baris)."
+  "csv.done": "Tersimpan: {name} ({rows} baris).",
+  "tour.start": "Ikuti tur",
+  "tour.step": "Langkah {n} dari {total}",
+  "tour.back": "Kembali",
+  "tour.next": "Berikutnya",
+  "tour.done": "Selesai",
+  "tour.close": "Tutup tur",
+  "tour.close_short": "Tutup",
+  "tour.decision.title": "Keputusan didahulukan",
+  "tour.decision.text": "Setiap kartu dibuka dengan jawabannya: sinar matahari untuk tenaga surya dan jalur langsung ke Bumi pada waktu yang dipilih. Lencana GO / RISKY / NO-GO merangkum Cek misi untuk panjang misi yang dipilih (satu minggu permukaan secara bawaan).",
+  "tour.strip.title": "Jalur ufuk",
+  "tour.strip.text": "Seluruh 360° di sekitar lokasi: garis cakrawala dari ketinggian NASA LRO LOLA bila lokasi itu memilikinya, dengan Matahari dan Bumi di posisinya. Di atas garis cakrawala berarti terlihat; garis putus-putus adalah ufuk Bulan mulus.",
+  "tour.presets.title": "Coba perbandingan",
+  "tour.presets.text": "Pertanyaan siap pakai dengan satu klik, seperti peluncuran yang mundur dua minggu atau lokasi rencana dibandingkan tempat IM-1 mendarat. Kartu berubah di tempat, dan setiap perbandingan adalah tautan yang bisa dibagikan.",
+  "tour.example.title": "Satu kilometer bisa menentukan",
+  "tour.example.text": "Contoh ini membuka pandangan ke arah Bumi dari satu lokasi pada waktu yang dipilih; tombolnya menggeser titik satu kilometer ke utara, timur, selatan, atau barat, dan jawabannya bisa berubah.",
+  "tour.validation.title": "Diperiksa, bukan diasumsikan",
+  "tour.validation.text": "Halaman Validasi membandingkan sudut dengan JPL Horizons dan jawaban medan dengan peta sinar matahari NASA PGDA, lengkap dengan setiap angka dan cara mengukurnya. Setiap kartu juga bisa menyimpan tabel per jamnya: Unduh CSV."
 }
