@@ -1,0 +1,45 @@
+{
+  "_note": "\"Try a comparison\" (ADR 0100): ready-made scenarios in a row of links above the cards on the Compare page. Each link is the existing shareable address (?s=…, config/view.json share), so it also works opened in a new tab; a plain click swaps the cards in place. Label text: i18n key preset.<id>. Every time is inside the frozen tables (config/ephemeris.json start/stop) and on the hourly grid; the answers each pair shows were measured on 15 Nov 2026 with the page's own rule (centre of the disc against the LOLA skyline) and are written in _answers (S/s = Sun yes/no, E/e = Earth yes/no). tests/presets.test.mjs checks sites, times, count and that both cards of a pair differ in at least one answer. jump_to_earth_view: after loading, the page jumps to the first card's view toward Earth (same as the one-kilometre example button, ADR 0033).",
+  "presets": [
+    {
+      "id": "slip",
+      "_answers": "SE → sE: two weeks later the same site has lost its sunlight (Sun 4.1° → −0.2°), Earth still in view",
+      "scenarios": [
+        { "site": "im-2", "time_utc": "2026-11-17T00:00" },
+        { "site": "im-2", "time_utc": "2026-12-01T00:00" }
+      ]
+    },
+    {
+      "id": "im1",
+      "_answers": "SE → sE: the nominal area is lit, where Odysseus came to rest (about 3 km away) is in shadow",
+      "scenarios": [
+        { "site": "im-1", "time_utc": "2026-11-18T00:00" },
+        { "site": "im-1-landed", "time_utc": "2026-11-18T00:00" }
+      ]
+    },
+    {
+      "id": "apollo_pole",
+      "_answers": "sE vs Se: night at Tranquility Base while the Shackleton ridge is lit but cannot see Earth",
+      "scenarios": [
+        { "site": "apollo-11", "time_utc": "2026-11-10T00:00" },
+        { "site": "shackleton-ridge", "time_utc": "2026-11-10T00:00" }
+      ]
+    },
+    {
+      "id": "km",
+      "_answers": "sE: the one-kilometre case (config/view.json example); the nearby points one kilometre away are in the card",
+      "jump_to_earth_view": true,
+      "scenarios": [
+        { "site": "im-2", "time_utc": "2026-11-14T00:00" }
+      ]
+    },
+    {
+      "id": "ridge_seasons",
+      "_answers": "Se → se: same ridge, half a year apart; Sun above the skyline 100 % of the hours in Nov 2026, 45 % in May 2027",
+      "scenarios": [
+        { "site": "shackleton-ridge", "time_utc": "2026-11-10T00:00" },
+        { "site": "shackleton-ridge", "time_utc": "2027-05-20T00:00" }
+      ]
+    }
+  ]
+}

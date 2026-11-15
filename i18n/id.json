@@ -504,5 +504,13 @@
   "footer.entry": "Still in View, peserta NASA Space Apps Challenge 2026 (Lunar Landing Site Navigator)",
   "footer.team": "Tim Aiman Malib",
   "footer.code": "Kode sumber",
-  "footer.slides": "Salindia (PDF)"
+  "footer.slides": "Salindia (PDF)",
+  "preset.heading": "Coba sebuah perbandingan",
+  "preset.label": "Perbandingan siap pakai",
+  "preset.slip": "Peluncuran mundur dua minggu",
+  "preset.im1": "IM-1: rencana vs tempat mendarat",
+  "preset.apollo_pole": "Apollo 11 vs kutub selatan",
+  "preset.km": "Satu kilometer jauhnya",
+  "preset.ridge_seasons": "Punggungan: musim panas vs musim dingin",
+  "preset.done": "Dimuat: {name}."
 }

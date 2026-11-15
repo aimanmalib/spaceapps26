@@ -504,5 +504,13 @@
   "footer.entry": "Still in View, an entry in the NASA Space Apps Challenge 2026 (Lunar Landing Site Navigator)",
   "footer.team": "Team Aiman Malib",
   "footer.code": "Source code",
-  "footer.slides": "Slides (PDF)"
+  "footer.slides": "Slides (PDF)",
+  "preset.heading": "Try a comparison",
+  "preset.label": "Ready-made comparisons",
+  "preset.slip": "Launch slipped two weeks",
+  "preset.im1": "IM-1: planned vs where it landed",
+  "preset.apollo_pole": "Apollo 11 vs the south pole",
+  "preset.km": "One kilometre away",
+  "preset.ridge_seasons": "Ridge: summer vs winter",
+  "preset.done": "Loaded: {name}."
 }
