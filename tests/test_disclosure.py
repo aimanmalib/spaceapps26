@@ -2,6 +2,7 @@
 """K9 / H6: every SI-generated source file says so in its first lines, every page carries the SI meta tag and footer
 link, and no media files outside docs/media/. Walks the folder (works in a clean
 export without .git)."""
+import json
 import os
 import re
 import unittest
@@ -53,7 +54,13 @@ class Disclosure(unittest.TestCase):
 
     def test_media_only_in_docs_media(self):
         stray = [r for r in walk() if r.lower().endswith(MEDIA_EXT) and not r.startswith(os.path.join("docs", "media") + os.sep)]
-        self.assertEqual(stray, [])
+        # P4r: the one exception is NASA's Apollo 8 photograph, stored unchanged under data/media and credited to NASA.
+        photo = os.path.join("data", "media", "as08-14-2383.jpg")
+        self.assertEqual(stray, [photo])
+        with open(os.path.join(ROOT, "data", "SOURCES.json"), encoding="utf-8") as f:
+            entry = {e["file"]: e for e in json.load(f)["files"]}["media/as08-14-2383.jpg"]
+        self.assertTrue(entry["license"].startswith("Credit: NASA"))
+        self.assertIn("images.nasa.gov", entry["page"])
 
     def test_retracted_origin_claims_do_not_return(self):
         # ADR 0024: the author did not write Malay notes, and the twelve items were listed by SI from two parts of the

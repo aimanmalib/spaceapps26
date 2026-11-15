@@ -177,7 +177,8 @@ SI was used in this project: Claude Code (Anthropic).
 - **Done by SI, on my instructions:** a feasibility comparison of the challenges, translation of the challenge text into Malay for
   me, build order, interface design, all code, data scripts and tests, slide layout, suggested project names, and the English text, drafted from my choices
   and the measured results and reviewed by me.
-- **Not used:** no SI-generated images, video or audio. Every image is a real screenshot of the tool.
+- **Not used:** no SI-generated images, video or audio. Every image is a real screenshot of the tool, except one credited NASA
+  photograph (Apollo 8, AS08-14-2383) on the home page, the About page and slide 1.
 
 Generated source files carry the header `SI-generated: Claude Code (Anthropic)`; each page has an `si-disclosure` meta tag and a
 footer line. Full statement with "Who decided what": [`SI-DISCLOSURE.md`](SI-DISCLOSURE.md). Machine-readable form:

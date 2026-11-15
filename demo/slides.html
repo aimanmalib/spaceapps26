@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="si-disclosure" content="Slide layout generated with SI (Claude Code, Anthropic). English text drafted with SI from the author's choices and the measured results; numbers measured from data/validation.json; images are real screenshots of the app. See SI-DISCLOSURE.md.">
+<meta name="si-disclosure" content="Slide layout generated with SI (Claude Code, Anthropic). English text drafted with SI from the author's choices and the measured results; numbers measured from data/validation.json; images are real screenshots of the app and one credited NASA photograph (Apollo 8). See SI-DISCLOSURE.md.">
 <title>Still in View: demo deck</title>
 <style>
   /* Same colour tokens as src/styles.css (the site). One slide = 1280 × 720 px = one PDF page (16:9). */
@@ -55,19 +55,25 @@
   table.checked td { font-size: 15px; padding: 6px 14px 6px 0; vertical-align: top; }
   .line { font-size: 17px; margin: 8px 0 0; }
   .closing { font-size: 23px; line-height: 1.45; margin: 36px 0 0; padding-left: 20px; border-left: 3px solid var(--accent); max-width: 1000px; }
+  /* Slide 1: NASA's Apollo 8 photograph (AS08-14-2383), cropped by CSS only, at the right of the title block. */
+  .photo { position: absolute; top: 44px; right: 72px; width: 300px; margin: 0; }
+  .photo img { display: block; width: 300px; height: 150px; object-fit: cover; object-position: 50% 72%; border-radius: 10px; border: 1px solid var(--line); }
+  .photo figcaption { color: var(--muted); font-size: 12px; margin-top: 4px; text-align: right; }
+  .beside-photo { padding-right: 330px; }
 </style>
 </head>
 <body>
 
 <section class="slide stack">
-  <div>
+  <figure class="photo"><img src="../data/media/as08-14-2383.jpg" alt="Photograph: Earth rising over the lunar horizon, taken from Apollo 8 on 24 December 1968 (NASA, AS08-14-2383)"><figcaption>Apollo 8, 1968 (AS08-14-2383). Credit: NASA</figcaption></figure>
+  <div class="beside-photo">
     <p class="kicker">NASA Space Apps Challenge 2026 · Jakarta (virtual)</p>
     <h1>Still in View</h1>
     <p class="lead">Sunlight for power and a direct line to Earth, for any landing site and date on the Moon, side by side.</p>
     <p class="line muted">Challenge: Lunar Landing Site Navigator · Team: Aiman Malib · Member: Muhammad Aiman Bin Malib</p>
   </div>
   <div class="shot"><img src="../docs/media/deck-cards.png" alt="Screenshot: two scenario cards, IM-2 and Apollo 11 at 2026-11-14 00:00 UTC, each with its solar power and direct-to-Earth answer"></div>
-  <p class="foot"><span>Try it: spaceapps26.aimanmalib.com · Code: github.com/aimanmalib/spaceapps26 · Images are real screenshots of the app.</span><span>1 / 7</span></p>
+  <p class="foot"><span>Try it: spaceapps26.aimanmalib.com · Code: github.com/aimanmalib/spaceapps26 · Images: real screenshots of the app, and one NASA photo.</span><span>1 / 7</span></p>
 </section>
 
 <section class="slide">

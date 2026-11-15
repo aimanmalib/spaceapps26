@@ -338,6 +338,27 @@ def teach_page(page, check, base, shots, name):
         check(page.locator(".card").count() == want, f"teach: {href} opens {want} card(s) in the tool")
 
 
+def masthead_photo(page, check):
+    """P4r: the NASA photo loads with alt text where it is shown, the title text keeps clear of it, and title contrast >= 4.5:1."""
+    r = page.evaluate("""() => {
+      const img = document.querySelector('.masthead-photo'); const b = img.getBoundingClientRect();
+      const lum = c => { const v = c.match(/[\\d.]+/g).slice(0, 3).map(x => { x /= 255; return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; });
+                         return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2]; };
+      const bg = lum(getComputedStyle(document.documentElement).backgroundColor);
+      let overlap = false, contrast = 99;
+      for (const el of document.querySelectorAll('.masthead .eyebrow, .masthead h1')) {
+        const rg = document.createRange(); rg.selectNodeContents(el);
+        for (const t of rg.getClientRects()) if (b.width && t.right > b.left && t.left < b.right && t.bottom > b.top && t.top < b.bottom) overlap = true;
+        const f = lum(getComputedStyle(el).color); contrast = Math.min(contrast, (Math.max(f, bg) + 0.05) / (Math.min(f, bg) + 0.05));
+      }
+      return {shown: b.width > 0, loaded: img.complete && img.naturalWidth > 0, alt: img.alt, overlap, contrast};
+    }""")
+    if r["shown"]:
+        check(r["loaded"] and "NASA" in r["alt"], f"masthead photo loaded with alt text ({r['alt'][:40]!r})")
+    check(not r["overlap"], "masthead: title text clear of the photo")
+    check(r["contrast"] >= 4.5, f"masthead: title contrast {r['contrast']:.1f}:1 >= 4.5:1")
+
+
 def run_profile(p, name, engine, ctx_opts, base, shots):
     browser = getattr(p, engine).launch()
     opts = p.devices[ctx_opts] if isinstance(ctx_opts, str) else ctx_opts
@@ -375,6 +396,7 @@ def run_profile(p, name, engine, ctx_opts, base, shots):
             sel, edge, limit = FIRST_SCREEN[name]
             pos = first.locator(sel).evaluate("(e, k) => e.getBoundingClientRect()[k] + window.scrollY", edge)
             check(pos <= limit, f"first screen: {sel} {edge} {pos:.0f} px <= {limit} px")
+        masthead_photo(page, check)
         wide = page.evaluate("() => window.innerWidth >= 1024")
         check(first.locator(".map2d details").evaluate("d => d.open") == wide, "first screen: 2D map open only on wide windows")
         near = page.locator(".card").evaluate_all(
