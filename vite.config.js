@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite';
 import { cpSync, existsSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { staticMeta } from './src/static-meta.js';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 
@@ -12,7 +13,16 @@ const copyData = {
   apply: 'build',
   closeBundle() {
     cpSync(`${root}data`, `${root}dist/data`, { recursive: true });
+    // The deck travels with the site so a copy hosted elsewhere (GitHub Pages, P4y) can link its own demo/demo.pdf.
+    if (existsSync(`${root}demo/demo.pdf`)) cpSync(`${root}demo/demo.pdf`, `${root}dist/demo/demo.pdf`);
   },
+};
+
+// Title, description, og: tags and the favicon link written into every page from i18n/en.json (src/static-meta.js).
+const en = JSON.parse(readFileSync(`${root}i18n/en.json`, 'utf8'));
+const pageMeta = {
+  name: 'static-page-meta',
+  transformIndexHtml: { order: 'post', handler: (html) => staticMeta(html, en) },
 };
 
 // Pages with their source under src/ (repo file scope): the game (P4j) and the page for teachers (P4o). Each is served
@@ -53,5 +63,5 @@ export default defineConfig({
       },
     },
   },
-  plugins: [copyData, srcPagesAtRoot],
+  plugins: [copyData, pageMeta, srcPagesAtRoot],
 });

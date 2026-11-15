@@ -56,8 +56,12 @@ class Disclosure(unittest.TestCase):
         stray = [r for r in walk() if r.lower().endswith(MEDIA_EXT) and not r.startswith(os.path.join("docs", "media") + os.sep)]
         # P4r: the one exception is NASA's Apollo 8 photograph, stored unchanged under public/media and credited to NASA
         # on the Data sources page and in REFERENCES.md.
+        # P4y: the favicon is SVG source code (a disc over a line, written like the charts the pages draw), with the SI header.
         photo = os.path.join("public", "media", "as08-14-2383.jpg")
-        self.assertEqual(stray, [photo])
+        icon = os.path.join("public", "favicon.svg")
+        self.assertEqual(sorted(stray), sorted([photo, icon]))
+        with open(os.path.join(ROOT, icon), encoding="utf-8") as f:
+            self.assertIn("SI-generated: Claude Code", f.read())
         with open(os.path.join(ROOT, "i18n", "en.json"), encoding="utf-8") as f:
             self.assertIn("Credit: NASA", json.load(f)["sources.photo.text"])
         for rel in ("sources.html", "REFERENCES.md"):

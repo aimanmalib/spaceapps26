@@ -171,6 +171,8 @@ itself ranges from 51.0 % to 84.7 % within the 3 × 3 pixels around it. It is re
 - `python3 e2e/smoke.py <site URL>` — browser smoke test of a deployed copy (Chromium desktop 1280 px,
   Chromium 320 px, WebKit iPhone 13): the comparison and validation pages work, no console errors,
   no requests to other hosts, no horizontal overflow. Needs the Python `playwright` package and its browsers.
+- `python3 e2e/subpath.py` — the same smoke test on `dist/` served under `/spaceapps26/`, as GitHub Pages serves it.
+  `bash deploy/pages.sh` pushes that build to branch `gh-pages` (Pages itself is switched on in the repository settings).
 
 ## AI disclosure (Super Intelligence / SI use)
 
