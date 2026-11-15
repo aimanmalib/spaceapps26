@@ -22,8 +22,8 @@ For planners: a GO / RISKY / NO-GO line for each scenario, with the longest nigh
 of every site by day; ready comparisons such as "Launch slipped two weeks"; eighteen sites with seven future south polar targets
 (six of NASA's nine Artemis III candidate regions); a terrain skyline for your own coordinates south of 75°S; lunar eclipses, when
 Earth hides the Sun from a lit site (matched to NASA's eclipse list); the hourly table behind each card as a CSV file; and dates
-to the end of 2050. Checked against JPL Horizons at
-924 random site-and-minute pairs: every yes/no answer the same.
+to the end of 2070. Checked against JPL Horizons at
+972 random site-and-minute pairs: every yes/no answer the same.
 
 ![A card where the answer is a close call: IM-2 on 2026-11-06 20:00 UTC, Earth 0.6° above the LOLA skyline, marked "the Earth link answer changes inside the terrain range" (real screen capture)](docs/media/deck-closecall.png)
 
@@ -46,8 +46,8 @@ Open this case: <https://aimanmalib.github.io/spaceapps26/?s=im-2,2026-11-14T00:
 
 - Sun and Earth angles against JPL Horizons at 720 random site-and-minute pairs (40 at each of the 18 listed sites,
   2026-11-01 to 2030-12-31, frozen tables and in-browser engine): largest difference 0.0152°, same solar power answer
-  720 of 720, same Earth answer 720 of 720. With the earlier checks: 924 different site-and-minute pairs (3696 reference angles),
-  every yes/no answer the same, 924 of 924 (details under [Validation](docs/DETAILS.md#validation)).
+  720 of 720, same Earth answer 720 of 720. With the earlier checks: 972 different site-and-minute pairs (3888 reference angles),
+  every yes/no answer the same, 972 of 972 (details under [Validation](docs/DETAILS.md#validation)).
 - Terrain horizon against the NASA GSFC PGDA visibility maps, over the same 18.6 years: at the IM-1 and IM-2 sites the Sun and
   Earth differ by 0.1 percentage points or less; at the other 8 listed terrain sites the Sun differs by 0.0 to
   15.6 points. At a ridge check point near the pole the Sun differs by 17.6 points; there the
@@ -64,7 +64,7 @@ always change). No account, key or login is needed.
 | Sun and Earth angles match JPL Horizons at every listed site, 2026 to 2030 | `data/validation-scale.json`; raw answers `data/horizons-cache.json` | `rm data/horizons-cache.json && python3 scripts/validate.py --scale` |
 | The page's hourly interpolation of the frozen tables | `data/validation.json` (`horizons`) | `python3 scripts/validate.py` |
 | Own coordinates: the in-browser engine at unnamed points | `data/validation.json` (`engine`) | `python3 scripts/validate.py --engine` |
-| Dates after the frozen tables, 2028 to 2050 | `data/validation-years.json` | `python3 scripts/validate_years.py` |
+| Dates after the frozen tables, 2028 to 2070 | `data/validation-years.json` | `python3 scripts/validate_years.py` |
 | Terrain skyline against NASA PGDA maps: same 18.6 years; random points | `data/validation.json` (`pgda_period`; `pgda_sample`) | `python3 scripts/horizon.py --download && python3 scripts/pgda_period.py && python3 scripts/pgda_sample.py` |
 | The one-kilometre finding | `data/shift-year/shift-year.json` | `python3 scripts/horizon.py --download && python3 scripts/shifts.py && node scripts/shift_year.mjs` |
 | The frozen Sun and Earth tables | `data/ephem/<site>.json` | `python3 scripts/fetch_horizons.py im-2` |
@@ -184,7 +184,7 @@ SI was used in this project: Claude Code (Anthropic).
   every card; the terrain range on the terrain cards; and four more south polar sites, three of them future targets that SI
   picked from NASA and LROC pages that state a coordinate). Also that evening: to add features that other public entries to this
   challenge had and this one lacked (ready-made comparisons, a mission check, a calendar of every site by day, a view from the
-  lander, dates to the end of 2030, later 2040 and 2050); SI compared the entries and several SI sessions built the features in parallel.
+  lander, dates to the end of 2030, later 2040, 2050 and 2070); SI compared the entries and several SI sessions built the features in parallel.
 - **Done by SI, on my instructions:** a feasibility comparison of the challenges, translation of the challenge text into Malay for
   me, build order, interface design, all code, data scripts and tests, slide layout, suggested project names, the red-team review of
   the entry with its measurements and the changes adopted from it, the optional Indonesian and

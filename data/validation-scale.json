@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-15T16:10:56Z",
+ "generated_at": "2026-11-15T16:23:57Z",
  "script": "scripts/validate.py --scale",
  "seed": 20261117,
  "from": "2026-11-01 00:00",
