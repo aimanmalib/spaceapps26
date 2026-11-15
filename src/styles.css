@@ -289,6 +289,14 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .surf-range { display: block; width: 100%; max-width: 30rem; margin: 0.35rem 0 0; accent-color: var(--accent); }
 .surf-frame { width: 100%; max-width: 30rem; margin: 0.75rem 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--bg); }
 .surf-canvas { display: block; width: 100%; height: auto; }
+/* From the lander (ADR 0103): wider frame, drag to turn; touch keeps vertical page scrolling. */
+.lander-frame { max-width: 45rem; background: var(--sky); }
+.lander-canvas { touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+.lander-canvas:active { cursor: grabbing; }
+.lander-canvas:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.lander-bar { align-items: center; }
+.lander-faces { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.lander-hint { margin: 0; font-size: 0.8125rem; color: var(--muted); }
 
 /* About and Data sources pages */
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

@@ -52,7 +52,7 @@ const sun = Object.fromEntries(
 );
 const map = items.h_map_2d ? { cfg: mapCfg, maps, sun } : null;
 // 3D surface (item i): the same heights, turned and tilted.
-const surface = items.i_surface_3d ? { cfg: surfCfg, light: mapCfg, maps } : null;
+const surface = items.i_surface_3d ? { cfg: surfCfg, light: mapCfg, maps, radii: view.timeline.year.disc_radius_deg } : null;
 // Shareable link: scenarios from the address (src/share.js); "Now" works inside the frozen tables' date range.
 const shared = decodeScenarios(location.search, { cfg: view.share, siteIds: new Set(sitesConfig.sites.map((s) => s.id)), max: view.max_scenarios, custom: custom?.cfg });
 const share = { cfg: view.share, range: { startMs: parseUtc(eph.start), endMs: parseUtc(eph.stop) }, ...shared };
