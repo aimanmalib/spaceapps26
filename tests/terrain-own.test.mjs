@@ -63,11 +63,22 @@ test('coarse grids: files match config/terrain-own.json and the projection of th
   for (const g of tcfg.grids) {
     const from = src[g.from];
     assert.equal(statSync(`${root}data/${g.file}`).size, g.size * g.size * 2, g.file);
+    if (g.crop_px) {
+      // Pole crop: unchanged pixels of the source, centred on the pole.
+      assert.equal(g.factor, 1);
+      assert.equal(g.size, g.crop_px);
+      assert.equal(g.scale_m, from.scale_m);
+      assert.equal(g.offset_px, from.offset_px - (from.size - g.crop_px) / 2);
+      continue;
+    }
     assert.equal(g.size * g.factor, from.size);
     assert.equal(g.scale_m, from.scale_m * g.factor);
     assert.equal(g.offset_px, (from.offset_px - (g.factor - 1) / 2) / g.factor);
     assert.equal(g.max_lat, from.max_lat);
   }
+  // Finest first, so the rays read the pole crop wherever it covers them.
+  const scales = tcfg.grids.map((g) => g.scale_m);
+  assert.deepEqual(scales, [...scales].sort((a, b) => a - b));
   assert.equal(tcfg.lat_max, Math.max(...tcfg.grids.map((g) => g.max_lat)));
 });
 
@@ -84,10 +95,17 @@ test('gate record: every listed site with an 80 m skyline is measured; labels ta
   assert.deepEqual(gate.sites.map((s) => s.site).sort(), withProfile.map((s) => s.id).sort());
   assert.equal(gate.gate_pct, tcfg.gate_pct);
   for (const s of gate.sites) assert.equal(s.pass, s.both_same_pct >= gate.gate_pct, s.site);
+  for (const s of gate.sites) assert.equal(s.coarse_only_pass, s.coarse_only_both_same_pct >= gate.gate_pct, s.site);
+  // As shipped (pole crop + coarse copies) every measured point passes; the labels name the coarse-copy numbers.
+  for (const s of [...gate.sites, ...gate.check_points]) assert.ok(s.pass, `${s.site} ${s.both_same_pct}`);
   const v = gateValues(gate, tcfg, Object.fromEntries(sites.map((s) => [s.id, s.name])));
   assert.equal(v.total, gate.sites.length);
-  assert.equal(v.pass, gate.sites.filter((s) => s.pass).length);
-  assert.equal(v.lowPct, gate.lowest_both_same_pct);
+  assert.equal(v.pass, gate.sites.filter((s) => s.coarse_only_pass).length);
+  assert.equal(v.lowPct, gate.lowest_coarse_only_both_same_pct);
+  assert.equal(v.pole, 80);
+  assert.equal(v.poleKm, 20);
+  assert.equal(v.fine, 400);
+  assert.equal(v.coarse, 960);
   assert.equal(v.terrainLat, '75');
   assert.ok(!v.lowSite.includes('('));
   // ADR 0037's IM-1 number at 400 m is reproduced by the same method on the stored grids.
@@ -112,7 +130,7 @@ test('client: points north of the limit resolve to null without starting the wor
 test('i18n: the terrain label says coarse grid, 80 m profiles and ADR 0037 in every language file', () => {
   for (const lang of ['en', 'id', 'ms']) {
     const d = read(`i18n/${lang}.json`);
-    for (const k of ['terrainown.horizon', 'terrainown.horizon_outer', 'terrainown.details', 'terrainown.loading', 'terrainown.failed']) assert.ok(d[k], `${lang} ${k}`);
+    for (const k of ['terrainown.horizon', 'terrainown.horizon_pole', 'terrainown.horizon_outer', 'terrainown.details', 'terrainown.loading', 'terrainown.failed']) assert.ok(d[k], `${lang} ${k}`);
     assert.ok(d['terrainown.horizon'].includes('ADR 0037') && d['terrainown.horizon'].includes('80 m') && d['terrainown.horizon'].includes('{fine} m'), lang);
   }
 });

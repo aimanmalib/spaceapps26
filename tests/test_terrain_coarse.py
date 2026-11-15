@@ -38,6 +38,23 @@ class Coarse(unittest.TestCase):
                     self.assertAlmostEqual(rc, (r - (factor - 1) / 2) / factor, places=6)
                     self.assertAlmostEqual(cc, (c - (factor - 1) / 2) / factor, places=6)
 
+    def test_pole_crop_keeps_pixels_and_projection(self):
+        src = {"name": "s", "size": 8, "scale_m": 80.0, "offset_px": 3.5, "max_lat": -80, "dn_scale_m": 0.5}
+        h = np.arange(64, dtype="<i2")
+        start = C.crop_start(src, 4)
+        self.assertEqual(start, 2)
+        self.assertEqual(C.crop(h, 8, 4, start).tolist(), [[18, 19, 20, 21], [26, 27, 28, 29], [34, 35, 36, 37], [42, 43, 44, 45]])
+        spec = C.crop_spec(src, 4)
+        self.assertEqual(spec, {"size": 4, "scale_m": 80.0, "offset_px": 1.5})
+        fine = H.Dem(src, 1737400.0, [])
+        cut = H.Dem({**src, **spec}, 1737400.0, [])
+        r, c = fine.pixel(*H.unit(-89.99, 30.0))
+        rc, cc = cut.pixel(*H.unit(-89.99, 30.0))
+        self.assertAlmostEqual(rc, r - start, places=9)
+        self.assertAlmostEqual(cc, c - start, places=9)
+        with self.assertRaises(ValueError):
+            C.crop_start(src, 3)
+
     def test_every_coarse_file_and_the_gate_have_a_source_entry(self):
         tcfg = json.loads((ROOT / "config/terrain-own.json").read_text(encoding="utf-8"))
         sources = {e["file"]: e for e in json.loads((ROOT / "data/SOURCES.json").read_text(encoding="utf-8"))["files"]}

@@ -108,22 +108,27 @@ export function siteGridM(specs, grids, lat, lon) {
   return i < 0 ? null : specs[i].scale_m;
 }
 
-// Text values from data/terrain/gate.json (scripts/terrain_gate.mjs) for the labels: gate, sites passing, lowest site.
+// Text values from data/terrain/gate.json (scripts/terrain_gate.mjs) for the labels. pass/total/lowest come from the
+// block-mean copies alone (what holds for a point outside the pole crop); list = the numbers with the grids as shipped.
 export function gateValues(gate, terrainCfg, siteNames = {}) {
   const name = (id) => (siteNames[id] ?? id).split(' (')[0]; // short form: no bracket part
-  const low = gate.sites.reduce((a, b) => (b.both_same_pct < a.both_same_pct ? b : a), gate.sites[0]);
+  const low = gate.sites.reduce((a, b) => (b.coarse_only_both_same_pct < a.coarse_only_both_same_pct ? b : a), gate.sites[0]);
   const mb = terrainCfg.grids.reduce((s, g) => s + g.size * g.size * 2, 0) / 1e6;
+  const pole = terrainCfg.grids.find((g) => g.factor === 1);
+  const blocks = terrainCfg.grids.filter((g) => g.factor > 1);
   return {
     gate: gate.gate_pct,
-    pass: gate.sites.filter((s) => s.pass).length,
+    pass: gate.sites.filter((s) => s.coarse_only_pass).length,
     total: gate.sites.length,
     lowSite: name(low.site),
-    lowPct: low.both_same_pct,
+    lowPct: low.coarse_only_both_same_pct,
     terrainLat: String(-terrainCfg.lat_max),
     mb: mb.toFixed(1),
-    fine: terrainCfg.grids[0].scale_m,
-    coarse: terrainCfg.grids[terrainCfg.grids.length - 1].scale_m,
+    pole: pole?.scale_m ?? null,
+    poleKm: pole ? Math.round((pole.size * pole.scale_m) / 2000) : null,
+    fine: blocks[0].scale_m,
+    coarse: blocks[blocks.length - 1].scale_m,
+    fineLat: String(-blocks[0].max_lat),
     list: gate.sites.map((s) => `${name(s.site)} ${s.both_same_pct} %`).join('; '),
-    fineLat: String(-terrainCfg.grids[0].max_lat),
   };
 }

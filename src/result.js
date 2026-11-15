@@ -54,14 +54,17 @@ function source(t, site) {
 }
 
 function horizonKey(r) {
-  if (r.profile?.coarse) return 'terrainown.details';
+  if (r.profile?.ownTerrain) return 'terrainown.details';
   if (r.profile) return 'details.horizon_terrain';
   return r.site.custom ? 'details.horizon_custom' : 'details.horizon';
 }
 
 // Line under the panorama naming the horizon used; own points get the coarse-grid label of ADR 0106 or the sphere.
 function kindKey(r) {
-  if (r.profile?.coarse) return r.profile.grid_m === r.own?.fine ? 'terrainown.horizon' : 'terrainown.horizon_outer';
+  if (r.profile?.ownTerrain) {
+    if (r.profile.grid_m === r.own?.pole) return 'terrainown.horizon_pole';
+    return r.profile.grid_m === r.own?.fine ? 'terrainown.horizon' : 'terrainown.horizon_outer';
+  }
   if (r.profile) return 'horizon.terrain';
   if (r.site.custom) return r.terrainFailed ? 'terrainown.failed' : 'horizon.custom';
   return 'horizon.sphere';

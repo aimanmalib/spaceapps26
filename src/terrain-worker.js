@@ -23,7 +23,7 @@ self.onmessage = async ({ data }) => {
   try {
     const g = await load(data);
     const p = terrainProfile(data.horizon, g, data.site.lat, data.site.lon_east);
-    const profile = p && { ...p, coarse: true, grid_m: siteGridM(data.terrain.grids, g, data.site.lat, data.site.lon_east) };
+    const profile = p && { ...p, ownTerrain: true, grid_m: siteGridM(data.terrain.grids, g, data.site.lat, data.site.lon_east) };
     self.postMessage({ id: data.id, profile });
   } catch (err) {
     self.postMessage({ id: data.id, error: String(err) });
