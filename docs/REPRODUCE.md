@@ -7,7 +7,7 @@ npm ci
 bash scripts/reproduce.sh          # or: bash scripts/reproduce.sh --list   (prints the steps only)
 ```
 
-- No account, key or login. Python 3 standard library and Node 22.
+- No account, key or login. Python 3 standard library (plus NumPy for `scripts/terrain_coarse.py`) and Node 22.
 - Large download: the two LOLA south-polar DEMs (`ldem_80s_80m`, `ldem_75s_240m`, about 145 MB together) from the NASA PDS
   Geosciences Node, saved to the cache folder in `config/horizon.json`, outside the repository.
 - The PGDA checks read only the few map pixels around each point with HTTP byte ranges; nothing large is stored.

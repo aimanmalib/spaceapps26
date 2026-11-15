@@ -21,4 +21,6 @@ jobs:
         with:
           python-version: '3.12'
       - run: npm ci --no-audit --no-fund
+      # tests/test_terrain_coarse.py imports NumPy (scripts/terrain_coarse.py: block means of the LOLA grids); same version as the data was built with.
+      - run: python -m pip install --quiet numpy==2.5.2
       - run: bash scripts/gerbang-ujian.sh

@@ -88,6 +88,7 @@ The site's Data sources page shows the same per-file list.
 | Node.js | 22 | MIT | build and tests |
 | Python | 3 (standard library) | PSF | data scripts and tests |
 | Playwright for Python (Microsoft) | 1.62.0 | Apache-2.0 | browser smoke test (`e2e/smoke.py`), screenshots (`scripts/capture_media.py`) and the demo PDF (`scripts/render_demo.py`); <https://playwright.dev/python/> |
+| NumPy | 2.5.2 | BSD-3-Clause | block means of the LOLA grids for the terrain skyline of own coordinates (`scripts/terrain_coarse.py` and its test only); <https://numpy.org/> |
 | Pillow | 13.0.0 | MIT-CMU (HPND) | joins the timeline screenshots into `docs/media/timeline.gif` (`scripts/capture_media.py` only); <https://python-pillow.org/> |
 | Claude Code (Anthropic) | — | — | SI tool; see SI-DISCLOSURE.md |
 
