@@ -37,6 +37,12 @@ The project has no numbered releases: the site is one continuous build, and each
 - Visual pass: a self-hosted typeface (IBM Plex Sans, SIL OFL 1.1), one type scale, the mission check badge and the verdict first
   in every card, page links on one row on phones (ADR 0107).
 - README: Features, limitations, the one-year table, Data and the full Validation moved unchanged to `docs/DETAILS.md`.
+- One header and one footer on every page: the mark and the name in the row of page links (same height as before), and a
+  footer in three groups, Product, Science and Project (ADR 0111).
+
+### Fixed
+- On a real iPhone the "Date and time (UTC)" box ran past the card (iOS Safari draws date inputs with its own minimum width;
+  emulators do not show it). The native appearance is dropped so the field stays inside the card.
 
 ## 2026-11-15, evening: changes adopted from an SI red-team review
 
