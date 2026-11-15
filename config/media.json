@@ -58,7 +58,7 @@
     "height_px": 720
   },
   "deck_png": {
-    "_note": "Demo-deck crops (readable at slide size): each shot = the union of its selectors on the live Compare page, default scenarios. 'open' = a card block opened first. Optional per-shot 'viewport' (CSS px) overrides the deck viewport. 'click' = an element clicked first, then 'ready' awaited (shots after it see the clicked state, so such shots go last). 'year' is also a gallery image (item d). Optional per-shot 'pad' overrides pad. A shot with its own viewport goes last (resizing re-lays out the page). A shot with 'query' opens the Compare page with those scenarios (a shareable link) on its own page, after the others.",
+    "_note": "Demo-deck crops (readable at slide size): each shot = the union of its selectors on the live Compare page, default scenarios. 'open' = a card block opened first. Optional per-shot 'viewport' (CSS px) overrides the deck viewport. 'click' = an element clicked first, then 'ready' awaited (shots after it see the clicked state, so such shots go last). 'year' is also a gallery image (item d). Optional per-shot 'pad' overrides pad. A shot with its own viewport goes last (resizing re-lays out the page). A shot with 'query' opens the Compare page with those scenarios (a shareable link) on its own page, after the others. Such a shot may name another page as 'query' with a 'wait' selector, and 'clicks' to press before the shot.",
     "viewport": {
       "width": 1280,
       "height": 800
@@ -133,6 +133,50 @@
           ".cards .card:nth-child(3) .pano"
         ],
         "pad": 8
+      },
+      {
+        "name": "deck-top",
+        "query": "",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        },
+        "selectors": [
+          ".presets",
+          ".cards .card:nth-child(1) .answer-comm",
+          ".cards .card:nth-child(2) .answer-comm"
+        ],
+        "pad": 10
+      },
+      {
+        "name": "deck-calendar",
+        "query": "overview.html",
+        "wait": "#calendar .cal-cell",
+        "viewport": {
+          "width": 1180,
+          "height": 900
+        },
+        "selectors": [
+          "#calendar"
+        ],
+        "pad": 8
+      },
+      {
+        "name": "deck-lander",
+        "query": "?s=im-2,2026-11-16T00:00",
+        "clicks": [
+          ".cards .card:nth-child(1) .surface3d summary",
+          ".cards .card:nth-child(1) .lander-open"
+        ],
+        "ready": "() => document.querySelector('.card .lander-canvas')?.width > 0",
+        "viewport": {
+          "width": 760,
+          "height": 900
+        },
+        "selectors": [
+          ".cards .card:nth-child(1) .lander-canvas"
+        ],
+        "pad": 6
       }
     ]
   }
