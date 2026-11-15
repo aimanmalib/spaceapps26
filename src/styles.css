@@ -461,3 +461,8 @@ th[aria-sort] .ov-sort { color: var(--text); }
 .foot .langs { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 0.25rem 0.5rem; }
 .foot .langs a[aria-current] { color: var(--muted); text-decoration: none; }
 .foot .lang-note { flex-basis: 100%; margin: 0; }
+/* First footer line: entry, team, source code, slides. */
+.foot .foot-id { flex-basis: 100%; margin: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 0.5rem; color: var(--text); }
+.foot .fi-rest { min-width: 0; }
+@media (min-width: 60rem) { .foot .fi-rest::before { content: '· '; } }
+@media (max-width: 59.99rem) { .foot .fi-entry { flex-basis: 100%; } }

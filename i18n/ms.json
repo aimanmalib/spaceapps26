@@ -475,5 +475,9 @@
   "ov.find.run": "Tempoh tanpa putus terpanjang dengan kedua-duanya kelihatan: {sites}, {d} hari ({start} hingga {end}).",
   "ov.note": "Geometri sahaja: tiada kuasa pencahayaan, pautan komunikasi atau bahaya pendaratan dimodelkan. Tapak dengan garis langit rupa bumi LOLA dan tapak pada sfera ideal menggunakan ufuk yang berbeza, jadi nombornya tidak setara. Peratusan IM-1 dan IM-2 ialah yang disemak dengan NASA PGDA di halaman Pengesahan.",
   "ov.generated": "Dikira oleh scripts/overview.mjs daripada jadual setiap jam yang dibekukan dalam data/ (data/overview.json); tiada apa-apa dikira di halaman ini.",
-  "meta.share_image_alt": "Still in View: IM-2 pada 2026-11-14 00:00 UTC, tiada cahaya Matahari untuk kuasa solar, Bumi 1.3° di atas ufuk rupa bumi (tangkapan skrin sebenar)"
+  "meta.share_image_alt": "Still in View: IM-2 pada 2026-11-14 00:00 UTC, tiada cahaya Matahari untuk kuasa solar, Bumi 1.3° di atas ufuk rupa bumi (tangkapan skrin sebenar)",
+  "footer.entry": "Still in View, penyertaan NASA Space Apps Challenge 2026 (Lunar Landing Site Navigator)",
+  "footer.team": "Pasukan Aiman Malib",
+  "footer.code": "Kod sumber",
+  "footer.slides": "Slaid (PDF)"
 }

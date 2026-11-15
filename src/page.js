@@ -45,12 +45,25 @@ function switcher(doc, t) {
   }
 }
 
+// First footer line: what this page belongs to, with the source code and the slide deck one click away.
+function identity(doc, t) {
+  const foot = doc.querySelector('footer.foot');
+  if (!foot) return;
+  const p = doc.createElement('p');
+  p.className = 'foot-id';
+  p.innerHTML = `<span class="fi-entry">${e(t('footer.entry'))}</span>` +
+    `<span class="fi-rest">${e(t('footer.team'))} <span aria-hidden="true">·</span> <a href="${e(app.repo_url)}">${e(t('footer.code'))}</a>` +
+    ` <span aria-hidden="true">·</span> <a href="./demo/demo.pdf">${e(t('footer.slides'))}</a></span>`;
+  foot.prepend(p);
+}
+
 export function initPage(doc = document) {
   const t = makeT(dict);
   doc.documentElement.lang = lang;
   applyText(doc, t);
   const si = doc.getElementById('si-link');
   if (si) si.href = app.repo_url + app.si_disclosure_path;
+  identity(doc, t);
   switcher(doc, t);
   if (lang !== langCfg.default) keepLang(doc);
   return { t, app, lang };
