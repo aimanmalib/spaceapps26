@@ -132,7 +132,7 @@ h2 { font-size: clamp(1.25rem, 4vw, 1.6rem); margin: 0 0 0.5rem; }
 .tour-nav .btn { margin-top: 0; }
 .tour-close { position: absolute; top: 0.5rem; right: 0.5rem; }
 .tour-on { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 0.5rem; }
-@media (max-width: 30rem) { .tour { inset: auto 0.75rem 0.75rem; width: auto; } }
+@media (max-width: 30rem) { .tour { inset: auto 0.75rem 0.75rem; width: auto; max-width: none; } }
 .field select:focus-visible, .field input:focus-visible, .btn:focus-visible, .btn-quiet:focus-visible,
 .tech summary:focus-visible, .tech a:focus-visible, .mm-box summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .card-result { margin-top: 0.75rem; }
