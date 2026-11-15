@@ -102,6 +102,11 @@ class PgdaTest(unittest.TestCase):
         ):
             self.assertIn(text, flat)
         self.assertTrue(low["sun"] < pp["ridge"]["pgda"]["sun"]["value"] < high["sun"])
+        # The opening lines of the README and slide 1 repeat the landing-site number.
+        head = f"within {pp['landing_sites']['max_abs'] * 100:.1f} percentage points at IM-1 and IM-2 over the same {pp['period']['years']} years"
+        self.assertIn(head, flat)
+        slides = (ROOT / "demo/slides.html").read_text(encoding="utf-8")
+        self.assertIn(f"within <span class=\"num\">{pp['landing_sites']['max_abs'] * 100:.1f}</span> percentage points at IM-1 and IM-2", slides)
         self.assertNotIn("periods differ", readme)
 
     def test_block_points_are_a_3_by_3_block_one_offset_apart(self):
