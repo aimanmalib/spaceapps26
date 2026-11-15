@@ -257,10 +257,13 @@ export function mountCompare(root, { t, sites, view, horizons = {}, features = {
       const heading = target.querySelector('.ev-title, .card-title');
       const km = earthview?.dirs?.location_offset_km ?? '';
       status.textContent = fill(t('tool.example_done'), { site: siteById.get(sc.site).name, time: sc.time_utc.replace('T', ' '), km });
-      const still = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
       heading?.setAttribute('tabindex', '-1');
       heading?.focus({ preventScroll: true });
-      target.scrollIntoView({ block: 'start', behavior: still ? 'auto' : 'smooth' });
+      // Jump, do not animate: the cards were just replaced, and on WebKit a smooth scroll started while the layout is
+      // still settling can end at the page bottom. The jump is repeated after two frames, when the new card has its height.
+      const jump = () => target.isConnected && target.scrollIntoView({ block: 'start', behavior: 'auto' });
+      jump();
+      requestAnimationFrame(() => requestAnimationFrame(jump));
     });
   }
 
