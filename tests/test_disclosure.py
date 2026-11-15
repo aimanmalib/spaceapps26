@@ -35,10 +35,13 @@ class Disclosure(unittest.TestCase):
         self.assertEqual(missing, [])
 
     def test_pages_have_meta_and_footer_link(self):
-        pages = [f for f in os.listdir(ROOT) if f.endswith(".html")]
-        self.assertGreaterEqual(len(pages), 4)
+        # Served name -> source file; the game page is built from src/play.html to /play.html (vite.config.js, P4j).
+        files = {f: f for f in os.listdir(ROOT) if f.endswith(".html")}
+        files["play.html"] = os.path.join("src", "play.html")
+        pages = list(files)
+        self.assertGreaterEqual(len(pages), 5)
         for f in pages:
-            with open(os.path.join(ROOT, f), encoding="utf-8") as fh:
+            with open(os.path.join(ROOT, files[f]), encoding="utf-8") as fh:
                 html = fh.read()
             self.assertRegex(html, r'<meta name="si-disclosure" content="[^"]+"', f)
             self.assertIn('id="si-link"', html, f)

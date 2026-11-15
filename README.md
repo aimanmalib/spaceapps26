@@ -52,7 +52,7 @@ Built:
   `?s=custom,<lat>,<lon east>,<UTC time>`); opening it restores the cards, and values that cannot be read are skipped with a
   visible notice. "Set all to now (UTC)" moves every card to the current hour while it is inside the data (otherwise the button is
   off and says why). Above the side-by-side table, one plain sentence per scenario repeats the card's two answers.
-- Play (educational game, challenge text: "an educational game"): `play.html`, six rounds from `config/game.json`. Each round
+- Play (educational game, challenge text: "an educational game"): `/play.html` (source `src/play.html`), six rounds from `config/game.json`. Each round
   shows one listed site and one UTC time; the player answers the two questions (Sun above the horizon used, Earth above it) and
   presses Check. The answers are not stored in the config: they are computed with the same tables, terrain skylines and judgement
   as the Compare page, with one sentence per answer giving the elevation, the horizon in that direction and the margin, the

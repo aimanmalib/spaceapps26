@@ -12,7 +12,8 @@ sentence allows: the two questions the tool already answers, no story, no new da
 
 ## Decision
 
-- New page `play.html` (nav link "Play" on every page), `src/play-main.js` (page) + `src/game.js` (pure functions).
+- New page `/play.html` (nav link "Play" on every page; source `src/play.html` because the repo file scope covers `src/` and
+  not new root files: `vite.config.js` serves it at `/play.html` in dev and moves the built page to `dist/play.html`), `src/play-main.js` (page) + `src/game.js` (pure functions).
 - A round = one listed site + one UTC time from `config/game.json`. The config holds no answers: `roundAnswers` samples the
   same frozen table (`data/ephem/`), uses the same terrain skyline where one exists (`data/horizon/`) and the same judgement
   as the Compare page (`judge` in `src/shifts.js`, `horizon_threshold_deg`). `tests/game.test.mjs` checks every configured
