@@ -491,7 +491,7 @@
   "teach.facts_heading": "Bulan dan Bumi",
   "teach.facts_intro": "Nilai dikutip dari lembar fakta NASA yang disebut di bawah; jarak ke ufuk dihitung dari jari-jari.",
   "teach.limits": "Batasan: hanya tanggal dari {start} sampai {stop} UTC; ufuk medan dan pergeseran {km} km hanya ada di enam lokasi kutub selatan; tanpa model panel surya, antena, atau satelit relai.",
-  "tool.trust": "Diperiksa terhadap JPL Horizons pada {of} waktu acak: selisih sudut terbesar {max}°, jawaban tenaga surya sama {power} dari {of}, jawaban Bumi sama {comm} dari {of}. Garis langit medan terhadap peta NASA PGDA, {years} tahun yang sama: dalam {pp} poin persentase di IM-1 dan IM-2; lokasi medan lainnya berselisih lebih besar.",
+  "tool.trust": "Diperiksa terhadap JPL Horizons pada {of} waktu acak: selisih sudut terbesar {max}°, jawaban sama: tenaga surya {power} dari {of}, Bumi {comm} dari {of}. Garis langit medan terhadap peta NASA PGDA, {years} tahun yang sama: dalam {pp} poin persentase di IM-1 dan IM-2; lokasi medan lainnya berselisih lebih besar.",
   "tool.trust_link": "Validasi",
   "answer.more": "Ketinggian dan lama jendela",
   "nav.overview": "Ikhtisar",

@@ -105,7 +105,7 @@ flowchart LR
   K --> W
   W --> U
   R --> U
-  R --> T["npm test: every number on the pages and in this README equals its file"]
+  R --> T["npm test: validation numbers on the pages and in this README match their files"]
 ```
 
 ## What we do not claim
