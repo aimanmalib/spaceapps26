@@ -1,6 +1,6 @@
 // SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
-// Terrain horizon for own coordinates (ADR 0106): the ray method of scripts/horizon.py, in JavaScript, on the coarse LOLA
-// grids written by scripts/terrain_coarse.py (data/terrain/). Ray settings come from config/horizon.json, grids from
+// Terrain horizon for own coordinates (ADR 0106): the ray method of scripts/horizon.py, in JavaScript, on the LOLA grids
+// written by scripts/terrain_coarse.py (data/terrain/: 80 m pole crop, 400 m and 960 m block means). Ray settings come from config/horizon.json, grids from
 // config/terrain-own.json. Pure functions: the Web Worker (src/terrain-worker.js) and scripts/terrain_gate.mjs share them.
 
 const RAD = Math.PI / 180;

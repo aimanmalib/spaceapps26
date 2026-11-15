@@ -1,5 +1,5 @@
 // SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
-// Terrain horizon for own coordinates (ADR 0106) off the main thread: loads the coarse LOLA grids once (browser HTTP
+// Terrain horizon for own coordinates (ADR 0106) off the main thread: loads the LOLA grids once (browser HTTP
 // cache across visits), then casts the rays of scripts/horizon.py (src/terrain-own.js) for each requested point.
 import { makeGrid, terrainProfile, siteGridM } from './terrain-own.js';
 

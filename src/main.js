@@ -48,7 +48,7 @@ const engine = items.b_custom_coordinates || items.l_small_shifts
 // Later dates (ADR 0104): past the frozen Horizons tables the same engine computes every site's angles (src/years.js).
 const years = engine ? { ...makeYears({ eph, cfg: yearsCfg, frozen: (id) => loadTable(view.data_path, id), engine }), checked: checkPassed(yearsCheck.summary, yearsCfg.check.max_diff_deg) } : null;
 const nearby = years ? years.engineAt : engine;
-// Terrain horizon for own points south of config/terrain-own.json lat_max (ADR 0106): coarse LOLA grids loaded on first use.
+// Terrain horizon for own points south of config/terrain-own.json lat_max (ADR 0106): LOLA grids loaded on first use.
 const terrain = items.j_terrain_horizon
   ? makeTerrainOwn(terrainOwnCfg, horizonCfg, () => new Worker(new URL('./terrain-worker.js', import.meta.url), { type: 'module' }), document.baseURI)
   : null;

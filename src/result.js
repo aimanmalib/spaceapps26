@@ -59,7 +59,7 @@ function horizonKey(r) {
   return r.site.custom ? 'details.horizon_custom' : 'details.horizon';
 }
 
-// Line under the panorama naming the horizon used; own points get the coarse-grid label of ADR 0106 or the sphere.
+// Line under the panorama naming the horizon used; own points get the grid label of ADR 0106 or the sphere.
 function kindKey(r) {
   if (r.profile?.ownTerrain) {
     if (r.profile.grid_m === r.own?.pole) return 'terrainown.horizon_pole';

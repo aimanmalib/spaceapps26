@@ -1,5 +1,5 @@
 // SI-generated: Claude Code (Anthropic) — see SI-DISCLOSURE.md
-// Terrain horizon for own coordinates (ADR 0106), main-thread side: decides whether a point needs the coarse LOLA grids
+// Terrain horizon for own coordinates (ADR 0106), main-thread side: decides whether a point needs the LOLA grids
 // (config/terrain-own.json lat_max), starts the Web Worker only then, and keeps one profile per point.
 import { inTerrainArea } from './terrain-own.js';
 

@@ -101,7 +101,7 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
     const mine = ++ticket;
     if (exBtn?.closest('.card')) exBtn.remove(); // the results below are rebuilt; placeExample() puts it back
     const inputs = cards.map((c) => ({ c, site: siteFor(c.el), ms: parseUtc(c.el.querySelector('input[type=datetime-local]').value) }));
-    // Own point south of the terrain limit (ADR 0106): the first one downloads the coarse LOLA grids, so say so.
+    // Own point south of the terrain limit (ADR 0106): the first one downloads the LOLA grids, so say so.
     const loadingKey = (s) => (!s.custom ? 'state.loading' : ownTerrain?.inArea(s) && !ownTerrain.ready() ? 'terrainown.loading' : 'custom.computing');
     for (const x of inputs) x.c.el.querySelector('.card-result').innerHTML = `<p class="note">${e(fill(t(loadingKey(x.site)), custom?.own ?? {}))}</p>`;
     const rows = await Promise.all(
@@ -109,10 +109,10 @@ export function mountCompare(root, { t, sites, view, horizons = {}, bands = {}, 
         if (x.site.error) return { ...x, msg: invalidText(t, x.site.error, custom.cfg) };
         try {
           const table = years ? years.table(x.site, x.ms) : x.site.custom ? custom.tables(x.site) : loadTable(view.data_path, x.site.id);
-          // Own point south of the terrain limit (ADR 0106): coarse LOLA skyline, the same for every date; sphere if it fails.
+          // Own point south of the terrain limit (ADR 0106): LOLA skyline, the same for every date; sphere if it fails.
           let terrainFailed = false;
-          const own = x.site.custom && ownTerrain ? ownTerrain.profile(x.site).catch(() => ((terrainFailed = true), null)) : null;
-          const [tb, profile, band] = await Promise.all([table, x.site.custom ? own : horizons[x.site.id]?.() ?? null, x.site.custom ? null : bands[x.site.id]?.() ?? null]);
+          const ownSky = x.site.custom && ownTerrain ? ownTerrain.profile(x.site).catch(() => ((terrainFailed = true), null)) : null;
+          const [tb, profile, band] = await Promise.all([table, x.site.custom ? ownSky : horizons[x.site.id]?.() ?? null, x.site.custom ? null : bands[x.site.id]?.() ?? null]);
           return { ...x, ...answer(x, tb, profile, band), own: custom?.own, terrainFailed };
         } catch {
           return { ...x, msg: t('state.load_error') };
