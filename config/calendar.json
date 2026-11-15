@@ -1,0 +1,8 @@
+{
+  "_note": "Site-day calendar on the Overview page (ADR 0102). One cell = one UTC day (24 hourly rows of data/ephem) at one site. Counting rule = data/overview.json (any part of the disc above the horizon used). pick_order = which hour of the day a cell opens on Compare: the middle hour of the day's longest stretch with both in view, else with the Sun, else with Earth (by disc centre where the day has such a stretch, so Compare gives the same answer), else fallback_hour. Changing pick_order or fallback_hour needs a rerun of scripts/calendar.mjs.",
+  "pick_order": ["both", "sun", "earth"],
+  "fallback_hour": 0,
+  "sort_options": ["power", "comms", "both"],
+  "default_sort": "both",
+  "default_month": "first"
+}
