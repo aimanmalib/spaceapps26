@@ -22,6 +22,7 @@ export function yearsHtml(t, y, d) {
     `<div class="table-scroll" tabindex="0" role="region" aria-label="${e(heading)}"><table class="data-table"><thead><tr>` +
     `<th scope="col">${e(t('val.col.quantity'))}</th><th scope="col">${e(t('val.col.max'))}</th><th scope="col">${e(t('val.col.mean'))}</th>` +
     `</tr></thead><tbody>${rows}</tbody></table></div>` +
+    (s.sky_separation ? `<p class="data-label">${e(fill(t('val.years.sky'), { sun: deg(s.sky_separation.sun.max_deg), earth: deg(s.sky_separation.earth.max_deg) }))}</p>` : '') +
     `<p class="data-label">${e(fill(t('val.years.generated'), { at: y.generated_at, seed: y.seed }))}</p>`
   );
 }

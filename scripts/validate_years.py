@@ -55,6 +55,7 @@ def main():
     refs = v.fetch_refs(eph, vcfg, pairs, {s["id"]: s for s in sites})
     rows = v.compare(pairs, v.shown_angles(pairs, "scripts/engine_angles.mjs"), refs, nd)
     summary = v.summarize(rows, nd, threshold)
+    summary["sky_separation"] = v.separation_summary(rows, nd)  # information only; "passed" keeps the rule of config/years.json
     now = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     result = {"generated_at": now, "script": SCRIPT, "seed": check["seed"], "from": check["from"], "to": check["to"],
               "max_diff_deg": check["max_diff_deg"], "passed": passed(summary, check["max_diff_deg"]),

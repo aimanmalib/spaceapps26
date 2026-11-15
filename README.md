@@ -23,7 +23,7 @@ of every site by day; ready comparisons such as "Launch slipped two weeks"; eigh
 (six of NASA's nine Artemis III candidate regions); a terrain skyline for your own coordinates south of 75°S; lunar eclipses, when
 Earth hides the Sun from a lit site (matched to NASA's eclipse list); the hourly table behind each card as a CSV file; and dates
 to the end of 2040. Checked against JPL Horizons at
-864 random site-and-minute pairs: every yes/no answer the same.
+900 random site-and-minute pairs: every yes/no answer the same.
 
 ![A card where the answer is a close call: IM-2 on 2026-11-06 20:00 UTC, Earth 0.6° above the LOLA skyline, marked "the Earth link answer changes inside the terrain range" (real screen capture)](docs/media/deck-closecall.png)
 
@@ -45,7 +45,7 @@ Open this case: <https://aimanmalib.github.io/spaceapps26/?s=im-2,2026-11-14T00:
 ## Validation in short
 
 - Sun and Earth angles against JPL Horizons at 720 random site-and-minute pairs (40 at each of the 18 listed sites,
-  2026-11-01 to 2030-12-31, frozen tables and in-browser engine): largest difference 0.0446°, same solar power answer
+  2026-11-01 to 2030-12-31, frozen tables and in-browser engine): largest difference 0.0152°, same solar power answer
   720 of 720, same Earth answer 720 of 720. With the earlier checks: 900 different site-and-minute pairs (3600 reference angles),
   every yes/no answer the same, 900 of 900 (details under [Validation](docs/DETAILS.md#validation)).
 - Terrain horizon against the NASA GSFC PGDA visibility maps, over the same 18.6 years: at the IM-1 and IM-2 sites the Sun and

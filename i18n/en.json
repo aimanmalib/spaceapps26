@@ -621,6 +621,7 @@
   "val.years.heading": "Dates after the frozen tables: the engine against JPL Horizons",
   "val.years.intro": "Dates after the end of the frozen JPL Horizons tables use the in-browser engine at the listed sites too. It was compared with JPL Horizons, asked directly, at {n} random site-and-minute pairs in {from} to {to} (fixed seed, never on a table hour): largest difference {max}°, average {mean}°, same solar power answer {power} of {of}, same Earth answer {comm} of {of}. The cards say \"validated\" only while the largest difference stays below {limit}°.",
   "val.years.generated": "Measured {at} by scripts/validate_years.py (random seed {seed}). Source file: data/validation-years.json.",
+  "val.years.sky": "For information, the angle on the sky between the direction shown and the Horizons direction (great circle): at most {sun} for the Sun and {earth} for Earth. The pass rule above stays on the azimuth and elevation differences.",
   "terrainown.loading": "Loading LOLA terrain for this point (up to {mb} MB, once per visit)…",
   "terrainown.horizon": "Horizon: LOLA terrain, coarse {fine} m grid — agrees with the 80 m profiles in ≥ {gate} % of hours at {pass} of {total} polar sites (ADR 0037). Not at {below}: on narrow ridges and crater rims the coarse grid lowers the ground, so treat the answer there as rough.",
   "terrainown.horizon_outer": "Horizon: LOLA terrain, coarse {coarse} m grid ({terrainLat}° S to {fineLat}° S). Not checked against 80 m profiles: no listed site with one lies in this band.",

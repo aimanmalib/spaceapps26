@@ -110,7 +110,10 @@ def compare(pairs, shown, refs, nd):
         diff = {b: {"az": round(az_diff(sample[b]["az"], ref[b]["az"]), nd), "el": round(sample[b]["el"] - ref[b]["el"], nd)}
                 for b in ("sun", "earth")}
         shown_r = {b: {k: round(v, nd) for k, v in sample[b].items()} for b in ("sun", "earth")}
-        rows.append(dict(pair, shown=shown_r, horizons=ref, diff=diff))
+        # For information (ADR 0113): the angle on the sky between the shown and the Horizons direction (great circle); the
+        # pass rules stay on the azimuth and elevation differences.
+        sky = {b: round(sky_separation(sample[b], ref[b]), nd) for b in ("sun", "earth")}
+        rows.append(dict(pair, shown=shown_r, horizons=ref, diff=diff, sky_deg=sky))
         print(f"{pair['site']} {pair['time_utc']}: {diff}", flush=True)
     return rows
 
