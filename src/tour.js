@@ -52,7 +52,19 @@ export function mountTour(actions, { t, cfg, uid = 'tour' }) {
     back.hidden = i === 0;
     next.textContent = t(i === steps.length - 1 ? 'tour.done' : 'tour.next');
     if (document.activeElement === back && back.hidden) next.focus();
-    s.els[0].scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'auto' });
+    reveal(s.els);
+  }
+
+  // Every outlined part above the dialog when they fit there (centred in that room), else the first at the top. Jumps only.
+  function reveal(els) {
+    els[0].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'auto' }); // also inside sideways-scrolling rows
+    const boxes = els.map((el) => el.getBoundingClientRect());
+    const top = Math.min(...boxes.map((b) => b.top));
+    const height = Math.max(...boxes.map((b) => b.bottom)) - top;
+    const room = dlg.getBoundingClientRect().top;
+    const gap = Math.min(16, room / 8);
+    const offset = height <= room - 2 * gap ? (room - height) / 2 : gap;
+    window.scrollTo({ top: window.scrollY + top - offset, behavior: 'auto' });
   }
 
   start.addEventListener('click', () => {
