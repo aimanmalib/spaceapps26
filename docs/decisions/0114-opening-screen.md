@@ -9,8 +9,9 @@ keeps the answer as its first screen (ADR 0040) and adds an opening layer above 
   (`public/media/as08-14-2383.jpg`, NASA, credited on the layer), the name "Still in View", one question ("Will your landing
   site still have sunlight and a line to Earth?") and two buttons: "Open the navigator" (closes the layer, keyboard focus
   starts there) and "Take the tour" (closes it and starts the guided tour of ADR 0110; left out when the page has no tour).
-- Esc closes it (native dialog), and so does a click anywhere but the two buttons. The dialog keeps keyboard focus inside while
-  open; the page does not scroll behind it (`overflow: hidden` on `html` while open).
+- Esc closes it (native dialog), and so does a click anywhere but the two buttons. While it is open the page behind is inert:
+  Tab moves between the two buttons and the browser's own controls (WebKit also stops once on the dialog itself), never to the
+  page under it (measured); the page does not scroll behind it (`overflow: hidden` on `html` while open).
 - Shows once per browser session (`sessionStorage`, read and written inside try/catch; blocked storage = it shows again on
   the next load). Never under automation (`navigator.webdriver`) and never on a shared link (`?s=` in the address), so shared
   links, the smoke test and the media captures see the page as before.
