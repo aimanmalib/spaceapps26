@@ -47,7 +47,7 @@ AI disclosure: this project was built with SI (Claude Code, Anthropic); who deci
 
 ## Features
 
-Built during the event weekend (14–15 November 2026). Pages on the live site: Compare, Validation, Data sources, About.
+Built during the event weekend (14–15 November 2026). Pages on the live site: Compare, Overview, Play, Teach, Validation, Data sources, About.
 
 Built:
 
@@ -249,7 +249,8 @@ SI was used in this project: Claude Code (Anthropic).
   further options that NASA's challenge text names (sequential comparison, an educational game, terrain for custom coordinates,
   slopes and shadow conditions on the map), all chosen from a list SI made of that text; and, also on 15 November, five further
   features that SI suggested at my request (mission window finder, shareable links with a plain verdict and a Now button, a page
-  for teachers, a guided tour), all chosen by me from that list.
+  for teachers, a guided tour), all chosen by me from that list, then three more that SI suggested (a real NASA photograph on the
+  first screen, a one-year overview of every listed site, Indonesian and Malay interface options), also all chosen by me.
 - **Done by SI, on my instructions:** a feasibility comparison of the challenges, translation of the challenge text into Malay for
   me, build order, interface design, all code, data scripts and tests, slide layout, suggested project names, the optional Indonesian and
   Malay interface translations (not reviewed by a native speaker), and the English text, drafted from my choices and the measured
