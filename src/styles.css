@@ -512,3 +512,65 @@ th[aria-sort] .ov-sort { color: var(--text); }
 .foot .fi-rest { min-width: 0; }
 @media (min-width: 60rem) { .foot .fi-rest::before { content: '· '; } }
 @media (max-width: 59.99rem) { .foot .fi-entry { flex-basis: 100%; } }
+
+/* Site-day calendar (ADR 0102): one cell = one UTC day at one site, a stacked bar of the day's hours from the bottom:
+   both (Sun yellow + Earth blue = green), Sun only, Earth only, neither. Phones: the grid scrolls sideways in its own box. */
+.cal { --cal-both: #8fdc84; --cal-sun: var(--sun); --cal-earth: var(--earth); --cal-none: #222930; margin: 2.5rem 0 0; }
+.cal-controls { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.75rem 1.5rem; margin: 1rem 0 0.75rem; }
+.cal-month { display: flex; align-items: flex-end; gap: 0.4rem; min-width: 0; }
+.cal-field { min-width: 11rem; }
+.cal-step { font: inherit; font-size: 1.25rem; line-height: 1; cursor: pointer; width: 2.75rem; height: 2.75rem; color: var(--text);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 0.5rem; }
+.cal-step:hover:not(:disabled) { border-color: var(--muted); }
+.cal-step:disabled { color: var(--line); cursor: default; }
+.cal-sort { border: 0; margin: 0; padding: 0; min-width: 0; }
+.cal-sort legend { padding: 0; margin-bottom: 0.25rem; font-size: 0.875rem; color: var(--muted); }
+.cal-segs { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 0.5rem; overflow: hidden; }
+.cal-seg { position: relative; display: block; }
+.cal-seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.cal-seg span { display: flex; align-items: center; min-height: 2.75rem; padding: 0.4rem 0.9rem; font-size: 0.9rem; color: var(--muted); }
+.cal-seg + .cal-seg span { border-left: 1px solid var(--line); }
+.cal-seg input:checked + span { color: var(--bg); background: var(--text); font-weight: 600; }
+.cal-seg input:focus-visible + span, .cal-step:focus-visible, .cal-open:focus-visible, .cal-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cal-legend, .cal-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; margin: 0; padding: 0; font-size: 0.875rem; color: var(--muted); }
+.cal-legend li, .cal-chips li { display: inline-flex; align-items: center; gap: 0.4rem; }
+.cal-swatch { width: 0.85rem; height: 0.85rem; border-radius: 3px; flex: none; }
+.cal-k-both { background: var(--cal-both); }
+.cal-k-sun { background: var(--cal-sun); }
+.cal-k-earth { background: var(--cal-earth); }
+.cal-k-none { background: var(--cal-none); box-shadow: inset 0 0 0 1px var(--line); }
+/* Fixed height: the readout changes on every hover or tap without moving the grid below it (a shift between a touch and
+   its click would send the tap to another element). */
+.cal-readout { margin: 0.75rem 0; padding: 0.6rem 0.85rem; height: 6.5rem; overflow: hidden; background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); display: grid; align-content: center; gap: 0.35rem; }
+.cal-readout p { margin: 0; }
+.cal-hint { color: var(--muted); font-size: 0.875rem; }
+.cal-what { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cal-what span { color: var(--muted); margin-right: 0.4rem; font-variant-numeric: tabular-nums; }
+.cal-chips b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cal-chips span:not(.cal-swatch) { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cal-open { color: var(--accent); font-size: 0.9rem; justify-self: start; }
+.cal-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; margin: 0 0 1rem; padding-bottom: 0.25rem; }
+.cal-table { width: 100%; border-collapse: separate; border-spacing: 2px; font-variant-numeric: tabular-nums; }
+.cal-table thead th { font-size: 0.7rem; font-weight: 500; color: var(--muted); text-align: center; padding: 0 0 0.2rem; min-width: 1.35rem; }
+.cal-table .cal-corner { text-align: left; font-size: 0.8rem; }
+.cal-table tbody th, .cal-corner { position: sticky; left: 0; z-index: 1; background: var(--bg); text-align: left; font-weight: 500;
+  padding: 0 0.6rem 0 0; width: 10.5rem; min-width: 10.5rem; max-width: 10.5rem; }
+.cal-name { display: block; font-size: 0.85rem; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cal-total { display: block; font-size: 0.7rem; color: var(--muted); }
+.cal-table td { padding: 0; }
+.cal-cell { display: block; height: 2.1rem; min-width: 1.35rem; border-radius: 3px;
+  background: linear-gradient(to top, var(--cal-both) 0 calc(var(--b) * 100%), var(--cal-sun) 0 calc((var(--b) + var(--s)) * 100%),
+    var(--cal-earth) 0 calc((var(--b) + var(--s) + var(--e)) * 100%), var(--cal-none) 0); }
+.cal-cell:hover, .cal-cell.is-selected { outline: 2px solid var(--text); outline-offset: 1px; position: relative; }
+.cal-cell:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; position: relative; }
+@media (max-width: 40rem) {
+  .cal-table tbody th, .cal-corner { width: 7.5rem; min-width: 7.5rem; max-width: 7.5rem; }
+  .cal-cell { height: 1.9rem; }
+  .cal-readout { height: 8.25rem; }
+  .cal-sort, .cal-segs { width: 100%; }
+  .cal-segs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cal-seg span { justify-content: center; text-align: center; padding: 0.35rem 0.4rem; font-size: 0.85rem; line-height: 1.2; height: 100%; }
+  .cal-chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.2rem 0.6rem; font-size: 0.8rem; }
+  .cal-chips li { gap: 0.3rem; }
+}

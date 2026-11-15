@@ -2,9 +2,13 @@
 // Overview page (P4s): the one-year table of every listed site from data/overview.json, sortable by column.
 import sitesConfig from '../config/sites.json';
 import data from '../data/overview.json';
-import { initPage } from './page.js';
+import calendarData from '../data/calendar.json';
+import calendarCfg from '../config/calendar.json';
+import view from '../config/view.json';
+import { initPage, lang } from './page.js';
 import { fill, escapeHtml as e } from './i18n.js';
 import { tableHtml, findings, defaultDir } from './overview.js';
+import { mountCalendar } from './calendar-ui.js';
 
 const { t } = initPage();
 const names = new Map(sitesConfig.sites.map((s) => [s.id, s.name]));
@@ -27,3 +31,6 @@ root.addEventListener('click', (ev) => {
   draw(col);
 });
 draw();
+
+// Site-day calendar (ADR 0102).
+mountCalendar(document.getElementById('calendar'), { t, data: calendarData, cfg: calendarCfg, share: view.share, name, lang });
